@@ -34,5 +34,5 @@ cp scripts/data_extraction_scripts/zipjs.bat bundle/
 
 cp README bundle/
 
-VERSION=$(awk -F": " '$1=="version"{print $2}' package.json)
+VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
 zip -r "unplatform_v${VERSION//\'/}_win32.zip" bundle
