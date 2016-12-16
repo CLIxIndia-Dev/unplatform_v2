@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="31">
+ <tileset firstgid="1" name="robot" tilewidth="64" tileheight="64" tilecount="20">
+  <image source="robot.png" width="640" height="128"/>
+ </tileset>
+ <tileset firstgid="21" name="buttons" tilewidth="64" tileheight="64" tilecount="0">
+  <image source="buttons.png" width="150" height="48"/>
+ </tileset>
+ <tileset firstgid="21" name="finish" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="finish.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="22" name="slider" tilewidth="64" tileheight="128" tilecount="1">
+  <image source="slider.png" width="64" height="128"/>
+ </tileset>
+ <tileset firstgid="23" name="handle" tilewidth="64" tileheight="32" tilecount="1">
+  <image source="handle.png" trans="ffffff" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="24" name="sign" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="sign.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="25" name="road" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="road.png" width="64" height="64"/>
+ </tileset>
+ <layer name="RoadTiles" width="15" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh6QHKA8CggHgAAJyAC7w==
+  </data>
+ </layer>
+ <objectgroup name="Objects">
+  <object id="1" name="player1" type="robot" gid="1" x="128" y="256" width="64" height="64"/>
+  <object id="4" name="player2" type="robot" gid="1" x="128" y="320" width="64" height="64"/>
+  <object id="7" type="finish" gid="21" x="704" y="256" width="64" height="64"/>
+  <object id="8" type="finish" gid="21" x="704" y="320" width="64" height="64"/>
+  <object id="18" type="handle" gid="23" x="192" y="448" width="64" height="32"/>
+  <object id="20" type="slider" gid="22" x="192" y="448" width="64" height="128"/>
+  <object id="21" type="handle" gid="23" x="64" y="448" width="64" height="32"/>
+  <object id="22" type="slider" gid="22" x="64" y="448" width="64" height="128"/>
+  <object id="23" name="0km" type="sign" gid="24" x="128" y="192" width="64" height="64"/>
+  <object id="24" name="60km" type="sign" gid="24" x="704" y="192" width="64" height="64"/>
+  <object id="27" name="20km" type="sign" gid="24" x="320" y="192" width="64" height="64"/>
+  <object id="29" name="40km" type="sign" gid="24" x="512" y="192" width="64" height="64"/>
+ </objectgroup>
+</map>

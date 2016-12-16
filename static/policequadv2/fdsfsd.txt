@@ -1,0 +1,17 @@
+	$j.ajax({
+    url:filePathExit,
+    type:'HEAD',
+    error: function()
+    {
+        pathIS = "_normal"
+    },
+    success: function()
+    {
+		 pathIS = "_tool1c"
+       //  console.log("file exists");
+    }
+
+	//tool1B
+	});
+	
+	$j(this).css('background-image',$j(this).css("background-image").replace(imagePath.substring(imagePath.indexOf("_"),imagePath.indexOf(".")),pathIS));

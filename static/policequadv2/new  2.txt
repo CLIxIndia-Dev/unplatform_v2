@@ -1,0 +1,24 @@
+var incorrectSeletion = false;
+				$j(CurrentMission1+'.grid:visible').not('.released').each(function (index){ //.selected
+				
+				console.log($j(this).prop("ANS")+"  "+!$j(this).hasClass('selected') );
+				console.log($j(this).prop("ANS")+"   "+$j(this).hasClass('selected'));
+					if( ($j(this).prop("ANS") == "N" && !$j(this).hasClass('selected') ) &&
+					  ($j(this).prop("ANS") == "Y"  && $j(this).hasClass('selected')))
+					incorrectSeletion =(incorrectSeletion || true);
+					
+				});
+				
+				
+				fig068
+mission1.js:330 dsfsdf N
+mission1.js:328 fig049
+mission1.js:330 dsfsdf N
+mission1.js:328 fig026
+mission1.js:330 dsfsdf Y
+mission1.js:328 fig065
+mission1.js:330 dsfsdf DK
+mission1.js:328 fig067
+mission1.js:330 dsfsdf N
+mission1.js:328 fig055
+mission1.js:330 dsfsdf Y

@@ -1,0 +1,75 @@
+body {
+  font-family: 'open_sansregular', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+/* HEADER */
+
+/*header {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}*/
+
+.logo {
+  margin-left: 16px;
+  width: 143px;
+  height: 32px;
+/*   swap bg image url with locally-hosted svg */
+  background-image: url('/static/assets/clix-logo.svg');
+  text-indent: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/*header > nav {
+  position: absolute;
+  top: 30px;
+  right: 1em;
+}*/
+
+nav > button {
+  margin-left: 1em;
+  padding: 5px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid hsla(316, 77%, 37%, 1);
+  color: #777;
+  font-size: .7em;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: all .5s;
+}
+
+
+nav > button:hover {
+  background: radial-gradient(hsla(316, 77%, 37%, 1), hsla(316, 88%, 26%, 1));
+  border-bottom: 3px solid hsla(316, 88%, 42%, 1);
+  color: #fff;
+}
+
+nav > button:active {
+  background: radial-gradient(hsla(316, 77%, 26%, 1), hsla(316, 88%, 16%, 1));
+  border-bottom: 3px solid hsla(316, 88%, 42%, 1);
+  color: #fff;
+}
+
+.unplat-v {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 16px;
+  margin-top: 5px;
+  color: #777;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+/* END HEADER */

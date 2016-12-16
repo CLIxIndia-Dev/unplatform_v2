@@ -1,0 +1,1 @@
+$j( ".genrate" ).effect( "transfer",{ to: ".allowed", className: "ui-effects-transfer" }, 500).delay(800).effect( "transfer",{ to: ".matchShape:eq(1)", className: "ui-effects-transfer" }, 500);});

@@ -1,0 +1,38 @@
+jQuery(".dropArea2").droppable({
+		 accept:function(drag){
+		
+			var nameOfbatch = jQuery(drag).css('background-image');
+			 var nameOfbox = jQuery(this).css('background-image')
+		 // return jQuery(drag).hasClass("batchtag");
+	//console.log(nameOfbatch.substr(nameOfbatch.length - 7)+''+nameOfbox.substr(nameOfbox.length - 7));
+		  return (nameOfbatch.substr(nameOfbatch.length - 7)== nameOfbox.substr(nameOfbox.length - 7));
+		 },
+      drop: function( event, ui ) {
+	 // alert(ui+"you dropped that "+event);
+	 	jQuery(this).droppable( "option", "disabled", true );
+		jQuery(ui.draggable).draggable( "option", "disabled", true );
+		// jQuery(ui.draggable).hide();
+		jQuery(this).css('background-image',jQuery(ui.draggable).css("background-image"));
+		var nameOfbatch = jQuery(this).css('background-image');
+		var indexOfBatch = nameOfbatch.indexOf('.png')-1;
+		//console.log("the string is "+indexOfBatch);
+		jQuery('.kunalSays').html(quizXML.find("answer[id="+nameOfbatch.charAt(indexOfBatch)+"]").text());
+	  }
+});
+		
+		jQuery(".batchtag").draggable({
+      //cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+		//revert: true ,
+		revert:  function(event, ui) {
+                        // on older version of jQuery use "draggable"
+                        // $(this).data("draggable")
+			
+						//return !event;
+                        return (event !== false) ? false : true;
+                   },
+      containment:"parent",
+      helper: "clone",
+	  snap: '.dropArea',
+		snapMode: 'inner',
+      cursor: "move"
+    });

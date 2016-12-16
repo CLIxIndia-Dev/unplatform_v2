@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="X-UA-Compatible" content="IE=10;" >
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1">
+	   <meta name="apple-mobile-web-app-capable" content="yes"/>
+	 <link rel="stylesheet" href="assets/script/alertifythemes/alertify.core.css">
+	<link rel="stylesheet" href="assets/script/alertifythemes/alertify.bootstrap.css">
+	<link rel="stylesheet" href="assets/script/jquery.freetrans.css">
+	  <link rel="stylesheet" href="selectmenu/selectric.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>TISS</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/script/main.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/script/browser-detection.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/script/jquery.qtip.min.css" />
+	<link type="text/css" rel="stylesheet" href="assets/script/featherlight.min.css" />
+	
+	<style>
+		.edgeLoad-main { visibility:hidden; }
+	   .ui-effects-transfer { border: 2px solid #2F4A75; }
+	   .ui-effects-transfer_allow { border: 6px solid #99cc00;
+		/*box-shadow:
+                1px 1px #99cc00,
+                2px 2px #99cc00,
+                3px 3px #99cc00;*/
+		}
+	    .ui-effects-transfer_block { border: 6px solid #ff9900;
+			/*box-shadow:
+                1px 1px #ff9900,
+                2px 2px #ff9900,
+                3px 3px #ff9900;*/
+		}
+		#container{
+		position:relative;
+		width: 1020px;
+		margin: 0 auto;		 
+		}
+		
+	/* #container div {
+		position: absolute ;
+		}*/
+		#feedback, #mission1,#mission4,#mission3, #mission2,#intro,#splash,#menu {
+		position: absolute !important;
+		}
+		.menubuttons{
+		cursor:pointer;
+		}
+		.menubuttons.enable{
+		cursor:context-menu;
+		}
+		.ToolMain{
+		display:none;
+		}
+		.grid .rect, .genrate .rect{
+		background-color: transparent !important;
+		background-size: contain;
+		background-repeat: no-repeat;
+		}
+		#mission1 .recte{
+		background-color: transparent !important;
+		}
+		#mission1 .recte path, #mission1 .recte line{
+		stroke-width: 10px; cursor:pointer;
+		stroke-opacity:0.1;
+		}
+		
+		.vMouse, .hMouse, .mousePosBox{
+		position: absolute;
+		}
+		select{
+		position:absolute;
+		top:0px;
+		left:0px;
+		}
+		.selectric-items li,.selectric{
+		text-align: left;
+		    font-size: 14px;
+		}
+		.selectric-items{
+		height :150px;	
+		}
+		.bucket{
+		overflow:visible;
+		}
+		.selectric .label{
+		 font-size: 14px;
+		}
+		.sample,.statmentText {
+			text-align: left;
+			}
+			.quest,.quest2 {
+			    overflow: hidden;
+			overflow-y: auto;
+			background-color: transparent !important;
+			}
+			.ask,.tag_btn{
+			display:none;
+			}
+			.reset{
+			
+			}
+			#mission1 	.done{
+			    opacity: .3;
+			} 
+			.grid{overflow:hidden;}
+			.questionField:nth-child(n+2){
+			 opacity: .4;
+			}
+			#mission1 .questionField{
+			/*display:none;*/
+			} 
+			
+			#mission1 .questionField:nth-child(n+2){
+			 opacity: .4;
+			 display:block;
+			}
+			#mission3 .questionField:nth-child(n+2){
+			 /*opacity: .4;*/
+			 display:none;
+			}
+			  .questionField:nth-child(1){ margin-bottom: 12px !important;}
+			  .{
+			  
+			  }
+			  #feedback .opp .cell{
+			  display:none;
+			  }
+		<!-- .grow {
+			transform: scale(1.2);
+			-webkit-transform: scale(1.2);
+			stroke-width: 4px;
+		     stroke-opacity: 0.5;
+		} -->
+		#mission1 svg #shape{
+		display:none !important;
+		}
+		#mission1 svg text{
+		display:none;
+		}
+		#mission1 svg{
+		display:block;
+		}
+		#mission1 svg {
+		
+			 -ms-transform-origin: 50% 55%;
+			  transform-origin: 50% 55%;
+		}
+		#mission1 svg path {
+			/*fill: transparent !important;*/
+		
+			 -ms-transform-origin: 50% 50%;
+			  transform-origin: 50% 50%;
+		}​
+		 #mission1 svg path{
+			stroke-width: 8px;
+		     stroke-opacity: 0.5;
+		 }
+		 #mission1 .cluetext{
+		 /*  display:none !important;*/
+		 }
+		 a.example-image-link {
+			color: white;
+		}
+		a.example-image-link {
+		color: aqua;
+		/* rgb(81, 249, 255) */
+		}
+		.example-image-link{
+		 cursor: help;
+		}
+	</style>
+		<script src="assets/script/alertify.min.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="assets/script/APIWrapper_scorm_12.js"></script>
+	<script type="text/javascript" charset="utf-8" src="assets/script/SCORM_custom.js"></script>
+		
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
+		
+		
+		 <script src="assets/script/jquery-1.9.1.js"></script>
+		<script src="assets/script/jquery-ui.js"></script>
+		 <script src="assets/script/modernizr-latest.js"></script>
+		<script src="assets/script/jquery.freetrans.js"></script>
+		<script src="assets/script/Matrix.js"></script>
+		
+		<script src="ruler/jquery.ruler.js"></script>
+     <script src="selectmenu/jquery.selectric.js"></script>
+	<script src="assets/script/jquery.qtip.min.js"></script>
+	<!-- <script src="assets/script/TweenMax.min_original.js"></script> -->
+	<!-- <script src="assets/script/jquery.ui.touch-punch.js"></script> -->
+	
+	<script type="text/javascript" src="assets/script/browser-detection.js"></script>
+<!--	<script type="text/javascript"  src="assets/script/jquery_mb_audio.js"></script>
+	<script type="text/javascript"  src="assets/script/howler.min.js"></script>
+	<script type="text/javascript" src="assets/script/audioReady.js"></script>	-->
+		<script type="text/javascript"  src="assets/script/howler.core.js"></script>
+		<script type="text/javascript" src="assets/script/audioReady.js"></script>
+		
+		<script src="assets/script/loadXML.js"></script>
+		<script src="assets/script/container.js"></script>
+	<!--Adobe Edge Runtime-->
+	    <script type="text/javascript" charset="utf-8" src="splash_edgePreload.js"></script>
+		<script type="text/javascript" charset="utf-8" src="intro_edgePreload.js"></script>
+		<script type="text/javascript" charset="utf-8" src="menu_edgePreload.js"></script>
+		<script type="text/javascript" charset="utf-8" src="main_edgePreload.js"></script>
+		<script type="text/javascript" charset="utf-8" src="feedback_edgePreload.js"></script>
+		    <script type="text/javascript" charset="utf-8" src="transition_edgePreload.js"></script>
+			<script type="text/javascript" charset="utf-8" src="mission1_edgePreload.js"></script>		
+			<script type="text/javascript" charset="utf-8" src="mission_end_edgePreload.js"></script>		
+			<script type="text/javascript" charset="utf-8" src="mission3_edgePreload.js"></script>
+			<script type="text/javascript" charset="utf-8" src="mission_4_edgePreload.js"></script>
+			<script type="text/javascript" charset="utf-8" src="transition_mission_1_edgePreload.js"></script>
+			<script type="text/javascript" charset="utf-8" src="transition_mission_3_edgePreload.js"></script>
+			<script type="text/javascript" charset="utf-8" src="transition_mission_4_edgePreload.js"></script>
+			<script type="text/javascript" charset="utf-8" src="HowToPlay_edgePreload.js"></script>
+		<script src="assets/script/featherlight.min.js" type="text/javascript" charset="utf-8"></script>		  
+		<script src="misssion4.js"></script>
+		<script src="mission1.js"></script>
+		<script src="mission3.js"></script>		
+		
+<script>
+function initSCORM()
+		{	
+			BrowserDetection.init();		
+			initAPI();				
+		}
+function init(argStatus, argLessonLocation)
+		{		
+			if(argStatus != "completed"){
+				doSetValue("cmi.core.lesson_status", "incomplete");			
+			}					
+		}
+$j(window).bind('unload', function(){
+			//alert('unload event');
+			//doQuit();
+		});
+
+		window.onbeforeunload = function(){
+			$j(window).unbind('unload');
+		//	doQuit();
+			//return 'Are you sure you want to exit';
+		}
+		  var confirmationMessage = 'Are you sure you want to exit the game?';
+var myEvent = window.attachEvent || window.addEventListener,
+    chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compitable
+    myEvent(chkevent, function(e) { // For >=IE7, Chrome, Firefox
+
+   //  doQuit();
+      //  var confirmationMessage = 'Are you sure you want to exit the game?'; // a space
+    //    (e || window.event).returnValue = confirmationMessage;
+     //   return confirmationMessage;//onload='initSCORM()'
+    });	
+function downloadGlossary(){
+	alertify.confirm("Do you want to download Glossary?", function(e){ 
+			if (e) {
+				var address="images/Glossary.compressed.pdf";
+				var link = document.createElement('a');
+				link.style = 'position: fixed; left -10000px;'; // making it invisible
+				link.href = 'data:application/octet-stream,' + encodeURIComponent(address); // forcing content type
+				link.download = address;
+				/* file extension is very important! */
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+				//location.href='images/Glossary.compressed.pdf';		
+			}		
+	});
+}
+</script>
+
+</head>
+<body onload='javascript:initSCORM();' style="margin:0;padding:0;" >
+<center>
+<div id="close_btn" onclick="javascript:doQuit();"></div>
+<div id="audio_btn"></div>
+<!--a id="gloss_btn"  onClick="javascript:download()" href="images/Glossary.compressed.pdf" download="images/Glossary.compressed.pdf"></a-->
+<a id="gloss_btn"  onClick="javascript:downloadGlossary()" href="#"></a>
+<div id="help_btn"></div>
+<div id="menu_btn"></div>
+<div id="container" class="container">
+	
+	<div id="splash" style="display:none;" class="splash">
+	</div>
+	<div id="intro" style="display:none;" class="intro">
+	</div>
+	<div id="book" style="display:none;" class="book">
+	</div>
+	<div id="mission1" liveID="0" style="display:none;" class="mission1 currentLive">
+	</div>	
+	<div id="mission2" liveID="1" style="display:none;" class="mission2 currentLive">
+	</div>
+	<div id="mission3" liveID="2" style="display:none;" class="mission3 currentLive">
+	</div>		
+	<div id="mission4" liveID="3" style="display:none;" class="mission4 currentLive">
+	</div>	
+	<div id="feedback" style="display:none;" class="feedback">
+	</div>	
+	<div id="trans" style="display:none;" class="trans">
+	</div>
+	<div id="trans1" style="display:none;" class="trans1">
+	</div>
+	<div id="trans3" style="display:none;" class="trans3">
+	</div>
+	<div id="trans4" style="display:none;" class="trans4">
+	</div>
+	<div id="end2" style="display:none;" class="end2">
+	</div>	
+	<div id="HowToPlay" style="display:none;" class="HowToPlay">
+	</div>	
+	
+</div>
+
+</center>
+</body>
+</html>

@@ -1,0 +1,16 @@
+var Mission1Shapes  ="fig001,fig002,fig003,fig004,fig005,fig006,fig007,fig018,fig019,fig022,fig023,fig024,fig025,fig026,fig027,fig028,fig036,fig039,fig040,fig048,fig050,fig052,fig053,fig055,fig058,fig059,fig060,fig061,fig062,fig063,fig064,fig065,fig066,fig067,fig068,fig069,fig070,fig071".split(',');
+var M1Stage1="all1equalsides,exactly1equalsides,exactly2equalsides,exactly3equalsides,exactly4equalsides,exactly5equalsides,exactly6equalsides,no1equalsides,exactly3Emptysides,exactly4Emptysides,exactly5Emptysides,exactly6Emptysides";
+var M1Stage2="exactly1rightangles,exactly2rightangles,exactly3rightangles,exactly4rightangles,exactly5rightangles,exactly6rightangles";
+var M1Stage3="no1rightangles,all1rightangles";
+
+var M1Stage4="exactly1obtuseangles,exactly2obtuseangles,exactly3obtuseangles,exactly4obtuseangles,exactly5obtuseangles,exactly6obtuseangles,no1obtuseangles,all1obtuseangles";
+var M1Stage5 ="exactly1acuteangles,exactly2acuteangles,exactly3acuteangles,exactly4acuteangles,exactly5acuteangles,exactly6acuteangles,no1acuteangles,all1acuteangles";
+var M1Stage6 ="exactly1reflexangles,exactly2reflexangles,exactly3reflexangles,no1reflexangles";
+
+
+var M1Stage9 ="exactly1parallelpairsofsides,exactly2parallelpairsofsides,exactly3parallelpairsofsides,exactly4parallelpairsofsides,exactly5parallelpairsofsides,exactly6parallelpairsofsides,no1parallelpairsofsides";
+
+$j('#book_menu_btn_1_menu_button_bg').click(function (){
+
+});
+

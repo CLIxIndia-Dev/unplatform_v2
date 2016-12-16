@@ -1,0 +1,190 @@
+.video {
+    max-height: 600px;
+    max-width: 800px;
+    display: block;
+}
+
+.video.add-pt {
+    cursor: crosshair;
+}
+
+.inline-header {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: top;
+    padding: 10px;
+}
+
+#shortcuts {
+    display: inline-block;
+    border: 1px solid black;
+}
+
+#measurements {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#pointTable, #measureTable {
+    display: inline-block
+}
+
+#measureChart {
+    display:inline-block;
+    width: 70%;
+    height: 300px;
+}
+
+.selected-point-row {
+    background-color: #BBDDF9 !important;
+    border: 2px solid black;
+}
+
+input {
+    width: 100%; 
+    display: block;      
+}
+
+.info {
+    background-color: aqua;            
+}
+
+.error {
+    background-color: red;
+    color: white;
+}
+
+.big-btn {
+    font-size: 16px;
+    padding: 8px;
+}
+
+#hidden-fps {
+}
+
+.hidden {
+    display:none !important;
+}
+
+.disabled {
+    color: grey !important;
+}
+
+.table {
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 260px;
+    border: 1px solid grey;
+}
+
+.table div {
+    padding: 4px;
+    flex-grow: 1;
+}
+
+#video-controls div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3px;
+    background-color: #333;
+    color: #EEE;
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+#video-controls div button {
+    vertical-align: top;
+    margin-top: 2px;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    padding: 4px 5px 4px 5px;
+    color: #FFF;
+}
+
+#video-controls i {
+    font-size: 14px;
+}
+
+
+#video-controls input[type=range]{
+    -webkit-appearance: none;
+}
+
+#video-controls input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 8px;
+    background: #CCC;
+    border: none;
+    border-radius: 1px;
+}
+
+#video-controls input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 6px;
+    border-radius: 1px;
+    background: #E00;
+    margin-top: -4px;
+}
+
+#video-controls input[type=range]:focus {
+    outline: none;
+}
+
+
+#progressTime {
+    display: inline-block;
+    padding-top: 5px;
+}
+
+.slider-time
+{
+    display: inline-block;
+    width: 150px;
+}
+.slider-volume
+{
+    display: inline-block;
+    width: 50px;
+}
+
+
+
+
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px;
+}
+div.main {
+    /*width:450px;
+    float:left;*/
+    display:inline-block;
+    padding:10px;
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;
+}
+img { 
+	width:auto;
+	height:auto;
+	max-height: 120px;
+	max-width: 100px;
+}

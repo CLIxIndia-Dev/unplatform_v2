@@ -1,0 +1,23 @@
+{
+	"name": "popSelect",
+	"version": "0.1.14",
+	"homepage": "http://jquer.in/popselect",
+	"authors": [
+		"Jay Kanakiya <kanakiyajay@gmail.com>"
+	],
+	"description": "Replaces traditional <select> with a better looking alternative",
+	"main": ["dist/jquery.popSelect.min.js", "dist/jquery.popSelect.min.css"],
+	"dependencies": {
+		"jquery": "latest"
+	},
+	"ignore": [
+
+	],
+	"keywords": [
+		"jquery",
+		"plugin",
+		"select",
+		"selectbox"
+	],
+	"license": "MIT"
+}

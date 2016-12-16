@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Biomechanic!</title>
+</head>
+<body>
+    <div id="container" style="position:relative;">
+        <div id="graphs" style="display:none">
+            <div id="posgraph-ctr">
+                <canvas id="posgraph" style="width: 365px; top: 255px; left: 110px; display:inline-block; position: absolute;"></canvas>
+            </div>
+            <div id="velgraph-ctr">
+                <canvas id="velgraph" style="width: 365px; top: 255px; left: 470px; display:inline-block; position: absolute;"></canvas>
+            </div>
+        </div>
+        <div id="phaserphys-game" class="game" style="z-index: 100; position:absolute">
+        </div>
+    </div>
+    <script src="js/RGraph.common.core.js"></script>
+    <script src="js/RGraph.common.dynamic.js"></script>
+    <script src="js/RGraph.line.js"></script>
+    <script src="js/RGraph.drawing.background.js"></script>
+    <script src="phaser.js"></script>
+	<script src="src/loading.js"></script>
+    <script src="src/prefabs.js"></script>
+    <script src="src/tutorial.js"></script>
+	<script src="src/levelselect.js"></script>
+	<script src="src/playlevel.js"></script>
+    <script src="src/ending.js"></script>
+	<script src="src/game.js"></script>
+</body>
+</html>
+ 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script>
+		/*---------------------------------------------------------------------------------------------------
+		launchStandAloneCourse() function to be called if course is to run standalone 
+		-----------------------------------------------------------------------------------------------------*/
+		
+		var fullScreenMode 	= true;
+		var courseURL		= 'index.html'
+		var winRef;
+		//winRef = window.open(courseURL,'Cenovus Steam-Assisted Gravity Drainage SAGD','top=0,left=0,toolbars=no,height='+screen.height+', width='+screen.width+',scrollbars=no,resizable=no');
+		function launchStandAloneCourse()
+		{
+			
+			winRef =window.open("index.html", "FLIPKART", "width=1020, height=655,toolbars=no");
+			winRef.focus();
+		}
+		function onExitWindow()
+		{
+			//////////////alert("index.html :: onExitWindow() called...");
+			try{winRef.close();}catch(e){}
+			window.close();
+			self.close();
+		}
+	</script>	
+	<style>
+	body{background-image: url('bg.png'); 
+    background-color: black;
+	    background-position: 50% 0;
+	}
+	button {
+    transform: scale(2);
+    margin-top: 20%;
+	cursor:pointer;
+	}
+	</style>
+</head>
+<!--<body onload="launchStandAloneCourse()">-->
+<body>
+<center>
+	<button type="button" onclick="launchStandAloneCourse()">Launch Game</button>
+</center>
+</body>
+</html>

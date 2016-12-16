@@ -1,0 +1,6 @@
+$j(".feedbackStatment").each(function(){
+var Correct = ($j(this).attr('resp') ==(finalQuestionsXML.find('mergedBucket:contains('+$j(this).attr('statment')+')').parent().find($j('.suspect:visible').prop("fig")).text().replace("Y","Yes").replace("N","No")));
+console.log(Correct);
+if(!Correct) $j(this).find('.spot').css("background-color","rgb(248, 13, 13)");
+else $j(this).find('.spot').css("background-color","#1dc105");
+});

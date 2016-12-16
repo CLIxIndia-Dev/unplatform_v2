@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Open Story</title>
+
+    <link rel="stylesheet" href="libs/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="icons/font-awesome-4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="libs/jquery-2.1.4.min.js"></script>
+    <script src="libs/jquery-ui.min.js"></script>
+
+    <script src="libs/jquery.i18n/src/jquery.i18n.js"></script>
+    <script src="libs/jquery.i18n/src/jquery.i18n.messagestore.js"></script>
+    <script src="libs/jquery.i18n/src/jquery.i18n.fallbacks.js"></script>
+    <script src="libs/jquery.i18n/src/jquery.i18n.parser.js"></script>
+    <script src="libs/jquery.i18n/src/jquery.i18n.emitter.js"></script>
+    <script src="libs/jquery.i18n/src/jquery.i18n.language.js"></script>
+
+    <script src="libs/jszip.js"></script>
+    <script src="libs/jszip-utils.js"></script>
+    <script src="libs/FileSaver.js"></script>
+    <script src="libs/recorder.js"></script>
+    <script src="slideshowApp.js"></script>
+
+</head>
+<body>
+
+    <main id="wrapper" class="span_12_of_12">
+
+        <section id="content" class="span_8_of_12">
+
+            <nav class="controls">
+                <button id="newShowBtn" type="button"><i class="fa fa-file-text-o"></i><span data-i18n="cssa-new">New File</span></button>
+                <button id="loadShowBtn" type="button"><i class="fa fa-folder-open"></i><span data-i18n="cssa-load">Open</span></button>
+                <button id="saveShowBtn" type="button"><i class="fa fa-floppy-o"></i><span data-i18n="cssa-save">Save File</span></button>
+                <button id="saveTemplateBtn" type="button"><i class="fa fa-floppy-o"></i><i class="fa fa-lock"></i><span data-i18n="cssa-save-template">Save Template</span></button>
+                <button id="exportShowBtn" type="button"><i class="fa fa-sign-out"></i><span data-i18n="cssa-export">Export</span></button>
+            </nav>
+
+            <section id="showView" class="showViewBucket">
+
+                <div id="gallery" class="gallery hidden"></div>
+
+                <article id="slideRollHolder" class="slideRollHolder">
+                    <div class="showTitle">
+                        <label for="nameTxtInput">Slideshow Name:</label><input type="text" id="nameTxtInput" />
+                    </div>
+                    <div id="slideRoll"></div>
+                    <button id="addSlideBtn" type="button" class="controls"><i class="fa fa-plus-square"></i>Add Slide</button> <p class="add-info">&nbsp;(maximum number allowed: 20 slides)</p class="add-info">
+                <article id="slideEditor" class="editor">
+                    <div class="properties">
+                        <div>
+                            <button id="lockImgBtn" class="lockToggleBtn"><i class="fa fa-unlock-alt"></i></button>
+
+                            <div class="label"><i class="fa fa-picture-o property"></i>&nbsp;Image</div>
+                            <button id="loadPictureBtn"><i class="fa fa-upload"></i></button>
+                            <button id="useWebcamBtn"><i class="fa fa-camera"></i></button>
+                            <button id="galleryBtn"><i class="fa fa-th"></i></button>
+                            <div class="filename hidden" id="imgFilename"><span>filename.ext</span><button id="deleteImgBtn"><i class="fa fa-times-circle"></i></button></div>
+                        </div>
+                        <div>
+                            <button id="lockAudioBtn" class="lockToggleBtn"><i class="fa fa-unlock-alt"></i></button>
+
+                            <div class="label"><i class="fa fa-volume-up property"></i>&nbsp;Audio</div>
+                            <button id="loadAudioBtn"><i class="fa fa-upload"></i></button>
+                            <button id="recordAudioBtn"><i class="fa fa-microphone"></i></button>
+                            <div class="filename hidden" id="audioFilename"><span>filename.ext</span><button id="deleteAudioBtn"><i class="fa fa-times-circle"></i></button></div>
+                        </div>
+                        <div>
+                            <button id="lockCaptionBtn" class="lockToggleBtn"><i class="fa fa-unlock-alt"></i></button>
+
+                            <div class="label"><i class="fa fa-comment-o property"></i>&nbsp;Caption</div>
+                            <textarea id="captionInput" type="text" placeholder="140 character limit" maxlength="140"></textarea>
+                        </div>
+                        <div>
+                            <button id="lockDurationBtn" class="lockToggleBtn"><i class="fa fa-unlock-alt"></i></button>
+
+                            <div class="label"><i class="fa fa-clock-o property"></i>&nbsp;Duration
+                            </div><input id="durationInput" type="number" name="number" min="1" max="40" placeholder="1-40" class="number-input" />
+                            <label for="number">seconds</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="saveSlideBtn">Save Slide</button>
+                        <button id="cancelSlideBtn">Discard Changes</button>
+                    </div>
+
+                </article>
+                </article>
+
+
+                <article id="slidePreview">
+                    <div id="camDisplay"></div>
+                    <div id="curSlide">
+                        <div id="slideImgHolder">
+                            <video id="camVideo" hidden>Webcam not initialized</video>
+                            <div style="position:relative">
+                                <img id="slideImg" />
+                            </div>
+                        </div>
+                        <div id="captionHolder"></div>
+                        <div class="controls">
+                            <button id="takePictureBtn" type="button" class="hidden"><i class="fa fa-camera"></i></button>
+                            <button id="cancelPictureBtn" type="button" class="hidden"><i class="fa fa-ban"></i></button>
+                        </div>
+                        <div id="recordAudioControls" class="controls hidden">
+                            <button id="toggleRecordBtn"><i class="fa fa-circle"></i></button><span id="audioTimer">0</span><span>&nbsp;/ 40 sec</span>
+                            <audio id="slideAudio"></audio>
+                        </div>
+                        <audio id="recordedAudio" controls class="hidden" />
+                    </div>
+                    <div>
+                        <button id="playShowBtn" type="button" class="play-but">Play&nbsp;&nbsp;<i class="fa fa-play"></i></button>
+                    </div>
+                </article>
+
+                <div id="dialogWrapper">
+                    <div id="dialogBox">
+                        <div id="dialogMsg"></div>
+                        <div id="dialogBtns"></div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+
+
+    <input type="file" id="imgFileInput" accept="image/*" style="display:none">
+    <input type="file" id="audioFileInput" accept="audio/*" style="display:none">
+    <input type="file" id="slideFileInput" accept=".cssw, .csst, .cssv" style="display:none">
+    <canvas id="camCanvas" style="display:none"></canvas>
+</body>
+</html>

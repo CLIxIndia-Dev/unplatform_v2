@@ -1,0 +1,22 @@
+/* hacks by cjshaw, perhaps not needed */
+
+.button-group input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  filter:alpha(opacity=0);
+}
+
+.button-gradient {
+  /* clix-blue-purp */
+  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, .5), hsla(259, 40%,30%, .5));
+}
+
+.button-gradient:hover {
+  /*clix-magenta*/
+  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, .9), hsla(327, 100%, 35%, .6));
+}
+
+.button-gradient-active {
+  /*clix-orange*/
+  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, .9), hsla(10, 100%, 50%, .7));
+}

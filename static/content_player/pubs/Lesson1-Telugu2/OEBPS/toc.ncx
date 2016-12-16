@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta content="fdd3f2c1-1e4b-414d-b87c-5928922b5e4f" name="dtb:uid"/>
+    <meta content="1" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>CLIx authoring demo</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="navPoint1">
+      <navLabel>
+        <text>సామాజిక పరిచయాలు</text>
+      </navLabel>
+      <content src="Text/Activity%200101.xhtml"/>
+    </navPoint>
+
+
+  </navMap>
+</ncx>

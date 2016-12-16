@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PopSelect | A jQuery plugin to replace select with popover</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PopSelect is a jQuery plugin to replace the traditional multiselect with a sleek looking popover">
+  <meta name="keywords" content="jQuery, jQuery plugin, javascript library">
+  <meta name="author" content="Jay Kanakiya">
+
+  <link rel="pingback" href="http://jquer.in/xmlrpc.php" />
+  <link rel="author" href="https://plus.google.com/+jaykanakiya/about">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="A jQuery plugin for sleek looking popover tagging system to replace select">
+  <meta property="og:site_name" content="popSelect">
+  <meta property="og:url" content="http://jquer.in/popSelect/">
+  <meta property="og:image" content="http://jquer.in/wp-content/uploads/2015/07/popSelect.jpg"/>
+  <meta property="og:description" content="popSelect is a jQuery plugin to replace the traditional select box with a sleek Popover with options pre-populated for a better User interface.">
+  <meta property="fb:app_id" content="390381041110554">
+  <meta property="og:type" content="article">
+  <meta name="article:publisher" content="https://www.facebook.com/new.jquery.plugins" />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@techiejayk">
+  <meta name="twitter:title" content="A jQuery plugin for popover tagging system to replace select">
+  <meta name="twitter:description" content="popSelect is a jQuery plugin to replace the traditional select box with a sleek Popover with options pre-populated for a better User interface.">
+  <meta name="twitter:image:src" content="http://jquer.in/wp-content/uploads/2015/07/popSelect.jpg">
+
+ <!--  <link rel="stylesheet" href="css/libs/bootstrap.css">
+  <link rel="stylesheet" href="css/libs/prism.css">
+  <link rel="stylesheet" href="css/libs/font-awesome.min.css">
+  <link rel="stylesheet" href="css/libs/animate.min.css"> -->
+  <link rel="stylesheet" href="css/libs/creative.css">
+
+  <!-- popSelect -->
+  <link rel="stylesheet" href="dist/jquery.popSelect.css">
+
+
+</head>
+
+<body id="page-top">
+
+ 
+  
+
+ 
+        <div class="col-md-6 text-center">
+          <div class="service-box">
+            <div class="select-container">
+              <select id="example1" multiple>
+                <option value="labrador">Labrador</option>
+                <option value="german-shepard">German Shepard</option>
+                <option value="bulldog">Bulldog</option>
+                <option value="poodle">Poodle</option>
+                <option value="siberian-husky">Siberian Husky</option>
+              </select>
+            </div>
+          </div>
+        </div>
+   
+   
+  <!-- Microdata for Software Application -->
+  
+
+
+
+  <!-- jQuery -->
+  <script src="src/libs/jquery.js"></script>
+
+
+
+  <!-- Plugin JavaScript -->
+  <script src="src/libs/jquery.easing.min.js"></script>
+
+
+  <!-- Custom Theme JavaScript -->
+  <script src="src/libs/creative.js"></script>
+
+  <!-- popSelect jQuery plugin -->
+  <script src="dist/jquery.popSelect.min.js"></script>
+
+  <!-- Initilization Scripts -->
+  <script>
+    $(document).ready(function() {
+
+ 
+
+      // Example 1: With Max Allowed
+      $('#example1').popSelect({
+        showTitle: false,
+        maxAllowed: 1
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

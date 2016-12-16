@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <Set set="1">
+        <Level>2</Level>
+        <stage>1</stage>
+			<shapeId>7,8,18,25,36,48</shapeId>
+		 <Nos>7</Nos>
+		<exception1></exception1>
+		<exception2></exception2>
+		<exception3></exception3>
+     </Set>
+     <Set set="2">
+        <Level>2</Level>
+        <stage>1</stage>
+			<shapeId>1,15,19,30,31,48</shapeId>
+		 <Nos>7</Nos>
+		<exception1></exception1>
+		<exception2></exception2>
+		<exception3></exception3>
+     </Set>
+ </data-set>

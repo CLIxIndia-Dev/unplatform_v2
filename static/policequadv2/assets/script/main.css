@@ -1,0 +1,113 @@
+		body
+		{
+			background-color:#404040;
+			 background-image: url("../../images/preloader5.gif");
+			background-repeat: no-repeat;
+			background-position: center 225px; 
+		}
+		.textPointer{
+			pointer-events:none;
+		}
+	
+		
+	.optionText{
+	cursor:pointer;
+	}
+		
+		#close_btn{
+		display:none;
+		position:absolute; left:50%; top:10px; z-index:10;
+		width:40px; height:40px;
+		background-image:url("../images/closeBtn.png");
+		background-repeat:no-repeat;
+		background-position:0px 0px;
+		padding:0px;
+		margin:0px;
+		margin-left:455px;
+		cursor:pointer;
+		}
+		#close_btn.hover{
+			background-position:-40px 0px;
+		}
+		
+		#audio_btn{
+		position:absolute; left:50%; top:5px; z-index:10;
+		width:40px; height:40px;
+		background-image:url("../images/soundBtn.png");
+		display:block;
+		background-repeat:no-repeat;
+		background-position:0px 0px;
+		padding:0px;
+		margin:0px;
+		margin-left:455px;
+		cursor:pointer;
+		}
+		#audio_btn.hover{
+			background-position:-40px 0px;
+		}
+		
+		
+		
+		#audio_btn.activated{
+			background-position:0px -40px;
+		}
+		
+		#audio_btn.activated.hover{
+			background-position:-40px -40px;
+		}
+
+		
+		
+		#menu_btn{
+		position:absolute; left:50%; top:5px; z-index:10;
+		width:40px; height:40px;
+		background-image:url("../images/menuBtn.png");
+		display:block;
+		background-repeat:no-repeat;
+		background-position:0px 0px;
+		padding:0px;
+		margin:0px;
+		margin-left:320px;
+		cursor:pointer;
+		}
+		#menu_btn.hover{
+			background-position:-40px 0px;
+		}
+		
+		
+		#help_btn{
+		position:absolute; left:50%; top:5px; z-index:10;
+		width:40px; height:40px;
+		background-image:url("../images/helpBtn.png");
+		display:block;
+		background-repeat:no-repeat;
+		background-position:0px 0px;
+		padding:0px;
+		margin:0px;
+		margin-left:410px;
+		cursor:pointer;
+		}
+		#help_btn.hover{
+			background-position:-40px 0px;
+		}
+		
+		#gloss_btn{
+		position:absolute; left:50%; top:5px; z-index:10;
+		width:40px; height:40px;
+		background-image:url("../images/glossaryBtn.png");
+		display:block;
+		background-repeat:no-repeat;
+		background-position:0px 0px;
+		padding:0px;
+		margin:0px;
+		margin-left:365px;
+		cursor:pointer;
+		}
+		#gloss_btn.hover{
+			background-position:-40px 0px;
+		}
+		
+		#gloss_btn,#help_btn,#menu_btn{
+		display:none;
+		}
+		

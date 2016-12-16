@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="HTML, CSS, JavaSccript", charset=UTF-8>
+
+	    <link type="text/css" rel="stylesheet" href="video-stylesheet.css"/> 
+        <link type="text/css" rel="stylesheet" href="libs/hot/handsontable.full.css"/> 
+        <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/> 
+        
+		<script type="text/javascript" src="libs/hot/handsontable.full.js"></script>
+        <script type="text/javascript" src="libs/canvasjs-1.8.1/canvasjs.min.js"></script>
+        <script type="text/javascript" src="clixvideo.js"></script>
+        
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", videoPlayerInit)
+        </script>
+
+    </head>
+     
+    <body>
+        <div id="main" class="main">
+            
+            <!-- Video -->
+            <div id="video-container" class="video-container">
+                <div class="inline-header">HTML5 video player</div>
+                    <div class="table">
+                            <div><strong>- / _</strong>: previous frame</div>
+                            <div><strong>+ / =</strong>: next frame</div>
+                            <div><strong>f</strong>: full screen</div>
+                            <div><strong>p</strong>: play/pause</div>
+                            <div><strong>m:</strong>: mute</div>
+                    </div>
+                <div id="message"></div>
+                <input id='input' type="file" accept="video/*"/ >
+                <div id='inner' class='inner'>
+                    <canvas id='video-canvas' class='video add-pt'>
+                    </canvas>
+                    <video id='video' class='video'>
+                        Your browser doesn't support HTML5 video.         
+                    </video>
+                </div>
+            </div>
+            
+            <!-- Video Controls -->
+            <div id="video-controls" class="hidden">
+                <div>
+                    <button type="button" id="enable-frame-seek"><i class="fa fa-cog"></i></button>
+                        
+                    <button type="button" id="minus-one-frame" class="frame-btn disabled" disabled="true"><i class="fa fa-step-backward"></i></button>
+                    <button type="button" id="play-pause" alt="play"><i class="fa fa-play"></i></button>
+                    
+                    <button type="button" id="plus-one-frame" class="frame-btn disabled" disabled="true"><i class="fa fa-step-forward"></i></button>
+                    <input type="range" id="seek-bar" value="0" class="slider-time">
+                    <div id="progressTime" alt="Time">
+                        <span id="current-time">0:000</span> / <span id="duration">0:000</span>
+                    </div>
+                    <button type="button" id="mute"><i class="fa fa-volume-up"></i></button>
+                    <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1" class="slider-volume">
+                    <button type="button" id="rotate-video"><i class="fa fa-rotate-right"></i></button>
+                    <button type="button" id="full-screen"><i class="fa fa-expand"></i></button>
+                </div>
+                <div id="hidden-fps" class="hidden">
+                    <button type="button" id="15-fps">15 FPS</button>
+                    <button type="button" id="24-fps">24 FPS</button>
+                    <button type="button" id="25-fps">25 FPS</button>
+                    <button type="button" id="30-fps">30 FPS</button>
+                    <button type="button" id="50-fps">50 FPS</button>
+                    <button type="button" id="60-fps">60 FPS</button>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div id="pointTable" class="hidden"></div>
+        <div id="measurements">
+            <button id="resetTimerBtn" class="big-btn">Reset Timer</button>
+            <h3>Measurements</h3>
+            <div id="measureTable"></div>
+            <div>
+                <button id="addEntryBtn">Add</button>
+                <button id="deleteEntryBtn">Delete</button>
+            </div>
+        </div>
+        <div id="measureChart"></div>
+
+    </body>   
+</html>

@@ -1,0 +1,945 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-17 00:31-0400\n"
+"PO-Revision-Date: 2011-09-28 19:30+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <walter@sugarlabs.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+
+msgid ""
+
+
+msgid ""
+msgstr ""
+
+msgid "Delete all"
+msgstr "Apaguar tudo"
+
+msgid "show"
+msgstr "mostre"
+
+msgid "text"
+msgstr "texto"
+
+msgid "random"
+msgstr "aleatório"
+
+msgid "confirm"
+msgstr "confirme"
+
+msgid "rice and beans"
+msgstr "arroz e feijão"
+
+#. TRANS: mashape webservices (probably no need to translate)
+msgid "mashape"
+msgstr "mashape"
+
+#. TRANS: target language for translation
+msgid "target"
+msgstr "alvo"
+
+msgid "keyboard"
+msgstr "teclado"
+
+msgid "You can also load projects from the file system."
+msgstr "Você também pode utilizar projetos a partir do sistema de arquivos"
+
+#. TRANS: as in "on event do"
+msgid "on"
+msgstr "ao"
+
+msgid "chicken"
+msgstr "galinha"
+
+msgid "apple"
+msgstr "maçã"
+
+msgid "number"
+msgstr "número"
+
+#. TRANS: unique ID
+msgid "UID"
+msgstr ""
+
+#. TRANS: name of project
+msgid "title"
+msgstr "título"
+
+msgid "radians"
+msgstr "radianos"
+
+msgid "Undo"
+msgstr "Desfazer"
+
+#. TRANS: ms is micro seconds
+msgid "duration (ms)"
+msgstr "duração (ms)"
+
+#. TRANS: as in "add 1 to"
+msgid "to"
+msgstr "a"
+
+msgid "add"
+msgstr "adicione"
+
+msgid "set pen size"
+msgstr "define largura da caneta"
+
+msgid "start turtle"
+msgstr "inicia tartaruga"
+
+msgid "latitude"
+msgstr "latitude"
+
+msgid "mouse x"
+msgstr ""
+
+msgid "mouse y"
+msgstr ""
+
+msgid "Show/hide blocks"
+msgstr "Exibir/ocultar blocos"
+
+msgid "then"
+msgstr "então"
+
+msgid "move"
+msgstr "mover"
+
+msgid "Stop the current project."
+msgstr "Para o projeto atual"
+
+msgid "stop turtle"
+msgstr "Para a tartaruga"
+
+msgid "food"
+msgstr "comida"
+
+msgid "Click to run the project in slow mode."
+msgstr "Clique para executar o projeto em modo lento"
+
+msgid "stop"
+msgstr "parar"
+
+msgid "fat"
+msgstr "gordo"
+
+msgid "Expand or collapse start and action stacks."
+msgstr "Expande ou recolhe pilhas de início e de ação."
+
+#. TRANS: pop a value off of the heap.
+msgid "pop"
+msgstr ""
+
+msgid "background"
+msgstr "preencha a tela"
+
+#. TRANS: logical "not" operator
+msgid "not"
+msgstr "não"
+
+msgid "Google map"
+msgstr "Mapa do Google"
+
+msgid "day"
+msgstr "dia"
+
+#. TRANS: mathematical modular (remainder) function.
+msgid "mod"
+msgstr "módulo"
+
+msgid "Save project"
+msgstr "Salvar projeto"
+
+msgid "get fiber"
+msgstr "obter fibra"
+
+msgid "Open a panel for configuring Turtle Blocks."
+msgstr "abre um painel para configurar o Turtle Blocks."
+
+#. TRANS: the name of a variable (stored in a box)
+msgid "name"
+msgstr "nome"
+
+msgid "turtle x"
+msgstr "tartaruga x"
+
+msgid "turtle y"
+msgstr "tartaruga y"
+
+msgid "Download"
+msgstr "Baixar"
+
+msgid "The paste button is enabled when there are blocks copied onto the clipboard."
+msgstr "O botão colar está habilitado quando há blocos copiados para a área de transferência"
+
+msgid "Expand/collapse toolbar"
+msgstr "Expande ou recolhe a barra de ferramentas"
+
+msgid "zoom"
+msgstr ""
+
+msgid "Hide or show the blocks and the palettes."
+msgstr "Oculta ou exibe os blocos e as paletas"
+
+msgid "to degrees"
+msgstr "para graus"
+
+msgid "Restore blocks from the trash."
+msgstr "Restaura blocos do lixo"
+
+msgid "get calories"
+msgstr "obter calorias"
+
+msgid "Load plugin from file"
+msgstr "Abrir plugin a partir do arquivo"
+
+msgid "You can scroll the blocks on the canvas."
+msgstr "Você pode rolar os blocos na tela"
+
+msgid "x"
+msgstr "x"
+
+msgid "show blocks"
+msgstr "exibir blocos"
+
+msgid "heading"
+msgstr "cabeçalho"
+
+msgid "Help"
+msgstr "Ajuda"
+
+msgid "turtle"
+msgstr "tartaruga"
+
+msgid "right"
+msgstr "para direita"
+
+msgid "Load samples from server"
+msgstr "Abrir exemplos do servidor"
+
+msgid "hide blocks"
+msgstr "Esconder blocos"
+
+msgid "Hide or show the block palettes."
+msgstr "Esconder ou exibir as paletas de blocos"
+
+msgid "This button opens a viewer for loading example projects."
+msgstr "Este botão abre um visualizador para abrir projetos de exemplo"
+
+msgid "Enable scrolling"
+msgstr "Habilitar rolagem"
+
+msgid "back"
+msgstr "para trás"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "grey"
+msgstr "cinza"
+
+msgid "arc"
+msgstr "arco"
+
+msgid "radius"
+msgstr "raio"
+
+msgid "longitude"
+msgstr "longitude"
+
+msgid "duration"
+msgstr "duração"
+
+#. TRANS: shade refers to value (dark to light)
+msgid "set shade"
+msgstr "defina tom"
+
+#. TRANS: in mathematical sense (inverse of period)
+msgid "frequency"
+msgstr "frequência"
+
+#. TRANS: as in the event that a signal arrives
+msgid "event"
+msgstr "evento"
+
+msgid "pixel color"
+msgstr "cor do pixel"
+
+msgid "eatme"
+msgstr "coma-me"
+
+msgid "This button opens and closes the primary toolbar."
+msgstr "Este botão abre e fecha a barra de ferramentas primária"
+
+#. TRANS: index specifies a position into an array (heap)
+msgid "index"
+msgstr "índice"
+
+msgid "hide"
+msgstr "esconder"
+
+#. TRANS: the heap is a first-in-last-out (FILO) stack
+msgid "show heap"
+msgstr "exibir monte"
+
+msgid "Show or hide a Cartesian-coordinate grid."
+msgstr "Exibir ou esconder uma grade de coordenadas cartesianas"
+
+#. TRANS: vertical space
+msgid "vspace"
+msgstr "espaço vertical"
+
+#. TRANS: publish project to Facebook
+msgid "publish"
+msgstr "publicar"
+
+#. TRANS: weather forecast
+msgid "forecast"
+msgstr "previsão"
+
+#. TRANS: hours ago that the data was updated.
+msgid "hours ago"
+msgstr "horas atrás"
+
+msgid "pen"
+msgstr "caneta"
+
+msgid "fish"
+msgstr "peixe"
+
+msgid "print"
+msgstr "imprimir"
+
+#. TRANS: how many entries are in the heap?
+msgid "heap length"
+msgstr "comprimento do monte"
+
+msgid "size"
+msgstr "tamanho"
+
+msgid "Expand/collapse option toolbar"
+msgstr "Expandir ou recolher a barra de ferramentas Opções"
+
+msgid "end hollow line"
+msgstr "terminar linha oca"
+
+msgid "city latitude"
+msgstr "latitude da cidade"
+
+#. TRANS: dietary fiber
+msgid "fiber"
+msgstr "fibra"
+
+msgid "You can load new blocks from the file system."
+msgstr "Você pode carregar novos blocos do sistema de arquivos"
+
+#. TRANS: mathematical power, e.g., 2^4 == 16
+msgid "power"
+msgstr "potência"
+
+msgid "Settings"
+msgstr "Configurações"
+
+msgid "one of"
+msgstr "um de"
+
+msgid "Save stack"
+msgstr "Salvar pilha"
+
+msgid "corn"
+msgstr "milho"
+
+msgid "Display statistics"
+msgstr "Mostrar estatísticas"
+
+msgid "Remove all content on the canvas, including the blocks."
+msgstr "Remove todo o conteúdo na tela, incluindo os blocos."
+
+msgid "to radians"
+msgstr "para radianos"
+
+msgid "water"
+msgstr "água"
+
+#. TRANS: mathematical exponential base
+msgid "base"
+msgstr "base"
+
+msgid "cookie"
+msgstr "biscoito"
+
+msgid "Show or hide a polar-coordinate grid."
+msgstr "Exibe ou esconde uma grade de coordenadas polares"
+
+msgid "sweet potato"
+msgstr "batata doce"
+
+#. TRANS: save the heap to a file
+msgid "save heap"
+msgstr "salvar monte"
+
+msgid "from"
+msgstr "de"
+
+msgid "sensors"
+msgstr "sensores"
+
+msgid "pen down"
+msgstr "baixe caneta"
+
+#. TRANS: retrieve the value at a specific entry (index) in the heap
+msgid "index heap"
+msgstr "índice do monte"
+
+msgid "get name"
+msgstr "obter nome"
+
+msgid "wait"
+msgstr "espere"
+
+#. TRANS: a container for a variable
+msgid "box"
+msgstr "caixa"
+
+msgid "Planet"
+msgstr "Planeta"
+
+msgid "Show these messages."
+msgstr "Mostre estas mensagens"
+
+#. TRANS: object
+msgid "obj"
+msgstr ""
+
+#. TRANS: store a value in a box
+msgid "store in"
+msgstr "armazene em"
+
+msgid "digest meal"
+msgstr "diferir refeição"
+
+msgid "maths"
+msgstr "matemática"
+
+#. TRANS: popout window
+msgid "popout"
+msgstr ""
+
+msgid "zoom factor"
+msgstr "fator de zoom"
+
+#. TRANS: the name of a stack of blocks
+msgid "action"
+msgstr "ação"
+
+#. TRANS: volume of microphone audio
+msgid "loudness"
+msgstr "volume"
+
+msgid "Increase the size of the blocks."
+msgstr "Aumenta o tamanho dos blocos"
+
+#. TRANS: logical "or" operator
+msgid "or"
+msgstr "ou"
+
+#. TRANS: use sensor to detect objects on the left
+msgid "sense left"
+msgstr "sentir esquerda"
+
+msgid "comment"
+msgstr "comentar"
+
+msgid "cheese"
+msgstr "queijo"
+
+msgid "Cartesian"
+msgstr "Cartesiano"
+
+#. TRANS: audio (as in musical note)
+msgid "tone"
+msgstr "tom"
+
+#. TRANS: evaluate Javascript code
+msgid "eval"
+msgstr "avalie"
+
+msgid "color"
+msgstr "cor"
+
+msgid "image"
+msgstr "imagem"
+
+msgid "Welcome to Turtle Blocks"
+msgstr "Bem-vindo ao Turtle Blocks"
+
+msgid "Increase block size"
+msgstr "Aumenta o tamanho do bloco"
+
+msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
+msgstr "Esta barra de ferramentas contém a paleta botões, clique para exibir as paletas de blocos e arraste os blocos das paletas na tela para usá-los."
+
+#. TRANS: bitcoin currency (probably no need to translate)
+msgid "bitcoin"
+msgstr ""
+
+msgid "pen size"
+msgstr "largura da caneta"
+
+msgid "Clear the screen and return the turtles to their initial positions."
+msgstr "Limpa a tela e retorna as tartarugas para suas posições iniciais."
+
+#. TRANS: Boolean logic
+msgid "boolean"
+msgstr "booleano"
+
+msgid "coordinates"
+msgstr "coordenadas"
+
+msgid "sing"
+msgstr "cantar"
+
+msgid "Congratulations."
+msgstr "Parabéns"
+
+msgid "Run slow"
+msgstr "Executar lentamente"
+
+msgid "mouse button"
+msgstr "botão do mouse"
+
+#. TRANS: cloud as in cloud server
+msgid "cloud"
+msgstr "nuvem"
+
+msgid "speak"
+msgstr "fale"
+
+msgid "city"
+msgstr "cidade"
+
+#. TRANS: carbohydrates
+msgid "get carbs"
+msgstr "obter carboidratos"
+
+msgid "Click to run the project in fast mode."
+msgstr "Clique para executar o projeto em modo rápido"
+
+msgid "beef"
+msgstr "bife"
+
+#. TRANS: source language for translation
+msgid "source"
+msgstr "fonte"
+
+msgid "unknown"
+msgstr "desconhecido"
+
+msgid "wait for"
+msgstr "espere por"
+
+msgid "pen up"
+msgstr "levante caneta"
+
+msgid "Decrease the size of the blocks."
+msgstr "Diminui o tamanho dos blocos"
+
+msgid "start"
+msgstr "iniciar"
+
+msgid "stock price"
+msgstr "preço das ações"
+
+#. TRANS: is the heap empty?
+msgid "heap empty?"
+msgstr "monte vazio?"
+
+msgid "motion z"
+msgstr "movimento z"
+
+#. TRANS: low temperature
+msgid "low"
+msgstr "baixa"
+
+msgid "motion x"
+msgstr "movimento x"
+
+msgid "motion y"
+msgstr "movimento y"
+
+msgid "forward"
+msgstr "para frente"
+
+#. TRANS: 360 degrees in a circle
+msgid "degrees"
+msgstr "graus"
+
+msgid "translate"
+msgstr "traduzir"
+
+msgid "until"
+msgstr "até que"
+
+msgid "define"
+msgstr "defina"
+
+msgid "On my device"
+msgstr "No meu dispositivo"
+
+#. TRANS: save project as simple vector graphic (SVG)
+msgid "save svg"
+msgstr "salvar svg"
+
+#. TRANS: mathematical ceiling function, e.g., ceiling(2.5) == 3
+msgid "ceiling"
+msgstr "teto"
+
+#. TRANS: a turtle shell
+msgid "shell"
+msgstr "roupa da tartaruga"
+
+#. TRANS: flash (blink) an LED light
+msgid "blink (ms)"
+msgstr "piscar (ms)"
+
+msgid "that"
+msgstr "aquilo"
+
+#. TRANS: set language
+msgid "set lang"
+msgstr "definir idioma"
+
+msgid "turtle name"
+msgstr "nome da tartaruga"
+
+#. TRANS: carbohydrates
+msgid "carbs"
+msgstr "carboidratos"
+
+msgid "else"
+msgstr "senão"
+
+#. TRANS: as in broadcast a signal
+msgid "broadcast"
+msgstr "transmissão"
+
+msgid "orange"
+msgstr "laranja"
+
+msgid "begin hollow line"
+msgstr "iniciar linha oca"
+
+#. TRANS: the heap is a first-in-last-out (FILO) stack
+msgid "heap"
+msgstr "monte"
+
+#. TRANS: fill refers to filling a shape with a color (e.g., paint bucket).
+msgid "begin fill"
+msgstr "finalize preenchimento"
+
+#. TRANS: use sensor to detect objects on the right
+msgid "sense right"
+msgstr "sentir direito"
+
+msgid "eat"
+msgstr "coma"
+
+msgid "Expand/collapse collapsable blocks"
+msgstr "Expandir ou recolher blocos contraíveis"
+
+#. TRANS: high temperature
+msgid "high"
+msgstr "alto"
+
+#. TRANS: longitude and latitude coordinate data
+msgid "Coordinate data not available."
+msgstr "Dados de coordanadas não disponíveis"
+
+#. TRANS: hue refers to spectral hue (red, yellow, green, blue...)
+msgid "set hue"
+msgstr "defina cor"
+
+msgid "currency"
+msgstr "moeda"
+
+msgid "this"
+msgstr "este"
+
+#. TRANS: horizontal space
+msgid "hspace"
+msgstr "espaço horizontal"
+
+msgid "potato"
+msgstr "batata"
+
+msgid "city longitude"
+msgstr "longitude da cidade"
+
+msgid "Click to run the project step by step."
+msgstr "Clique para executar o projeto passo a passo"
+
+#. TRANS: the value of a variable (stored in a box)
+msgid "value"
+msgstr "valor"
+
+msgid "banana"
+msgstr "banana"
+
+msgid "wheat bread"
+msgstr "pão de trigo"
+
+msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
+msgstr "Turtle Blocks é uma tartaruga inspirada no Logo que desenha figuras coloridas com blocos de programação visual encaixáveis"
+
+msgid "while"
+msgstr "enquanto"
+
+msgid "open file"
+msgstr "abrir arquivo"
+
+#. TRANS: detect language
+msgid "detect lang"
+msgstr "detectar idioma"
+
+msgid "cake"
+msgstr "bolo"
+
+#. TRANS: mathematical exponent
+msgid "exp"
+msgstr "exponencial"
+
+#. TRANS: load the heap from a file
+msgid "load heap"
+msgstr "carregar monte"
+
+msgid "Open"
+msgstr "abrir"
+
+#. TRANS: database fetch
+msgid "fetch"
+msgstr "buscar"
+
+#. TRANS: use sensor to detect distance to objects
+msgid "see distance"
+msgstr "Ver distância"
+
+#. TRANS: logical "and" operator
+msgid "and"
+msgstr "e"
+
+#. TRANS: grey refers to chroma (grey to vivid)
+msgid "set grey"
+msgstr "defina cinza"
+
+#. TRANS: do this action
+msgid "do"
+msgstr "faça"
+
+msgid "calories"
+msgstr "calorias"
+
+msgid "Run step by step"
+msgstr "Executar passo a passo"
+
+msgid "Show/hide palettes"
+msgstr "Exibir ou esconder paletas"
+
+msgid "set heading"
+msgstr "cabeçalho"
+
+msgid "add 1 to"
+msgstr "adicione 1 a"
+
+#. TRANS: stop playing current media file (movie or audio)
+msgid "stop play"
+msgstr "parar de tocar"
+
+msgid "protein"
+msgstr "proteina"
+
+#. TRANS: play media (audio or video)
+msgid "play back"
+msgstr "reproduzir"
+
+msgid "if"
+msgstr "se"
+
+msgid "Save your project to a server."
+msgstr "Salva seu projeto para um servidor"
+
+msgid "Decrease block size"
+msgstr "Diminui o tamanho do bloco"
+
+msgid "angle"
+msgstr "ângulo"
+
+msgid "get fat"
+msgstr "fica gordo"
+
+#. TRANS: minimum
+msgid "min"
+msgstr "mín"
+
+msgid "media"
+msgstr "mídia"
+
+msgid "Stop"
+msgstr "Pare"
+
+#. TRANS: square root
+msgid "sqrt"
+msgstr "raiz quadrada"
+
+#. TRANS: as in button click
+msgid "click"
+msgstr "clique"
+
+msgid "note"
+msgstr "nota"
+
+#. TRANS: field of interest in a database, e.g., temperature in a weather database
+msgid "field"
+msgstr "campo"
+
+msgid "Palette buttons"
+msgstr "Botões da paleta"
+
+msgid "set xy"
+msgstr "defina xy"
+
+msgid "end fill"
+msgstr "termina preenchimento"
+
+msgid "Copy"
+msgstr "copiar"
+
+msgid "Paste"
+msgstr "colar"
+
+msgid "Delete"
+msgstr "Apagar"
+
+#. TRANS: Mexican tamale
+msgid "tamale"
+msgstr "tamal"
+
+msgid "Worldwide"
+msgstr "mundial"
+
+msgid "repeat"
+msgstr "repita"
+
+msgid "blocks"
+msgstr "blocos"
+
+msgid "Display statistics about your Turtle project."
+msgstr "Mostra estatísticas sobre seu projeto Tartaruga"
+
+msgid "Polar"
+msgstr "Polar"
+
+#. TRANS: maximum
+msgid "max"
+msgstr "máx"
+
+msgid "logic"
+msgstr "lógica"
+
+#. TRANS: empty the heap
+msgid "empty heap"
+msgstr "esvaziar monte"
+
+msgid "You have finished the tour. Please enjoy Turtle Blocks!"
+msgstr "Você terminou o passeio. Por favor, desfrute do Turtle Blocks"
+
+#. TRANS: push a value on to the heap.
+msgid "push"
+msgstr "empurrar"
+
+#. TRANS: the name of a robot built in Paraguay (probably no need to translate)
+msgid "rodi"
+msgstr "RoDi"
+
+msgid "Clean"
+msgstr "Limpe"
+
+#. TRANS: color refers to a hue, value, chroma triplet
+msgid "set color"
+msgstr "defina cor"
+
+msgid "Run fast"
+msgstr "Executar rápido"
+
+msgid "broccoli"
+msgstr "brócolis"
+
+#. TRANS: stop playing current media file (movie or audio)
+msgid "stop media"
+msgstr "para mídia"
+
+msgid "tomato"
+msgstr "tomate"
+
+msgid "forever"
+msgstr "para sempre"
+
+#. TRANS: musical note to frequency
+msgid "note to frequency"
+msgstr "nota para a frequência"
+
+msgid "no background"
+msgstr "sem fundo"
+
+msgid "Load project from file"
+msgstr "Carregar projeto do arquivo"
+
+msgid "get protein"
+msgstr "obter proteína"
+
+#. TRANS: clear the screen of any graphics drawn by the turtle
+msgid "clear"
+msgstr "limpe"
+
+#. TRANS: mathematical floor function, e.g., floor(2.5) == 2
+msgid "floor"
+msgstr "piso"
+
+msgid "flow"
+msgstr "fluxo"
+
+msgid "Click this button to expand or collapse the auxillary toolbar."
+msgstr "Clique neste botão para expandir ou recolher a barra de ferramentas auxiliar."
+
+msgid "extras"
+msgstr "extras"
+
+msgid "shade"
+msgstr "tom"
+
+msgid "time"
+msgstr "tempo"
+
+msgid "y"
+msgstr "y"
+
+#. TRANS: set the value at a specific entry (index) in the heap
+msgid "set heap"
+msgstr "configurar monte"
+
+msgid "hello"
+msgstr "olá"
+
+msgid "left"
+msgstr "para esquerda"

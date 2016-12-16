@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Question Bank</title>
+    <link rel="stylesheet" href="icons/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="libs/jquery-2.1.4.min.js"></script>
+    <script src="libs/jquery-ui.min.js"></script>
+    <script src="libs/recorder.js"></script>
+    <script src="libs/recorderWorker.js"></script>
+    <script src="questionbank.js"></script>
+
+</head>
+<body>
+    <div id="content">
+        <h1 id="title">Social Introduction Role Plays</h1>
+        <div id="instructions1" class="p">
+
+        
+        </div>
+        <div class="p hidden">
+            <div class="languageLbl">language</div>
+            <div id="translation1" class="translation">&lt;space for translation of instructions&gt;</div>
+        </div>
+        <div id="carousel">
+            <button id="cPrevBtn" class="icon"><i class="fa fa-caret-left nav"></i></button>
+            <div id="questionContent">
+                <div>
+                    <div id="questionText">Question text</div>
+                    <p><audio id="textAudio" controls /></p>
+                    <!--<button id="questionSoundBtn" class="icon"><i class="fa fa-volume-up"></i></button>-->
+                </div>
+                <button id="answerBtn">Answer This!</button>
+            </div>
+            <button id="cNextBtn" class="icon"><i class="fa fa-caret-right nav"></i></button>
+        </div>
+
+        <div id="response" class="hidden">
+            <div id="instructions2" class="p">
+                Listen to the sample responses for ideas. Then discuss and record your own response.
+            </div>
+            <div id="instructions3" class="p hidden">
+                Great job, you’ve answered this question! Invite another group to listen to your recorded response.
+            </div>
+            <div class="hidden">
+                <div class="languageLbl">language</div>
+                <div id="translation2" class="translation p">&lt;space for translation of instructions&gt;</div>
+            </div>
+            <div id="responses">
+                <div style="display: inline-block">
+                    <table id="sampleResponses"></table>
+                    <div id="roles">
+                    </div>
+                </div>
+                <div id="recordResponse">
+                    <div id="recordAudioControls">
+                        <button id="toggleRecordBtn" class="icon"><i class="fa fa-circle"></i></button>
+                        <div style="display: inline-block">
+                            <i class="fa fa-clock-o"></i>&nbsp;<span id="audioTimer">0</span><span>&nbsp;/ <span id="maxRecordTime">20</span> sec</span>
+                            <div>
+                                <button id="stopRecordBtn">stop</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="submitResponseBtn" class="p">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <audio id="recordedAudio" controls class="hidden" />
+    </div>
+</body>
+</html>
