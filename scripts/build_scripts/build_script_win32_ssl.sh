@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ..
+cd ../../
 
 find . -name "*.pyc" -type f -delete
 find . -name ".DS_Store" -type f -delete
@@ -8,37 +8,32 @@ find . -name ".directory" -type f -delete
 
 git pull
 
-pip install -r unplatform_source/requirements.txt
+pip install -r requirements.txt
 
-rm -r unplatform_distributable/unplatform_win32
+rm -rf bundle/
 
-pyinstaller unplatform_source/unserver_ssl.py --clean --distpath unplatform_distributable -n unplatform_win32 -y
+WEBENV=test nosetests tests
+
+npm run compile:ui
+pyinstaller main.spec
 
 rm -r build
-rm *.spec
 
-mv unplatform_distributable/unplatform_win32/* unplatform_distributable/unplatform_win32/unplatform/
+mv dist/main bundle
+cp -r static/ bundle
 
-cp -r -v unplatform_source/common unplatform_distributable/unplatform_win32/unplatform/
-cp -r -v unplatform_source/curriculum unplatform_distributable/unplatform_win32/unplatform/
-cp -r -v unplatform_source/modules unplatform_distributable/unplatform_win32/unplatform/
-cp -r -v unplatform_source/research unplatform_distributable/unplatform_win32/unplatform/
-cp -r -v unplatform_source/unplatform unplatform_distributable/unplatform_win32/unplatform/
-cp -r -v unplatform_source/locale unplatform_distributable/unplatform_win32/unplatform/
+cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
+cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
 
-cp unplatform_source/unplatform.cert.dummy.pem unplatform_distributable/unplatform_win32/unplatform/
-cp unplatform_source/unplatform.key.dummy.pem unplatform_distributable/unplatform_win32/unplatform/
-
-cp unplatform_distributable/launchers/unplatform_win32_ssl.bat unplatform_distributable/unplatform_win32
+cp scripts/launchers/unplatform_win32_ssl.bat bundle/
 
 FILE=$(find unplatform_distributable/qbank/ -name qbank-lite*.exe | sort -n | tail -1)
-cp $FILE unplatform_distributable/unplatform_win32/
+cp $FILE bundle/
 
-cp unplatform_distributable/data_extraction_scripts/DataExtractionScript.bat unplatform_distributable/unplatform_win32
-cp unplatform_distributable/data_extraction_scripts/zipjs.bat unplatform_distributable/unplatform_win32
+cp scripts/data_extraction_scripts/DataExtractionScript.bat bundle/
+cp scripts/data_extraction_scripts/zipjs.bat bundle/
 
-cp -r -v unplatform_distributable/readme unplatform_distributable/unplatform_win32/readme
+cp -r README bundle/
 
-VERSION=$(awk -F" = " '$1=="UNPLATFORM_VERSION"{print $2}' unplatform_source/unplatform/settings.py)
-cd unplatform_distributable
-zip -r "unplatform_v${VERSION//\'/}_win32.zip" unplatform_win32
+VERSION=$(awk -F": " '$1=="version"{print $2}' package.json)
+zip -r "unplatform_v${VERSION//\'/}_win32.zip" bundle
