@@ -39,6 +39,7 @@ urls = (
     '/datastore_path', 'bootloader_storage_path',
     '/version', 'version',
     '/modules_list', 'modules_list',
+    '/oea', 'oea_tool',
     '/common/(.*)', 'common_tools',
     '/content/(.*)', 'content',
     '/reset_session', 'reset_session',
@@ -47,7 +48,7 @@ urls = (
 app = web.application(urls, locals())
 
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
-web.config.session_parameters['ignore_expiry'] = False
+# web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['timeout'] = 5 * 60  # 5 minutes of inactivity
 
 session = web.session.Session(app,
@@ -147,6 +148,13 @@ class modules_list:
         data = list_dir(ABS_PATH, 'modules')
         return data
 
+class oea_tool:
+    @utilities.format_html_response
+    def GET(self, tool_name=None):
+        oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
+        with open(oea_file_path, 'rb') as oea_index:
+            yield oea_index.read()
+
 class user_session:
     def GET(self):
         web.header('Content-type', 'text/plain')
@@ -175,5 +183,5 @@ def is_test():
     return False
 
 if (not is_test()) and __name__ == "__main__":
-    # sys.argv.append('8888')
+    sys.argv.append('8888')
     app.run()

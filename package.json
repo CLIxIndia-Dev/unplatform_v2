@@ -1,5 +1,5 @@
 {
-  "name": "Unplatform V2",
+  "name": "Unplatform-V2",
   "version": "1.0.0-alpha",
   "description": "Unplatform for remote LMS deployments",
   "main": "index.js",

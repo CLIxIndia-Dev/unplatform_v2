@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   // console.log('home view state', state)
   return {
     strings: localizeStrings(state, ownProps),
-    locale: state.school && state.school.schoolConfiguration ? state.school.schoolConfiguration.locale : 'en',
+    locale: state.school && state.school.schoolConfiguration ? state.school.schoolConfiguration.locale : null,
     modules: state.module.modules ? state.module.modules : null,
     survey: state.survey.data ? state.survey.data : null
   }

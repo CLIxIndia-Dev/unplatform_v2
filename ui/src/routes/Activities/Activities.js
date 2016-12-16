@@ -44,11 +44,8 @@ const styles = {
   },
   navTitle: {
   },
-  backgroundImage: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    zIndex: -1
+  background: {
+    backgroundColor: 'white'
   },
   header: {
     position: 'relative',
@@ -118,7 +115,7 @@ class Subjects extends Component {
             <button onClick={this._onToggleModal}>{this.props.strings.unplatformNav.finishLesson}</button>
           </nav>
         </header>
-        <main className="span_12_of_12">
+        <main className="span_12_of_12" style={styles.background}>
           <iframe src={epubUrl} className="fill-win" frameBorder="0" allowfullscreen></iframe>
           {sessionModal}
         </main>

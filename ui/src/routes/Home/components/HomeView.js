@@ -138,6 +138,14 @@ class HomeView extends Component {
   }
 
   render() {
+    if (!this.props.locale) {
+      return (
+        <div>
+          <h1>Please set your school configuration at this <a href="/school">link</a>.</h1>
+        </div>
+      )
+    }
+
     this.userSelectStrings = [this.props.strings.splash.teacher,
       this.props.strings.splash.student,
       this.props.strings.splash.visitor,
