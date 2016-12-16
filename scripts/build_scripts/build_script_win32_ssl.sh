@@ -20,6 +20,7 @@ pyinstaller main.spec
 mv dist/main.exe bundle/unplatform.exe
 cp -r static/ bundle/
 
+mkdir bundle/unplatform
 cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
 cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
 
