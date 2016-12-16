@@ -15,7 +15,6 @@ rm -r build/
 
 WEBENV=test nosetests tests
 
-npm run compile:ui
 pyinstaller main.spec
 
 mv dist/main bundle/unplatform.exe
