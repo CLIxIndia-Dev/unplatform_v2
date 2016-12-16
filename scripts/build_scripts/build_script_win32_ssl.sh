@@ -17,7 +17,7 @@ WEBENV=test nosetests tests
 
 pyinstaller main.spec
 
-mv dist/main bundle/unplatform.exe
+mv dist/main.exe bundle/unplatform.exe
 cp -r static/ bundle/
 
 cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
