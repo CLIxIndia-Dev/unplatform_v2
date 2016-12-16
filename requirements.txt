@@ -11,4 +11,4 @@ pycparser==2.17
 PyInstaller==3.2
 pyOpenSSL==16.2.0
 six==1.10.0
--e git://github.com/CLIxIndia-Dev/webpy.git@362dcecae9416eef6622922264e6c6482992c898#egg=web.py
+-e git://github.com/CLIxIndia-Dev/webpy.git@49d810480dff1d2f4f4f52802b393928397cb507#egg=web.py
