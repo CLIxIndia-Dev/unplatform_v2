@@ -6,3 +6,5 @@ build/
 webapps/
 dist/
 bundle/
+*.DS_Store
+
