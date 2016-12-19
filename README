@@ -1,9 +1,0 @@
-With the "unplatform v2" integration, the install process has moved to use `npm`, so that
-the front-end code can be bundled appropriately. `npm` in turn calls `pyinstaller`, so
-all you need to do is run:
-
-```
-npm run bundle
-```
-
-
