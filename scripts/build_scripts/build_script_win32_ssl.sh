@@ -61,7 +61,7 @@ cd tool-repos
 
 # find and copy the latest qbank executable that should be included with this release
 git clone -b release --single-branch git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
-cp qbank-lite-bundles/release/qbank-lite*win32* ../bundle/
+cp qbank-lite-bundles/release/qbank-lite*.exe ../bundle/
 
 # Content player
 git clone -b release --single-branch git@github.com:CLIxIndia-Dev/content_player.git
