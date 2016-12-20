@@ -116,6 +116,7 @@ cd ..
 # Zip up the final bundle/ directory and name the file per the unplatform version
 VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
 OUTPUT="unplatform_v${VERSION//\'/}_osx.zip"
+# can also add -T -m options if we don't want to keep the source files
 zip -r  -q $OUTPUT bundle && echo "bundle zipped" || echo "error zipping bundle"
 
 # move the final zipped file to the bundle directory, to keep our repo clean
