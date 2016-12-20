@@ -7,8 +7,9 @@ cd ../../
 
 # reset the directory to get rid of previous build artifacts
 # Tradeoff of using git clean here, is that it also removes useful things
-#   like node_modules (building the UI)
-git clean -x -d
+#   like ui/node_modules (building the UI) and modules/
+# also force git to remove the tool repos
+git clean -x -d -f -f
 # rm -rf bundle/
 # rm -rf build/
 # rm -rf dist/
@@ -27,10 +28,12 @@ WEBENV=test nosetests tests
 
 # build the unplatform executable and copy / move it to the final output directory
 pyinstaller main.spec
-mv dist/main.exe bundle/unplatform.exe
+mv dist/main bundle/unplatform_osx_ssl
 
 # generate the UI
+cd ui
 npm install
+cd ..
 npm run compile:ui
 mkdir bundle/static
 cp -r static/ bundle/static/
@@ -41,11 +44,11 @@ cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
 cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
 
 # copy over the "launcher" bat file that opens the unplatform and qbank executables
-cp scripts/launchers/unplatform_osx_ssl.bat bundle/
+cp scripts/launchers/unplatform_osx_ssl.sh bundle/
 
 # copy over utility files for FSP data extraction
-cp scripts/data_extraction_scripts/DataExtractionScript.bat bundle/
-cp scripts/data_extraction_scripts/zipjs.bat bundle/
+cp scripts/data_extraction/DataExtractionScript.bat bundle/
+cp scripts/data_extraction/zipjs.bat bundle/
 
 # copy the README
 cp README.md bundle/
