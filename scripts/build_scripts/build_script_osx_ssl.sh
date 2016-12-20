@@ -21,15 +21,6 @@ mkdir bundle/
 # update the virtualenvironment
 pip install -r requirements.txt
 
-# run the existing server-side API tests
-WEBENV=test nosetests tests
-
-# LOGIC here to stop the script if it fails
-
-# build the unplatform executable and copy / move it to the final output directory
-pyinstaller main.spec
-mv dist/main bundle/unplatform_osx_ssl
-
 # generate the UI
 cd ui
 npm install
@@ -37,6 +28,16 @@ cd ..
 npm run compile:ui
 mkdir bundle/static
 cp -r static/ bundle/static/
+
+# run the existing server-side API tests
+# run tests after generating the UI, because some test for presence of index.html
+WEBENV=test nosetests tests
+
+# LOGIC here to stop the script if it fails
+
+# build the unplatform executable and copy / move it to the final output directory
+pyinstaller main.spec
+mv dist/main bundle/unplatform_osx_ssl
 
 # copy over the self-signed SSL certs
 mkdir bundle/unplatform
