@@ -64,6 +64,9 @@ const styles = {
 class Subjects extends Component {
 
   componentDidMount () {
+    if (!this.props.sessionId && !this.props.isSetSurveyInProgress) {
+      browserHistory.push('/')
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -85,7 +88,7 @@ class Subjects extends Component {
         </div>
       )
     }
-    
+
     return (
       <div style={styles.container} >
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>

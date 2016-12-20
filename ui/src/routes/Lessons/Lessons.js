@@ -64,6 +64,9 @@ const styles = {
 class Lessons extends Component {
 
   componentDidMount () {
+    if (!this.props.sessionId) {
+      browserHistory.push('/')
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,7 +86,7 @@ class Lessons extends Component {
         </div>
       )
     }
-    
+
     return (
       <div style={styles.container} >
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>

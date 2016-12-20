@@ -64,6 +64,9 @@ const styles = {
 class Units extends Component {
 
   componentDidMount () {
+    if (!this.props.sessionId) {
+      browserHistory.push('/')
+    }
   }
 
   componentWillReceiveProps(nextProps) {

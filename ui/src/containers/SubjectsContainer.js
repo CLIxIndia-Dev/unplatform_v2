@@ -10,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
     locale: state.school.schoolConfiguration ? state.school.schoolConfiguration.locale : null,
     sessionId: state.survey.sessionId ? state.survey.sessionId : null,
     subjects: getSubjects(state, ownProps),
-    strings: localizeStrings(state, ownProps)
+    strings: localizeStrings(state, ownProps),
+    isSetSurveyInProgress: state.survey.setSurveyInProgress ? state.survey.setSurveyInProgress : false
   }
 }
 

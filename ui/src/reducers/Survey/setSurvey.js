@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+let Cookies = require('cookies-js')
+
 // ----
 // Action types
 export const RECEIVE_SET_SURVEY = 'RECEIVE_SET_SURVEY'
@@ -32,6 +34,8 @@ export function setSurvey (data) {
     return axios(options)
     .then((response) => {
       // console.log(response.data)
+
+      Cookies.set('session_id', response.data.sessionId)
       dispatch(receiveSetSurvey(response.data.sessionId))
     })
     .catch((error) => {

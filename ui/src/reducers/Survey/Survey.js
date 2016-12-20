@@ -16,7 +16,7 @@ export default function surveyReducer (state = initialState, action) {
   switch (action.type) {
     case RECEIVE_CLEAR_SURVEY:
       return {data: {}}
-      
+
     case RECEIVE_UPDATE_SURVEY:
       return _.assign({}, state, {
         data: action.data
@@ -25,13 +25,15 @@ export default function surveyReducer (state = initialState, action) {
     case RECEIVE_SET_SURVEY:
     case RECEIVE_GET_SESSION:
       return _.assign({}, state, {
-        sessionId: action.sessionId
+        sessionId: action.sessionId,
+        setSurveyInProgress: false
       })
 
     case SET_SURVEY_OPTIMISTIC:
     case GET_SESSION_OPTIMISTIC:
       return _.assign({}, state, {
-        sessionId: null
+        sessionId: null,
+        setSurveyInProgress: true
       })
 
     default:

@@ -64,6 +64,10 @@ const styles = {
 class Grades extends Component {
 
   componentDidMount () {
+    console.log('session id in grades', this.props.sessionId)
+    if (!this.props.sessionId) {
+      browserHistory.push('/')
+    }
   }
 
   componentWillReceiveProps(nextProps) {

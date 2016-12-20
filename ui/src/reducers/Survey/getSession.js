@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+let Cookies = require('cookies-js')
 // ----
 // Action types
 export const RECEIVE_GET_SESSION = 'RECEIVE_GET_SESSION'
@@ -22,17 +23,18 @@ export function getSessionOptimistic (data) {
 export function getSession () {
   return function (dispatch) {
     // console.log(data)
-    dispatch(getSessionOptimistic())
-    let options = {
-      url: '/api/v1/session',
-    }
-    return axios(options)
-    .then((response) => {
-      // console.log(response.data)
-      dispatch(receiveGetSession(response.data))
-    })
-    .catch((error) => {
-      console.log('error getting sessionId', error)
-    })
+    dispatch(receiveGetSession(Cookies.get('session_id')))
+    // dispatch(getSessionOptimistic())
+    // let options = {
+    //   url: '/api/v1/session',
+    // }
+    // return axios(options)
+    // .then((response) => {
+    //   // console.log(response.data)
+    //   dispatch(receiveGetSession(response.data))
+    // })
+    // .catch((error) => {
+    //   console.log('error getting sessionId', error)
+    // })
   }
 }

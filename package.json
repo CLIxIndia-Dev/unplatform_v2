@@ -19,6 +19,8 @@
   },
   "author": "CLIxIndia team",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "cookies-js": "^1.2.3"
+  },
   "devDependencies": {}
 }
