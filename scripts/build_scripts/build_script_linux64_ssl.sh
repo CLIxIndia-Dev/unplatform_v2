@@ -1,47 +1,119 @@
 #!/bin/bash
 
+# This script assumes that you have checked out the desired release / version
+#   that you want to build
+
+cd ../../
+
+# reset the directory to get rid of previous build artifacts
+# Tradeoff of using git clean here, is that it also removes useful things
+#   like ui/node_modules (building the UI) and modules/
+# also force git to remove the tool repos
+git clean -x -d -f -f
+# rm -rf bundle/
+# rm -rf build/
+# rm -rf dist/
+# rm -rf tool-repos/
+# find . -type f -name .DS_Store -exec rm -f {} \;
+
+mkdir bundle/
+
+# update the virtualenvironment
+pip install -r requirements.txt
+
+# run the existing server-side API tests
+WEBENV=test nosetests tests
+
+# LOGIC here to stop the script if it fails
+
+# build the unplatform executable and copy / move it to the final output directory
+pyinstaller main.spec
+mv dist/main bundle/unplatform_linux64_ssl
+
+# generate the UI
+cd ui
+npm install
+cd ..
+npm run compile:ui
+mkdir bundle/static
+cp -r static/ bundle/static/
+
+# copy over the self-signed SSL certs
+mkdir bundle/unplatform
+cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
+cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
+
+# copy over the "launcher" bat file that opens the unplatform and qbank executables
+cp scripts/launchers/unplatform_win32_ssl.bat bundle/
+
+# copy over utility files for FSP data extraction
+cp scripts/data_extraction/DataExtractionScript.bat bundle/
+cp scripts/data_extraction/zipjs.bat bundle/
+
+# copy the README
+cp README.md bundle/
+
+# generate the latest releases of each tool, from the release branch
+mkdir tool-repos
+cd tool-repos
+
+# find and copy the latest qbank executable that should be included with this release
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
+cp qbank-lite-bundles/release/qbank-lite*ubuntu* ../bundle/
+
+# Content player
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/content_player.git
+cd content_player
+cp .env.example .env
+npm install
+npm run build
+mkdir ../../bundle/static/content_player
+cp -r build/prod/* ../../bundle/static/content_player/
+
+# OEA Open Embedded Assessments
+cd ..
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
+cd OpenAssessmentsClient
+cp .env.example .env
+npm install
+npm run build
+mkdir ../../bundle/static/oea
+cp -r build/prod/* ../../bundle/static/oea/
+
+# biomechanics grame
+cd ..
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/biomechanic.git
+rm -rf biomechanic/.git/
+mv biomechanic/ ../bundle/static/
+
+# Physics Video player
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/physics-video-player.git
+rm -rf physics-video-player/.git/
+mv physics-video-player/ ../bundle/static/
+
+# Audio record tool
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/audio-record-tool.git
+rm -rf audio-record-tool/.git/
+mv audio-record-tool/ ../bundle/static/
+
+# Police Quad
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/police-quad.git
+rm -rf police-quad/.git/
+mv police-quad/ ../bundle/static/
+
+# Open Story tool
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/open-story-tool.git
+rm -rf open-story-tool/.git/
+mv open-story-tool/ ../bundle/static/
+
+# let's get back out of tool-repos and go to the root directory
 cd ..
 
-rm -r build
-rm *.spec
-find . -name "*.pyc" -type f -delete
-find . -name ".DS_Store" -type f -delete
-find . -name ".directory" -type f -delete
+# Zip up the final bundle/ directory and name the file per the unplatform version
+VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
+OUTPUT="unplatform_v${VERSION//\'/}_linux64_ssl.zip"
+# can also add -T -m options if we don't want to keep the source files
+zip -r  -q $OUTPUT bundle && echo "bundle zipped" || echo "error zipping bundle"
 
-git pull
-
-pip install -r unplatform_source/requirements.txt
-
-rm -r unplatform_distributable/unplatform_linux64/
-mkdir unplatform_distributable/unplatform_linux64
-
-pyinstaller unplatform_source/unserver_ssl.py --clean --distpath unplatform_distributable -n unplatform_linux64 -y
-
-rm -r build
-rm *.spec
-
-mv unplatform_distributable/unplatform_linux64/* unplatform_distributable/unplatform_linux64/unplatform/
-
-cp -r -v unplatform_source/common unplatform_distributable/unplatform_linux64/unplatform/
-cp -r -v unplatform_source/curriculum unplatform_distributable/unplatform_linux64/unplatform/
-cp -r -v unplatform_source/modules unplatform_distributable/unplatform_linux64/unplatform/
-cp -r -v unplatform_source/research unplatform_distributable/unplatform_linux64/unplatform/
-cp -r -v unplatform_source/unplatform unplatform_distributable/unplatform_linux64/unplatform/
-cp -r -v unplatform_source/locale unplatform_distributable/unplatform_linux64/unplatform/
-
-cp unplatform_source/unplatform.cert.dummy.pem unplatform_distributable/unplatform_linux64/unplatform/
-cp unplatform_source/unplatform.key.dummy.pem unplatform_distributable/unplatform_linux64/unplatform/
-
-cp unplatform_distributable/launchers/unplatform_linux64_ssl.sh unplatform_distributable/unplatform_linux64/
-
-FILE=$(find unplatform_distributable/qbank/ -name qbank-lite*ubuntu* | sort -n | tail -1)
-cp $FILE unplatform_distributable/unplatform_linux64/
-
-cp unplatform_distributable/data_extraction_scripts/DataExtractionScript.bat unplatform_distributable/unplatform_linux64/
-cp unplatform_distributable/data_extraction_scripts/zipjs.bat unplatform_distributable/unplatform_linux64/
-
-cp -r -v unplatform_distributable/readme unplatform_distributable/unplatform_linux64/readme
-
-VERSION=$(awk -F" = " '$1=="UNPLATFORM_VERSION"{print $2}' unplatform_source/unplatform/settings.py)
-cd unplatform_distributable
-zip -r "unplatform_v${VERSION//\'/}_linux64.zip" unplatform_linux64/
+# move the final zipped file to the bundle directory, to keep our repo clean
+mv $OUTPUT bundle/$OUTPUT
