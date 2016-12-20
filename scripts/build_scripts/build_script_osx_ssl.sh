@@ -25,6 +25,7 @@ pip install -r requirements.txt
 cd ui
 npm install
 cd ..
+mkdir -p static/ui
 npm run compile:ui
 mkdir bundle/static
 cp -r static/ bundle/static/
