@@ -87,6 +87,14 @@ class Subjects extends Component {
   }
 
   render() {
+    if (!this.props.locale) {
+      return (
+        <div>
+          <h1>Please set your school configuration at this <a href="/school">link</a>.</h1>
+        </div>
+      )
+    }
+
     let sessionModal
 
     if (this.state.showModal) {

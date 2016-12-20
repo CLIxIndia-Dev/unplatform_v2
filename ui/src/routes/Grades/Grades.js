@@ -76,6 +76,14 @@ class Grades extends Component {
   }
 
   render() {
+    if (!this.props.locale) {
+      return (
+        <div>
+          <h1>Please set your school configuration at this <a href="/school">link</a>.</h1>
+        </div>
+      )
+    }
+
     return (
       <div style={styles.container} >
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
