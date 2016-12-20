@@ -31,7 +31,9 @@ Bundling the Python webserver
 * You MUST do this on the target platform. I.e. to bundle for Windows, run this
   on Windows.
 
-* The bundler assumes you have access to all the CLIx repositories on GitHub.com
+* The bundler assumes you have access to all the CLIx repositories on GitHub.com.
+  For Windows, you may have to enter your SSH passphrase for each sub-repo,
+  depending on how your machine is set up.
 
 * The bundler assumes you have a `node` installation available, along with
   `git` and various `bash` commands. On Windows, this means `git` bash, plus
