@@ -9,3 +9,4 @@ bundle/
 *.DS_Store
 
 tool-repos/
+static/
