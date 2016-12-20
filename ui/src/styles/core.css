@@ -142,8 +142,7 @@ article.but-select{
 }
 
 article.count-select {
-  margin: 0 0 25px;
-  padding-top: 8px;
+  padding-top: 25px;
   border-top: 2px solid hsla(327, 100%, 70%, 1);
 }
 

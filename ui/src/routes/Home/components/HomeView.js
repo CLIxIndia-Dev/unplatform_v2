@@ -57,6 +57,12 @@ const styles = {
     bottom: 0,
     left: 0,
     zIndex: -1
+  },
+  countWrapper: {
+    marginTop: '15px'
+  },
+  submitButton: {
+    marginTop: '50px'
   }
 }
 
@@ -153,7 +159,7 @@ class HomeView extends Component {
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
-        <div>
+        <div style={styles.countWrapper}>
           <h3 className="count users-count">{this.props.strings.splash.prompt}</h3>
           <article className="count-select button-group">
             {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
@@ -170,7 +176,7 @@ class HomeView extends Component {
       submitButton = (
         <button className="hi-but"
           onClick={this._onHandleSubmit}
-          style={[styles.button, styles.userSelectButton]}>
+          style={[styles.button, styles.userSelectButton, styles.submitButton]}>
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
           <Icon name="chevron-right" aria-hidden={true}/></button>
       )
