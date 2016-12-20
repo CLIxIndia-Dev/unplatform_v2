@@ -8,3 +8,4 @@ dist/
 bundle/
 *.DS_Store
 
+tool-repos/
