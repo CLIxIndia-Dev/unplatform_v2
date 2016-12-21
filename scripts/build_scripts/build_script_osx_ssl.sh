@@ -9,12 +9,15 @@ cd ../../
 # Tradeoff of using git clean here, is that it also removes useful things
 #   like ui/node_modules (building the UI) and modules/
 # also force git to remove the tool repos
-git clean -x -d -f -f
-# rm -rf bundle/
-# rm -rf build/
-# rm -rf dist/
-# rm -rf tool-repos/
-# find . -type f -name .DS_Store -exec rm -f {} \;
+# git clean -x -d -f -f
+rm -rf bundle/
+rm -rf build/
+rm -rf dist/
+rm -rf tool-repos/
+rm -rf static/ui
+
+find . -type f -name .DS_Store -exec rm -f {} \;
+find . -type f -name *.pyc -exec rm -f {} \;
 
 mkdir bundle/
 
@@ -47,6 +50,10 @@ cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
 
 # copy over the "launcher" bat file that opens the unplatform and qbank executables
 cp scripts/launchers/unplatform_osx_ssl.sh bundle/
+
+# copy the Tools in modules over
+mkdir bundle/modules
+cp -r modules/* bundle/modules/
 
 # copy over utility files for FSP data extraction
 cp scripts/data_extraction/DataExtractionScript.bat bundle/
