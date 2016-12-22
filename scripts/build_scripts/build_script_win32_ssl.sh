@@ -112,6 +112,11 @@ git clone -b release --single-branch git@github.com:CLIxIndia-Dev/open-story-too
 rm -rf open-story-tool/.git/
 mv open-story-tool/ ../bundle/static/
 
+# Turtle Blocks tool
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/turtle-blocks.git
+rm -rf turtle-blocks/.git/
+mv turtle-blocks/ ../bundle/static/
+
 # let's get back out of tool-repos and go to the root directory
 cd ..
 
