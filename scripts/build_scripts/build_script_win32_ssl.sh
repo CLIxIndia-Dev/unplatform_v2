@@ -28,8 +28,7 @@ npm install
 cd ..
 mkdir -p static/ui
 npm run compile:ui
-mkdir bundle/static
-cp -r static/ bundle/static/
+cp -r static/ bundle/
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
