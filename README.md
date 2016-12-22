@@ -8,9 +8,20 @@ cd ui
 npm install
 ```
 
+Once you have your environment set up, you need to build the UI elements
+(see Compiling the UI section for more details).
+
+Then you can run the local webserver:
+
+```
+python main.py
+```
+
+And in a browser, navigate to `https://localhost:8888` (note the `https` --
+  `http` will *not* work!).
 
 ===========================
-Compiling the UI only (i.e. for testing)
+Compiling the UI only (i.e. for development / testing)
 ===========================
 Make sure the node packages are installed in the `ui` directory.
 
