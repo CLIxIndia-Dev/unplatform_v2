@@ -1,4 +1,4 @@
-./unplatform/unplatform_linux64 &
+./unplatform_linux64_ssl &
 sleep 6
 FILE=$(find . -name qbank-lite*ubuntu* | sort -n | tail -1)
 ./$FILE
