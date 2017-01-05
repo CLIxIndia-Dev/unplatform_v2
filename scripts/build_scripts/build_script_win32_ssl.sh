@@ -9,11 +9,12 @@ cd ../../
 # Tradeoff of using git clean here, is that it also removes useful things
 #   like ui/node_modules (building the UI) and modules/
 # also force git to remove the tool repos
-git clean -x -d -f -f
-# rm -rf bundle/
-# rm -rf build/
-# rm -rf dist/
-# rm -rf tool-repos/
+# git clean -x -d -f -f
+rm -rf bundle/
+rm -rf build/
+rm -rf dist/
+rm -rf tool-repos/
+rm -rf static/ui
 # find . -type f -name .DS_Store -exec rm -f {} \;
 
 mkdir bundle/
@@ -25,9 +26,9 @@ pip install -r requirements.txt
 cd ui
 npm install
 cd ..
+mkdir -p static/ui
 npm run compile:ui
-mkdir bundle/static
-cp -r static/ bundle/static/
+cp -r static/ bundle/
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
@@ -47,6 +48,10 @@ cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
 # copy over the "launcher" bat file that opens the unplatform and qbank executables
 cp scripts/launchers/unplatform_win32_ssl.bat bundle/
 
+# copy the Tools in modules over
+mkdir bundle/modules
+cp -r modules/* bundle/modules/
+
 # copy over utility files for FSP data extraction
 cp scripts/data_extraction/DataExtractionScript.bat bundle/
 cp scripts/data_extraction/zipjs.bat bundle/
@@ -60,7 +65,7 @@ cd tool-repos
 
 # find and copy the latest qbank executable that should be included with this release
 git clone -b release --single-branch git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
-cp qbank-lite-bundles/release/qbank-lite*win32* ../bundle/
+cp qbank-lite-bundles/release/qbank-lite*.exe ../bundle/
 
 # Content player
 git clone -b release --single-branch git@github.com:CLIxIndia-Dev/content_player.git
@@ -106,6 +111,11 @@ mv police-quad/ ../bundle/static/
 git clone -b release --single-branch git@github.com:CLIxIndia-Dev/open-story-tool.git
 rm -rf open-story-tool/.git/
 mv open-story-tool/ ../bundle/static/
+
+# Turtle Blocks tool
+git clone -b release --single-branch git@github.com:CLIxIndia-Dev/turtle-blocks.git
+rm -rf turtle-blocks/.git/
+mv turtle-blocks/ ../bundle/static/
 
 # let's get back out of tool-repos and go to the root directory
 cd ..
