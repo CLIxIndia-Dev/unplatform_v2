@@ -1,6 +1,6 @@
 @echo off
 
-start /MIN "unplatform" unplatform/unplatform_win32.exe
+start /MIN "unplatform" unplatform_win32_ssl.exe
 ping localhost
 
 FOR /F "delims=|" %%I IN ('DIR "qbank-lite*.exe" /B /O:N') DO SET NewestQBank=%%I
