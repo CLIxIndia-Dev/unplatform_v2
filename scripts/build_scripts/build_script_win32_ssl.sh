@@ -13,7 +13,8 @@ cd ../../
 rm -rf bundle/
 rm -rf build/
 rm -rf dist/
-rm -rf tool-repos/
+# rm -rf tool-repos/
+find tool-repos/ ! -path "*/node_modules/*" -delete
 rm -rf static/ui
 # find . -type f -name .DS_Store -exec rm -f {} \;
 
@@ -60,7 +61,7 @@ cp scripts/data_extraction/zipjs.bat bundle/
 cp README.md bundle/
 
 # generate the latest releases of each tool, from the release branch
-mkdir tool-repos
+# mkdir tool-repos
 cd tool-repos
 
 # find and copy the latest qbank executable that should be included with this release
