@@ -120,6 +120,10 @@ mv turtle-blocks/ ../bundle/static/
 # let's get back out of tool-repos and go to the root directory
 cd ..
 
+# make sure to copy the msvcr100.dll from the system into bundle/
+# otherwise you'll run into an error on deployments
+cp C:\\Windows\\System32\\msvcr100.dll bundle/
+
 # Zip up the final bundle/ directory and name the file per the unplatform version
 VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
 OUTPUT="unplatform_v${VERSION//\'/}_win32_ssl.zip"
