@@ -8,7 +8,8 @@
     "npm": "^3.0.0"
   },
   "scripts": {
-    "compile:ui": "cd ui && npm install  && rm -rf dist/ && npm run compile:prod && mkdir -p ../static/ui/ && rm -rf ../static/ui/*.* && cp -rf dist/* ../static/ui/",
+    "compile:ui": "cd ui && npm install  && rm -rf dist/ && npm run compile:prod && cp -rf dist/* ../static/ui/",
+    "compile:ui:win": "cd ui && npm install  && del /s dist/ && npm run compile:prod && mkdir -p ../static/ui/ && del /s ../static/ui/*.* && copy dist/ ../static/ui/",
     "bundle": "cd ui && rm -rf dist/ && npm run compile:prod && rm -rf ../static/ui/*.* && cd .. && cp -rf ui/dist/* static/ui/",
     "start": "cd ui && npm run start",
     "dev": "cd ui && npm run deploy:prod && cp -rf dist/* ../static/ && cd .. && python main.py"
