@@ -1,5 +1,5 @@
 #!/bin/bash
-export PATH=PATH:"/c/Program Files/Yarn/bin"
+export PATH="$PATH:/c/Program Files/Yarn/bin"
 
 # This script assumes that you have checked out the desired release / version
 #   that you want to build
