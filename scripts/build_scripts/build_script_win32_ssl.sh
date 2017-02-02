@@ -91,7 +91,7 @@ git pull origin release
 npm install
 npm run build
 mkdir ../../bundle/static/content_player
-cp -rf build/prod/ ../../bundle/static/content_player/
+cp -rf build/prod/* ../../bundle/static/content_player/
 rm -rf ../../bundle/static/content_player/.git/
 
 # OEA Open Embedded Assessments
@@ -105,10 +105,12 @@ fi
 cd OpenAssessmentsClient
 git checkout release
 git pull origin release
-yarn install
-yarn run build
+# revert to npm for now
+# until they fix issue 1657? yarn seems broken on Windows, partially
+npm install
+npm run build
 mkdir ../../bundle/static/oea
-cp -rf build/prod/ ../../bundle/static/oea/
+cp -rf build/prod/* ../../bundle/static/oea/
 rm -rf ../../bundle/static/oea/.git/
 
 # biomechanics game
