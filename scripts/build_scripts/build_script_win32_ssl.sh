@@ -61,7 +61,10 @@ cp scripts/data_extraction/zipjs.bat bundle/
 cp README.md bundle/
 
 # generate the latest releases of each tool, from the release branch
-# mkdir tool-repos
+if [ ! -d "tool-repos" ]
+then
+  mkdir tool-repos
+fi
 cd tool-repos
 
 # find and copy the latest qbank executable that should be included with this release
