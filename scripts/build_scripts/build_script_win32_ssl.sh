@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=PATH:"/c/Program Files/Yarn/bin"
 
 # This script assumes that you have checked out the desired release / version
 #   that you want to build
@@ -111,7 +112,7 @@ cp -rf build/prod/ ../../bundle/static/oea/
 rm -rf ../../bundle/static/oea/.git/
 
 # biomechanics game
-cd ../../
+cd ..
 
 if [ ! -d "biomechanic" ]
 then
