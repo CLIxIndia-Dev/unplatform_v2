@@ -90,7 +90,8 @@ git pull origin release
 npm install
 npm run build
 mkdir ../../bundle/static/content_player
-cp -r build/prod/* ../../bundle/static/content_player/
+cp -rf build/prod/ ../../bundle/static/content_player/
+rm -rf ../../bundle/static/content_player/.git/
 
 # OEA Open Embedded Assessments
 cd ..
@@ -98,18 +99,19 @@ cd ..
 if [ ! -d "OpenAssessmentsClient" ]
 then
   git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
-  cp OpenAssessmentsClient/.env.example OpenAssessmentsClient/.env
+  # cp OpenAssessmentsClient/.env.example OpenAssessmentsClient/.env
 fi
 cd OpenAssessmentsClient
 git checkout release
 git pull origin release
-npm install
-npm run build
+yarn install
+yarn run build
 mkdir ../../bundle/static/oea
-cp -r build/prod/* ../../bundle/static/oea/
+cp -rf build/prod/ ../../bundle/static/oea/
+rm -rf ../../bundle/static/oea/.git/
 
 # biomechanics game
-cd ..
+cd ../../
 
 if [ ! -d "biomechanic" ]
 then
@@ -120,7 +122,8 @@ git checkout release
 git pull origin release
 cd ..
 mkdir ../bundle/static/biomechanic/
-find biomechanic/ -type f -not -path '*/.git/*' -exec cp '{}' '../bundle/static/biomechanic/{}' \;
+cp -rf biomechanic/ ../bundle/static/biomechanic/
+rm -rf ../bundle/static/biomechanic/.git/
 
 # Physics Video player
 if [ ! -d "physics-video-player" ]
@@ -132,7 +135,8 @@ git checkout release
 git pull origin release
 cd ..
 mkdir ../bundle/static/physics-video-player/
-find physics-video-player/ -type f -not -path '*/.git/*' -exec cp '{}' '../bundle/static/physics-video-player/{}' \;
+cp -rf physics-video-player/ ../bundle/static/physics-video-player/
+rm -rf ../bundle/static/physics-video-player/.git/
 
 # Audio record tool
 if [ ! -d "audio-record-tool" ]
@@ -144,7 +148,8 @@ git checkout release
 git pull origin release
 cd ..
 mkdir ../bundle/static/audio-record-tool/
-find audio-record-tool/ -type f -not -path '*/.git/*' -exec cp '{}' '../bundle/static/audio-record-tool/{}' \;
+cp -rf audio-record-tool/ ../bundle/static/audio-record-tool/
+rm -rf ../bundle/static/audio-record-tool/.git/
 
 # Police Quad
 if [ ! -d "police-quad" ]
@@ -156,7 +161,8 @@ git checkout release
 git pull origin release
 cd ..
 mkdir ../bundle/static/police-quad/
-find police-quad/ -type f -not -path '*/.git/*' -exec cp '{}' '../bundle/static/police-quad/{}' \;
+cp -rf police-quad/ ../bundle/static/police-quad/
+rm -rf ../bundle/static/police-quad/.git/
 
 # Open Story tool
 if [ ! -d "open-story-tool" ]
@@ -168,7 +174,8 @@ git checkout release
 git pull origin release
 cd ..
 mkdir ../bundle/static/open-story-tool/
-find open-story-tool/ -type f -not -path '*/.git/*' -exec cp '{}' '../bundle/static/open-story-tool/{}' \;
+cp -rf open-story-tool/ ../bundle/static/open-story-tool/
+rm -rf ../bundle/static/open-story-tool/.git/
 
 # Turtle Blocks tool
 if [ ! -d "turtle-blocks" ]
@@ -180,7 +187,8 @@ git checkout release
 git pull origin release
 cd ..
 mkdir ../bundle/static/turtle-blocks/
-find turtle-blocks/ -type f -not -path '*/.git/*' -exec cp '{}' '../bundle/static/turtle-blocks/{}' \;
+cp -rf turtle-blocks/ ../bundle/static/turtle-blocks/
+rm -rf ../bundle/static/turtle-blocks/.git/
 
 # let's get back out of tool-repos and go to the root directory
 cd ..
