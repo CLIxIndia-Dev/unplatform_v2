@@ -1,0 +1,20 @@
+language: python
+python:
+  - "2.7"
+
+sudo: false
+
+before_install:
+  - pip install --upgrade pytest
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install -r test_requirements.txt
+  - pip list
+  - nodeenv -p
+  - mkdir static/ui
+  - npm run compile:ui
+
+# command to run tests
+script: python -m pytest
