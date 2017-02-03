@@ -12,3 +12,5 @@ tool-repos/
 static/
 htmlcov/
 .cache/
+.coverage
+.python-version
