@@ -32,6 +32,10 @@ md "%Dirname%\logging\LogEntry"
 md "%Dirname%\repository"
 md "%Dirname%\repository\Asset"
 md "%Dirname%\repository\AssetContent"
+md "%Dirname%\unplatform"
+md "%Dirname%\unplatform\configuration"
+md "%Dirname%\unplatform\sessions"
+md "%Dirname%\unplatform\user_data"
 :END
 
 REM Copy QBank data directories to temporary folder.
@@ -60,7 +64,9 @@ copy "webapps\CLIx\datastore\studentResponseFiles" "%Dirname%\repository\AssetCo
 echo ===========================================================================
 echo Coping data from unplatform
 echo ===========================================================================
-copy "unplatform\db.sqlite3" "%Dirname%/db.%TIMESTAMP%.sqlite3"
+copy "webapps\unplatform\configuration" "%Dirname%\webapps\configuration"
+copy "webapps\unplatform\sessions" "%Dirname%\webapps\sessions"
+copy "webapps\unplatform\user_data" "%Dirname%\webapps\user_data"
 :END
 
 REM Zip QBank Data directory
