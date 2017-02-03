@@ -253,6 +253,11 @@ class ConfigurationTests(BaseMainTestCase):
             self.assertEqual(get_data[key], payload[key])
         self.assertIn('timestamp', get_data.keys())
 
+    def test_no_persistent_set_config_reminder(self):
+        req = self.app.get('/')
+        self.ok(req)
+        self.assertNotIn('configuration', req.body)
+
 
 class UserSurveyTests(BaseMainTestCase):
     """Test the user survey
