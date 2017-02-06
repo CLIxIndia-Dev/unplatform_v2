@@ -16,7 +16,7 @@ rm -rf build/
 rm -rf dist/
 # rm -rf tool-repos/
 # find tool-repos/ ! -path "*/node_modules/*" -delete
-rm -rf static/ui
+rm -rf static/
 # find . -type f -name .DS_Store -exec rm -f {} \;
 
 mkdir bundle/
@@ -28,7 +28,7 @@ pip install -r requirements.txt
 cd ui
 npm install
 cd ..
-mkdir -p static/ui
+# mkdir -p static/ui
 npm run compile:ui
 cp -r static/ bundle/
 
