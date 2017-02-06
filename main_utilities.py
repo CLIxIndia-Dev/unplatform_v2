@@ -14,12 +14,14 @@ CONFIG_FILE = '{0}/config.json'.format(CONFIG_DIR)
 
 USER_DATA_DIR = '{0}/webapps/unplatform/user_data'.format(ABS_PATH)
 
+
 def get_configuration_file():
     if not os.path.isfile(CONFIG_FILE):
         return {}
     else:
         with open(CONFIG_FILE, 'rb') as config_file:
             return json.load(config_file)
+
 
 def set_configuration_file(data):
     if not os.path.isdir(CONFIG_DIR):
@@ -29,6 +31,7 @@ def set_configuration_file(data):
             data = json.loads(data)
         json.dump(data, config_file)
     return data
+
 
 def set_user_data_file(data):
     if not os.path.isdir(USER_DATA_DIR):

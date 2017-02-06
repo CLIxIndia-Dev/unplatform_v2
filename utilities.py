@@ -7,6 +7,9 @@ CORS_HEADERS = "Content-Type,Authorization,X-Api-Proxy,X-Api-Key,request-line,X-
 
 
 class BaseClass:
+    def __init__(self):
+        pass
+
     def OPTIONS(self, *args, **kwargs):
         # https://www.youtube.com/watch?v=gZelOtYjYv8
         web.header("Access-Control-Allow-Origin", "*")
@@ -22,6 +25,7 @@ class BaseClass:
             return json.loads(web.data())
         except (ValueError, TypeError):
             return {}
+
 
 def format_html_response(func):
     """set html header"""
@@ -50,6 +54,7 @@ def format_response(func):
             return results
     return wrapper
 
+
 def format_xml_response(func):
     """set json header and convert response to json string"""
     @functools.wraps(func)
@@ -66,6 +71,7 @@ def format_xml_response(func):
         else:
             return results
     return wrapper
+
 
 def allow_cors(func):
     """set cors headers"""

@@ -3,8 +3,6 @@ import json
 import os
 import shutil
 
-from nose.tools import set_trace
-
 from testing_utilities import BaseTestCase
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -67,7 +65,7 @@ class ModuleDirectoryListingTests(BaseMainTestCase):
     def test_can_get_modules_listing(self):
         req = self.app.get(self.url)
         self.ok(req)
-        data = self.json(req)
+        # data = self.json(req)
         # self.assertTrue(len(data) > 0)
 
 
