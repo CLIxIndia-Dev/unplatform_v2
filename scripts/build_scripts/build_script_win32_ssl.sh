@@ -20,6 +20,7 @@ rm -rf static/
 # find . -type f -name .DS_Store -exec rm -f {} \;
 
 mkdir bundle/
+mkdir bundle/static/
 
 # update the virtualenvironment
 pip install -r requirements.txt
@@ -28,7 +29,7 @@ pip install -r requirements.txt
 cd ui
 npm install
 cd ..
-# mkdir -p static/ui
+# mkdir -p static/ui  # now this is part of the compile:ui command
 npm run compile:ui
 cp -r static/ bundle/
 
@@ -90,7 +91,7 @@ git checkout release
 git pull origin release
 npm install
 npm run build
-mkdir ../../bundle/static/content_player
+mkdir ../../bundle/static/content_player/
 cp -rf build/prod/* ../../bundle/static/content_player/
 rm -rf ../../bundle/static/content_player/.git/
 
@@ -109,7 +110,7 @@ git pull origin release
 # until they fix issue 1657? yarn seems broken on Windows, partially
 npm install
 npm run build
-mkdir ../../bundle/static/oea
+mkdir ../../bundle/static/oea/
 cp -rf build/prod/* ../../bundle/static/oea/
 rm -rf ../../bundle/static/oea/.git/
 
@@ -124,7 +125,7 @@ cd biomechanic
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/biomechanic
+mkdir ../bundle/static/biomechanic/
 cp -rf biomechanic/* ../bundle/static/biomechanic/
 rm -rf ../bundle/static/biomechanic/.git/
 
@@ -137,7 +138,7 @@ cd physics-video-player
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/physics-video-player
+mkdir ../bundle/static/physics-video-player/
 cp -rf physics-video-player/* ../bundle/static/physics-video-player/
 rm -rf ../bundle/static/physics-video-player/.git/
 
@@ -150,7 +151,7 @@ cd audio-record-tool
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/audio-record-tool
+mkdir ../bundle/static/audio-record-tool/
 cp -rf audio-record-tool/* ../bundle/static/audio-record-tool/
 rm -rf ../bundle/static/audio-record-tool/.git/
 
@@ -163,7 +164,7 @@ cd police-quad
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/police-quad
+mkdir ../bundle/static/police-quad/
 cp -rf police-quad/* ../bundle/static/police-quad/
 rm -rf ../bundle/static/police-quad/.git/
 
@@ -176,7 +177,7 @@ cd open-story-tool
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/open-story-tool
+mkdir ../bundle/static/open-story-tool/
 cp -rf open-story-tool/* ../bundle/static/open-story-tool/
 rm -rf ../bundle/static/open-story-tool/.git/
 
@@ -189,7 +190,7 @@ cd turtle-blocks
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/turtle-blocks
+mkdir ../bundle/static/turtle-blocks/
 cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
 rm -rf ../bundle/static/turtle-blocks/.git/
 
