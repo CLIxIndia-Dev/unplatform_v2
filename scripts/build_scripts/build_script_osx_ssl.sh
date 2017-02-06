@@ -14,12 +14,13 @@ rm -rf bundle/
 rm -rf build/
 rm -rf dist/
 rm -rf tool-repos/
-rm -rf static/ui
+rm -rf static/
 
 find . -type f -name .DS_Store -exec rm -f {} \;
 find . -type f -name *.pyc -exec rm -f {} \;
 
 mkdir bundle/
+mkdir bundle/static/
 
 # update the virtualenvironment
 pip install -r requirements.txt
@@ -28,7 +29,7 @@ pip install -r requirements.txt
 cd ui
 npm install
 cd ..
-mkdir -p static/ui
+# mkdir -p static/ui  # now this is part of the compile:ui command
 npm run compile:ui
 mkdir bundle/static
 cp -r static/ bundle/static/
