@@ -73,13 +73,15 @@ def list_dir(root, directory, current_level=0, max_level=4):
                 full_sub_dir_path = '{0}/{1}'.format(root, new_sub_dir)
                 if not sub_dir.startswith('.') and os.path.isdir(full_sub_dir_path):
                     sub_dirs.append(new_sub_dir)
-                    sub_dirs += list_dir(root, new_sub_dir, current_level=current_level+1)
+                    sub_dirs += list_dir(root, new_sub_dir, current_level=current_level + 1)
             sub_dirs.sort()
     return sub_dirs
+
 
 class bootloader_storage_path:
     def GET(self):
         return ABS_PATH
+
 
 class index:
     @utilities.format_html_response
@@ -91,11 +93,13 @@ class index:
         index_file = '{0}/static/ui/index.html'.format(ABS_PATH)
         yield open(index_file, 'rb').read()
 
+
 class reset_session:
     def GET(self):
         web.header('Content-type', 'text/plain')
         session.kill()
         return 'success'
+
 
 class common_tools:
     # serve up the iframe pages in the modules/ directory,
@@ -109,6 +113,7 @@ class common_tools:
             with open(tool_file, 'rb') as tool:
                 yield tool.read()
 
+
 class configuration:
     @utilities.format_response
     def GET(self):
@@ -119,6 +124,7 @@ class configuration:
         config = json.loads(web.data())
         config['timestamp'] = str(datetime.utcnow())
         return set_configuration_file(config)
+
 
 class content:
     def GET(self, path=None):
@@ -139,6 +145,7 @@ class content:
                         break
                     yield buf
 
+
 class modules_list:
     @utilities.format_response
     def GET(self):
@@ -148,12 +155,14 @@ class modules_list:
         data = list_dir(ABS_PATH, 'modules')
         return data
 
+
 class oea_tool:
     @utilities.format_html_response
     def GET(self, tool_name=None):
         oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
         with open(oea_file_path, 'rb') as oea_index:
             yield oea_index.read()
+
 
 class user_session:
     def GET(self):
@@ -168,6 +177,7 @@ class user_session:
             user_data['sessionId'] = session.session_id
         return set_user_data_file(user_data)
 
+
 class version:
     def GET(self):
         web.header('Content-type', 'text/plain')
@@ -176,6 +186,7 @@ class version:
 ################################################
 # INITIALIZER
 ################################################
+
 
 def is_test():
     if 'WEBPY_ENV' in os.environ:

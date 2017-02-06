@@ -7,8 +7,6 @@ from nose.tools import *
 from paste.fixture import TestApp
 from unittest import TestCase
 
-
-
 from main import app
 
 if getattr(sys, 'frozen', False):
@@ -18,6 +16,7 @@ else:
     ABS_PATH = '{0}/unplatform_v2'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 
 SESSIONS_DIR = os.path.join(ABS_PATH, 'webapps', 'CLIx', 'sessions')
+
 
 class BaseTestCase(TestCase):
     """
