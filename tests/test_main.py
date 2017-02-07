@@ -49,7 +49,11 @@ SAMPLE_ENTRY = {
     "logging.LogEntry%3Atext-blob%40ODL.MIT.EDU"
   ],
   "text": {
-    "text": "{\"action\": \"pause audio\", \"questionId\": \"assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU\", \"assessmentOfferedId\": \"assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU\", \"mediaId\": \"\", \"mediaTime\": 9.142857}",
+    "text": """{\"action\": \"pause audio\",
+        \"questionId\": \"assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU\",
+        \"assessmentOfferedId\": \"assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU\",
+        \"mediaId\": \"\",
+        \"mediaTime\": 9.142857}""",
     "languageTypeId": "639-2%3AENG%40ISO",
     "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
     "scriptTypeId": "15924%3ALATN%40ISO"
@@ -72,8 +76,10 @@ SAMPLE_ENTRY = {
   "agentId": "osid.agent.Agent%3Aexternal_identifier%40MIT-ODL"
 }
 
+
 def osid_agent(name):
     return 'osid.agent.Agent%3A{0}%40MIT-ODL'.format(name)
+
 
 # http://stackoverflow.com/questions/15753390/python-mock-requests-and-the-response#28507806
 # This method will be used by the mock to replace requests.POST
@@ -97,6 +103,7 @@ def mocked_logging_post(*args, **kwargs):
             blob['sessionId'] = kwargs['json']['data']['sessionId']
         response['text']['text'] = json.dumps(blob)
     return MockResponse(response, 200)
+
 
 # This method will be used by the mock to replace requests.get
 def mocked_logging_get(*args, **kwargs):
