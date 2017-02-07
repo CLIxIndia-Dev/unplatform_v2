@@ -5,6 +5,7 @@ import sys
 import web
 import mimetypes
 import urllib
+import requests
 
 from datetime import datetime
 
@@ -13,6 +14,7 @@ from web.wsgiserver import CherryPyWSGIServer
 import utilities
 from main_utilities import get_configuration_file, set_configuration_file,\
     set_user_data_file
+import settings
 
 
 # http://pythonhosted.org/PyInstaller/runtime-information.html#run-time-information
@@ -36,6 +38,7 @@ web.config.debug = False
 urls = (
     '/api/v1/configuration', 'configuration',
     '/api/v1/session', 'user_session',
+    '/api/appdata', 'generic_logging',
     '/datastore_path', 'bootloader_storage_path',
     '/version', 'version',
     '/modules_list', 'modules_list',
@@ -92,6 +95,63 @@ class index:
         # render the unplatform v2 front-end
         index_file = '{0}/static/ui/index.html'.format(ABS_PATH)
         yield open(index_file, 'rb').read()
+
+
+class generic_logging:
+    def _get_log(self):
+        url = settings.QBANK_LOGGING_ENDPOINT
+        req = requests.get(url, verify=False)
+        logs = req.json()
+        default_log = None
+        for log in logs:
+            if log['genusTypeId'] == settings.DEFAULT_LOG_GENUS_TYPE:
+                default_log = log
+                break
+        if default_log is None:
+            payload = {
+                'name': 'Default CLIx log',
+                'description': 'For logging info from unplatform and tools, which do not know about catalog IDs',
+                'genusTypeId': settings.DEFAULT_LOG_GENUS_TYPE
+            }
+            req = requests.post(url, json=payload, verify=False)
+            default_log = req.json()
+        return default_log
+
+    @utilities.format_response
+    def GET(self):
+        default_log = self._get_log()
+        url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
+                                          default_log['id'])
+        req = requests.get(url, verify=False)
+        log_entries = req.json()
+        return log_entries
+
+    @utilities.format_response
+    def POST(self):
+        # get or find a default log genus type
+        default_log = self._get_log()
+
+        received_data = web.data()
+        if isinstance(received_data, basestring):
+            try:
+                received_data = json.loads(received_data)
+            except TypeError:
+                pass
+
+        payload = {
+            'data': received_data
+        }
+        log_entry_url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
+                                                    default_log['id'])
+        session_id = 'none_provided'
+        if 'session_id' in received_data:
+            session_id = received_data['session_id']
+        elif 'sessionId' in received_data:
+            session_id = received_data['sessionId']
+
+        req = requests.post(log_entry_url, json=payload, verify=False,
+                            headers={'x-api-proxy': session_id})
+        return req.json()
 
 
 class reset_session:
