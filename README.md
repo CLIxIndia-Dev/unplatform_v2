@@ -49,7 +49,7 @@ Bundling the Python webserver
 
 * The bundler assumes you have access to all the CLIx repositories on GitHub.com.
   For Windows, you may have to enter your SSH passphrase for each sub-repo,
-  depending on how your machine is set up. (Use `ssh-agent` to eliminate this 
+  depending on how your machine is set up. (Use `ssh-agent` to eliminate this
   irritation.)
 
 * The bundler assumes you have a `node` installation available, along with
@@ -67,10 +67,10 @@ Running tests
 =============================
 
 You can run tests locally from the command line.  Tests are also run through
-the ``travis-ci`` continuous integration service each time a commit is pushed 
+the ``travis-ci`` continuous integration service each time a commit is pushed
 to the repository.
 
-The test suite includes unit tests, pylint analysis, pep8 compliance, and 
+The test suite includes unit tests, pylint analysis, pep8 compliance, and
 test coverage.
 
 Run the test suite with this command:
@@ -79,10 +79,10 @@ Run the test suite with this command:
 pytest
 ```
 
-Test options are configured in ``pytest.ini``.  Some options specific to each 
+Test options are configured in ``pytest.ini``.  Some options specific to each
 test harness plugin are configured in their dedicated files.
 
-Code coverage is configured in ``.coveragerc``.  You can view the detailed 
+Code coverage is configured in ``.coveragerc``.  You can view the detailed
 coverage report by opening ``htmlcov/index.html`` in your browser.
 
 Pep8 is configured in ``pytest.ini``.
@@ -90,4 +90,17 @@ Pep8 is configured in ``pytest.ini``.
 Pylint is configured in ``.pylintrc``.
 
 
+ACKNOWLEDGEMENTS
+================
+This software uses many third-party software packages, and the authors are grateful
+for every one. The majority can be found listed in `ui/package.json` or `requirements.txt`.
+All third-party software remains copyright by the respective author(s) and may have
+different license requirements than this software.
 
+In addition, the authors would like to acknowledge the use of the following packages:
+
+Font Awesome
+Rich Clark / Eric Meyer (HTML5 reset CSS; CC BY-NC 2.0 UK)
+Graham Miller (Responsive Grid System; CC BY 3.0)
+Font Squirrel (OpenSans fonts; licensed Apache V2)
+Joe Prince, Adminx Designs (Varela; SIL OPEN FONT LICENSE Version 1.1)
