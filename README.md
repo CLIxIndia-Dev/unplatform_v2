@@ -99,8 +99,14 @@ different license requirements than this software.
 
 In addition, the authors would like to acknowledge the use of the following packages:
 
+## Front-end CSS / fonts
 Font Awesome
 Rich Clark / Eric Meyer (HTML5 reset CSS; CC BY-NC 2.0 UK)
 Graham Miller (Responsive Grid System; CC BY 3.0)
 Font Squirrel (OpenSans fonts; licensed Apache V2)
 Joe Prince, Adminx Designs (Varela; SIL OPEN FONT LICENSE Version 1.1)
+
+## Python libraries:
+PyOpenSSL (Apache v2)
+Cryptography (Apache v2)
+Requests (Apache v2)
