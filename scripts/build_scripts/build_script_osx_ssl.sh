@@ -13,8 +13,9 @@ cd ../../
 rm -rf bundle/
 rm -rf build/
 rm -rf dist/
-rm -rf tool-repos/
-rm -rf static/
+# rm -rf tool-repos/
+# find tool-repos/ ! -path "*/node_modules/*" -delete
+# rm -rf static/
 
 find . -type f -name .DS_Store -exec rm -f {} \;
 find . -type f -name *.pyc -exec rm -f {} \;
@@ -64,64 +65,141 @@ cp scripts/data_extraction/zipjs.bat bundle/
 cp README.md bundle/
 
 # generate the latest releases of each tool, from the release branch
-mkdir tool-repos
+if [ ! -d "tool-repos" ]
+then
+  mkdir tool-repos
+fi
 cd tool-repos
 
 # find and copy the latest qbank executable that should be included with this release
 # FILE=$(find external_packages/qbank/ -name qbank-lite*mac | sort -n | tail -1)
 # cp $FILE bundle/$FILE
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
+if [ ! -d "qbank-lite-bundles" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
+fi
+cd qbank-lite-bundles
+git checkout release
+git pull origin release
+cd ..
 
 # for now ... change this to appropriate platform build later
 cp qbank-lite-bundles/release/qbank-lite*ubuntu* ../bundle/
 
 # Content player
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/content_player.git
+if [ ! -d "content_player" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/content_player.git
+  cp content_player/.env.example content_player/.env
+fi
 cd content_player
-cp .env.example .env
+git checkout release
+git pull origin release
 npm install
 npm run build
-mkdir ../../bundle/static/content_player
-cp -r build/prod/* ../../bundle/static/content_player/
+mkdir ../../bundle/static/content_player/
+cp -rf build/prod/* ../../bundle/static/content_player/
+rm -rf ../../bundle/static/content_player/.git/
 
 # OEA Open Embedded Assessments
 cd ..
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
+
+if [ ! -d "OpenAssessmentsClient" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
+  # cp OpenAssessmentsClient/.env.example OpenAssessmentsClient/.env
+fi
 cd OpenAssessmentsClient
-cp .env.example .env
+git checkout release
+git pull origin release
+# revert to npm for now
+# until they fix issue 1657? yarn seems broken on Windows, partially
 npm install
 npm run build
-mkdir ../../bundle/static/oea
-cp -r build/prod/* ../../bundle/static/oea/
+mkdir ../../bundle/static/oea/
+cp -rf build/prod/* ../../bundle/static/oea/
+rm -rf ../../bundle/static/oea/.git/
 
-# biomechanics grame
+# biomechanics game
 cd ..
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/biomechanic.git
-rm -rf biomechanic/.git/
-mv biomechanic/ ../bundle/static/
+
+if [ ! -d "biomechanic" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/biomechanic.git
+fi
+cd biomechanic
+git checkout release
+git pull origin release
+cd ..
+mkdir ../bundle/static/biomechanic/
+cp -rf biomechanic/* ../bundle/static/biomechanic/
+rm -rf ../bundle/static/biomechanic/.git/
 
 # Physics Video player
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/physics-video-player.git
-rm -rf physics-video-player/.git/
-mv physics-video-player/ ../bundle/static/
+if [ ! -d "physics-video-player" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
+fi
+cd physics-video-player
+git checkout release
+git pull origin release
+cd ..
+mkdir ../bundle/static/physics-video-player/
+cp -rf physics-video-player/* ../bundle/static/physics-video-player/
+rm -rf ../bundle/static/physics-video-player/.git/
 
 # Audio record tool
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/audio-record-tool.git
-rm -rf audio-record-tool/.git/
-mv audio-record-tool/ ../bundle/static/
+if [ ! -d "audio-record-tool" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
+fi
+cd audio-record-tool
+git checkout release
+git pull origin release
+cd ..
+mkdir ../bundle/static/audio-record-tool/
+cp -rf audio-record-tool/* ../bundle/static/audio-record-tool/
+rm -rf ../bundle/static/audio-record-tool/.git/
 
 # Police Quad
 git clone -b release --single-branch git@github.com:CLIxIndia-Dev/police-quad.git
-rm -rf police-quad/.git/
-mv police-quad/ ../bundle/static/
+if [ ! -d "police-quad" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/police-quad.git
+fi
+cd police-quad
+git checkout release
+git pull origin release
+cd ..
+mkdir ../bundle/static/police-quad/
+cp -rf police-quad/* ../bundle/static/police-quad/
+rm -rf ../bundle/static/police-quad/.git/
 
 # Open Story tool
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/open-story-tool.git
-rm -rf open-story-tool/.git/
-mv open-story-tool/ ../bundle/static/
+if [ ! -d "open-story-tool" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
+fi
+cd open-story-tool
+git checkout release
+git pull origin release
+cd ..
+mkdir ../bundle/static/open-story-tool/
+cp -rf open-story-tool/* ../bundle/static/open-story-tool/
+rm -rf ../bundle/static/open-story-tool/.git/
 
 # Turtle Blocks tool
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/turtle-blocks.git
+if [ ! -d "turtle-blocks" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
+fi
+cd turtle-blocks
+git checkout release
+git pull origin release
+cd ..
+mkdir ../bundle/static/turtle-blocks/
+cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
+rm -rf ../bundle/static/turtle-blocks/.git/
 rm -rf turtle-blocks/.git/
 mv turtle-blocks/ ../bundle/static/
 
