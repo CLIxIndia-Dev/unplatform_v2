@@ -1,6 +1,7 @@
 #!/bin/bash
-./unplatform/unplatform_osx &
+./unplatform_osx_ssl &
 sleep 6
-./unplatform/unplatform_osx_worker &
-./qbank-lite-v0.0.65-mac-ssl &
+
+FILE=$(find . -name qbank-lite*ubuntu* | sort -n | tail -1)
+./$FILE &
 /usr/bin/open -a "/Applications/Google Chrome.app" 'https://localhost:8888/'

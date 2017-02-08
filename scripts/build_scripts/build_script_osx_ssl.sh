@@ -13,31 +13,39 @@ cd ../../
 rm -rf bundle/
 rm -rf build/
 rm -rf dist/
-# rm -rf tool-repos/
-# find tool-repos/ ! -path "*/node_modules/*" -delete
-# rm -rf static/
 
-find . -type f -name .DS_Store -exec rm -f {} \;
-find . -type f -name *.pyc -exec rm -f {} \;
+find . -type f -name .DS_Store -exec rm -f '{}' \;
+find . -type f -name '*.pyc' -exec rm -f '{}' \;
 
-mkdir bundle/
-mkdir bundle/static/
+if [ ! -d "bundle" ]
+then
+  mkdir bundle/
+fi
+if [ ! -d "bundle/static" ]
+then
+  mkdir bundle/static
+fi
 
 # update the virtualenvironment
 pip install -r requirements.txt
+pip install -r test_requirements.txt
 
 # generate the UI
 cd ui
 npm install
 cd ..
-# mkdir -p static/ui  # now this is part of the compile:ui command
+
 npm run compile:ui
-mkdir bundle/static
-cp -r static/ bundle/static/
+# mkdir bundle/static
+cp -r static/assets/ bundle/static/assets/
+cp static/ui/ bundle/static/ui/
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
 WEBENV=test nosetests tests
+
+# Once the tests are complete, remove build artifacts from '/static/' directory
+rm -rf static/ui
 
 # LOGIC here to stop the script if it fails
 
@@ -56,10 +64,6 @@ cp scripts/launchers/unplatform_osx_ssl.sh bundle/
 # copy the Tools in modules over
 mkdir bundle/modules
 cp -r modules/* bundle/modules/
-
-# copy over utility files for FSP data extraction
-cp scripts/data_extraction/DataExtractionScript.bat bundle/
-cp scripts/data_extraction/zipjs.bat bundle/
 
 # copy the README
 cp README.md bundle/
@@ -162,7 +166,6 @@ cp -rf audio-record-tool/* ../bundle/static/audio-record-tool/
 rm -rf ../bundle/static/audio-record-tool/.git/
 
 # Police Quad
-git clone -b release --single-branch git@github.com:CLIxIndia-Dev/police-quad.git
 if [ ! -d "police-quad" ]
 then
   git clone git@github.com:CLIxIndia-Dev/police-quad.git
@@ -200,8 +203,6 @@ cd ..
 mkdir ../bundle/static/turtle-blocks/
 cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
 rm -rf ../bundle/static/turtle-blocks/.git/
-rm -rf turtle-blocks/.git/
-mv turtle-blocks/ ../bundle/static/
 
 # let's get back out of tool-repos and go to the root directory
 cd ..
