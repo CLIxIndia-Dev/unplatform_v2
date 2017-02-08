@@ -13,4 +13,6 @@ static/
 htmlcov/
 .cache/
 .coverage
-.python-version
+yarn.lock
+npm-debug.log
+
