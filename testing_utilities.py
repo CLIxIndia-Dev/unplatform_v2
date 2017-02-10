@@ -1,7 +1,8 @@
-import os
+import glob
 import json
 import sys
-import glob
+import os
+from unittest import TestCase
 
 from nose.tools import *
 # from paste.fixture import TestApp
@@ -21,8 +22,6 @@ SESSIONS_DB = os.path.join(ABS_PATH, 'unplatform.sqlite3')
 
 
 class BaseTestCase(TestCase):
-    """
-    """
     @staticmethod
     def _filename(file_object):
         return file_object.name.split('/')[-1]

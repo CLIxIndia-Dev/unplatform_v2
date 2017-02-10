@@ -1,11 +1,12 @@
 import glob
 import json
-import os
-import mock
 import shutil
 import sqlite3
 
 from copy import deepcopy
+
+import os
+import mock
 
 from testing_utilities import BaseTestCase
 
@@ -13,66 +14,66 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 ABS_PATH = '{0}'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 
 SAMPLE_LOG = {
-  "recordTypeIds": [],
-  "id": "logging.Log%3A57b9547bed849b7a4208596b%40ODL.MIT.EDU",
-  "displayName": {
-    "text": "Default CLIx log",
-    "languageTypeId": "639-2%3AENG%40ISO",
-    "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
-    "scriptTypeId": "15924%3ALATN%40ISO"
-  },
-  "description": {
-    "text": "For logging info from unplatform and tools, which do not know about catalog IDs",
-    "languageTypeId": "639-2%3AENG%40ISO",
-    "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
-    "scriptTypeId": "15924%3ALATN%40ISO"
-  },
-  "genusTypeId": "log-genus-type%3Adefault-clix%40ODL.MIT.EDU"
+    "recordTypeIds": [],
+    "id": "logging.Log%3A57b9547bed849b7a4208596b%40ODL.MIT.EDU",
+    "displayName": {
+        "text": "Default CLIx log",
+        "languageTypeId": "639-2%3AENG%40ISO",
+        "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
+        "scriptTypeId": "15924%3ALATN%40ISO"
+    },
+    "description": {
+        "text": "For logging info from unplatform and tools, which do not know about catalog IDs",
+        "languageTypeId": "639-2%3AENG%40ISO",
+        "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
+        "scriptTypeId": "15924%3ALATN%40ISO"
+    },
+    "genusTypeId": "log-genus-type%3Adefault-clix%40ODL.MIT.EDU"
 }
 
 SAMPLE_ENTRY = {
-  "id": "logging.LogEntry%3A57bfcc5ced849b11f52fc82a%40ODL.MIT.EDU",
-  "displayName": {
-    "text": "",
-    "languageTypeId": "639-2%3AENG%40ISO",
-    "scriptTypeId": "15924%3ALATN%40ISO",
-    "formatTypeId": "TextFormats%3APLAIN%40okapia.net"
-  },
-  "description": {
-    "text": "",
-    "languageTypeId": "639-2%3AENG%40ISO",
-    "scriptTypeId": "15924%3ALATN%40ISO",
-    "formatTypeId": "TextFormats%3APLAIN%40okapia.net"
-  },
-  "recordTypeIds": [
-    "logging.LogEntry%3Atext-blob%40ODL.MIT.EDU"
-  ],
-  "text": {
-    "text": """{\"action\": \"pause audio\",
-        \"questionId\": \"assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU\",
-        \"assessmentOfferedId\": \"assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU\",
-        \"mediaId\": \"\",
-        \"mediaTime\": 9.142857}""",
-    "languageTypeId": "639-2%3AENG%40ISO",
-    "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
-    "scriptTypeId": "15924%3ALATN%40ISO"
-  },
-  "priorityId": "NoneType%3ANONE%40dlkit.mit.edu",
-  "genusTypeId": "GenusType%3ADEFAULT%40DLKIT.MIT.EDU",
-  "timestamp": {
-    "hour": 4,
-    "month": 8,
-    "second": 4,
-    "microsecond": 157476,
-    "year": 2016,
-    "tzinfo": None,
-    "day": 26,
-    "minute": 58
-  },
-  "assignedLogIds": [
-    "logging.Log%3A57b9547bed849b7a4208596b%40ODL.MIT.EDU"
-  ],
-  "agentId": "osid.agent.Agent%3Aexternal_identifier%40MIT-ODL"
+    "id": "logging.LogEntry%3A57bfcc5ced849b11f52fc82a%40ODL.MIT.EDU",
+    "displayName": {
+        "text": "",
+        "languageTypeId": "639-2%3AENG%40ISO",
+        "scriptTypeId": "15924%3ALATN%40ISO",
+        "formatTypeId": "TextFormats%3APLAIN%40okapia.net"
+    },
+    "description": {
+        "text": "",
+        "languageTypeId": "639-2%3AENG%40ISO",
+        "scriptTypeId": "15924%3ALATN%40ISO",
+        "formatTypeId": "TextFormats%3APLAIN%40okapia.net"
+    },
+    "recordTypeIds": [
+        "logging.LogEntry%3Atext-blob%40ODL.MIT.EDU"
+    ],
+    "text": {
+        "text": """{\"action\": \"pause audio\",
+            \"questionId\": \"assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU\",
+            \"assessmentOfferedId\": \"assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU\",
+            \"mediaId\": \"\",
+            \"mediaTime\": 9.142857}""",
+        "languageTypeId": "639-2%3AENG%40ISO",
+        "formatTypeId": "TextFormats%3APLAIN%40okapia.net",
+        "scriptTypeId": "15924%3ALATN%40ISO"
+    },
+    "priorityId": "NoneType%3ANONE%40dlkit.mit.edu",
+    "genusTypeId": "GenusType%3ADEFAULT%40DLKIT.MIT.EDU",
+    "timestamp": {
+        "hour": 4,
+        "month": 8,
+        "second": 4,
+        "microsecond": 157476,
+        "year": 2016,
+        "tzinfo": None,
+        "day": 26,
+        "minute": 58
+    },
+    "assignedLogIds": [
+        "logging.Log%3A57b9547bed849b7a4208596b%40ODL.MIT.EDU"
+    ],
+    "agentId": "osid.agent.Agent%3Aexternal_identifier%40MIT-ODL"
 }
 
 
@@ -350,14 +351,14 @@ class ConfigurationTests(BaseMainTestCase):
                             headers={'content-type': 'application/json'})
         self.ok(req)
         data = self.json(req)
-        for key in payload.keys():
+        for key in payload:
             self.assertEqual(data[key], payload[key])
         self.assertIn('timestamp', data.keys())
 
         self.assertTrue(os.path.isfile(self.config_file))
         with open(self.config_file, 'rb') as config:
             conf = json.load(config)
-            for key in data.keys():
+            for key in data:
                 self.assertEqual(conf[key], data[key])
 
     def test_can_get_config(self):
@@ -374,14 +375,14 @@ class ConfigurationTests(BaseMainTestCase):
                             headers={'content-type': 'application/json'})
         self.ok(req)
         data = self.json(req)
-        for key in payload.keys():
+        for key in payload:
             self.assertEqual(data[key], payload[key])
         self.assertIn('timestamp', data.keys())
 
         req = self.app.get(self.url)
         self.ok(req)
         get_data = self.json(req)
-        for key in payload.keys():
+        for key in payload:
             self.assertEqual(get_data[key], payload[key])
         self.assertIn('timestamp', get_data.keys())
 
@@ -419,7 +420,7 @@ class UserSurveyTests(BaseMainTestCase):
             with open(user_file, 'rb') as user_data:
                 data = json.load(user_data)
                 self.assertIn('timestamp', data.keys())
-                for key in payload.keys():
+                for key in payload:
                     self.assertEqual(payload[key], data[key])
 
 

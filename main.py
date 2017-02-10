@@ -5,25 +5,24 @@ import codecs
 import functools
 import json
 import mimetypes
-import os
-import requests
 import sqlite3
 import string
 import sys
 import urllib
-import web
 
 from datetime import datetime
 from natsort import natsorted
 from requests.exceptions import ConnectionError
 
+import os
+import requests
+import web
 from web.wsgiserver import CherryPyWSGIServer
 
+import settings
 import utilities
 from main_utilities import get_configuration_file, set_configuration_file,\
     set_user_data_file
-import settings
-
 
 # http://pythonhosted.org/PyInstaller/runtime-information.html#run-time-information
 if getattr(sys, 'frozen', False):
