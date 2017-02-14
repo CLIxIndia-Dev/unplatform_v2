@@ -19,6 +19,8 @@ class AppContainer extends Component {
     const store = this.props.store;
     const state = store.getState();      // because AppContainer is the top-level parent
 
+    console.log('state is: ' + JSON.stringify(state));
+
     if (!state.survey.sessionId) {
       store.dispatch(getSession())
     }
@@ -41,6 +43,7 @@ class AppContainer extends Component {
   }
 
   render () {
+    console.log
     const { routes, store } = this.props
 
     return (
