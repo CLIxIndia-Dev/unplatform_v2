@@ -16,8 +16,12 @@ rm -rf build/
 rm -rf dist/
 # rm -rf tool-repos/
 # find tool-repos/ ! -path "*/node_modules/*" -delete
-rm -rf static/
+# rm -rf static/
 # find . -type f -name .DS_Store -exec rm -f {} \;
+if [ ! -d "static" ]
+then
+  error "static directory not found"
+fi
 
 mkdir bundle/
 mkdir bundle/static/

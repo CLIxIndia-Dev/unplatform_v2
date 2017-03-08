@@ -4,6 +4,8 @@
 #   that you want to build
 
 cd ../../
+BUILD_ROOT=`pwd`
+echo The build root is $BUILD_ROOT
 
 # reset the directory to get rid of previous build artifacts
 # Tradeoff of using git clean here, is that it also removes useful things
@@ -14,7 +16,7 @@ rm -rf bundle/
 rm -rf build/
 rm -rf dist/
 
-find . -type f -name .DS_Store -exec rm -f '{}' \;
+# find . -type f -name .DS_Store -exec rm -f '{}' \;
 find . -type f -name '*.pyc' -exec rm -f '{}' \;
 
 if [ ! -d "bundle" ]
@@ -32,10 +34,10 @@ pip install -r test_requirements.txt
 
 # generate the UI
 cd ui
-npm install
+yarn install
 cd ..
 
-npm run compile:ui
+yarn run compile:ui
 # mkdir bundle/static
 cp -r static/assets/ bundle/static/assets/
 if [ ! -d "bundle/static/ui" ]
@@ -82,8 +84,8 @@ fi
 cd content_player
 git checkout release
 git pull origin release
-npm install
-npm run build
+yarn install
+yarn run build
 mkdir ../../bundle/static/content_player/
 cp -rf build/prod/* ../../bundle/static/content_player/
 rm -rf ../../bundle/static/content_player/.git/
@@ -101,8 +103,8 @@ git checkout release
 git pull origin release
 # revert to npm for now
 # until they fix issue 1657? yarn seems broken on Windows, partially
-npm install
-npm run build
+yarn install
+yarn run build
 mkdir ../../bundle/static/oea/
 cp -rf build/prod/* ../../bundle/static/oea/
 rm -rf ../../bundle/static/oea/.git/
@@ -205,18 +207,23 @@ cd ..
 # Detect the platform (similar to $OSTYPE)
 # see http://stackoverflow.com/questions/394230/detect-the-os-from-a-bash-script
 # We have only three build platform variants: windows, linux, osx.
-OS="`uname`"
+lowercase(){
+    echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+}
+
+OS=`lowercase \`uname\``
+# OS="`uname`"
 UN2_BUILD_OS="platform_undetected"
 case $OS in
-  'Linux')
+  'linux')
     OS='Linux'
     UN2_BUILD_OS="linux"
     ;;
-  'FreeBSD')
+  'freebsd')
     OS='FreeBSD'
     UN2_BUILD_OS="linux"
     ;;
-  'WindowsNT')
+  'windowsnt')
     OS='Windows'
     UN2_BUILD_OS="windows"
     ;;
@@ -228,15 +235,18 @@ case $OS in
     OS='Windows'
     UN2_BUILD_OS="windows"
     ;;
-  'Darwin')
+  'darwin')
     OS='Mac'
     UN2_BUILD_OS="osx"
     ;;
   *) ;;
 esac
+echo Build platform is $UN2_BUILD_OS
 
 # build the unplatform executable and copy / move it to the final output directory
 pyinstaller main.spec
+
+echo path following call to pyinstaller is `pwd`
 
 case $UN2_BUILD_OS in
     'windows')
@@ -271,7 +281,7 @@ case $UN2_BUILD_OS in
 esac
 
 # for now ... change this to appropriate platform build later
-cp qbank-lite-bundles/release/qbank-lite*ubuntu* ../bundle/
+cp $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/qbank-lite*ubuntu* $BUILD_ROOT/bundle/
 
 # Zip up the final bundle/ directory and name the file per the unplatform version
 VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
@@ -280,5 +290,4 @@ OUTPUT="unplatform_v${VERSION//\'/}_osx.zip"
 zip -r  -q $OUTPUT bundle && echo "bundle zipped" || echo "error zipping bundle"
 
 # move the final zipped file to the bundle directory, to keep our repo clean
-echo path is `pwd`
-mv $OUTPUT bundle/$OUTPUT
+mv $BUILD_ROOT/$OUTPUT $BUILD_ROOT/bundle/$OUTPUT
