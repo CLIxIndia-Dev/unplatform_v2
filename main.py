@@ -242,7 +242,7 @@ class user_session:
 class version:
     def GET(self):
         web.header('Content-type', 'text/plain')
-        return '1.2.1'
+        return '1.2.2'
 
 ################################################
 # INITIALIZER
