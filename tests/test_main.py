@@ -4,12 +4,8 @@ import os
 import mock
 import shutil
 
-<<<<<<< HEAD
 from copy import deepcopy
 from nose.tools import set_trace
-
-=======
->>>>>>> update oea route tests with test fixture index file
 from testing_utilities import BaseTestCase
 
 
