@@ -1,3 +1,6 @@
+1.2.1:
+  - Fix OS X launcher script to use found qbank executable.
+
 1.2.0
   - merge in TravisCI configuration for automated testing.
 
