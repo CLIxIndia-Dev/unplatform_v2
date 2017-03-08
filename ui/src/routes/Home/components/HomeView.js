@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 import { browserHistory } from 'react-router'
 import {Icon} from 'react-fa'
 import Radium from 'radium'
+// import '../../../styles/core.css'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers4.svg')
 
@@ -63,7 +64,28 @@ const styles = {
   },
   submitButton: {
     marginTop: '50px'
-  }
+  },
+  // usSel: {
+  //   minWidth: '216px',
+  //   height: '100%',
+  //   margin: '5px 3px',
+  //   padding: '8px',
+  //   background: 'radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, .5), hsla(259, 40%,30%, .5))',
+  //   border: 'solid 0.094rem #ffffff',
+  //   borderRadius: '100px',
+  //   color: '#ffffff',
+  //   fontFamily: 'open_sansregular',
+  //   fontSize: '1.125rem',
+  //   letterSpacing: '-0.006rem',
+  //   textAlign: 'center',
+  //   textShadow: '0 2px 2px rgba(0,0,0, 0.3)'
+  // },
+  // usSel__input: {
+  //   minHeight: '50px'
+  // },
+  // usSel__span: {
+  //   minWidth: '216px'
+  // }
 }
 
 
@@ -107,26 +129,32 @@ class HomeView extends Component {
   }
 
   renderUserTypeButtons = (label, index) => {
-    let className = "button-gradient"
+    let className = "user-select"
     let checked = false
     if (this.props.survey && this.props.survey.userType === label) {
-      className = "button-gradient-active"
+      // className = "button-gradient-active"
       checked = true
     }
     return (
+      <div className={className}>
       <label key={index}
-        style={[styles.button, styles.userSelectButton]}
-        className={className}
-        tabIndex={0}>
+        // style={[styles.button, styles.userSelectButton]}
+        // className={className}
+        // tabIndex={0}
+        >
         <input key={index}
           onChange={(e) => this._onHandleUserTypeSelect(e)}
           type="radio"
           name="userType"
           value={label}
-          tabIndex={-1}
-          checked={checked}/>
-          {label}
+          // tabIndex={-1}
+          checked={checked}
+          className="user-select__input"
+          ref={(input) => { this.inputField = input; }}
+          />
+        {label}
       </label>
+      </div>
     )
   }
 
@@ -138,14 +166,14 @@ class HomeView extends Component {
     return (
       <label key={index}
         className={className}
-        tabIndex={0}
+        // tabIndex={0}
         style={[styles.button, styles.userSelectButton]}>
         <input key={index}
           onChange={(e) => this._onHandleUserCountSelect(e)}
           type="radio"
           name="userCount"
           value={label}
-          tabIndex={-1}
+          // tabIndex={-1}
           checked={this.props.survey.userCount === label}/>
           {label}
       </label>
@@ -191,15 +219,20 @@ class HomeView extends Component {
       )
     }
     return (
-      <div style={styles.container} >
+      // <div style={styles.container} >
+      <div>
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
 
         <main className="span_10_of_12">
+          <fieldset>
+          <legend>
           <h1 className="pg-title">{this.props.strings.splash.title}</h1>
           <h2 className="pg-subtitle">{this.props.strings.splash.subtitle}</h2>
-          <article className="but-select button-group">
+          </legend>
+          <article className="but-select">
             {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
           </article>
+          </fieldset>
           {userCount}
           {submitButton}
         </main>

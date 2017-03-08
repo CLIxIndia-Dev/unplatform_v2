@@ -139,6 +139,11 @@ main {
 article.but-select{
   margin: 44px auto 25px;
   text-align: center;
+  display: flex;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 article.count-select {
@@ -155,11 +160,15 @@ article.subj-select {
   text-align: center;
 }
 
+fieldset {
+  display: flex;
+}
+
 
 /* BUTTONS */
 
 .user-select {
-  min-width: 185px;
+  width: 216px;
   height: 50px;
   margin: 5px 3px;
   padding: 0 8px;
@@ -173,6 +182,10 @@ article.subj-select {
   letter-spacing: -0.006rem;
   text-align: center;
   text-shadow: 0 2px 2px rgba(0,0,0, 0.3);
+/*  display: flex;*/
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
 }
 
 .user-select:hover {
@@ -184,6 +197,13 @@ article.subj-select {
   /*clix-magenta*/
   background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 35%, .9), hsla(327, 100%, 25%, .6));
   color: #fff;
+}
+
+.user-select input[type="radio"] {
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  /*opacity: 0;*/
 }
 
 .users-count {
