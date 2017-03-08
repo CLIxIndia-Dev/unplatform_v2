@@ -1,3 +1,11 @@
+1.2.2:
+  - Refactor Windows build script to use compile:ui:only
+    command.
+
+1.2.1:
+  - Fix OS X launcher script to use found qbank executable.
+  - Account for trailing slash on /oea route.
+
 1.2.0
   - merge in TravisCI configuration for automated testing.
 

@@ -16,7 +16,7 @@ rm -rf build/
 rm -rf dist/
 # rm -rf tool-repos/
 # find tool-repos/ ! -path "*/node_modules/*" -delete
-# rm -rf static/
+rm -rf static/ui
 # find . -type f -name .DS_Store -exec rm -f {} \;
 if [ ! -d "static" ]
 then
@@ -33,8 +33,13 @@ pip install -r requirements.txt
 cd ui
 npm install
 cd ..
-# mkdir -p static/ui  # now this is part of the compile:ui command
-npm run compile:ui
+npm run compile:ui:only
+
+if [ ! -d "static/ui" ]
+then
+  mkdir static/ui/
+fi
+cp -r ui/dist/* static/ui/
 cp -r static/ bundle/
 
 # run the existing server-side API tests
