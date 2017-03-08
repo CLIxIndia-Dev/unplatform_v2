@@ -38,14 +38,19 @@ cd ..
 npm run compile:ui
 # mkdir bundle/static
 cp -r static/assets/ bundle/static/assets/
-cp static/ui/ bundle/static/ui/
+if [ ! -d "bundle/static/ui" ]
+then
+  mkdir bundle/static/ui
+fi
+
+cp -r static/ui/. bundle/static/ui
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
 WEBENV=test nosetests tests
 
 # Once the tests are complete, remove build artifacts from '/static/' directory
-rm -rf static/ui
+# rm -rf static/ui
 
 # copy over the self-signed SSL certs
 mkdir bundle/unplatform
@@ -53,13 +58,6 @@ cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
 cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
 
 # LOGIC here to stop the script if it fails
-
-# build the unplatform executable and copy / move it to the final output directory
-pyinstaller main.spec
-mv dist/main bundle/unplatform_osx_ssl
-
-# copy over the "launcher" bat file that opens the unplatform and qbank executables
-cp scripts/launchers/unplatform_osx_ssl.sh bundle/
 
 # copy the Tools in modules over
 mkdir bundle/modules
@@ -204,6 +202,73 @@ cd ..
 # let's get back out of tool-repos and go to the root directory
 cd ..
 
+# Detect the platform (similar to $OSTYPE)
+# see http://stackoverflow.com/questions/394230/detect-the-os-from-a-bash-script
+# We have only three build platform variants: windows, linux, osx.
+OS="`uname`"
+UN2_BUILD_OS="platform_undetected"
+case $OS in
+  'Linux')
+    OS='Linux'
+    UN2_BUILD_OS="linux"
+    ;;
+  'FreeBSD')
+    OS='FreeBSD'
+    UN2_BUILD_OS="linux"
+    ;;
+  'WindowsNT')
+    OS='Windows'
+    UN2_BUILD_OS="windows"
+    ;;
+ 'msys*')
+    OS='Windows'
+    UN2_BUILD_OS="windows"
+    ;;
+ 'cygwin')
+    OS='Windows'
+    UN2_BUILD_OS="windows"
+    ;;
+  'Darwin')
+    OS='Mac'
+    UN2_BUILD_OS="osx"
+    ;;
+  *) ;;
+esac
+
+# build the unplatform executable and copy / move it to the final output directory
+pyinstaller main.spec
+
+case $UN2_BUILD_OS in
+    'windows')
+        mv dist/main bundle/unplatform_win32_ssl.exe
+        ;;
+    'linux')
+        mv dist/main bundle/unplatform_linux64_ssl
+        ;;
+    'osx')
+        mv dist/main bundle/unplatform_osx_ssl
+        ;;
+esac
+
+
+# copy over the "launcher" bat file that opens the unplatform and qbank executables
+case $UN2_BUILD_OS in
+    'windows')
+        cp scripts/launchers/unplatform_win32_ssl.bat bundle/
+        # copy over utility files for FSP data extraction
+        cp scripts/data_extraction/DataExtractionScript.bat bundle/
+        cp scripts/data_extraction/zipjs.bat bundle/
+        # make sure to copy the msvcr100.dll from the system into bundle/
+        # otherwise you'll run into an error on deployments
+        cp C:\\Windows\\System32\\msvcr100.dll bundle/
+       ;;
+    'linux')
+        cp scripts/launchers/unplatform_linux64_ssl.sh bundle/
+        ;;
+    'osx')
+        cp scripts/launchers/unplatform_osx_ssl.sh bundle/
+        ;;
+esac
 
 # for now ... change this to appropriate platform build later
 cp qbank-lite-bundles/release/qbank-lite*ubuntu* ../bundle/
@@ -215,4 +280,5 @@ OUTPUT="unplatform_v${VERSION//\'/}_osx.zip"
 zip -r  -q $OUTPUT bundle && echo "bundle zipped" || echo "error zipping bundle"
 
 # move the final zipped file to the bundle directory, to keep our repo clean
+echo path is `pwd`
 mv $OUTPUT bundle/$OUTPUT
