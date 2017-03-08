@@ -7,6 +7,46 @@ cd ../../
 BUILD_ROOT=`pwd`
 echo The build root is $BUILD_ROOT
 
+# Detect the platform (similar to $OSTYPE)
+# see http://stackoverflow.com/questions/394230/detect-the-os-from-a-bash-script
+# We have only three build platform variants: windows, linux, osx.
+lowercase(){
+    echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+}
+
+OS=`lowercase \`uname\``
+# OS="`uname`"
+UN2_BUILD_OS="platform_undetected"
+case $OS in
+  'linux')
+    OS='Linux'
+    UN2_BUILD_OS="linux"
+    ;;
+  'freebsd')
+    OS='FreeBSD'
+    UN2_BUILD_OS="linux"
+    ;;
+  'windowsnt')
+    OS='Windows'
+    UN2_BUILD_OS="windows"
+    ;;
+ 'msys*')
+    OS='Windows'
+    UN2_BUILD_OS="windows"
+    ;;
+ 'cygwin')
+    OS='Windows'
+    UN2_BUILD_OS="windows"
+    ;;
+  'darwin')
+    OS='Mac'
+    UN2_BUILD_OS="osx"
+    ;;
+  *) ;;
+esac
+echo Build platform is $UN2_BUILD_OS
+
+
 # reset the directory to get rid of previous build artifacts
 # Tradeoff of using git clean here, is that it also removes useful things
 #   like ui/node_modules (building the UI) and modules/
@@ -33,16 +73,26 @@ pip install -r requirements.txt
 pip install -r test_requirements.txt
 
 # generate the UI
+echo Generating the UI...
 cd ui
 yarn install
 cd ..
 
-yarn run compile:ui
-# mkdir bundle/static
+case $UN2_BUILD_OS in
+    'windows')
+        echo Compiling only UI for Windows...
+        yarn run compile:ui:only
+        ;;
+    *)
+        echo Compiling the UI...
+        yarn run compile:ui
+        ;;
+esac
+
 cp -r static/assets/ bundle/static/assets/
 if [ ! -d "bundle/static/ui" ]
 then
-  mkdir bundle/static/ui
+  mkdir -p bundle/static/ui
 fi
 
 cp -r static/ui/. bundle/static/ui
@@ -203,45 +253,6 @@ cd ..
 
 # let's get back out of tool-repos and go to the root directory
 cd ..
-
-# Detect the platform (similar to $OSTYPE)
-# see http://stackoverflow.com/questions/394230/detect-the-os-from-a-bash-script
-# We have only three build platform variants: windows, linux, osx.
-lowercase(){
-    echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
-}
-
-OS=`lowercase \`uname\``
-# OS="`uname`"
-UN2_BUILD_OS="platform_undetected"
-case $OS in
-  'linux')
-    OS='Linux'
-    UN2_BUILD_OS="linux"
-    ;;
-  'freebsd')
-    OS='FreeBSD'
-    UN2_BUILD_OS="linux"
-    ;;
-  'windowsnt')
-    OS='Windows'
-    UN2_BUILD_OS="windows"
-    ;;
- 'msys*')
-    OS='Windows'
-    UN2_BUILD_OS="windows"
-    ;;
- 'cygwin')
-    OS='Windows'
-    UN2_BUILD_OS="windows"
-    ;;
-  'darwin')
-    OS='Mac'
-    UN2_BUILD_OS="osx"
-    ;;
-  *) ;;
-esac
-echo Build platform is $UN2_BUILD_OS
 
 # build the unplatform executable and copy / move it to the final output directory
 pyinstaller main.spec
