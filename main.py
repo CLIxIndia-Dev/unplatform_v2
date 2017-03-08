@@ -42,6 +42,7 @@ urls = (
     '/datastore_path', 'bootloader_storage_path',
     '/version', 'version',
     '/modules_list', 'modules_list',
+    '/oea/(.*)', 'oea_tool',
     '/oea', 'oea_tool',
     '/common/(.*)', 'common_tools',
     '/content/(.*)', 'content',
@@ -218,7 +219,7 @@ class modules_list:
 
 class oea_tool:
     @utilities.format_html_response
-    def GET(self, tool_name=None):
+    def GET(self, path=None):
         oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
         with open(oea_file_path, 'rb') as oea_index:
             yield oea_index.read()

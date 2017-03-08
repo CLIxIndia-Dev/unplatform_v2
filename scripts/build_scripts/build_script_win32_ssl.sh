@@ -16,7 +16,7 @@ rm -rf build/
 rm -rf dist/
 # rm -rf tool-repos/
 # find tool-repos/ ! -path "*/node_modules/*" -delete
-rm -rf static/
+rm -rf static/ui
 # find . -type f -name .DS_Store -exec rm -f {} \;
 
 mkdir bundle/
@@ -24,6 +24,11 @@ mkdir bundle/static/
 
 # update the virtualenvironment
 pip install -r requirements.txt
+
+if [ ! -d "static" ]
+then
+  mkdir static/
+fi
 
 # generate the UI
 cd ui

@@ -6,7 +6,6 @@ import shutil
 
 from copy import deepcopy
 from nose.tools import set_trace
-
 from testing_utilities import BaseTestCase
 
 
@@ -140,9 +139,15 @@ class BasicServiceTests(BaseMainTestCase):
     """
     def setUp(self):
         super(BasicServiceTests, self).setUp()
+        self.data_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
+        if os.path.isdir(self.data_dir):
+            shutil.rmtree(self.data_dir)
+        os.mkdir(self.data_dir)
 
     def tearDown(self):
         super(BasicServiceTests, self).tearDown()
+        if os.path.isdir(self.data_dir):
+            shutil.rmtree(self.data_dir)
 
     def test_users_can_get_index_page(self):
         url = '/'
@@ -162,6 +167,35 @@ class BasicServiceTests(BaseMainTestCase):
         self.ok(req)
 
         self.assertEqual(len(os.listdir(sessions_dir)), 0)
+
+
+class OEATests(BaseMainTestCase):
+    """Test the views for getting the OEA player
+
+    """
+    def setUp(self):
+        super(OEATests, self).setUp()
+        self.oea_dir = '{0}/static/oea'.format(ABS_PATH)
+        self.oea_index = '{0}/index.html'.format(self.oea_dir)
+        if not os.path.exists(self.oea_dir):
+            os.makedirs(self.oea_dir)
+        if not os.path.isfile(self.oea_index):
+            shutil.copyfile('{0}/tests/fixtures/index.html'.format(ABS_PATH), self.oea_index)
+
+    def tearDown(self):
+        super(OEATests, self).tearDown()
+
+    def test_users_can_get_oea_index(self):
+        url = '/oea'
+        req = self.app.get(url)
+        self.ok(req)
+        self.message(req, 'Open Assessments')
+
+    def test_users_can_get_oea_index_with_trailing_slash(self):
+        url = '/oea/'
+        req = self.app.get(url)
+        self.ok(req)
+        self.message(req, 'Open Assessments')
 
 
 class ModuleDirectoryListingTests(BaseMainTestCase):
