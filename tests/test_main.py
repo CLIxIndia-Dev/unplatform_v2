@@ -239,6 +239,29 @@ class ContentTests(BaseMainTestCase):
         self.code(req, 404)  # because there are no modules loaded
 
 
+class ToolTests(BaseMainTestCase):
+    """Test the views for getting the Tools
+
+    """
+    def setUp(self):
+        super(ToolTests, self).setUp()
+        self.logout()
+
+    def tearDown(self):
+        super(ToolTests, self).tearDown()
+
+    def test_user_without_active_session_cannot_get_content_index(self):
+        url = '/common/Open Story/'
+        req = self.app.get(url, expect_errors=True)
+        self.code(req, 403)
+
+    def test_users_can_get_content_index_with_trailing_slash(self):
+        self.login()
+        url = '/common/Open Story/'
+        req = self.app.get(url, expect_errors=True)
+        self.ok(req)
+
+
 class ModuleDirectoryListingTests(BaseMainTestCase):
     """Test the views for the GET modules endpoint
 
