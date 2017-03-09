@@ -5,8 +5,6 @@ import mock
 import shutil
 
 from copy import deepcopy
-from nose.tools import set_trace
-from paste.fixture import AppError
 
 from testing_utilities import BaseTestCase
 
@@ -157,7 +155,11 @@ class BasicServiceTests(BaseMainTestCase):
         self.message(req, 'CLIx')
 
     def test_session_id_resets_on_index_get(self):
+        import pdb
+        pdb.set_trace()
         sessions_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
+
+        self.assertEqual(len(os.listdir(sessions_dir)), 0)
 
         req = self.app.get('/version')
         self.ok(req)
@@ -167,7 +169,7 @@ class BasicServiceTests(BaseMainTestCase):
         req = self.app.get('/')
         self.ok(req)
 
-        self.assertEqual(len(os.listdir(sessions_dir)), 0)
+        self.assertEqual(len(os.listdir(sessions_dir)), 2)
 
 
 class OEATests(BaseMainTestCase):
