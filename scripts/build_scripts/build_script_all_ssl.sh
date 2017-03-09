@@ -18,7 +18,7 @@ OS=`lowercase \`uname\``
 # OS="`uname`"
 UN2_BUILD_OS="platform_undetected"
 case $OS in
-  'linux')
+  linux)
     OS='Linux'
     UN2_BUILD_OS="linux"
     ;;
@@ -26,25 +26,18 @@ case $OS in
     OS='FreeBSD'
     UN2_BUILD_OS="linux"
     ;;
-  'windowsnt')
+  mingw* | msys* | cygwin | windowsnt)
     OS='Windows'
     UN2_BUILD_OS="windows"
     ;;
- 'msys*')
-    OS='Windows'
-    UN2_BUILD_OS="windows"
-    ;;
- 'cygwin')
-    OS='Windows'
-    UN2_BUILD_OS="windows"
-    ;;
-  'darwin')
+   dar*)
     OS='Mac'
     UN2_BUILD_OS="osx"
     ;;
   *) ;;
 esac
 echo Build platform is $UN2_BUILD_OS
+echo Build OS is $OS from `lowercase \`uname\``
 
 
 # reset the directory to get rid of previous build artifacts
