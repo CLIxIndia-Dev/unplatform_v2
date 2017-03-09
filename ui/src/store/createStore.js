@@ -4,18 +4,49 @@ import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 
-import persistState from 'redux-localstorage'
+import { RECEIVE_MODULES } from '../reducers/Module/getModules'
+import { RECEIVE_SCHOOL_CONFIGURATION } from '../reducers/SchoolConfiguration/getSchoolConfiguration'
+import { RECEIVE_GET_VERSION } from '../reducers/Version/getVersion'
+
+// import persistState from 'redux-localstorage'
+
+// Middleware to catch "Session expired" messages and
+//   reroute to the root URL
+const sessionExpiration = store => next => action => {
+  const actionsToFilter = [RECEIVE_MODULES,
+    RECEIVE_SCHOOL_CONFIGURATION,
+    RECEIVE_GET_VERSION]
+  let result = next(action)
+  let returnedData
+  if (result.version) {
+    returnedData = result.version
+  } else if (result.configuration) {
+    returnedData = result.configuration
+  } else if (result.modules) {
+    returnedData = result.modules
+  }
+  console.log('result', result)
+  console.log('returnedData', returnedData)
+  if (actionsToFilter.indexOf(result.type) >= 0 &&
+      !returnedData) {
+    console.log('expired session! reroute here')
+    browserHistory.push('/')
+    return ''
+  }
+  return result
+}
 
 export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
+  const middleware = [thunk, sessionExpiration]
 
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = [persistState()]
+  // const enhancers = [persistState()]
+  const enhancers = []
 
   let composeEnhancers = compose
 

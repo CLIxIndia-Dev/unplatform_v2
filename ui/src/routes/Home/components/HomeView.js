@@ -86,6 +86,15 @@ class HomeView extends Component {
     this.props.onGetModules()
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (!this.props.modules) {
+      this.props.onGetModules()
+    }
+    if (!this.props.locale) {
+      this.props.onGetConfiguration()
+    }
+  }
+
   // This seems horrible
   _getEnglishUserType = () => {
     // find by index
@@ -123,7 +132,7 @@ class HomeView extends Component {
 
   renderUserCountButtons = (label, index) => {
     let className = "button-gradient"
-    if (this.props.survey.userCount === label) {
+    if (this.props.survey && this.props.survey.userCount === label) {
       className = "button-gradient-active"
     }
     return (
