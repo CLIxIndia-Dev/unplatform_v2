@@ -53,8 +53,8 @@ urls = (
 app = web.application(urls, locals())
 
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
-# web.config.session_parameters['ignore_expiry'] = False
-web.config.session_parameters['timeout'] = 5 * 60  # 5 minutes of inactivity
+web.config.session_parameters['ignore_expiry'] = False
+web.config.session_parameters['timeout'] = 10 # 5 * 60  # 5 minutes of inactivity
 
 session = web.session.Session(app,
                               web.session.DiskStore('{0}/webapps/unplatform/sessions'.format(ABS_PATH)),
@@ -96,7 +96,8 @@ def require_login(func):
     @functools.wraps(func)
     def wrapper(self, *args):
         if not logged_in():
-            raise web.Forbidden()
+            with open('{0}/templates/session_expired.html'.format(ABS_PATH), 'rb') as session_template:
+                raise web.Forbidden(session_template.read())
         results = func(self, *args)
         return results
     return wrapper
@@ -111,8 +112,8 @@ class index:
     @utilities.format_html_response
     def GET(self, path=None):
         # reset session on GET index
-        session.login = 0
-        session.kill()
+        # session.login = 0
+        # session.kill()
 
         # render the unplatform v2 front-end
         index_file = '{0}/static/ui/index.html'.format(ABS_PATH)

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { browserHistory } from 'react-router'
 
 import strings from '../locale'
 
@@ -12,6 +13,10 @@ export function log (data) {
   axios(options)
   .catch((err) => {
     console.log('error saving log data')
+    if (err.response.status == 403) {
+      console.log('session expired, redirecting to root')
+      browserHistory.push('/')
+    }
   })
 }
 
