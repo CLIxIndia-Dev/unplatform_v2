@@ -64,28 +64,7 @@ const styles = {
   },
   submitButton: {
     marginTop: '50px'
-  },
-  // usSel: {
-  //   minWidth: '216px',
-  //   height: '100%',
-  //   margin: '5px 3px',
-  //   padding: '8px',
-  //   background: 'radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, .5), hsla(259, 40%,30%, .5))',
-  //   border: 'solid 0.094rem #ffffff',
-  //   borderRadius: '100px',
-  //   color: '#ffffff',
-  //   fontFamily: 'open_sansregular',
-  //   fontSize: '1.125rem',
-  //   letterSpacing: '-0.006rem',
-  //   textAlign: 'center',
-  //   textShadow: '0 2px 2px rgba(0,0,0, 0.3)'
-  // },
-  // usSel__input: {
-  //   minHeight: '50px'
-  // },
-  // usSel__span: {
-  //   minWidth: '216px'
-  // }
+  }
 }
 
 
@@ -224,15 +203,17 @@ class HomeView extends Component {
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
 
         <main className="span_10_of_12">
-          <fieldset>
-          <legend>
           <h1 className="pg-title">{this.props.strings.splash.title}</h1>
-          <h2 className="pg-subtitle">{this.props.strings.splash.subtitle}</h2>
-          </legend>
-          <article className="but-select">
-            {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
-          </article>
-          </fieldset>
+          <form action="" className="user-select-form">
+            <fieldset>
+              <legend>
+                <h2 className="pg-subtitle">{this.props.strings.splash.subtitle}</h2>
+              </legend>
+              <article className="but-select">
+                {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
+              </article>
+            </fieldset>
+          </form>
           {userCount}
           {submitButton}
         </main>
