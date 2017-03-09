@@ -1,3 +1,6 @@
+1.2.3:
+  - Refactor how to pull version for web route.
+
 1.2.2:
   - Refactor Windows build script to use compile:ui:only
     command.
