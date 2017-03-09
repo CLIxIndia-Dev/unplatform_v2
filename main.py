@@ -6,6 +6,7 @@ import web
 import mimetypes
 import urllib
 import requests
+import functools
 
 from datetime import datetime
 
@@ -57,7 +58,7 @@ web.config.session_parameters['timeout'] = 5 * 60  # 5 minutes of inactivity
 
 session = web.session.Session(app,
                               web.session.DiskStore('{0}/webapps/unplatform/sessions'.format(ABS_PATH)),
-                              initializer={'survey'})
+                              initializer={'login': 0, 'survey': {}})
 
 
 def list_dir(root, directory, current_level=0, max_level=4):
@@ -82,6 +83,25 @@ def list_dir(root, directory, current_level=0, max_level=4):
     return sub_dirs
 
 
+def logged_in():
+    """test if the user has "logged in" to the session"""
+    if session.get('login', 0) == 1:
+        return True
+    return False
+
+
+def require_login(func):
+    """require user to be logged in; this needs to be in this file,
+    otherwise the `session` object doesn't have all the right attributes"""
+    @functools.wraps(func)
+    def wrapper(self, *args):
+        if not logged_in():
+            raise web.Forbidden()
+        results = func(self, *args)
+        return results
+    return wrapper
+
+
 class bootloader_storage_path:
     def GET(self):
         return ABS_PATH
@@ -91,6 +111,7 @@ class index:
     @utilities.format_html_response
     def GET(self, path=None):
         # reset session on GET index
+        session.login = 0
         session.kill()
 
         # render the unplatform v2 front-end
@@ -118,6 +139,7 @@ class generic_logging:
             default_log = req.json()
         return default_log
 
+    @require_login
     @utilities.format_response
     def GET(self):
         default_log = self._get_log()
@@ -127,6 +149,7 @@ class generic_logging:
         log_entries = req.json()
         return log_entries
 
+    @require_login
     @utilities.format_response
     def POST(self):
         # get or find a default log genus type
@@ -158,6 +181,7 @@ class generic_logging:
 class reset_session:
     def GET(self):
         web.header('Content-type', 'text/plain')
+        session.login = 0
         session.kill()
         return 'success'
 
@@ -165,6 +189,7 @@ class reset_session:
 class common_tools:
     # serve up the iframe pages in the modules/ directory,
     #  that then point to the actual tools, in static/
+    @require_login
     @utilities.format_html_response
     def GET(self, tool_name=None):
         tool_file = '{0}/modules/Tools/{1}/index.html'.format(ABS_PATH, tool_name)
@@ -188,6 +213,7 @@ class configuration:
 
 
 class content:
+    @require_login
     def GET(self, path=None):
         full_path = os.path.join(ABS_PATH, 'modules', path)
         if not os.path.isfile(full_path):
@@ -218,6 +244,7 @@ class modules_list:
 
 
 class oea_tool:
+    @require_login
     @utilities.format_html_response
     def GET(self, path=None):
         oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
@@ -226,6 +253,7 @@ class oea_tool:
 
 
 class user_session:
+    @require_login
     def GET(self):
         web.header('Content-type', 'text/plain')
         return session.session_id
@@ -236,6 +264,9 @@ class user_session:
         user_data['timestamp'] = str(datetime.utcnow())
         if 'sessionId' not in user_data:
             user_data['sessionId'] = session.session_id
+        if 'login' not in session:
+            session.login = 0
+        session.login = 1
         return set_user_data_file(user_data)
 
 

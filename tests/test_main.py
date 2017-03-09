@@ -6,8 +6,9 @@ import shutil
 
 from copy import deepcopy
 from nose.tools import set_trace
-from testing_utilities import BaseTestCase
+from paste.fixture import AppError
 
+from testing_utilities import BaseTestCase
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 ABS_PATH = '{0}'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
@@ -139,15 +140,15 @@ class BasicServiceTests(BaseMainTestCase):
     """
     def setUp(self):
         super(BasicServiceTests, self).setUp()
-        self.data_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
-        if os.path.isdir(self.data_dir):
-            shutil.rmtree(self.data_dir)
-        os.mkdir(self.data_dir)
+        # self.data_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
+        # if os.path.isdir(self.data_dir):
+        #     shutil.rmtree(self.data_dir)
+        # os.mkdir(self.data_dir)
 
     def tearDown(self):
         super(BasicServiceTests, self).tearDown()
-        if os.path.isdir(self.data_dir):
-            shutil.rmtree(self.data_dir)
+        # if os.path.isdir(self.data_dir):
+        #     shutil.rmtree(self.data_dir)
 
     def test_users_can_get_index_page(self):
         url = '/'
@@ -180,22 +181,62 @@ class OEATests(BaseMainTestCase):
         if not os.path.exists(self.oea_dir):
             os.makedirs(self.oea_dir)
         if not os.path.isfile(self.oea_index):
-            shutil.copyfile('{0}/tests/fixtures/index.html'.format(ABS_PATH), self.oea_index)
+            shutil.copyfile('{0}/tests/fixtures/oea/index.html'.format(ABS_PATH), self.oea_index)
 
     def tearDown(self):
         super(OEATests, self).tearDown()
 
-    def test_users_can_get_oea_index(self):
+    def test_user_without_active_session_cannot_get_oea_index(self):
+        url = '/oea'
+        req = self.app.get(url, expect_errors=True)
+        self.code(req, 403)
+
+        url = '/oea/'
+        req = self.app.get(url, expect_errors=True)
+        self.code(req, 403)
+
+    def test_active_users_can_get_oea_index(self):
+        self.login()
         url = '/oea'
         req = self.app.get(url)
         self.ok(req)
         self.message(req, 'Open Assessments')
 
     def test_users_can_get_oea_index_with_trailing_slash(self):
+        self.login()
         url = '/oea/'
         req = self.app.get(url)
         self.ok(req)
         self.message(req, 'Open Assessments')
+
+
+class ContentTests(BaseMainTestCase):
+    """Test the views for getting the Content player
+
+    """
+    def setUp(self):
+        super(ContentTests, self).setUp()
+        self.logout()
+        self.content_dir = '{0}/static/content'.format(ABS_PATH)
+        self.content_index = '{0}/index.html'.format(self.content_dir)
+        if not os.path.exists(self.content_dir):
+            os.makedirs(self.content_dir)
+        if not os.path.isfile(self.content_index):
+            shutil.copyfile('{0}/tests/fixtures/content/index.html'.format(ABS_PATH), self.content_index)
+
+    def tearDown(self):
+        super(ContentTests, self).tearDown()
+
+    def test_user_without_active_session_cannot_get_content_index(self):
+        url = '/content/'
+        req = self.app.get(url, expect_errors=True)
+        self.code(req, 403)
+
+    def test_users_can_get_content_index_with_trailing_slash(self):
+        self.login()
+        url = '/content/'
+        req = self.app.get(url, expect_errors=True)
+        self.code(req, 404)  # because there are no modules loaded
 
 
 class ModuleDirectoryListingTests(BaseMainTestCase):
@@ -342,7 +383,13 @@ class LoggingTests(BaseMainTestCase):
         #     shutil.rmtree(self.data_dir)
 
     @mock.patch('main.requests.get', side_effect=mocked_logging_get)
-    def test_can_get_log_entries(self, mock_get):
+    def test_cannot_get_log_entries_with_inactive_session(self, mock_get):
+        req = self.app.get(self.url, expect_errors=True)
+        self.code(req, 403)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    def test_can_get_log_entries_if_active_session(self, mock_get):
+        self.login()
         req = self.app.get(self.url)
         self.ok(req)
         data = self.json(req)
@@ -351,7 +398,25 @@ class LoggingTests(BaseMainTestCase):
 
     @mock.patch('main.requests.get', side_effect=mocked_logging_get)
     @mock.patch('main.requests.post', side_effect=mocked_logging_post)
-    def test_can_create_log_entry(self, mock_post, mock_get):
+    def test_cannot_create_log_entry_with_inactive_session(self, mock_post, mock_get):
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'},
+                            expect_errors=True)
+        self.code(req, 403)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_can_create_log_entry_with_active_session(self, mock_post, mock_get):
+        self.login()
         payload = {
             'action': 'pause audio',
             'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
@@ -378,7 +443,26 @@ class LoggingTests(BaseMainTestCase):
 
     @mock.patch('main.requests.get', side_effect=mocked_logging_get)
     @mock.patch('main.requests.post', side_effect=mocked_logging_post)
-    def test_session_id_passes_through_to_header_if_provided(self, mock_post, mock_get):
+    def test_session_id_does_not_pass_through_to_header_if_provided_with_inactive_session(self, mock_post, mock_get):
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857,
+            'session_id': 'foo'
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'},
+                            expect_errors=True)
+        self.code(req, 403)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_session_id_passes_through_to_header_if_provided_with_active_session(self, mock_post, mock_get):
+        self.login()
         payload = {
             'action': 'pause audio',
             'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
@@ -406,7 +490,26 @@ class LoggingTests(BaseMainTestCase):
 
     @mock.patch('main.requests.get', side_effect=mocked_logging_get)
     @mock.patch('main.requests.post', side_effect=mocked_logging_post)
-    def test_sessionId_passes_through_to_header_if_provided(self, mock_post, mock_get):
+    def test_sessionId_does_not_pass_through_to_header_if_provided_with_inactive_session(self, mock_post, mock_get):
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857,
+            'sessionId': 'bar'
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'},
+                            expect_errors=True)
+        self.code(req, 403)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_sessionId_passes_through_to_header_if_provided_with_active_session(self, mock_post, mock_get):
+        self.login()
         payload = {
             'action': 'pause audio',
             'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',

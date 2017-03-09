@@ -15,7 +15,7 @@ else:
     PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
     ABS_PATH = '{0}/unplatform_v2'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 
-SESSIONS_DIR = os.path.join(ABS_PATH, 'webapps', 'CLIx', 'sessions')
+SESSIONS_DIR = os.path.join(ABS_PATH, 'webapps', 'unplatform', 'sessions')
 
 
 class BaseTestCase(TestCase):
@@ -37,6 +37,19 @@ class BaseTestCase(TestCase):
     def json(self, _req):
         return json.loads(_req.body)
 
+    def login(self):
+        url = '/api/v1/session'
+        payload = {
+            'userType': 'test user'
+        }
+        self.app.post(url,
+                      params=json.dumps(payload),
+                      headers={'content-type': 'application/json'})
+
+    def logout(self):
+        url = '/reset_session'
+        self.app.get(url)
+
     def message(self, _req, _msg):
         self.assertIn(_msg, str(_req.body))
 
@@ -48,7 +61,9 @@ class BaseTestCase(TestCase):
         self.app = TestApp(app.wsgifunc(*middleware))
         for session_file in glob.iglob('{0}/*'.format(SESSIONS_DIR)):
             os.remove(session_file)
+        self.logout()
 
     def tearDown(self):
+        self.logout()
         for session_file in glob.iglob('{0}/*'.format(SESSIONS_DIR)):
             os.remove(session_file)
