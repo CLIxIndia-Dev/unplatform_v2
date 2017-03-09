@@ -241,8 +241,10 @@ class user_session:
 
 class version:
     def GET(self):
-        web.header('Content-type', 'text/plain')
-        return '1.2.2'
+        with open('{0}/package.json'.format(ABS_PATH), 'rb') as package_json:
+            package = json.load(package_json)
+            web.header('Content-type', 'text/plain')
+            return package['version']
 
 ################################################
 # INITIALIZER
