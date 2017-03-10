@@ -155,8 +155,6 @@ class BasicServiceTests(BaseMainTestCase):
         self.message(req, 'CLIx')
 
     def test_session_id_resets_on_index_get(self):
-        import pdb
-        pdb.set_trace()
         sessions_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
 
         self.assertEqual(len(os.listdir(sessions_dir)), 0)
