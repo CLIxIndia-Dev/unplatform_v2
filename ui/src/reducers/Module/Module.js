@@ -19,7 +19,7 @@ export default function moduleReducer (state = initialState, action) {
 
     case RECEIVE_MODULES:
       return _.assign({}, state, {
-        modules: action.modules
+        modules: action.modules ? action.modules : null
       })
 
     default:

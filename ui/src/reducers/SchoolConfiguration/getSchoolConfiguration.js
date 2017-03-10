@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import axios from 'axios'
 
 // ----
@@ -29,6 +30,14 @@ export function getSchoolConfiguration () {
     return axios(options)
     .then((response) => {
       // console.log(response.data)
+      if (_.isString(response.data)) {
+        // Most likely a "Session expired" string
+        // So we need to send this back as null,
+        //   since that is how our sessionExpiration Middleware
+        //   is going to catch it
+        dispatch(receiveSchoolConfiguration())
+        return
+      }
 
       // TODO: Save this in local storage
       dispatch(receiveSchoolConfiguration(response.data))
