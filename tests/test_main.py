@@ -154,12 +154,10 @@ class BasicServiceTests(BaseMainTestCase):
         self.ok(req)
         self.message(req, 'CLIx')
 
-    def test_session_id_resets_on_index_get(self):
+    def test_session_id_does_not_reset_on_index_get(self):
         sessions_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
 
         self.assertEqual(len(os.listdir(sessions_dir)), 0)
-        import pdb
-        pdb.set_trace()
         req = self.app.get('/version')
         self.ok(req)
 
@@ -168,7 +166,7 @@ class BasicServiceTests(BaseMainTestCase):
         req = self.app.get('/')
         self.ok(req)
 
-        self.assertEqual(len(os.listdir(sessions_dir)), 2)
+        self.assertEqual(len(os.listdir(sessions_dir)), 1)
 
 
 class OEATests(BaseMainTestCase):

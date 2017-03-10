@@ -4,7 +4,8 @@ import sys
 import glob
 
 from nose.tools import *
-from paste.fixture import TestApp
+# from paste.fixture import TestApp
+from webtest import TestApp
 from unittest import TestCase
 
 from main import app
@@ -26,7 +27,7 @@ class BaseTestCase(TestCase):
         return file_object.name.split('/')[-1]
 
     def code(self, _req, _code):
-        self.assertEqual(_req.status, _code)
+        self.assertIn(str(_code), _req.status)
 
     def created(self, _req):
         self.code(_req, 201)
@@ -54,7 +55,7 @@ class BaseTestCase(TestCase):
         self.assertIn(_msg, str(_req.body))
 
     def ok(self, _req):
-        self.assertEqual(_req.status, 200)
+        self.assertIn('200', _req.status)
 
     def setUp(self):
         middleware = []
