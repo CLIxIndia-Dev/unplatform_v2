@@ -9,3 +9,4 @@ pytest-cov
 # pytest-xdist
 # urltools
 # semantic_version
+WebTest
