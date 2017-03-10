@@ -60,35 +60,45 @@ if [ ! -d "bundle/static" ]
 then
   mkdir bundle/static
 fi
+if [ ! -d $BUILD_ROOT/static/ui ]
+then
+  echo Making directory $BUILD_ROOT/static/ui
+  mkdir -p $BUILD_ROOT/static/ui
+else
+  echo Directory $BUILD_ROOT/static/ui exists
+fi
 
 # update the virtual environment
-pip install -r requirements.txt
-pip install -r test_requirements.txt
+pip install -r $BUILD_ROOT/requirements.txt
+pip install -r $BUILD_ROOT/test_requirements.txt
 
 # generate the UI
-echo Generating the UI...
-cd ui
-yarn install
-cd ..
+cd $BUILD_ROOT/ui
 
 case $UN2_BUILD_OS in
     'windows')
         echo Compiling only UI for Windows...
-        yarn run compile:ui:only
+        cd $BUILD_ROOT/ui
+        yarn install
+        yarn run compile:prod
+        cp -rf $BUILD_ROOT/ui/dist/* $BUILD_ROOT/static/ui/
         ;;
     *)
         echo Compiling the UI...
-        yarn run compile:ui
+        cd $BUILD_ROOT/ui
+        yarn install
+        yarn run compile:prod
+        cp -rf $BUILD_ROOT/ui/dist/* $BUILD_ROOT/static/ui/
         ;;
 esac
 
-cp -r static/assets/ bundle/static/assets/
-if [ ! -d "bundle/static/ui" ]
+cp -r $BUILD_ROOT/static/assets/ $BUILD_ROOT/bundle/static/assets/
+if [ ! -d $BUILD_ROOT/bundle/static/ui ]
 then
-  mkdir -p bundle/static/ui
+  mkdir -p $BUILD_ROOT/bundle/static/ui
 fi
 
-cp -r static/ui/. bundle/static/ui
+cp -r $BUILD_ROOT/static/ui/. $BUILD_ROOT/bundle/static/ui
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
@@ -98,15 +108,15 @@ WEBENV=test nosetests tests
 # rm -rf static/ui
 
 # copy over the self-signed SSL certs
-mkdir bundle/unplatform
-cp unplatform/unplatform.cert.dummy.pem bundle/unplatform/
-cp unplatform/unplatform.key.dummy.pem bundle/unplatform/
+mkdir $BUILD_ROOT/bundle/unplatform
+cp $BUILD_ROOT/unplatform/unplatform.cert.dummy.pem $BUILD_ROOT/bundle/unplatform/
+cp $BUILD_ROOT/unplatform/unplatform.key.dummy.pem $BUILD_ROOT/bundle/unplatform/
 
 # LOGIC here to stop the script if it fails
 
 # copy the Tools in modules over
-mkdir bundle/modules
-cp -r modules/* bundle/modules/
+mkdir $BUILD_ROOT/bundle/modules
+cp -r $BUILD_ROOT/modules/* $BUILD_ROOT/bundle/modules/
 
 # copy the README
 cp README.md bundle/
@@ -245,7 +255,7 @@ git pull origin release
 cd ..
 
 # let's get back out of tool-repos and go to the root directory
-cd ..
+cd $BUILD_ROOT
 
 # build the unplatform executable and copy / move it to the final output directory
 pyinstaller main.spec
