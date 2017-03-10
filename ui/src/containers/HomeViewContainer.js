@@ -14,6 +14,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     strings: localizeStrings(state, ownProps),
     locale: state.school && state.school.schoolConfiguration ? state.school.schoolConfiguration.locale : null,
+    hasConfiguration: state.school && state.school.schoolConfiguration ? true : false,
     modules: state.module.modules ? state.module.modules : null,
     survey: state.survey.data ? state.survey.data : null
   }

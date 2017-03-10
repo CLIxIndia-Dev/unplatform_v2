@@ -90,7 +90,7 @@ class HomeView extends Component {
     if (!this.props.modules) {
       this.props.onGetModules()
     }
-    if (!this.props.locale) {
+    if (!this.props.locale && !this.props.hasConfiguration) {
       this.props.onGetConfiguration()
     }
   }
