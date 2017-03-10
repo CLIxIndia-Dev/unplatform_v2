@@ -158,7 +158,8 @@ class BasicServiceTests(BaseMainTestCase):
         sessions_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
 
         self.assertEqual(len(os.listdir(sessions_dir)), 0)
-
+        import pdb
+        pdb.set_trace()
         req = self.app.get('/version')
         self.ok(req)
 

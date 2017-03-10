@@ -115,8 +115,6 @@ class index:
         # session.login = 0
         # session.kill()
 
-        import pdb
-        pdb.set_trace()
         # render the unplatform v2 front-end
         index_file = '{0}/static/ui/index.html'.format(ABS_PATH)
         yield open(index_file, 'rb').read()
@@ -275,9 +273,9 @@ class user_session:
 
 class version:
     def GET(self):
+        web.header('Content-type', 'text/plain')
         with open('{0}/package.json'.format(ABS_PATH), 'rb') as package_json:
             package = json.load(package_json)
-            web.header('Content-type', 'text/plain')
             return package['version']
 
 ################################################
