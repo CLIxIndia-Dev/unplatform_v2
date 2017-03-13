@@ -54,7 +54,7 @@ app = web.application(urls, locals())
 
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
 web.config.session_parameters['ignore_expiry'] = False
-web.config.session_parameters['timeout'] = 15 * 60  # 15 minutes of inactivity
+web.config.session_parameters['timeout'] = 30 * 60  # 30 minutes of inactivity to match unplatform 1 behavior
 
 session = web.session.Session(app,
                               web.session.DiskStore('{0}/webapps/unplatform/sessions'.format(ABS_PATH)),
