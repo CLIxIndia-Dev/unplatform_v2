@@ -22,7 +22,7 @@ case $OS in
     OS='Linux'
     UN2_BUILD_OS="linux"
     ;;
-  'freebsd')
+  freebsd)
     OS='FreeBSD'
     UN2_BUILD_OS="linux"
     ;;
@@ -45,20 +45,20 @@ echo Build OS is $OS from `lowercase \`uname\``
 #   like ui/node_modules (building the UI) and modules/
 # also force git to remove the tool repos
 # git clean -x -d -f -f
-rm -rf bundle/
-rm -rf build/
-rm -rf dist/
+rm -rf $BUILD_ROOT/bundle/
+rm -rf $BUILD_ROOT/build/
+rm -rf $BUILD_ROOT/dist/
 
 # find . -type f -name .DS_Store -exec rm -f '{}' \;
 find . -type f -name '*.pyc' -exec rm -f '{}' \;
 
-if [ ! -d "bundle" ]
+if [ ! -d $BUILD_ROOT/bundle ]
 then
-  mkdir bundle/
+  mkdir $BUILD_ROOT/bundle/
 fi
-if [ ! -d "bundle/static" ]
+if [ ! -d $BUILD_ROOT/bundle/static ]
 then
-  mkdir bundle/static
+  mkdir $BUILD_ROOT/bundle/static
 fi
 if [ ! -d $BUILD_ROOT/static/ui ]
 then
@@ -119,17 +119,17 @@ mkdir $BUILD_ROOT/bundle/modules
 cp -r $BUILD_ROOT/modules/* $BUILD_ROOT/bundle/modules/
 
 # copy the README
-cp README.md bundle/
+cp $BUILD_ROOT/README.md $BUILD_ROOT/bundle/
 
 # generate the latest releases of each tool, from the release branch
-if [ ! -d "tool-repos" ]
+if [ ! -d $BUILD_ROOT/tool-repos ]
 then
-  mkdir tool-repos
+  mkdir $BUILD_ROOT/tool-repos
 fi
-cd tool-repos
+cd $BUILD_ROOT/tool-repos
 
 # Content player
-if [ ! -d "content_player" ]
+if [ ! -d content_player ]
 then
   git clone git@github.com:CLIxIndia-Dev/content_player.git
   cp content_player/.env.example content_player/.env
@@ -139,9 +139,9 @@ git checkout release
 git pull origin release
 yarn install
 yarn run build
-mkdir ../../bundle/static/content_player/
-cp -rf build/prod/* ../../bundle/static/content_player/
-rm -rf ../../bundle/static/content_player/.git/
+mkdir $BUILD_ROOT/bundle/static/content_player/
+cp -rf build/prod/*  $BUILD_ROOT/bundle/static/content_player/
+rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
 
 # OEA Open Embedded Assessments
 cd ..
@@ -158,9 +158,9 @@ git pull origin release
 # until they fix issue 1657? yarn seems broken on Windows, partially
 yarn install
 yarn run build
-mkdir ../../bundle/static/oea/
-cp -rf build/prod/* ../../bundle/static/oea/
-rm -rf ../../bundle/static/oea/.git/
+mkdir $BUILD_ROOT/bundle/static/oea/
+cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
+rm -rf $BUILD_ROOT/bundle/static/oea/.git/
 
 # biomechanics game
 cd ..
@@ -173,9 +173,9 @@ cd biomechanic
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/biomechanic/
-cp -rf biomechanic/* ../bundle/static/biomechanic/
-rm -rf ../bundle/static/biomechanic/.git/
+mkdir $BUILD_ROOT/bundle/static/biomechanic/
+cp -rf biomechanic/* $BUILD_ROOT/bundle/static/biomechanic/
+rm -rf $BUILD_ROOT/bundle/static/biomechanic/.git/
 
 # Physics Video player
 if [ ! -d "physics-video-player" ]
@@ -186,9 +186,9 @@ cd physics-video-player
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/physics-video-player/
-cp -rf physics-video-player/* ../bundle/static/physics-video-player/
-rm -rf ../bundle/static/physics-video-player/.git/
+mkdir $BUILD_ROOT/bundle/static/physics-video-player/
+cp -rf physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
+rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
 
 # Audio record tool
 if [ ! -d "audio-record-tool" ]
@@ -199,9 +199,9 @@ cd audio-record-tool
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/audio-record-tool/
-cp -rf audio-record-tool/* ../bundle/static/audio-record-tool/
-rm -rf ../bundle/static/audio-record-tool/.git/
+mkdir $BUILD_ROOT/bundle/static/audio-record-tool/
+cp -rf audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
+rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
 
 # Police Quad
 if [ ! -d "police-quad" ]
@@ -212,9 +212,9 @@ cd police-quad
 git checkout release
 git pull origin release
 cd ..
-mkdir ../bundle/static/police-quad/
-cp -rf police-quad/* ../bundle/static/police-quad/
-rm -rf ../bundle/static/police-quad/.git/
+mkdir $BUILD_ROOT/bundle/static/police-quad/
+cp -rf police-quad/*  $BUILD_ROOT/bundle/static/police-quad/
+rm -rf $BUILD_ROOT/bundle/static/police-quad/.git/
 
 # Open Story tool
 if [ ! -d "open-story-tool" ]
@@ -264,13 +264,13 @@ echo path following call to pyinstaller is `pwd`
 
 case $UN2_BUILD_OS in
     'windows')
-        mv dist/main bundle/unplatform_win32_ssl.exe
+        mv dist/main.exe bundle/unplatform_win32_ssl.exe
         ;;
     'linux')
         mv dist/main bundle/unplatform_linux64_ssl
         ;;
     'osx')
-        mv dist/main bundle/unplatform_osx_ssl
+        mv dist/main.app bundle/unplatform_osx_ssl.app
         ;;
 esac
 
