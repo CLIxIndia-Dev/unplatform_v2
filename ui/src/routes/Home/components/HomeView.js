@@ -13,7 +13,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
+    height: '100vh',
     flexDirection: 'column'
   },
   navWrapper: {
@@ -146,7 +146,8 @@ class HomeView extends Component {
       <label key={index}
         className={className}
         // tabIndex={0}
-        style={[styles.button, styles.userSelectButton]}>
+        style={[styles.button, styles.userSelectButton]}
+        >
         <input key={index}
           onChange={(e) => this._onHandleUserCountSelect(e)}
           type="radio"
@@ -175,9 +176,9 @@ class HomeView extends Component {
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
-        <div style={styles.countWrapper}>
+        <div>
           <h3 className="count users-count">{this.props.strings.splash.prompt}</h3>
-          <article className="count-select button-group">
+          <article className="count-select">
             {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
           </article>
         </div>
@@ -192,7 +193,8 @@ class HomeView extends Component {
       submitButton = (
         <button className="hi-but"
           onClick={this._onHandleSubmit}
-          style={[styles.button, styles.userSelectButton, styles.submitButton]}>
+          // style={[styles.button, styles.userSelectButton, styles.submitButton]}
+          >
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
           <Icon name="chevron-right" aria-hidden={true}/></button>
       )
@@ -202,7 +204,7 @@ class HomeView extends Component {
       <div>
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
 
-        <main className="span_10_of_12">
+        <main className="span_11_of_12">
           <h1 className="pg-title">{this.props.strings.splash.title}</h1>
           <form action="" className="user-select-form">
             <fieldset>
