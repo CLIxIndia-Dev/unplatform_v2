@@ -10,6 +10,7 @@ import functools
 
 from datetime import datetime
 from natsort import natsorted
+from requests.exceptions import ConnectionError
 
 from web.wsgiserver import CherryPyWSGIServer
 
@@ -55,7 +56,7 @@ app = web.application(urls, locals())
 
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
 web.config.session_parameters['ignore_expiry'] = False
-web.config.session_parameters['timeout'] = 15 * 60  # 15 minutes of inactivity
+web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
 
 session = web.session.Session(app,
                               web.session.DiskStore('{0}/webapps/unplatform/sessions'.format(ABS_PATH)),
@@ -144,40 +145,47 @@ class generic_logging:
     @require_login
     @utilities.format_response
     def GET(self):
-        default_log = self._get_log()
-        url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
-                                          default_log['id'])
-        req = requests.get(url, verify=False)
-        log_entries = req.json()
-        return log_entries
+        try:
+            default_log = self._get_log()
+        except ConnectionError:
+            return []
+        else:
+            url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
+                                              default_log['id'])
+            req = requests.get(url, verify=False)
+            log_entries = req.json()
+            return log_entries
 
     @require_login
     @utilities.format_response
     def POST(self):
         # get or find a default log genus type
-        default_log = self._get_log()
+        try:
+            default_log = self._get_log()
+        except ConnectionError:
+            return {"msg": "No QBank connection, nothing logged"}
+        else:
+            received_data = web.data()
+            if isinstance(received_data, basestring):
+                try:
+                    received_data = json.loads(received_data)
+                except TypeError:
+                    pass
 
-        received_data = web.data()
-        if isinstance(received_data, basestring):
-            try:
-                received_data = json.loads(received_data)
-            except TypeError:
-                pass
+            payload = {
+                'data': received_data
+            }
+            log_entry_url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
+                                                        default_log['id'])
+            session_id = 'none_provided'
+            if 'session_id' in received_data:
+                session_id = received_data['session_id']
+            elif 'sessionId' in received_data:
+                session_id = received_data['sessionId']
 
-        payload = {
-            'data': received_data
-        }
-        log_entry_url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
-                                                    default_log['id'])
-        session_id = 'none_provided'
-        if 'session_id' in received_data:
-            session_id = received_data['session_id']
-        elif 'sessionId' in received_data:
-            session_id = received_data['sessionId']
-
-        req = requests.post(log_entry_url, json=payload, verify=False,
-                            headers={'x-api-proxy': session_id})
-        return req.json()
+            req = requests.post(log_entry_url, json=payload, verify=False,
+                                headers={'x-api-proxy': session_id})
+            return req.json()
 
 
 class reset_session:

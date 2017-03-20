@@ -5,11 +5,11 @@ import Home from './Home'
 import SchoolConfigurationRoute from './SchoolConfiguration'
 import SubjectsRoute from './Subjects'
 import ToolsRoute from './Tools'
-import Tool from './Tool'
-import Grades from './Grades'
-import Units from './Units'
-import Lessons from './Lessons'
-import Activities from './Activities'
+import ToolRoute from './Tool'
+import GradesRoute from './Grades'
+import UnitsRoute from './Units'
+import LessonsRoute from './Lessons'
+import ActivitiesRoute from './Activities'
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
@@ -21,26 +21,11 @@ export const createRoutes = (store) => ({
     SchoolConfigurationRoute(store),
     SubjectsRoute(store),
     ToolsRoute(store),
-    {
-      path: '/tools/:toolName',
-      component: Tool,
-    },
-    {
-      path: '/subjects/:subjectName',
-      component: Grades,
-    },
-    {
-      path: '/subjects/:subjectName/grades/:gradeName',
-      component: Units,
-    },
-    {
-      path: '/subjects/:subjectName/grades/:gradeName/units/:unitName',
-      component: Lessons,
-    },
-    {
-      path: '/subjects/:subjectName/grades/:gradeName/units/:unitName/lessons/:lessonName',
-      component: Activities,
-    }
+    ToolRoute(store),
+    GradesRoute(store),
+    UnitsRoute(store),
+    LessonsRoute(store),
+    ActivitiesRoute(store)
   ]
 })
 
