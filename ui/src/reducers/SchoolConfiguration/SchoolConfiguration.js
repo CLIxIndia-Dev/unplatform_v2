@@ -29,7 +29,7 @@ export default function schoolConfigurationReducer (state = initialState, action
     case RECEIVE_SCHOOL_CONFIGURATION:
     case RECEIVE_SET_SCHOOL_CONFIGURATION:
       return _.assign({}, state, {
-        schoolConfiguration: action.configuration
+        schoolConfiguration: action.configuration ? action.configuration : null
       })
 
     case RECEIVE_UPDATE_SCHOOL_CONFIGURATION_FORM:

@@ -13,7 +13,7 @@ export default function versionReducer (state = initialState, action) {
   switch (action.type) {
     case RECEIVE_GET_VERSION:
       return _.assign({}, state, {
-        version: action.version
+        version: action.version ? action.version : null
       })
 
     case GET_VERSION_OPTIMISTIC:

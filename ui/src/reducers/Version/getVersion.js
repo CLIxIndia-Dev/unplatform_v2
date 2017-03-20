@@ -24,11 +24,20 @@ export function getVersion () {
     // console.log(data)
     dispatch(getVersionOptimistic())
     let options = {
-      url: '/version',
+      url: '/version'
     }
     return axios(options)
     .then((response) => {
       // console.log(response.data)
+      if (response.data === 'Session expired') {
+        // Most likely a "Session expired" string
+        // So we need to send this back as null,
+        //   since that is how our sessionExpiration Middleware
+        //   is going to catch it
+        dispatch(receiveGetVersion())
+        return
+      }
+
       dispatch(receiveGetVersion(response.data))
     })
     .catch((error) => {
