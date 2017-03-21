@@ -17,7 +17,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
+    // height: '100vh',
     flexDirection: 'column'
   },
   navWrapper: {
@@ -56,11 +56,12 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#fff',
-    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)'
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)',
+    zIndex: 5
   },
   nav: {
     position: 'absolute',
-    top: '30px',
+    top: '29px',
     right: '1em'
   }
 }
