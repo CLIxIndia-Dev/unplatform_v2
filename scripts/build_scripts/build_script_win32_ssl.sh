@@ -119,6 +119,9 @@ git pull origin release
 # revert to npm for now
 # until they fix issue 1657? yarn seems broken on Windows, partially
 npm install
+cd client
+npm install
+cd ..
 npm run build
 mkdir ../../bundle/static/oea/
 cp -rf build/prod/* ../../bundle/static/oea/
