@@ -28,7 +28,7 @@ export default {
     },
     splash: {
       title: "CLIx Module", // welcome title
-      subtitle: "Before you being, please tell us about yourself", // prompt for survey
+      subtitle: "Before you begin, please tell us about yourself", // prompt for survey
       teacher: "Teacher", // demographic option
       student: "Student", // demographic option
       visitor: "Visitor/Other", // demographic option
