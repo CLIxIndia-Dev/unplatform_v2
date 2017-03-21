@@ -9,6 +9,7 @@ import requests
 import functools
 
 from datetime import datetime
+from natsort import natsorted
 
 from web.wsgiserver import CherryPyWSGIServer
 
@@ -79,7 +80,7 @@ def list_dir(root, directory, current_level=0, max_level=4):
                 if not sub_dir.startswith('.') and os.path.isdir(full_sub_dir_path):
                     sub_dirs.append(new_sub_dir)
                     sub_dirs += list_dir(root, new_sub_dir, current_level=current_level + 1)
-            sub_dirs.sort()
+            sub_dirs = natsorted(sub_dirs)
     return sub_dirs
 
 
