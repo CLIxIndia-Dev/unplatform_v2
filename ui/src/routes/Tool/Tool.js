@@ -123,7 +123,7 @@ class Subjects extends Component {
     let toolUrl = `/common/${this.props.toolName}`
     return (
       <div style={styles.container} >
-        <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
+        <img alt="" style={styles.backgroundImage}/>
         <header style={styles.header}>
           <h1 className="logo">CLIx Connected Learning Initiative</h1>
           <p className="unplat-v">unplatform version {this.props.version}</p>
