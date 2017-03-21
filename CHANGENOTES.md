@@ -1,3 +1,7 @@
+1.2.6:
+  - Add `npm install` command for `client` directory
+    for OEA.
+
 1.2.5:
   - Return modules list in natural sorted order.
 
