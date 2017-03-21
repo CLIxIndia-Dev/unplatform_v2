@@ -1,3 +1,6 @@
+1.2.8:
+  - Copy template directories on windows build.
+
 1.2.7:
   - Remove background image on indidivual tool page.
   - Attempt to make tool iframes wider.
