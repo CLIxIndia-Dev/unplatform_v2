@@ -1,3 +1,6 @@
+1.2.9:
+  - Fix the template copy.
+
 1.2.8:
   - Copy template directories on windows build.
 
