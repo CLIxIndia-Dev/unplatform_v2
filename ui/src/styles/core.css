@@ -1,7 +1,7 @@
-@import 'base/html5reset.css' screen;
-@import 'base/responsive.css' screen;
+@import 'html5reset.css' screen;
+@import 'responsive.css' screen;
 @import '../../node_modules/font-awesome/css/font-awesome.min.css' screen;
-@import 'base/fonts.css' screen;
+@import 'fonts.css' screen;
 
 *, *:after, *:before {
   box-sizing: border-box;

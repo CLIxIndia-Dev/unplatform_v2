@@ -1,4 +1,15 @@
-.toc {
+
+body {
+  font-family: 'open_sansregular', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+main {
+  display: flex;
+}
+
+git sta.toc {
   align-items: stretch;
   background-color: #4a4a4a;
 }
