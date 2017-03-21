@@ -1,3 +1,6 @@
+1.2.5:
+  - Return modules list in natural sorted order.
+
 1.2.4:
   - Change how sessions are managed and expire.
   - Set default session expiration to 15 minutes of inactivity.
