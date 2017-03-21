@@ -24,7 +24,7 @@ mkdir bundle/static/
 
 # copy the session expired template
 mkdir bundle/templates/
-cp templates/ bundle/templates/
+cp templates/* bundle/templates/
 
 # update the virtualenvironment
 pip install -r requirements.txt
