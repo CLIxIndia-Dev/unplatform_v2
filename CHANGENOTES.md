@@ -1,3 +1,7 @@
+1.2.7:
+  - Remove background image on indidivual tool page.
+  - Attempt to make tool iframes wider.
+
 1.2.6:
   - Add `npm install` command for `client` directory
     for OEA.
