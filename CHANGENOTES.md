@@ -1,3 +1,8 @@
+1.2.10:
+  - Fix the multiple scrollbars.
+  - Fix the z-index of the unplatform header to appear above content.
+  - Begins reworking Homeview component for keyboard accessibility.
+
 1.2.9:
   - Fix the template copy.
 
@@ -39,7 +44,7 @@
   - merge in TravisCI configuration for automated testing.
 
 1.1.0
-  - Updated the data extraction script for unplatform to 
+  - Updated the data extraction script for unplatform to
     copy the JSON files instead of the .sqlite3 file.
 
 1.0.0
