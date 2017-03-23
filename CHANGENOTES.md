@@ -1,3 +1,6 @@
+1.3.0:
+  - Add session timeout warning modal. Requires `content_player` v1.1.0.
+
 1.2.10:
   - Fix the multiple scrollbars.
   - Fix the z-index of the unplatform header to appear above content.
