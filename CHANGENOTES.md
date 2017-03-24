@@ -1,3 +1,6 @@
+1.3.1:
+  - Minor fixes to OS X build script.
+
 1.3.0:
   - Add session timeout warning modal. Requires `content_player` v1.1.0.
 
