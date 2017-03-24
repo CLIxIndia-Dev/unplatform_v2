@@ -37,6 +37,7 @@ cd ..
 
 npm run compile:ui
 # mkdir bundle/static
+mkdir bundle/static/ui
 cp -r static/assets/ bundle/static/assets/
 cp static/ui/ bundle/static/ui/
 
