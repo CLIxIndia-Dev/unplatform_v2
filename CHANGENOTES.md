@@ -1,3 +1,7 @@
+1.3.3:
+  - Include OEA and content player configs in this repo.
+  - Update build scripts to use OEA and content player configs.
+
 1.3.2:
   - Minor fixes to tools view/removes multiple scrollbars.
   - Fix the z-index of header to appear above tools.
