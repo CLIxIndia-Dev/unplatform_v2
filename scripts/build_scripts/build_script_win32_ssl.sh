@@ -92,7 +92,7 @@ cd qbank-lite-bundles
 git checkout release
 git pull origin release
 cd ..
-cp qbank-lite-bundles/release/qbank-lite*.exe ../bundle/
+
 
 # Content player
 if [ ! -d "content_player" ]
@@ -101,9 +101,18 @@ then
   cp content_player/.env.example content_player/.env
 fi
 cd content_player
-git checkout release
-git pull origin release
+
+git checkout master
+
+# remove our local config to prevent git merge conflicts
+rm -f client/html/layouts/application.html
+
+git pull origin master
 npm install
+
+# put in our content player local config so it builds properly
+cp -f ../../scripts/content_player_build_config/application.html client/html/layouts/application.html
+
 npm run build
 mkdir ../../bundle/static/content_player/
 cp -rf build/prod/* ../../bundle/static/content_player/
@@ -118,14 +127,28 @@ then
   # cp OpenAssessmentsClient/.env.example OpenAssessmentsClient/.env
 fi
 cd OpenAssessmentsClient
-git checkout release
-git pull origin release
+
+git checkout master
+
+# remove our local config to prevent git merge conflicts
+rm -f client/html/layouts/application.html
+rm -f client/html/layouts/partials/_head.html
+rm -f client/config/settings.js
+
+git pull origin master
+
 # revert to npm for now
 # until they fix issue 1657? yarn seems broken on Windows, partially
 npm install
 cd client
 npm install
 cd ..
+
+# put in our OEA local config so it builds properly
+cp -f ../../scripts/oea_build_config/application.html client/html/layouts/application.html
+cp -f ../../scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
+cp -f ../../scripts/oea_build_config/settings.js client/config/settings.js
+
 npm run build
 mkdir ../../bundle/static/oea/
 cp -rf build/prod/* ../../bundle/static/oea/
