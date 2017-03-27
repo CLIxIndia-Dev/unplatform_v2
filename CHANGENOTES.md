@@ -1,3 +1,7 @@
+1.3.2:
+  - Minor fixes to tools view/removes multiple scrollbars.
+  - Fix the z-index of header to appear above tools.
+
 1.3.1:
   - Minor fixes to OS X build script.
 
