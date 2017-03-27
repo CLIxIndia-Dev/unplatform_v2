@@ -1,0 +1,37 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Connected Learning Initiative</title>
+    <meta name="description" content="Connected Learning Initiative">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+      }
+      window.DEFAULT_SETTINGS = {
+        epubUrl:"",
+        locale: "en",
+        user_id: 0,
+        apiUrl: "",
+        loggingApiUrl: "https://localhost:8888",
+        loggingApiPath: "api/appdata",
+        sessionId: getCookie('session_id')
+      };
+      window.DEFAULT_JWT = {};
+    </script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <%- include('./partials/_header.html') %>
+    <%- content %>
+  </body>
+</html>
