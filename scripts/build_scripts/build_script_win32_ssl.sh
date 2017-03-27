@@ -92,6 +92,7 @@ cd qbank-lite-bundles
 git checkout release
 git pull origin release
 cd ..
+cp qbank-lite-bundles/release/qbank-lite*.exe ../bundle/
 
 
 # Content player
