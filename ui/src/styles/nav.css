@@ -3,6 +3,7 @@ body {
   font-family: 'open_sansregular', Arial, sans-serif;
   font-weight: normal;
   font-size: 1em;
+  margin: 0;
 }
 
 main {
@@ -148,6 +149,21 @@ li.effect-bar:hover a::before {
 }
 
 .fill-win {
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 100vh;
+  width: 100%;
+}
+
+.fill-win > body {
+  margin: 0;
+}
+
+.tool-fill-win {
+  position:absolute;
+  left: 0;
+  top: 0;
   margin: 0;
   padding: 0;
   border: none;
