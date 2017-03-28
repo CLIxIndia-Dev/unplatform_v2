@@ -1,12 +1,9 @@
 import _ from 'lodash'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import Radium from 'radium'
-import {Icon} from 'react-fa'
 
-let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
-
-import {log} from '../../utilities'
+import { log } from '../../utilities'
 
 import '../../styles/core.css'
 import '../../styles/buttons.css'
@@ -19,7 +16,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
+    height: '100vh',
     flexDirection: 'column'
   },
   navWrapper: {
@@ -61,11 +58,12 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#fff',
-    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)'
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)',
+    zIndex: 3
   },
   nav: {
     position: 'absolute',
-    top: '30px',
+    top: '26px',
     right: '1em'
   }
 }
@@ -110,7 +108,7 @@ class Subjects extends Component {
       sessionModal = (
         <div className="container-popup">
           <dialog open className="zoomModal span_6_of_12">
-            <h2 className="zoom-label">{this.props.strings.unplatformNav.endSession}"</h2>
+            <h2 className="zoom-label">{this.props.strings.unplatformNav.endSession}</h2>
            <form method="dialog">
               <button value="close" onClick={this._onFinishLesson}>{this.props.strings.prompt.yes}</button>
               <button value="close" onClick={this._onToggleModal}>{this.props.strings.prompt.no}</button>
@@ -123,7 +121,7 @@ class Subjects extends Component {
     let toolUrl = `/common/${this.props.toolName}`
     return (
       <div style={styles.container} >
-        <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
+        <img alt="" style={styles.backgroundImage}/>
         <header style={styles.header}>
           <h1 className="logo">CLIx Connected Learning Initiative</h1>
           <p className="unplat-v">unplatform version {this.props.version}</p>
@@ -133,7 +131,7 @@ class Subjects extends Component {
             <button onClick={this._onToggleModal}>{this.props.strings.unplatformNav.finishLesson}</button>
           </nav>
         </header>
-        <main className="span_10_of_12">
+        <main className="span_12_of_12">
           <iframe src={toolUrl} className="fill-win" frameBorder="0" allowfullscreen></iframe>
           {sessionModal}
         </main>

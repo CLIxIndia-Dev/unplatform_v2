@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 import { browserHistory } from 'react-router'
 import {Icon} from 'react-fa'
 import Radium from 'radium'
+// import '../../../styles/core.css'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers4.svg')
 
@@ -12,7 +13,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
+    height: '100vh',
     flexDirection: 'column'
   },
   navWrapper: {
@@ -107,26 +108,32 @@ class HomeView extends Component {
   }
 
   renderUserTypeButtons = (label, index) => {
-    let className = "button-gradient"
+    let className = "user-select"
     let checked = false
     if (this.props.survey && this.props.survey.userType === label) {
-      className = "button-gradient-active"
+      // className = "button-gradient-active"
       checked = true
     }
     return (
+      <div className={className}>
       <label key={index}
-        style={[styles.button, styles.userSelectButton]}
-        className={className}
-        tabIndex={0}>
+        // style={[styles.button, styles.userSelectButton]}
+        // className={className}
+        // tabIndex={0}
+        >
         <input key={index}
           onChange={(e) => this._onHandleUserTypeSelect(e)}
           type="radio"
           name="userType"
           value={label}
-          tabIndex={-1}
-          checked={checked}/>
-          {label}
+          // tabIndex={-1}
+          checked={checked}
+          className="user-select__input"
+          ref={(input) => { this.inputField = input; }}
+          />
+        {label}
       </label>
+      </div>
     )
   }
 
@@ -138,14 +145,15 @@ class HomeView extends Component {
     return (
       <label key={index}
         className={className}
-        tabIndex={0}
-        style={[styles.button, styles.userSelectButton]}>
+        // tabIndex={0}
+        style={[styles.button, styles.userSelectButton]}
+        >
         <input key={index}
           onChange={(e) => this._onHandleUserCountSelect(e)}
           type="radio"
           name="userCount"
           value={label}
-          tabIndex={-1}
+          // tabIndex={-1}
           checked={this.props.survey.userCount === label}/>
           {label}
       </label>
@@ -168,9 +176,9 @@ class HomeView extends Component {
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
-        <div style={styles.countWrapper}>
+        <div>
           <h3 className="count users-count">{this.props.strings.splash.prompt}</h3>
-          <article className="count-select button-group">
+          <article className="count-select">
             {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
           </article>
         </div>
@@ -185,21 +193,29 @@ class HomeView extends Component {
       submitButton = (
         <button className="hi-but"
           onClick={this._onHandleSubmit}
-          style={[styles.button, styles.userSelectButton, styles.submitButton]}>
+          // style={[styles.button, styles.userSelectButton, styles.submitButton]}
+          >
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
           <Icon name="chevron-right" aria-hidden={true}/></button>
       )
     }
     return (
-      <div style={styles.container} >
+      // <div style={styles.container} >
+      <div>
         <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
 
-        <main className="span_10_of_12">
+        <main className="span_11_of_12">
           <h1 className="pg-title">{this.props.strings.splash.title}</h1>
-          <h2 className="pg-subtitle">{this.props.strings.splash.subtitle}</h2>
-          <article className="but-select button-group">
-            {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
-          </article>
+          <form action="" className="user-select-form">
+            <fieldset>
+              <legend>
+                <h2 className="pg-subtitle">{this.props.strings.splash.subtitle}</h2>
+              </legend>
+              <article className="but-select">
+                {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
+              </article>
+            </fieldset>
+          </form>
           {userCount}
           {submitButton}
         </main>

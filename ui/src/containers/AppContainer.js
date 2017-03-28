@@ -8,8 +8,6 @@ import {getModules} from '../reducers/Module/getModules'
 import {getVersion} from '../reducers/Version/getVersion'
 
 class AppContainer extends Component {
-  // TODO: Check if school configuration is in local storage
-  // otherwise, fetch it
   static propTypes = {
     routes : PropTypes.object.isRequired,
     store  : PropTypes.object.isRequired
@@ -45,7 +43,7 @@ class AppContainer extends Component {
 
     return (
       <Provider store={store}>
-        <div style={{ height: '100%' }}>
+        <div>
           <Router history={browserHistory} children={routes} />
         </div>
       </Provider>
