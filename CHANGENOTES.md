@@ -1,3 +1,6 @@
+1.3.4:
+  - Fix windows build script; copy qbank executable.
+
 1.3.3:
   - Include OEA and content player configs in this repo.
   - Update build scripts to use OEA and content player configs.
