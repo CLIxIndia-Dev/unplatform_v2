@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# This script assumes that you have checked out the desired release / version
-#   that you want to build
+# This script assumes that you have checked out the release / version
+# that you want to build.
+# This script must be run from the <project root>/scripts/build_scripts directory
 
 cd ../../
 BUILD_ROOT=`pwd`
@@ -18,12 +19,8 @@ OS=`lowercase \`uname\``
 # OS="`uname`"
 UN2_BUILD_OS="platform_undetected"
 case $OS in
-  linux)
+  linux | freebsd)
     OS='Linux'
-    UN2_BUILD_OS="linux"
-    ;;
-  freebsd)
-    OS='FreeBSD'
     UN2_BUILD_OS="linux"
     ;;
   mingw* | msys* | cygwin | windowsnt)
@@ -42,14 +39,13 @@ echo Build OS is $OS from `lowercase \`uname\``
 
 # reset the directory to get rid of previous build artifacts
 # Tradeoff of using git clean here, is that it also removes useful things
-#   like ui/node_modules (building the UI) and modules/
-# also force git to remove the tool repos
+# like ui/node_modules (building the UI) and modules/.
+# It also forces git to remove the tool repos which makes the build longer.
 # git clean -x -d -f -f
 rm -rf $BUILD_ROOT/bundle/
 rm -rf $BUILD_ROOT/build/
 rm -rf $BUILD_ROOT/dist/
 
-# find . -type f -name .DS_Store -exec rm -f '{}' \;
 find . -type f -name '*.pyc' -exec rm -f '{}' \;
 
 if [ ! -d $BUILD_ROOT/bundle ]
@@ -98,6 +94,9 @@ then
   mkdir -p $BUILD_ROOT/bundle/static/ui
 fi
 
+# TODO: Determine if the contents of /static/ui are a build/testing artifact.
+# If they are then consider changing the copy to a move, or explicitly remove
+# the generated files.  See commented out code below.
 cp -r $BUILD_ROOT/static/ui/. $BUILD_ROOT/bundle/static/ui
 
 # run the existing server-side API tests
@@ -111,8 +110,6 @@ WEBENV=test nosetests tests
 mkdir $BUILD_ROOT/bundle/unplatform
 cp $BUILD_ROOT/unplatform/unplatform.cert.dummy.pem $BUILD_ROOT/bundle/unplatform/
 cp $BUILD_ROOT/unplatform/unplatform.key.dummy.pem $BUILD_ROOT/bundle/unplatform/
-
-# LOGIC here to stop the script if it fails
 
 # copy the Tools in modules over
 mkdir $BUILD_ROOT/bundle/modules
@@ -149,13 +146,12 @@ cd ..
 if [ ! -d "OpenAssessmentsClient" ]
 then
   git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
-  # cp OpenAssessmentsClient/.env.example OpenAssessmentsClient/.env
 fi
 cd OpenAssessmentsClient
 git checkout release
 git pull origin release
-# revert to npm for now
-# until they fix issue 1657? yarn seems broken on Windows, partially
+# Using Yarn (instead of npm) in spite of Yarn issue
+# 1657 on Windows. Yarn seems to work on Windows now.
 yarn install
 yarn run build
 mkdir $BUILD_ROOT/bundle/static/oea/
@@ -243,8 +239,8 @@ cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
 rm -rf ../bundle/static/turtle-blocks/.git/
 
 # find and copy the latest qbank executable that should be included with this release
-# FILE=$(find external_packages/qbank/ -name qbank-lite*mac | sort -n | tail -1)
-# cp $FILE bundle/$FILE
+# QBANK_FILE=$(find external_packages/qbank/ -name qbank-lite*mac | sort -n | tail -1)
+# cp $QBANK_FILE bundle/$QBANK_FILE
 if [ ! -d "qbank-lite-bundles" ]
 then
   git clone git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
@@ -258,44 +254,58 @@ cd ..
 cd $BUILD_ROOT
 
 # build the unplatform executable and copy / move it to the final output directory
-pyinstaller main.spec
+pyinstaller $BUILD_ROOT/main.spec
 
 echo path following call to pyinstaller is `pwd`
 
 case $UN2_BUILD_OS in
     'windows')
-        mv dist/main.exe bundle/unplatform_win32_ssl.exe
+        mv $BUILD_ROOT/dist/main.exe bundle/unplatform_win32_ssl.exe
         ;;
     'linux')
-        mv dist/main bundle/unplatform_linux64_ssl
+        mv $BUILD_ROOT/dist/main bundle/unplatform_linux64_ssl
         ;;
     'osx')
-        mv dist/main.app bundle/unplatform_osx_ssl.app
+        mv $BUILD_ROOT/dist/main.app bundle/unplatform_osx_ssl.app
         ;;
 esac
-
 
 # copy over the "launcher" bat file that opens the unplatform and qbank executables
 case $UN2_BUILD_OS in
     'windows')
-        cp scripts/launchers/unplatform_win32_ssl.bat bundle/
+        cp $BUILD_ROOT/scripts/launchers/unplatform_win32_ssl.bat bundle/
         # copy over utility files for FSP data extraction
-        cp scripts/data_extraction/DataExtractionScript.bat bundle/
-        cp scripts/data_extraction/zipjs.bat bundle/
+        cp $BUILD_ROOT/scripts/data_extraction/DataExtractionScript.bat bundle/
+        cp $BUILD_ROOT/scripts/data_extraction/zipjs.bat bundle/
         # make sure to copy the msvcr100.dll from the system into bundle/
         # otherwise you'll run into an error on deployments
         cp C:\\Windows\\System32\\msvcr100.dll bundle/
        ;;
     'linux')
-        cp scripts/launchers/unplatform_linux64_ssl.sh bundle/
+        cp $BUILD_ROOT/scripts/launchers/unplatform_linux64_ssl.sh bundle/
         ;;
     'osx')
-        cp scripts/launchers/unplatform_osx_ssl.sh bundle/
+        cp $BUILD_ROOT/scripts/launchers/unplatform_osx_ssl.sh bundle/
         ;;
 esac
 
 # for now ... change this to appropriate platform build later
-cp $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/qbank-lite*ubuntu* $BUILD_ROOT/bundle/
+# cp $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/qbank-lite*ubuntu* $BUILD_ROOT/bundle/
+
+case $UN2_BUILD_OS in
+    'windows')
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*exe | sort -n | tail -1)
+        ;;
+    'linux')
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*ubuntu* | sort -n | tail -1)
+        ;;
+    'osx')
+        # TODO: When we build working QBank-lite binaries for OSX, change "ubuntu" to the "osx" slug
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*ubuntu* | sort -n | tail -1)
+        ;;
+esac
+echo QBank-lite binary is $QBANK_FILE
+cp $QBANK_FILE  $BUILD_ROOT/bundle/
 
 # Zip up the final bundle/ directory and name the file per the unplatform version
 VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
