@@ -127,10 +127,7 @@ class BaseMainTestCase(BaseTestCase):
         self.db = sqlite3.connect('unplatform.sqlite3')
 
     def tearDown(self):
-        # don't teardown again here, because the BaseTestCase tearDown
-        # will try to remove the test_datastore directory,
-        # but that isn't re-created automatically with these tests
-        # super(BaseMainTestCase, self).tearDown()
+        super(BaseMainTestCase, self).tearDown()
         self.db.close()
 
 
