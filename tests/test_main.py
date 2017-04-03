@@ -164,8 +164,6 @@ class BasicServiceTests(BaseMainTestCase):
         self.message(req, 'CLIx')
 
     def test_session_id_does_not_reset_on_index_get(self):
-        import pdb
-        pdb.set_trace()
         self.assertEqual(self.num_sessions(), 0)
         req = self.app.get('/version')
         self.ok(req)
