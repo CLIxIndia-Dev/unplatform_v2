@@ -191,6 +191,8 @@ class OEATests(BaseMainTestCase):
 
     def tearDown(self):
         super(OEATests, self).tearDown()
+        if os.path.exists(self.oea_dir):
+            shutil.rmtree(self.oea_dir)
 
     def test_user_without_active_session_cannot_get_oea_index(self):
         url = '/oea'
@@ -223,7 +225,7 @@ class ContentTests(BaseMainTestCase):
     def setUp(self):
         super(ContentTests, self).setUp()
         self.logout()
-        self.content_dir = '{0}/static/content'.format(ABS_PATH)
+        self.content_dir = '{0}/static/content_player'.format(ABS_PATH)
         self.content_index = '{0}/index.html'.format(self.content_dir)
         if not os.path.exists(self.content_dir):
             os.makedirs(self.content_dir)
@@ -232,6 +234,8 @@ class ContentTests(BaseMainTestCase):
 
     def tearDown(self):
         super(ContentTests, self).tearDown()
+        if os.path.exists(self.content_dir):
+            shutil.rmtree(self.content_dir)
 
     def test_user_without_active_session_cannot_get_content_index(self):
         url = '/content/'
