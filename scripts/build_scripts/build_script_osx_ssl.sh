@@ -14,6 +14,9 @@ rm -rf bundle/
 rm -rf build/
 rm -rf dist/
 
+# remove the sqlite3 database used to store sessions
+rm *.sqlite3
+
 find . -type f -name .DS_Store -exec rm -f '{}' \;
 find . -type f -name '*.pyc' -exec rm -f '{}' \;
 
@@ -25,6 +28,14 @@ if [ ! -d "bundle/static" ]
 then
   mkdir bundle/static
 fi
+
+# copy the session expired template
+mkdir bundle/templates/
+cp templates/* bundle/templates/
+
+# create and move the sqlite3 database for sessions
+python session_migration.py
+mv unplatform.sqlite3 bundle/
 
 # update the virtualenvironment
 pip install -r requirements.txt
