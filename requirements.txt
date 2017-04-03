@@ -14,4 +14,4 @@ PyInstaller==3.2
 pyOpenSSL==16.2.0
 requests==2.13.0
 six==1.10.0
--e git://github.com/CLIxIndia-Dev/webpy.git@025d7f43c0eea78f724d41edff13e0cf8cf46028#egg=web.py
+-e git://github.com/CLIxIndia-Dev/webpy.git@9e15a4933565533c5dbacd95ceff6f6621fb0d62#egg=web.py
