@@ -76,6 +76,9 @@ cp scripts/data_extraction/zipjs.bat bundle/
 # copy the README
 cp README.md bundle/
 
+# copy package.json so unplatform can report its version
+cp package.json bundle/
+
 # generate the latest releases of each tool, from the release branch
 if [ ! -d "tool-repos" ]
 then
