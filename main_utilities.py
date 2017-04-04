@@ -35,7 +35,7 @@ def set_configuration_file(data):
 
 def set_user_data_file(data):
     if not os.path.isdir(USER_DATA_DIR):
-        os.mkdir(USER_DATA_DIR)
+        os.makedirs(USER_DATA_DIR)
     if not isinstance(data, dict):
         data = json.loads(dict)
     user_file = '{0}/{1}.json'.format(USER_DATA_DIR,

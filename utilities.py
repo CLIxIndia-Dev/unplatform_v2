@@ -85,3 +85,9 @@ def allow_cors(func):
         web.header("Access-Control-Max-Age", "1728000")
         return results
     return wrapper
+
+
+def get_byte_ranges():
+    if 'HTTP_RANGE' in web.ctx.env:
+        return web.ctx.env['HTTP_RANGE'].split('=')[-1].split('-')
+    return None
