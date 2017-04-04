@@ -1,3 +1,7 @@
+## [1.3.6] - 2017-04-03
+### Added
+- Fix OS X and Win build scripts to copy `package.json` to bundle.
+
 ## [1.3.5] - 2017-03-28
 ### Added
 - Add acknowledgements in README.
@@ -71,4 +75,5 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.4...v1.3.5
