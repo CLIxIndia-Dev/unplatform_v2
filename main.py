@@ -229,7 +229,10 @@ class configuration:
 
 
 class content:
-    @require_login
+    # remove this for performance...behavior should be the same, because
+    # whenever content logs to the generic logging API, that will check
+    # logged in state.
+    # @require_login
     def GET(self, path=None):
         full_path = os.path.join(ABS_PATH, 'modules', path)
         if not os.path.isfile(full_path):
