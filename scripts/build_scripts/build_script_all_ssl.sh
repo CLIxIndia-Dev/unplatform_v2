@@ -101,10 +101,8 @@ cp -r $BUILD_ROOT/static/ui/. $BUILD_ROOT/bundle/static/ui
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
-WEBENV=test nosetests tests
+WEBENV=test pytest  # nosetests tests
 
-# Once the tests are complete, remove build artifacts from '/static/' directory
-# rm -rf static/ui
 
 # copy over the self-signed SSL certs
 mkdir $BUILD_ROOT/bundle/unplatform
@@ -121,6 +119,7 @@ cp $BUILD_ROOT/README.md $BUILD_ROOT/bundle/
 # copy package.json so unplatform can report its version
 cp $BUILD_ROOT/package.json bundle/
 
+
 # generate the latest releases of each tool, from the release branch
 if [ ! -d $BUILD_ROOT/tool-repos ]
 then
@@ -129,40 +128,67 @@ fi
 cd $BUILD_ROOT/tool-repos
 
 # Content player
+echo Processing Content Player
+cd $BUILD_ROOT/tool-repos
 if [ ! -d content_player ]
 then
   git clone git@github.com:CLIxIndia-Dev/content_player.git
   cp content_player/.env.example content_player/.env
 fi
 cd content_player
-git checkout release
-git pull origin release
+
+# remove our local config to prevent git merge conflicts
+rm -f client/html/layouts/application.html
+
+git pull origin master
 yarn install
+
+# put in our content player local config so it builds properly
+cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/html/layouts/application.html
+
 yarn run build
 mkdir $BUILD_ROOT/bundle/static/content_player/
 cp -rf build/prod/*  $BUILD_ROOT/bundle/static/content_player/
 rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
 
 # OEA Open Embedded Assessments
-cd ..
+echo Processing Open Assessments Client
+cd $BUILD_ROOT/tool-repos
 
 if [ ! -d "OpenAssessmentsClient" ]
 then
   git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
 fi
 cd OpenAssessmentsClient
-git checkout release
-git pull origin release
+git checkout master
+
+# remove our local config to prevent git merge conflicts
+rm -f client/html/layouts/application.html
+rm -f client/html/layouts/partials/_head.html
+rm -f client/config/settings.js
+
+git pull origin master
+
 # Using Yarn (instead of npm) in spite of Yarn issue
 # 1657 on Windows. Yarn seems to work on Windows now.
 yarn install
-yarn run build
+cd client
+yarn install
+cd ..
+
+# put in our OEA local config so it builds properly
+cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/application.html
+cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
+cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
+
+
 mkdir $BUILD_ROOT/bundle/static/oea/
 cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
 rm -rf $BUILD_ROOT/bundle/static/oea/.git/
 
 # biomechanics game
-cd ..
+echo Processing Biomechanics game
+cd $BUILD_ROOT/tool-repos
 
 if [ ! -d "biomechanic" ]
 then
@@ -177,6 +203,8 @@ cp -rf biomechanic/* $BUILD_ROOT/bundle/static/biomechanic/
 rm -rf $BUILD_ROOT/bundle/static/biomechanic/.git/
 
 # Physics Video player
+echo Processing Physics Video player
+cd $BUILD_ROOT/tool-repos
 if [ ! -d "physics-video-player" ]
 then
   git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
@@ -190,6 +218,8 @@ cp -rf physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
 rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
 
 # Audio record tool
+echo Processing Audio Record tool
+cd $BUILD_ROOT/tool-repos
 if [ ! -d "audio-record-tool" ]
 then
   git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
@@ -203,6 +233,8 @@ cp -rf audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
 rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
 
 # Police Quad
+echo Processing Police Quad
+cd $BUILD_ROOT/tool-repos
 if [ ! -d "police-quad" ]
 then
   git clone git@github.com:CLIxIndia-Dev/police-quad.git
@@ -216,6 +248,8 @@ cp -rf police-quad/*  $BUILD_ROOT/bundle/static/police-quad/
 rm -rf $BUILD_ROOT/bundle/static/police-quad/.git/
 
 # Open Story tool
+echo Processing Open Story tool
+cd $BUILD_ROOT/tool-repos
 if [ ! -d "open-story-tool" ]
 then
   git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
@@ -228,7 +262,9 @@ mkdir ../bundle/static/open-story-tool/
 cp -rf open-story-tool/* ../bundle/static/open-story-tool/
 rm -rf ../bundle/static/open-story-tool/.git/
 
-# Turtle Blocks tool
+# Turtle Blocks
+echo Processing Turtle Blocks
+cd $BUILD_ROOT/tool-repos
 if [ ! -d "turtle-blocks" ]
 then
   git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
@@ -241,9 +277,10 @@ mkdir ../bundle/static/turtle-blocks/
 cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
 rm -rf ../bundle/static/turtle-blocks/.git/
 
-# find and copy the latest qbank executable that should be included with this release
-# QBANK_FILE=$(find external_packages/qbank/ -name qbank-lite*mac | sort -n | tail -1)
-# cp $QBANK_FILE bundle/$QBANK_FILE
+
+# QBank-lite Bundles
+echo Processing QBank-lite Bundles
+cd $BUILD_ROOT/tool-repos
 if [ ! -d "qbank-lite-bundles" ]
 then
   git clone git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
@@ -251,7 +288,7 @@ fi
 cd qbank-lite-bundles
 git checkout release
 git pull origin release
-cd ..
+
 
 # let's get back out of tool-repos and go to the root directory
 cd $BUILD_ROOT
@@ -310,7 +347,19 @@ cp $QBANK_FILE  $BUILD_ROOT/bundle/
 
 # Zip up the final bundle/ directory and name the file per the unplatform version
 VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
-OUTPUT="unplatform_v${VERSION//\'/}_osx.zip"
+
+case $UN2_BUILD_OS in
+    'windows')
+        OUTPUT="unplatform_v${VERSION//\'/}_win32_ssl.zip"
+        ;;
+    'linux')
+        OUTPUT="unplatform_v${VERSION//\'/}_linux64_ssl.zip"
+        ;;
+    'osx')
+        OUTPUT="unplatform_v${VERSION//\'/}_osx.zip"
+        ;;
+esac
+
 # can also add -T -m options if we don't want to keep the source files
 zip -r  -q $OUTPUT bundle && echo "bundle zipped" || echo "error zipping bundle"
 
