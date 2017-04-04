@@ -1,3 +1,13 @@
+## [1.3.7] - 2017-04-04
+### Added
+- Python script to standup the SQLite session DB.
+
+### Changed
+- Change AssetContent streaming to allow for `Accept Range` header.
+- Change session management to SQLite, instead of Disk.
+- Updated OS X and Windows build scripts to manage SQLite DB.
+- Updated Travis CI file for SQLite DB.
+
 ## [1.3.6] - 2017-04-03
 ### Added
 - Fix OS X and Win build scripts to copy `package.json` to bundle.
@@ -75,5 +85,6 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.7]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.6...v1.3.7
 [1.3.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.4...v1.3.5
