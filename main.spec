@@ -1,14 +1,16 @@
 # -*- mode: python -*-
+import os
 
 block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['/Users/cjshaw/Documents/Projects/CLIx/unplatform_v2'],
+             pathex=[os.getcwd()],
              binaries=None,
              datas=[('unplatform/*', 'unplatform'),
                     ('static/*', 'static')],
-             hiddenimports=['_cffi_backend'],
+             hiddenimports=['_cffi_backend',
+                            'sqlite3'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
