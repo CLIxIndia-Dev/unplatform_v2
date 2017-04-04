@@ -118,6 +118,9 @@ cp -r $BUILD_ROOT/modules/* $BUILD_ROOT/bundle/modules/
 # copy the README
 cp $BUILD_ROOT/README.md $BUILD_ROOT/bundle/
 
+# copy package.json so unplatform can report its version
+cp $BUILD_ROOT/package.json bundle/
+
 # generate the latest releases of each tool, from the release branch
 if [ ! -d $BUILD_ROOT/tool-repos ]
 then
@@ -256,8 +259,6 @@ cd $BUILD_ROOT
 # build the unplatform executable and copy / move it to the final output directory
 pyinstaller $BUILD_ROOT/main.spec
 
-echo path following call to pyinstaller is `pwd`
-
 case $UN2_BUILD_OS in
     'windows')
         mv $BUILD_ROOT/dist/main.exe bundle/unplatform_win32_ssl.exe
@@ -270,7 +271,8 @@ case $UN2_BUILD_OS in
         ;;
 esac
 
-# copy over the "launcher" bat file that opens the unplatform and qbank executables
+# copy over the "launcher" bat file that opens the unplatform and QBank executables
+# For Windows, also copy over the Data Extraction scripts
 case $UN2_BUILD_OS in
     'windows')
         cp $BUILD_ROOT/scripts/launchers/unplatform_win32_ssl.bat bundle/
@@ -289,8 +291,7 @@ case $UN2_BUILD_OS in
         ;;
 esac
 
-# for now ... change this to appropriate platform build later
-# cp $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/qbank-lite*ubuntu* $BUILD_ROOT/bundle/
+# Find latest QBank-lite binary for this platform
 
 case $UN2_BUILD_OS in
     'windows')
