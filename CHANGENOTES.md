@@ -1,3 +1,8 @@
+## [1.3.8] - 2017-04-04
+### Fixed
+- Updated `.spec` file for `sqlite`.
+- Change config setting method to use `os.makedirs`.
+
 ## [1.3.7] - 2017-04-04
 ### Added
 - Python script to standup the SQLite session DB.
@@ -85,6 +90,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.8]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.7...v1.3.8
 [1.3.7]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.6...v1.3.7
 [1.3.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.4...v1.3.5
