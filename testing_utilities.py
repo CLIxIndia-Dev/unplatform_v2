@@ -9,6 +9,7 @@ from webtest import TestApp
 from unittest import TestCase
 
 from main import app
+from session_migration import create_session_database
 
 if getattr(sys, 'frozen', False):
     ABS_PATH = os.path.dirname(sys.executable)
@@ -16,7 +17,7 @@ else:
     PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
     ABS_PATH = '{0}/unplatform_v2'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 
-SESSIONS_DIR = os.path.join(ABS_PATH, 'webapps', 'unplatform', 'sessions')
+SESSIONS_DB = os.path.join(ABS_PATH, 'unplatform.sqlite3')
 
 
 class BaseTestCase(TestCase):
@@ -60,11 +61,12 @@ class BaseTestCase(TestCase):
     def setUp(self):
         middleware = []
         self.app = TestApp(app.wsgifunc(*middleware))
-        for session_file in glob.iglob('{0}/*'.format(SESSIONS_DIR)):
-            os.remove(session_file)
+        if os.path.isfile(SESSIONS_DB):
+            os.remove(SESSIONS_DB)
+        create_session_database()
         self.logout()
 
     def tearDown(self):
         self.logout()
-        for session_file in glob.iglob('{0}/*'.format(SESSIONS_DIR)):
-            os.remove(session_file)
+        if os.path.isfile(SESSIONS_DB):
+            os.remove(SESSIONS_DB)

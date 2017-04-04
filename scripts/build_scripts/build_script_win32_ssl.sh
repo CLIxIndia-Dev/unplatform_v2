@@ -23,12 +23,19 @@ then
   error "static directory not found"
 fi
 
+# remove the sqlite3 database used to store sessions
+rm *.sqlite3
+
 mkdir bundle/
 mkdir bundle/static/
 
 # copy the session expired template
 mkdir bundle/templates/
 cp templates/* bundle/templates/
+
+# create and move the sqlite3 database for sessions
+python session_migration.py
+mv unplatform.sqlite3 bundle/
 
 # update the virtualenvironment
 pip install -r requirements.txt

@@ -13,4 +13,4 @@ htmlcov/
 .cache/
 .coverage
 npm-debug.log
-
+*.sqlite3
