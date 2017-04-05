@@ -117,7 +117,7 @@ cp -r $BUILD_ROOT/modules/* $BUILD_ROOT/bundle/modules/
 cp $BUILD_ROOT/README.md $BUILD_ROOT/bundle/
 
 # copy package.json so unplatform can report its version
-cp $BUILD_ROOT/package.json bundle/
+cp $BUILD_ROOT/package.json $BUILD_ROOT/bundle/
 
 
 # generate the latest releases of each tool, from the release branch
