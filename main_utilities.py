@@ -25,7 +25,7 @@ def get_configuration_file():
 
 def set_configuration_file(data):
     if not os.path.isdir(CONFIG_DIR):
-        os.mkdir(CONFIG_DIR)
+        os.makedirs(CONFIG_DIR)
     with open(CONFIG_FILE, 'wb') as config_file:
         if not isinstance(data, dict):
             data = json.loads(data)
