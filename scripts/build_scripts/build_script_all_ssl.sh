@@ -101,7 +101,8 @@ cp -r $BUILD_ROOT/static/ui/. $BUILD_ROOT/bundle/static/ui
 
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
-WEBENV=test pytest  # nosetests tests
+cd $BUILD_ROOT
+pytest
 
 
 # copy over the self-signed SSL certs
