@@ -200,18 +200,18 @@ mkdir ../bundle/static/audio-record-tool/
 cp -rf audio-record-tool/* ../bundle/static/audio-record-tool/
 rm -rf ../bundle/static/audio-record-tool/.git/
 
-# Police Quad
-if [ ! -d "police-quad" ]
+# Police Quad, from TISS
+if [ ! -d "policequad" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/police-quad.git
+  git clone git@github.com:CLIxIndia-Dev/policequad.git
 fi
-cd police-quad
-git checkout release
-git pull origin release
+cd policequad
+git checkout English
+git pull origin English
 cd ..
-mkdir ../bundle/static/police-quad/
-cp -rf police-quad/* ../bundle/static/police-quad/
-rm -rf ../bundle/static/police-quad/.git/
+mkdir ../bundle/static/policequad/
+cp -rf policequad/* ../bundle/static/policequad/
+rm -rf ../bundle/static/policequad/.git/
 
 # Open Story tool
 if [ ! -d "open-story-tool" ]
