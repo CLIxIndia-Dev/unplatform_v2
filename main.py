@@ -296,8 +296,6 @@ class content:
                 starting_bytes += bytes_to_read
                 yield buf
 
-            file_handle.close()
-
 
 class modules_list:
     @utilities.format_response
