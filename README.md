@@ -24,9 +24,7 @@ python main.py
 And in a browser, navigate to `https://localhost:8888` (note the `https` --
   `http` will *not* work!).
 
-===========================
-Compiling the UI only (i.e. for development / testing)
-===========================
+# Compiling the UI only (i.e. for development / testing)
 
 Make sure the node packages are installed in the `ui` directory.
 
@@ -40,9 +38,7 @@ Will run `webpack` and dump the output in to the `static/ui` directory.
 
 
 
-=============================
-Bundling the Python webserver
-=============================
+# Bundling the Python webserver
 
 * You MUST do this on the target platform. I.e. to bundle for Windows, run this
   on Windows.
@@ -62,9 +58,7 @@ cd scripts/build_scripts
 ./build_script_<platform>.sh
 ```
 
-=============================
-Running tests
-=============================
+# Running tests
 
 You can run tests locally from the command line.  Tests are also run through
 the ``travis-ci`` continuous integration service each time a commit is pushed
@@ -90,8 +84,7 @@ Pep8 is configured in ``pytest.ini``.
 Pylint is configured in ``.pylintrc``.
 
 
-ACKNOWLEDGEMENTS
-================
+# ACKNOWLEDGEMENTS
 This software uses many third-party software packages, and the authors are grateful
 for every one. The majority can be found listed in `ui/package.json` or `requirements.txt`.
 All third-party software remains copyright by the respective author(s) and may have
@@ -100,13 +93,13 @@ different license requirements than this software.
 In addition, the authors would like to acknowledge the use of the following packages:
 
 ## Front-end CSS / fonts
-Font Awesome
-Rich Clark / Eric Meyer (HTML5 reset CSS; CC BY-NC 2.0 UK)
-Graham Miller (Responsive Grid System; CC BY 3.0)
-Font Squirrel (OpenSans fonts; licensed Apache V2)
-Joe Prince, Adminx Designs (Varela; SIL OPEN FONT LICENSE Version 1.1)
+- Font Awesome
+- Rich Clark / Eric Meyer (HTML5 reset CSS; CC BY-NC 2.0 UK)
+- Graham Miller (Responsive Grid System; CC BY 3.0)
+- Font Squirrel (OpenSans fonts; licensed Apache V2)
+- Joe Prince, Adminx Designs (Varela; SIL OPEN FONT LICENSE Version 1.1)
 
 ## Python libraries:
-PyOpenSSL (Apache v2)
-Cryptography (Apache v2)
-Requests (Apache v2)
+- PyOpenSSL (Apache v2)
+- Cryptography (Apache v2)
+- Requests (Apache v2)
