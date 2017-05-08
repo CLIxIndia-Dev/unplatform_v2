@@ -15,6 +15,13 @@ npm install
 Once you have your environment set up, you need to build the UI elements
 (see Compiling the UI section for more details).
 
+For a first-time install, you also have to create the `sqlite` database that
+will hold the web sessions.
+
+```
+python session_migration.py
+```
+
 Then you can run the local webserver:
 
 ```
