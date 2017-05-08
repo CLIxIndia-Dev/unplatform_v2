@@ -1,3 +1,8 @@
+## [1.3.11] - 2017-05-08
+### Changed
+- Update README to include instructions on setting up `sqlite`
+  for session management.
+
 ## [1.3.10] - 2017-04-07
 ### Changed
 - Revert closing of file pointer when streaming files.
@@ -99,6 +104,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.11]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.10...v1.3.11
 [1.3.10]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.9...v1.3.10
 [1.3.9]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.7...v1.3.8
