@@ -15,6 +15,19 @@ npm install
 Once you have your environment set up, you need to build the UI elements
 (see Compiling the UI section for more details).
 
+For a first-time install or migrating from an earlier version (which used filespace to store sessions), you also have to create the `sqlite` database that will hold the web sessions. If migrating from an earlier version with
+sessions in filespace or if you don't run this command, you'll see an error like:
+
+```
+OperationalError: no such table: sessions
+```
+
+To create the session database:
+
+```
+python session_migration.py
+```
+
 Then you can run the local webserver:
 
 ```
