@@ -144,11 +144,6 @@ nav {
   justify-content: center;
 }
 
-.count-select {
-  padding-top: 1.5rem;
-  border-top: 2px solid hsla(327, 100%, 70%, 1);
-}
-
 .subj-select {
   display: inline-flex;
   align-items: center;
@@ -158,22 +153,25 @@ nav {
   text-align: center;
 }
 
-.user-select-form fieldset {
+.user-select-form fieldset,
+.count-select-form fieldset {
   margin-top: 0.5rem;
 }
 
-.user-select-form legend {
+.user-select-form legend,
+.count-select-form legend {
   text-align: center;
 }
 
 
 /* BUTTONS */
 
-.user-select {
+.user-select,
+.count-select {
   width: 13.5rem;
   height: 3.125rem;
   margin: 0.313rem;
-  padding: 0 0.5rem;
+  /*padding: 0 0.5rem;*/
 /*  clix-blue-purp*/
   background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%,30%, 0.5));
   border: solid 0.094rem #ffffff;
@@ -190,18 +188,28 @@ nav {
   align-items: center;
 }
 
-.user-select:hover {
+.user-select:hover,
+.count-select:hover {
   /*clix-magenta*/
   background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.6));
 }
 
-.user-select:active {
+.user-select:active,
+.count-select:active {
   /*clix-magenta*/
   background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 35%, 0.9), hsla(327, 100%, 25%, 0.6));
   color: #fff;
 }
 
-.user-select input[type="radio"] {
+.user-select label,
+.count-select label {
+  width: 100%;
+  height: 100%;
+  padding-top: 0.7em;
+}
+
+.user-select input[type="radio"],
+.count-select input[type="radio"] {
   height: 0.006rem;
   width:0.006rem;
   position: absolute;
