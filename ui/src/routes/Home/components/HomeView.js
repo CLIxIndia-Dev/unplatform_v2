@@ -111,52 +111,46 @@ class HomeView extends Component {
     let className = "user-select"
     let checked = false
     if (this.props.survey && this.props.survey.userType === label) {
-      // className = "button-gradient-active"
+      className = "user-select button-gradient-active"
       checked = true
     }
     return (
       <div className={className}>
-      <label key={index}
-        // style={[styles.button, styles.userSelectButton]}
-        // className={className}
-        // tabIndex={0}
-        >
-        <input key={index}
-          onChange={(e) => this._onHandleUserTypeSelect(e)}
-          type="radio"
-          name="userType"
-          value={label}
-          // tabIndex={-1}
-          checked={checked}
-          className="user-select__input"
-          ref={(input) => { this.inputField = input; }}
-          />
-        {label}
-      </label>
+        <label key={index}>
+          <input key={index}
+            onChange={(e) => this._onHandleUserTypeSelect(e)}
+            type="radio"
+            name="userType"
+            value={label}
+            checked={checked}
+            className="user-select__input"
+            ref={(input) => { this.inputField = input; }}
+            />
+          {label}
+        </label>
       </div>
     )
   }
 
   renderUserCountButtons = (label, index) => {
-    let className = "button-gradient"
+    let className = "count-select"
+    let checked = false
     if (this.props.survey && this.props.survey.userCount === label) {
-      className = "button-gradient-active"
+      className = "count-select button-gradient-active"
+      checked = true
     }
     return (
-      <label key={index}
-        className={className}
-        // tabIndex={0}
-        style={[styles.button, styles.userSelectButton]}
-        >
-        <input key={index}
-          onChange={(e) => this._onHandleUserCountSelect(e)}
-          type="radio"
-          name="userCount"
-          value={label}
-          // tabIndex={-1}
-          checked={this.props.survey.userCount === label}/>
+      <div className={className}>
+        <label key={index}>
+          <input key={index}
+            onChange={(e) => this._onHandleUserCountSelect(e)}
+            type="radio"
+            name="userCount"
+            value={label}
+            checked={checked} />
           {label}
-      </label>
+        </label>
+      </div>
     )
   }
 
@@ -176,12 +170,16 @@ class HomeView extends Component {
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
-        <div>
-          <h3 className="count users-count">{this.props.strings.splash.prompt}</h3>
-          <article className="count-select">
-            {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
-          </article>
-        </div>
+        <form action="" className="count-select-form">
+          <fieldset>
+            <legend>
+              <h2 className="pg-subtitle">{this.props.strings.splash.prompt}</h2>
+            </legend>
+            <article className="but-select">
+              {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
+            </article>
+          </fieldset>
+        </form>
       )
     }
 
