@@ -116,8 +116,10 @@ class HomeView extends Component {
     }
     return (
       <div className={className}>
-        <label key={index}>
+        <label key={index}
+          htmlFor={label}>
           <input key={index}
+            id={label}
             onChange={(e) => this._onHandleUserTypeSelect(e)}
             type="radio"
             name="userType"
@@ -141,12 +143,14 @@ class HomeView extends Component {
     }
     return (
       <div className={className}>
-        <label key={index}>
+        <label key={index}
+          htmlFor={label}>
           <input key={index}
             onChange={(e) => this._onHandleUserCountSelect(e)}
             type="radio"
             name="userCount"
             value={label}
+            id={label}
             checked={checked} />
           {label}
         </label>
