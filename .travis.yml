@@ -7,6 +7,7 @@ sudo: false
 before_install:
   - pip install --upgrade pytest
   - python session_migration.py
+  - pip install coveralls
 
 # command to install dependencies
 install:
@@ -19,3 +20,7 @@ install:
 
 # command to run tests
 script: python -m pytest
+
+# command to report coverage stats
+after_success:
+  - coveralls
