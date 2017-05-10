@@ -68,7 +68,7 @@ Will run `webpack` and dump the output in to the `static/ui` directory.
 
 ```
 cd scripts/build_scripts
-./build_script_<platform>.sh
+./build_script_all_ssl.sh
 ```
 
 # Running tests
