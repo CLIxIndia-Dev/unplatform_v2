@@ -116,6 +116,17 @@ fi
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
 cd $BUILD_ROOT
+
+# Test directories for the test fixture index.html files
+if [ ! -d $BUILD_ROOT/static/oea ]
+then
+  mkdir -p $BUILD_ROOT/static/oea
+fi
+if [ ! -d $BUILD_ROOT/static/content ]
+then
+  mkdir -p $BUILD_ROOT/static/content
+fi
+
 pytest
 
 # Now move the generated UI files to the bundle
@@ -259,8 +270,8 @@ then
   git clone git@github.com:CLIxIndia-Dev/policequad.git
 fi
 cd policequad
-git checkout release
-git pull origin release
+git checkout English
+git pull origin English
 cd ..
 mkdir $BUILD_ROOT/bundle/static/policequad/
 cp -rf policequad/*  $BUILD_ROOT/bundle/static/policequad/
