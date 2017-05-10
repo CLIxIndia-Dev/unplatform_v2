@@ -1,3 +1,21 @@
+## [1.3.12] - 2017-05-09
+### Fixed
+- CSS on `HomeView` / survey page.
+
+## [1.3.11] - 2017-05-08
+### Changed
+- Update README to include instructions on setting up `sqlite`
+  for session management.
+
+## [1.3.10] - 2017-04-07
+### Changed
+- Revert closing of file pointer when streaming files.
+
+## [1.3.9] - 2017-04-05
+### Changed
+- Use `policequad` repository with latest TISS code, instead of
+  `police-quad`.
+
 ## [1.3.8] - 2017-04-04
 ### Fixed
 - Updated `.spec` file for `sqlite`.
@@ -90,6 +108,10 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.12]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.11...v1.3.12
+[1.3.11]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.10...v1.3.11
+[1.3.10]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.9...v1.3.10
+[1.3.9]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.7...v1.3.8
 [1.3.7]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.6...v1.3.7
 [1.3.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.5...v1.3.6

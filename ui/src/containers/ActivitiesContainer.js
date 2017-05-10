@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
     unitName: ownProps.params.unitName,
     gradeName: ownProps.params.gradeName,
     subjectName: ownProps.params.subjectName,
-    strings: localizeStrings(state, ownProps)
+    strings: localizeStrings(state, ownProps),
+    version: state.version.version ? state.version.version : 'unknown'
   }
 }
 
