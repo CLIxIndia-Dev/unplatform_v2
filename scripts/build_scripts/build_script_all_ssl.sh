@@ -45,8 +45,15 @@ echo Build OS is $OS from `lowercase \`uname\``
 rm -rf $BUILD_ROOT/bundle/
 rm -rf $BUILD_ROOT/build/
 rm -rf $BUILD_ROOT/dist/
+rm -rf $BUILD_ROOT/static/ui/
 
 find . -type f -name '*.pyc' -exec rm -f '{}' \;
+
+# remove the sqlite3 database used to store sessions
+if [ -f $BUILD_ROOT/unplatform.sqlite3 ]
+then
+  rm $BUILD_ROOT/unplatform.sqlite3
+fi
 
 if [ ! -d $BUILD_ROOT/bundle ]
 then
@@ -63,6 +70,18 @@ then
 else
   echo Directory $BUILD_ROOT/static/ui exists
 fi
+
+# copy the session expired template
+if [ ! -d $BUILD_ROOT/bundle/templates ]
+then
+  mkdir $BUILD_ROOT/bundle/templates
+fi
+cp $BUILD_ROOT/templates/* bundle/templates/
+
+# create and move the sqlite3 database for sessions
+cd $BUILD_ROOT
+python session_migration.py
+mv $BUILD_ROOT/unplatform.sqlite3 $BUILD_ROOT/bundle/
 
 # update the virtual environment
 pip install -r $BUILD_ROOT/requirements.txt
@@ -94,16 +113,13 @@ then
   mkdir -p $BUILD_ROOT/bundle/static/ui
 fi
 
-# TODO: Determine if the contents of /static/ui are a build/testing artifact.
-# If they are then consider changing the copy to a move, or explicitly remove
-# the generated files.  See commented out code below.
-cp -r $BUILD_ROOT/static/ui/. $BUILD_ROOT/bundle/static/ui
-
 # run the existing server-side API tests
 # run tests after generating the UI, because some test for presence of index.html
 cd $BUILD_ROOT
 pytest
 
+# Now move the generated UI files to the bundle
+mv $BUILD_ROOT/static/ui/* $BUILD_ROOT/bundle/static/ui/
 
 # copy over the self-signed SSL certs
 mkdir $BUILD_ROOT/bundle/unplatform
@@ -182,6 +198,8 @@ cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/
 cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
 cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
 
+# Run the OEA tests to make sure the tool is okay
+yarn test
 
 mkdir $BUILD_ROOT/bundle/static/oea/
 cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
@@ -236,17 +254,17 @@ rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
 # Police Quad
 echo Processing Police Quad
 cd $BUILD_ROOT/tool-repos
-if [ ! -d "police-quad" ]
+if [ ! -d "policequad" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/police-quad.git
+  git clone git@github.com:CLIxIndia-Dev/policequad.git
 fi
-cd police-quad
+cd policequad
 git checkout release
 git pull origin release
 cd ..
-mkdir $BUILD_ROOT/bundle/static/police-quad/
-cp -rf police-quad/*  $BUILD_ROOT/bundle/static/police-quad/
-rm -rf $BUILD_ROOT/bundle/static/police-quad/.git/
+mkdir $BUILD_ROOT/bundle/static/policequad/
+cp -rf policequad/*  $BUILD_ROOT/bundle/static/policequad/
+rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
 
 # Open Story tool
 echo Processing Open Story tool
@@ -305,7 +323,7 @@ case $UN2_BUILD_OS in
         mv $BUILD_ROOT/dist/main bundle/unplatform_linux64_ssl
         ;;
     'osx')
-        mv $BUILD_ROOT/dist/main.app bundle/unplatform_osx_ssl.app
+        mv $BUILD_ROOT/dist/main bundle/unplatform_osx_ssl
         ;;
 esac
 
