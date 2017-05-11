@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2.svg?branch=master)](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2)
+[![Build Status](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2.svg?branch=master)](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2)  [![Coverage Status](https://coveralls.io/repos/github/CLIxIndia-Dev/unplatform_v2/badge.svg?branch=master)](https://coveralls.io/github/CLIxIndia-Dev/unplatform_v2?branch=master)
 
 # Unplatform
 
@@ -66,9 +66,14 @@ Will run `webpack` and dump the output in to the `static/ui` directory.
   the `zip` module. See the separate document on bundling for instructions
   on how to set up your environment.
 
+* The build script works on OS X and Windows. There seem to be some
+  `pyinstaller` issues using Ubuntu 16.04, so Linux builds may require some tweaking.
+
+* On Windows, you need `yarn` `0.23`+.
+
 ```
 cd scripts/build_scripts
-./build_script_<platform>.sh
+./build_script_all_ssl.sh
 ```
 
 # Running tests

@@ -7,12 +7,10 @@ webapps/
 dist/
 bundle/
 *.DS_Store
-
 tool-repos/
-static/
+static/ui
 htmlcov/
 .cache/
 .coverage
-yarn.lock
 npm-debug.log
 *.sqlite3

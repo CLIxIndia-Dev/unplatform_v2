@@ -107,7 +107,7 @@
     "ip": "^1.1.2",
     "json-loader": "^0.5.4",
     "lockr": "^0.8.4",
-    "node-sass": "^3.7.0",
+    "node-sass": "^4.5.0",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.1.0",
     "radium": "^0.18.1",
