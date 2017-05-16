@@ -209,6 +209,8 @@ cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/
 cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
 cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
 
+yarn run build
+
 mkdir $BUILD_ROOT/bundle/static/oea/
 cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
 rm -rf $BUILD_ROOT/bundle/static/oea/.git/
