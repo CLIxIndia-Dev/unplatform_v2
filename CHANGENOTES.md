@@ -1,3 +1,7 @@
+## [1.3.16] - 2017-05-16
+### Fixed
+- Put in build step for OEA, into build script.
+
 ## [1.3.15] - 2017-05-16
 ### Added
 - Build setting for OEA `unlock_prev`.
@@ -120,6 +124,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.16]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.15...v1.3.16
 [1.3.15]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.14...v1.3.15
 [1.3.14]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.13...v1.3.14
 [1.3.13]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.12...v1.3.13
