@@ -43,9 +43,9 @@ REM Copy QBank data directories to temporary folder.
 echo ===========================================================================
 echo Coping data from assessment folders
 echo ===========================================================================
-copy "webapps\CLIx\datastore\assessment" "%Dirname%\Assessment"
-copy "webapps\CLIx\datastore\assessment\AssessmentSection" "%Dirname%\Assessment\AssessmentSection"
-copy "webapps\CLIx\datastore\assessment\AssessmentTaken" "%Dirname%\Assessment\AssessmentTaken"
+copy "webapps\CLIx\datastore\assessment" "%Dirname%\assessment"
+copy "webapps\CLIx\datastore\assessment\AssessmentSection" "%Dirname%\assessment\AssessmentSection"
+copy "webapps\CLIx\datastore\assessment\AssessmentTaken" "%Dirname%\assessment\AssessmentTaken"
 
 echo ===========================================================================
 echo Coping data from logging folders
@@ -57,7 +57,7 @@ copy "webapps\CLIx\datastore\logging\LogEntry" "%Dirname%\logging\LogEntry"
 echo ===========================================================================
 echo Coping data from repository folders
 echo ===========================================================================
-copy "webapps\CLIx\datastore\repository" "%Dirname%/repository"
+copy "webapps\CLIx\datastore\repository" "%Dirname%\repository"
 copy "webapps\CLIx\datastore\repository\Asset" "%Dirname%\repository\Asset"
 copy "webapps\CLIx\datastore\studentResponseFiles" "%Dirname%\repository\AssetContent"
 
