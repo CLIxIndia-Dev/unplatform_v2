@@ -144,6 +144,14 @@ cp -r $BUILD_ROOT/modules/* $BUILD_ROOT/bundle/modules/
 # copy the README
 cp $BUILD_ROOT/README.md $BUILD_ROOT/bundle/
 
+# copy the license, notices, and third-party licenses
+cp $BUILD_ROOT/LICENSE.md $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/LICENSE_OpenSansFont.txt $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/LICENSE_Requests.txt $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/LICENSE_VarelaFont.txt $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/NOTICES.md $BUILD_ROOT/bundle/
+
 # copy package.json so unplatform can report its version
 cp $BUILD_ROOT/package.json $BUILD_ROOT/bundle/
 
