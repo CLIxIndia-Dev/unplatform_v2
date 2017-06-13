@@ -1,3 +1,8 @@
+## [1.3.19] - 2017-06-13
+### Changed
+- Run Kitty Run repository updated to new name.
+- PoliceQuad and Run Kitty Run tools pull from the `en` folder.
+
 ## [1.3.18] - 2017-06-05
 ### Added
 - Notices and third-party software license documentation.
@@ -132,6 +137,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.3.19]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.18...v1.3.19
 [1.3.18]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.17...v1.3.18
 [1.3.17]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.16...v1.3.17
 [1.3.16]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.15...v1.3.16
