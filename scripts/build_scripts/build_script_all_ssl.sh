@@ -127,7 +127,7 @@ then
   mkdir -p $BUILD_ROOT/static/content
 fi
 
-pytest
+pytest --no-cov
 
 # Now move the generated UI files to the bundle
 mv $BUILD_ROOT/static/ui/* $BUILD_ROOT/bundle/static/ui/
