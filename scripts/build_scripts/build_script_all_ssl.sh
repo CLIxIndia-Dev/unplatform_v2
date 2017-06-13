@@ -227,17 +227,17 @@ rm -rf $BUILD_ROOT/bundle/static/oea/.git/
 echo Processing Biomechanics game
 cd $BUILD_ROOT/tool-repos
 
-if [ ! -d "biomechanic" ]
+if [ ! -d "runkittyrun" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/biomechanic.git
+  git clone git@github.com:CLIxIndia-Dev/runkittyrun.git
 fi
-cd biomechanic
-git checkout release
-git pull origin release
+cd runkittyrun
+git checkout master
+git pull origin master
 cd ..
-mkdir $BUILD_ROOT/bundle/static/biomechanic/
-cp -rf biomechanic/* $BUILD_ROOT/bundle/static/biomechanic/
-rm -rf $BUILD_ROOT/bundle/static/biomechanic/.git/
+mkdir $BUILD_ROOT/bundle/static/runkittyrun/
+cp -rf runkittyrun/en/* $BUILD_ROOT/bundle/static/runkittyrun/
+rm -rf $BUILD_ROOT/bundle/static/runkittyrun/.git/
 
 # Physics Video player
 echo Processing Physics Video player
@@ -277,11 +277,11 @@ then
   git clone git@github.com:CLIxIndia-Dev/policequad.git
 fi
 cd policequad
-git checkout English
-git pull origin English
+git checkout master
+git pull origin master
 cd ..
 mkdir $BUILD_ROOT/bundle/static/policequad/
-cp -rf policequad/*  $BUILD_ROOT/bundle/static/policequad/
+cp -rf policequad/en/*  $BUILD_ROOT/bundle/static/policequad/
 rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
 
 # Open Story tool
