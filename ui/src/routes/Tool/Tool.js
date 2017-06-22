@@ -118,7 +118,7 @@ class Subjects extends Component {
       )
     }
 
-    let toolUrl = `/common/${this.props.toolName}`
+    let toolUrl = `/common/${this.props.toolName}?lang=${this.props.locale}`
     return (
       <div style={styles.container} >
         <img alt="" style={styles.backgroundImage}/>
