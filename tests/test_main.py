@@ -254,9 +254,17 @@ class ToolTests(BaseMainTestCase):
     def setUp(self):
         super(ToolTests, self).setUp()
         self.logout()
+        self.tool_dir = '{0}/modules/Tools/test_tool'.format(ABS_PATH)
+        self.tool_index = '{0}/index.html'.format(self.tool_dir)
+        if not os.path.exists(self.tool_dir):
+            os.makedirs(self.tool_dir)
+        if not os.path.isfile(self.tool_index):
+            shutil.copyfile('{0}/tests/fixtures/tool/index.html'.format(ABS_PATH), self.tool_index)
 
     def tearDown(self):
         super(ToolTests, self).tearDown()
+        if os.path.exists(self.tool_dir):
+            shutil.rmtree(self.tool_dir)
 
     def test_user_without_active_session_cannot_get_content_index(self):
         url = '/common/Open Story/'
@@ -268,6 +276,20 @@ class ToolTests(BaseMainTestCase):
         url = '/common/Open Story/'
         req = self.app.get(url, expect_errors=True)
         self.ok(req)
+
+    def test_passing_locale_to_tool_iframe_renders_query_param(self):
+        self.login()
+        url = '/common/test_tool?lang=hi'
+        req = self.app.get(url)
+        self.ok(req)
+        self.assertEqual(req.body, '?lang=hi\n')
+
+    def test_not_passing_locale_to_tool_iframe_just_returns_raw_text(self):
+        self.login()
+        url = '/common/test_tool/'
+        req = self.app.get(url)
+        self.ok(req)
+        self.assertEqual(req.body, '${lang}\n')
 
 
 class ModuleDirectoryListingTests(BaseMainTestCase):
