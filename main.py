@@ -1,13 +1,14 @@
 #!/bin/sh
-import json
-import os
-import sys
-import web
-import mimetypes
-import urllib
-import requests
-import functools
 import codecs
+import functools
+import json
+import mimetypes
+import os
+import requests
+import string
+import sys
+import urllib
+import web
 
 from datetime import datetime
 from natsort import natsorted
@@ -213,7 +214,13 @@ class common_tools:
             yield web.notfound("Sorry, that tool was not found.")
         else:
             with open(tool_file, 'rb') as tool:
-                yield tool.read()
+                if 'lang' in web.input():
+                    template = string.Template(tool.read())
+                    yield template.substitute({
+                        'lang': '?lang={0}'.format(web.input()['lang'])
+                    })
+                else:
+                    yield tool.read()
 
 
 class configuration:
