@@ -1,3 +1,7 @@
+## [1.5.0] - 2017-07-11
+### Added
+- Support for `userId` and `user_id` in the generic logging endpoint.
+
 ## [1.4.1] - 2017-06-26
 ### Changed
 - Handle multi-language options in Run Kitty Run tool.
@@ -141,6 +145,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.5.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.19...v1.4.1
 [1.3.19]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.18...v1.3.19
 [1.3.18]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.3.17...v1.3.18
