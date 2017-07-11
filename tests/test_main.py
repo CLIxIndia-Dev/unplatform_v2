@@ -100,6 +100,10 @@ def mocked_logging_post(*args, **kwargs):
             blob['session_id'] = kwargs['json']['data']['session_id']
         elif 'sessionId' in kwargs['json']['data']:
             blob['sessionId'] = kwargs['json']['data']['sessionId']
+        elif 'user_id' in kwargs['json']['data']:
+            blob['user_id'] = kwargs['json']['data']['user_id']
+        elif 'userId' in kwargs['json']['data']:
+            blob['userId'] = kwargs['json']['data']['userId']
         response['text']['text'] = json.dumps(blob)
     return MockResponse(response, 200)
 
@@ -570,6 +574,100 @@ class LoggingTests(BaseMainTestCase):
             'mediaId': '',
             'mediaTime': 9.142857,
             'sessionId': 'bar'
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'})
+        self.ok(req)
+        entry = self.json(req)
+        self.assertTrue(
+            json.loads(entry['text']['text']) == payload)
+        self.assertEqual(
+            entry['agentId'],
+            osid_agent('bar')
+        )
+
+        call_params = mock_post.call_args_list[0][1]
+        self.assertEqual(call_params['headers']['x-api-proxy'], 'bar')
+        self.assertEqual(call_params['json']['data'], payload)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_user_id_does_not_pass_through_to_header_if_provided_with_inactive_session(self, mock_post, mock_get):
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857,
+            'user_id': 'bar'
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'},
+                            expect_errors=True)
+        self.code(req, 403)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_user_id_passes_through_to_header_if_provided_with_active_session(self, mock_post, mock_get):
+        self.login()
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857,
+            'user_id': 'bar'
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'})
+        self.ok(req)
+        entry = self.json(req)
+        self.assertTrue(
+            json.loads(entry['text']['text']) == payload)
+        self.assertEqual(
+            entry['agentId'],
+            osid_agent('bar')
+        )
+
+        call_params = mock_post.call_args_list[0][1]
+        self.assertEqual(call_params['headers']['x-api-proxy'], 'bar')
+        self.assertEqual(call_params['json']['data'], payload)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_userId_does_not_pass_through_to_header_if_provided_with_inactive_session(self, mock_post, mock_get):
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857,
+            'userId': 'bar'
+        }
+
+        req = self.app.post(self.url,
+                            params=json.dumps(payload),
+                            headers={'content-type': 'application/json'},
+                            expect_errors=True)
+        self.code(req, 403)
+
+    @mock.patch('main.requests.get', side_effect=mocked_logging_get)
+    @mock.patch('main.requests.post', side_effect=mocked_logging_post)
+    def test_userId_passes_through_to_header_if_provided_with_active_session(self, mock_post, mock_get):
+        self.login()
+        payload = {
+            'action': 'pause audio',
+            'questionId': 'assessment.Item%3A57b954e0ed849b7a420859dc%40ODL.MIT.EDU',
+            'assessmentOfferedId': 'assessment.AssessmentOffered:57bfcc21ed849b11f52fc80a@ODL.MIT.EDU',
+            'mediaId': '',
+            'mediaTime': 9.142857,
+            'userId': 'bar'
         }
 
         req = self.app.post(self.url,

@@ -189,6 +189,10 @@ class generic_logging:
                 session_id = received_data['session_id']
             elif 'sessionId' in received_data:
                 session_id = received_data['sessionId']
+            elif 'user_id' in received_data:
+                session_id = received_data['user_id']
+            elif 'userId' in received_data:
+                session_id = received_data['userId']
 
             req = requests.post(log_entry_url, json=payload, verify=False,
                                 headers={'x-api-proxy': session_id})
