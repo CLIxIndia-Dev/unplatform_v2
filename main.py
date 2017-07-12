@@ -5,6 +5,7 @@ import json
 import mimetypes
 import os
 import requests
+import sqlite3
 import string
 import sys
 import urllib
@@ -64,6 +65,9 @@ web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
 # when using filesystem
 db = web.database(dbn='sqlite', db='unplatform.sqlite3')
 store = web.session.DBStore(db, 'sessions')
+
+connection = sqlite3.connect('unplatform.sqlite3')
+connection.execute('PRAGMA journal_mode=WAL;')
 
 session = web.session.Session(app,
                               store,
