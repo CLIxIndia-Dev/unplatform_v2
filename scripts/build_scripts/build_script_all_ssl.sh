@@ -54,6 +54,12 @@ if [ -f $BUILD_ROOT/unplatform.sqlite3 ]
 then
   rm $BUILD_ROOT/unplatform.sqlite3
 fi
+# remove the sqlite3 database WAL files
+if [ -f $BUILD_ROOT/unplatform.sqlite3-shm ]
+then
+  rm $BUILD_ROOT/unplatform.sqlite3-shm
+  rm $BUILD_ROOT/unplatform.sqlite3-wal
+fi
 
 if [ ! -d $BUILD_ROOT/bundle ]
 then
@@ -82,6 +88,8 @@ cp $BUILD_ROOT/templates/* bundle/templates/
 cd $BUILD_ROOT
 python session_migration.py
 mv $BUILD_ROOT/unplatform.sqlite3 $BUILD_ROOT/bundle/
+mv $BUILD_ROOT/unplatform.sqlite3-shm $BUILD_ROOT/bundle/
+mv $BUILD_ROOT/unplatform.sqlite3-wal $BUILD_ROOT/bundle/
 
 # update the virtual environment
 pip install -r $BUILD_ROOT/requirements.txt
