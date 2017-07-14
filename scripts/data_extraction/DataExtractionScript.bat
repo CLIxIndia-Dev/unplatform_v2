@@ -64,9 +64,9 @@ copy "webapps\CLIx\datastore\studentResponseFiles" "%Dirname%\repository\AssetCo
 echo ===========================================================================
 echo Coping data from unplatform
 echo ===========================================================================
-copy "webapps\unplatform\configuration" "%Dirname%\webapps\configuration"
-copy "webapps\unplatform\sessions" "%Dirname%\webapps\sessions"
-copy "webapps\unplatform\user_data" "%Dirname%\webapps\user_data"
+copy "webapps\unplatform\configuration" "%Dirname%\unplatform\configuration"
+copy "unplatform.sqlite3" "%Dirname%\unplatform\sessions"
+copy "webapps\unplatform\user_data" "%Dirname%\unplatform\user_data"
 :END
 
 REM Zip QBank Data directory
