@@ -15,3 +15,5 @@ This product includes cryptographic software written by Eric Young (eay@cryptsof
 This product includes software written by Tim Hudson (tjh@cryptsoft.com).
 This product includes CSS developed by Graham Miller (http://www.responsivegridsystem.com/).
 This product includes CSS developed by Rich Clark (https://github.com/richclark/HTML5resetCSS).
+
+The product includes an MD5 checksum program from www.fourmilab.ch/md5, which has been released into the public domain. We appreciate their contributation to `unplatform`.
