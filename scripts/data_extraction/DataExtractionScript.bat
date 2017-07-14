@@ -78,6 +78,15 @@ echo ===========================================================================
 call zipjs.bat zipItem -source "%Dirname%" -destination "%Dirname%.zip" -keep yes -force no
 :END
 
+REM Output the MD5 checksum value of the zipped bundle
+:CHECKSUM
+echo ===============================================================================
+echo Calculating the MD5 checksum for data integrity
+echo ===============================================================================
+
+call md5.exe -o"%Dirname%"checksum.txt "%Dirname%.zip"
+:END
+
 REM Remove temporary folder.
 :DELFOLDER
 echo ===========================================================================
