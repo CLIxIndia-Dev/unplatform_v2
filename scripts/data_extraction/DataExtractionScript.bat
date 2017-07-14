@@ -64,9 +64,9 @@ copy "webapps\CLIx\datastore\studentResponseFiles" "%Dirname%\repository\AssetCo
 echo ===========================================================================
 echo Coping data from unplatform
 echo ===========================================================================
-copy "webapps\unplatform\configuration" "%Dirname%\webapps\configuration"
-copy "webapps\unplatform\sessions" "%Dirname%\webapps\sessions"
-copy "webapps\unplatform\user_data" "%Dirname%\webapps\user_data"
+copy "webapps\unplatform\configuration" "%Dirname%\unplatform\configuration"
+copy "unplatform.sqlite3" "%Dirname%\unplatform\sessions"
+copy "webapps\unplatform\user_data" "%Dirname%\unplatform\user_data"
 :END
 
 REM Zip QBank Data directory
@@ -76,6 +76,15 @@ echo Creating QBank data zip file ... please wait ... this can take upto 5 minut
 echo ===============================================================================
 
 call zipjs.bat zipItem -source "%Dirname%" -destination "%Dirname%.zip" -keep yes -force no
+:END
+
+REM Output the MD5 checksum value of the zipped bundle
+:CHECKSUM
+echo ===============================================================================
+echo Calculating the MD5 checksum for data integrity
+echo ===============================================================================
+
+call md5.exe -o"%Dirname%"checksum.txt "%Dirname%.zip"
 :END
 
 REM Remove temporary folder.
