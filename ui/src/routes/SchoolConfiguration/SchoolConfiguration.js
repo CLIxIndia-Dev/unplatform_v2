@@ -170,6 +170,7 @@ class SchoolConfiguration extends Component {
   _setSchoolConfiguration = (e) => {
     e.preventDefault()
     this.props.onSetSchoolConfiguration(this.props.form)
+    browserHistory.push('/')
   }
 
   _onUpdateState = (e) => {
