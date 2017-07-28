@@ -1,3 +1,7 @@
+## [1.6.1] - 2017-07-28
+### Changed
+- The `save` action in school configuration re-routes to the root path.
+
 ## [1.6.0] - 2017-07-14
 ### Added
 - MD5 checksum on the data extraction zip file.
@@ -153,6 +157,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.4.1...v1.5.0
