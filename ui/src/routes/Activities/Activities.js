@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { log } from '../../utilities'
 
-import '../../styles/core.css'
-import '../../styles/buttons.css'
-import '../../styles/header.css'
 import '../../styles/activity.css'
 
 class Subjects extends Component {
@@ -43,9 +40,9 @@ class Subjects extends Component {
 
     if (this.state.showModal) {
       sessionModal = (
-        <div className='c-act-popup'>
-          <dialog open className='zoomModal span_6_of_12'>
-            <h2 className='zoom-title'>
+        <div className='act-modal__container'>
+          <dialog open className='act-modal__dialog span_6_of_12'>
+            <h2 className='act-modal__dialog-title'>
               {this.props.strings.unplatformNav.endSession}
             </h2>
             <form method='dialog'>
@@ -67,11 +64,11 @@ class Subjects extends Component {
       ${this.props.unitName}/
       ${this.props.lessonName}`
     return (
-      <div className='c-container'>
-        <header className='c-header'>
-          <h1 className='logo'>CLIx Connected Learning Initiative</h1>
-          <p className='unplat-v'>unplatform version {this.props.version}</p>
-          <nav className='c-nav'>
+      <div className='act-container'>
+        <header className='act-header'>
+          <h1 className='act-header__logo'>CLIx Connected Learning Initiative</h1>
+          <p className='act-header--unplat-v'>unplatform version {this.props.version}</p>
+          <nav className='act-header__nav'>
             <button onClick={this._onChooseTool}>
               {this.props.strings.unplatformNav.chooseTool}</button>
             <button onClick={this._onChooseLesson}>
@@ -80,8 +77,8 @@ class Subjects extends Component {
               {this.props.strings.unplatformNav.finishLesson}</button>
           </nav>
         </header>
-        <main className='span_12_of_12 c-background'>
-          <iframe src={epubUrl} className='fill-win' frameBorder='0' allowFullScreen />
+        <main className='span_12_of_12'>
+          <iframe src={epubUrl} className='act-iframe--fill-win' frameBorder='0' allowFullScreen />
           {sessionModal}
         </main>
       </div>
