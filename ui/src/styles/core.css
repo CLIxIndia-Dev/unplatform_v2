@@ -1,7 +1,4 @@
-@import 'html5reset.css' screen;
-@import 'responsive.css' screen;
-@import '../../node_modules/font-awesome/css/font-awesome.min.css' screen;
-@import 'fonts.css' screen;
+@import '_base.scss' screen;
 
 *, *:after, *:before {
   box-sizing: border-box;
@@ -26,10 +23,10 @@
 
 body {
   background-image: radial-gradient(circle at 50% 0, #a61680, #6b004e);
-  color: #fff;
   font-family: 'open_sansregular', Arial, sans-serif;
   font-weight: normal;
   font-size: 1rem;
+  color: #fff;
 }
 
 /* Text styles */
@@ -399,53 +396,6 @@ nav {
     left: 0;
     background: rgba(112, 0, 82, 0.8);
     z-index: 100;
-}
-
-/*::backdrop {
-  background-color: rgba(112, 0, 82, 0.8);
-}*/
-
-dialog {
-  top: 5%;
-  height: 12.5rem;
-  margin: 6.25rem auto;
-  border: none;
-  border-radius: 0.3rem;
-
-}
-
-.zoomModal button {
-  margin: 1.25rem 0.313rem;
-  padding: 0.625rem 2.5rem;
-  background: radial-gradient(hsla(259, 40%, 40%, 1), hsla(259, 40%,30%, 1));
-  border: none;
-  border-radius: 0.313rem;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-
-
-.zoomModal button:hover {
-  background-color: #666;
-  background: radial-gradient(hsla(259, 40%, 30%, 1), hsla(259, 40%, 20%, 1));
-}
-
-.zoomModal button:active {
-  background: radial-gradient(#f37f2f, #f54b32);
-}
-
-.zoom-label {
-  margin: 1.875rem auto 0.625rem;
-  font-size: 1.75rem;
-  text-align: center;
-
-}
-
-.zoomModal > form {
-  display: flex;
-  justify-content: center;
 }
 
 /*MEDIA QUERIES */

@@ -1,22 +1,8 @@
 body {
-  font-family: 'open_sansregular', Arial, sans-serif;
-  font-weight: normal;
-  font-size: 1em;
+  color: #777;
 }
 
 /* HEADER */
-
-/*header {
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-}*/
 
 .logo {
   margin-left: 16px;
@@ -28,12 +14,6 @@ body {
   overflow: hidden;
   white-space: nowrap;
 }
-
-/*header > nav {
-  position: absolute;
-  top: 30px;
-  right: 1em;
-}*/
 
 nav > button {
   margin-left: 1em;

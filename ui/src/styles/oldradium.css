@@ -1,0 +1,60 @@
+.c-container: {
+  display: 'flex';
+  justifyContent: 'center';
+  alignItems: 'center';
+/*  height: '100vh';*/
+  flexDirection: 'column';
+}
+
+.c-navWrapper: {
+  flex: 1;
+}
+
+.c-section: {
+  flex: 50;
+  display: 'flex';
+  flexDirection: 'column';
+}
+
+.c-label: {
+  fontWeight: 'bold';
+  marginRight: '15px';
+  marginBottom: '15px';
+  flex: 2;
+}
+
+.c-formRow: {
+  display: 'flex';
+  width: '400px';
+  margin: '5px 5px';
+}
+
+.c-value: {
+  flex: 2;
+}
+
+.c-navTitle: {
+}
+
+.c-background: {
+  backgroundColor: 'white';
+}
+
+.c-header: {
+  position: 'relative';
+  left: 0;
+  top: 0;
+  width: '100%';
+  height: '55px';
+  display: 'flex';
+  alignItems: 'center';
+  backgroundColor: '#fff';
+  boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)';
+  zIndex: 5;
+}
+
+.c-nav: {
+  position: 'absolute';
+  top: '29px';
+  right: '1em';
+}
