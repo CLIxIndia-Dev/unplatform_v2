@@ -5,11 +5,10 @@ import Radium from 'radium'
 
 import { log } from '../../utilities'
 
-import '../../styles/core.css'
-import '../../styles/buttons.css'
-import '../../styles/header.css'
-import '../../styles/activity.css'
-import '../../styles/nav.css'
+// import '../../styles/buttons.css'
+import '../../styles/components/c-header.css'
+import '../../styles/components/activity.css'
+// import '../../styles/nav.css'
 
 const styles = {
   container: {

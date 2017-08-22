@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import { browserHistory } from 'react-router'
 import {Icon} from 'react-fa'
 import Radium from 'radium'
-// import '../../../styles/core.css'
+
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers4.svg')
 
@@ -203,8 +203,8 @@ class HomeView extends Component {
     }
     return (
       // <div style={styles.container} >
-      <div>
-        <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
+      <div className='gradient-wrapper'>
+        <img src={backgroundImage} alt="" className='gradient-wrapper__image' style={styles.backgroundImage}/>
 
         <main className="span_11_of_12">
           <h1 className="pg-title">{this.props.strings.splash.title}</h1>

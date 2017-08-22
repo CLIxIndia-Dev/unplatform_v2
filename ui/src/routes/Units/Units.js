@@ -8,7 +8,7 @@ let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
 
 import {log} from '../../utilities'
 
-import '../../styles/core.css'
+import '../../styles/components/c-breadcrumbs.css'
 import '../../styles/buttons.css'
 
 const styles = {
@@ -89,11 +89,11 @@ class Units extends Component {
     }
 
     return (
-      <div style={styles.container} >
-        <img src={backgroundImage} alt="" style={styles.backgroundImage}/>
+      <div className='gradient-wrapper' style={styles.container} >
+        <img src={backgroundImage} alt="" className='gradient-wrapper_image' style={styles.backgroundImage}/>
         <header style={styles.header}>
           <nav style={styles.nav}>
-            <ul className="breadcrumbs">
+            <ul className="c-breadcrumbs__list">
               <li>
                 <Icon name="chevron-left" className="pink-chev"
                   aria-hidden={true} />

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { log } from '../../utilities'
 
-import '../../styles/activity.css'
+import '../../styles/components/c-header.css'
+import '../../styles/components/activity.css'
 
 class Subjects extends Component {
   constructor (props) {
@@ -40,9 +41,9 @@ class Subjects extends Component {
 
     if (this.state.showModal) {
       sessionModal = (
-        <div className='act-modal__container'>
-          <dialog open className='act-modal__dialog span_6_of_12'>
-            <h2 className='act-modal__dialog-title'>
+        <div className='c-modal__container'>
+          <dialog open className='c-modal__dialog span_6_of_12'>
+            <h2 className='c-modal__dialog-title'>
               {this.props.strings.unplatformNav.endSession}
             </h2>
             <form method='dialog'>
@@ -65,10 +66,10 @@ class Subjects extends Component {
       ${this.props.lessonName}`
     return (
       <div className='act-container'>
-        <header className='act-header'>
-          <h1 className='act-header__logo'>CLIx Connected Learning Initiative</h1>
-          <p className='act-header--unplat-v'>unplatform version {this.props.version}</p>
-          <nav className='act-header__nav'>
+        <header className='c-header'>
+          <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
+          <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
+          <nav className='c-header__nav'>
             <button onClick={this._onChooseTool}>
               {this.props.strings.unplatformNav.chooseTool}</button>
             <button onClick={this._onChooseLesson}>

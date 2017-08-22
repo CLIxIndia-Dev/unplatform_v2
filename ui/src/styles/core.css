@@ -1,5 +1,3 @@
-@import '_base.scss' screen;
-
 *, *:after, *:before {
   box-sizing: border-box;
 }
@@ -22,7 +20,6 @@
 }
 
 body {
-  background-image: radial-gradient(circle at 50% 0, #a61680, #6b004e);
   font-family: 'open_sansregular', Arial, sans-serif;
   font-weight: normal;
   font-size: 1rem;
@@ -57,48 +54,23 @@ a:visited {
   color: #fff;
 }
 
-main {
+.gradient-wrapper {
+  height: 100vh;
+  margin: 0 auto;
   position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  margin: 0 auto;
+  justify-content: center;
   z-index: 2;
+  background-image: radial-gradient(circle at 50% 0, #a61680, #6b004e);
 }
 
-.breadcrumbs {
+.gradient-wrapper__image {
   position: absolute;
-  top: 0;
-  left: 2rem;
-  display: inline-block;
-}
-
-.breadcrumbs li {
-  display: inline-block;
-  background-color: hsla(327, 100%, 0, 1);
-}
-
-
-.breadcrumbs a {
-  display: inline-block;
-  padding: 0.188rem;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-}
-
-.breadcrumbs  a:hover {
-  color: #fff;
-  border-bottom: 3px solid hsla(327, 100%, 60%, 1);
-}
-
-.breadcrumbs  a:active {
-  color: #fff;
-  border-bottom: 3px solid hsla(327, 100%, 70%, 1);
-}
-
-.pink-chev {
-  color: hsla(327, 100%, 60%, 1);
+  bottom: 0;
+  left: 0;
+  zIndex: -1;
 }
 
 .pg-title {

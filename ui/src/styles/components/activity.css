@@ -1,7 +1,7 @@
-body {
+/*body {
   background-image: none;
   color: #777;
-}
+}*/
 
 .act-container: {
   display: 'flex';
@@ -9,79 +9,11 @@ body {
   align-items: 'center';
 /*  height: '100vh';*/
   flex-direction: 'column';
+  color: #777;
   background-color: #fff;
 }
 
-
-/* HEADER */
-
-.act-header: {
-  position: 'relative';
-  left: 0;
-  top: 0;
-  width: '100%';
-  height: '55px';
-  display: 'flex';
-  align-items: 'center';
-  background-color: '#fff';
-  box-shadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)';
-  z-index: 5;
-}
-
-.act-header__logo {
-  margin-left: 16px;
-  width: 143px;
-  height: 32px;
-/*   swap bg image url with locally-hosted svg */
-  background-image: url('/static/assets/clix-logo.svg');
-  text-indent: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.act-header__nav: {
-  position: 'absolute';
-  top: '29px';
-  right: '1em';
-}
-.act-header__nav > button {
-  margin-left: 1em;
-  padding: 5px;
-  background: none;
-  border: none;
-  border-bottom: 3px solid hsla(316, 77%, 37%, 1);
-  color: #777;
-  font-size: .7em;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  transition: all .5s;
-}
-
-
-.act-header__nav > button:hover {
-  background: radial-gradient(hsla(316, 77%, 37%, 1), hsla(316, 88%, 26%, 1));
-  border-bottom: 3px solid hsla(316, 88%, 42%, 1);
-  color: #fff;
-}
-
-.act-header__nav > button:active {
-  background: radial-gradient(hsla(316, 77%, 26%, 1), hsla(316, 88%, 16%, 1));
-  border-bottom: 3px solid hsla(316, 88%, 42%, 1);
-  color: #fff;
-}
-
-.act-header--unplat-v {
-  margin-top: 5px;
-  margin-right: 16px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 9px;
-  text-transform: uppercase;
-  color: #777;
-}
-
-/* END HEADER */
+/* IFRAME */
 
 .act-iframe--fill-win {
   margin: 0;
@@ -95,61 +27,8 @@ body {
   margin: 0;
 }
 
-/*MODAL*/
 
-.act-modal__container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    background: rgba(112, 0, 82, 0.8);
-}
-
-.act-modal__dialog {
-  height: 200px;
-  margin: 100px auto;
-  top: 5%;
-  border: none;
-  border-radius: .3em;
-
-}
-
-.act-modal__dialog button {
-  margin: 1.25em .313em;
-  padding: .625em 2.5em;
-  border: none;
-  border-radius: .313em;
-  background: radial-gradient(hsla(259, 40%, 40%, 1), hsla(259, 40%,30%, 1));
-  font-size: 1em;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-
-.act-modal__dialog button:hover {
-  background-color: #666;
-  background: radial-gradient(hsla(259, 40%, 30%, 1), hsla(259, 40%,20%, 1));
-}
-
-.act-modal__dialog button:active {
-  background: radial-gradient(#f37f2f, #f54b32);
-}
-
-.act-modal__dialog-title {
-  margin: 1.875em auto .625em;
-  font-size: 1.75em;
-  text-align: center;
-
-}
-
-.act-modal__dialog > form {
-  display: flex;
-  justify-content: center;
-}
-
+/*NEED A HOME*/
 
 .c-navWrapper: {
   flex: 1;

@@ -1,0 +1,52 @@
+/*MODAL*/
+
+.c-modal__container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba(112, 0, 82, 0.8);
+}
+
+.c-modal__dialog {
+  height: 200px;
+  margin: 100px auto;
+  top: 5%;
+  border: none;
+  border-radius: .3em;
+
+}
+
+.c-modal__dialog-title {
+  margin: 1.875em auto .625em;
+  font-size: 1.75em;
+  text-align: center;
+}
+
+.c-modal__dialog > form {
+  display: flex;
+  justify-content: center;
+}
+.c-modal__dialog button {
+  margin: 1.25em .313em;
+  padding: .625em 2.5em;
+  border: none;
+  border-radius: .313em;
+  background: radial-gradient(hsla(259, 40%, 40%, 1), hsla(259, 40%,30%, 1));
+  font-size: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.c-modal__dialog button:hover {
+  background-color: #666;
+  background: radial-gradient(hsla(259, 40%, 30%, 1), hsla(259, 40%,20%, 1));
+}
+
+.c-modal__dialog button:active {
+  background: radial-gradient(#f37f2f, #f54b32);
+}
+
