@@ -1,66 +1,14 @@
 import _ from 'lodash'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import Radium from 'radium'
-import {Icon} from 'react-fa'
-
-let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
-
-import {log} from '../../utilities'
+import { Icon } from 'react-fa'
+import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
 import '../../styles/buttons.css'
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    flexDirection: 'column'
-  },
-  navWrapper: {
-    flex: 1
-  },
-  section: {
-    flex: 50,
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  label: {
-    fontWeight: 'bold',
-    marginRight: '15px',
-    marginBottom: '15px',
-    flex: 2
-  },
-  formRow: {
-    display: 'flex',
-    width: '400px',
-    margin: '5px 5px'
-  },
-  value: {
-    flex: 2
-  },
-  navTitle: {
-  },
-  backgroundImage: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    zIndex: -1
-  },
-  header: {
-    position: 'relative',
-    margin: '30px auto 0px',
-    zIndex: 10,
-    width: '100%'
-  },
-  nav: {
-    width: '100%'
-  }
-}
+let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
 
-@Radium
 class Units extends Component {
 
   componentDidMount () {
@@ -69,53 +17,51 @@ class Units extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
 
   }
 
   renderUnits = (unitName, index) => {
-    return <button className="choice-select"
+    return <button className='choice-select'
       onClick={() => this._onHandleSelectUnit(unitName)}>{unitName}</button>
   }
 
-  render() {
-
+  render () {
     if (!this.props.locale) {
       return (
         <div>
-          <h1>Please set your school configuration at this <a href="/school">link</a>.</h1>
+          <h1>Please set your school configuration at this <a href='/school'>link</a>.</h1>
         </div>
       )
     }
 
     return (
-      <div className='gradient-wrapper' style={styles.container} >
-        <img src={backgroundImage} alt="" className='gradient-wrapper_image' style={styles.backgroundImage}/>
-        <header style={styles.header}>
-          <nav style={styles.nav}>
-            <ul className="c-breadcrumbs__list">
+      <div className='gradient-wrapper' >
+        <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
+        <header className='c-breadcrumbs__header'>
+          <nav className='c-breadcrumbs__nav'>
+            <ul className='c-breadcrumbs__list'>
               <li>
-                <Icon name="chevron-left" className="pink-chev"
+                <Icon name='chevron-left' className='pink-chev'
                   aria-hidden={true} />
                 <a onClick={this._onHandleSelectUser}>{this.props.strings.breadcrumbs.selectUser}</a>
               </li>
               <li>
-                <Icon name="chevron-left" className="pink-chev"
+                <Icon name='chevron-left' className='pink-chev'
                   aria-hidden={true} />
                 <a onClick={this._onHandleSelectSubjects}>{this.props.strings.breadcrumbs.selectSubject}</a>
               </li>
               <li>
-                <Icon name="chevron-left" className="pink-chev"
+                <Icon name='chevron-left' className='pink-chev'
                   aria-hidden={true} />
                 <a onClick={this._onHandleSelectGrades}>{this.props.strings.breadcrumbs.selectClass}</a>
               </li>
             </ul>
           </nav>
         </header>
-        <main className="span_10_of_12">
-          <h1 className="pg-title">{this.props.strings.moduleNav.selectYourUnit}</h1>
-          <h2 className="pg-subtitle"></h2>
-          <article className="subj-select button-group">
+        <main className='span_10_of_12 main-content'>
+          <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourUnit}</h1>
+          <article className='choice-select__wrapper button-group'>
             {_.map(this.props.units, this.renderUnits)}
           </article>
         </main>

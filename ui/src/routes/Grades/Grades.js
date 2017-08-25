@@ -37,9 +37,9 @@ class Grades extends Component {
     }
 
     return (
-      <div className='gradient-wrapper' >
+      <div className='gradient-wrapper'>
         <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
-        <header className='c-breadcrumbs__nav'>
+        <header className='c-breadcrumbs__header'>
           <nav className='c-breadcrumbs__nav'>
             <ul className='c-breadcrumbs__list'>
               <li>
@@ -55,9 +55,9 @@ class Grades extends Component {
             </ul>
           </nav>
         </header>
-        <main className='span_10_of_12'>
+        <main className='span_10_of_12 main-content'>
           <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourClass}</h1>
-          <article className='subj-select button-group'>
+          <article className='choice-select__wrapper button-group'>
             {_.map(this.props.grades, this.renderGrades)}
           </article>
         </main>

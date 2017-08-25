@@ -3,7 +3,8 @@ import { browserHistory } from 'react-router'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-header.css'
-import '../../styles/components/activity.css'
+import '../../styles/components/c-activity.css'
+import '../../styles/components/c-modal.css'
 
 class Subjects extends Component {
   constructor (props) {

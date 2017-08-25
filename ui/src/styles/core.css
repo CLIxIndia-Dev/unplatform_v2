@@ -56,13 +56,10 @@ a:visited {
 
 .gradient-wrapper {
   height: 100vh;
-  margin: 0 auto;
   position: relative;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
-  z-index: 2;
+  z-index: 1;
   background-image: radial-gradient(circle at 50% 0, #a61680, #6b004e);
 }
 
@@ -70,7 +67,17 @@ a:visited {
   position: absolute;
   bottom: 0;
   left: 0;
-  zIndex: -1;
+  z-index: -1;
+}
+
+.homeview__content {
+  align-items: center;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 .pg-title {
@@ -113,7 +120,7 @@ nav {
   justify-content: center;
 }
 
-.subj-select {
+.choice-select__wrapper {
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;

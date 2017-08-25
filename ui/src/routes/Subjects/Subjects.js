@@ -2,13 +2,11 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
-
-let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
-
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
-import '../../styles/buttons.css'
+
+let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
 
 class Subjects extends Component {
 
@@ -39,7 +37,7 @@ class Subjects extends Component {
     }
 
     return (
-      <div className='gradient-wrapper' >
+      <div className='gradient-wrapper'>
         <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
         <header className='c-breadcrumbs__header'>
           <nav className='c-breadcrumbs__nav'>
@@ -52,9 +50,9 @@ class Subjects extends Component {
             </ul>
           </nav>
         </header>
-        <main className='span_10_of_12'>
+        <main className='span_10_of_12 main-content'>
           <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourSubject}</h1>
-          <article className='subj-select button-group'>
+          <article className='choice-select__wrapper button-group'>
             {_.map(this.props.subjects, this.renderSubjects)}
             <button className='choice-select'
               onClick={this._onHandleClickTools}>{this.props.strings.moduleNav.tools}</button>

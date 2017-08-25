@@ -1,166 +1,111 @@
-import React, {Component} from 'react'
+import _ from 'lodash'
+import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    flexDirection: 'column'
-  },
-  navWrapper: {
-    flex: 1
-  },
-  section: {
-    flex: 50,
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  label: {
-    fontWeight: 'bold',
-    marginRight: '15px',
-    marginBottom: '15px',
-    flex: 2
-  },
-  formRow: {
-    display: 'flex',
-    width: '400px',
-    margin: '5px 5px'
-  },
-  value: {
-    flex: 2
-  },
-  navTitle: {
-  }
-}
+import '../../styles/components/c-schoolconfig.css'
 
 class SchoolConfiguration extends Component {
   componentDidMount () {
     this.props.onGetSchoolConfiguration()
   }
-  render() {
-
+  render () {
     let currentConfig = (
-       <div>
-         <strong>Current State / District: </strong> None / None
-         <br />
-         <strong>Current School / Terminal: </strong> None / None
-         <br />
-         <strong>Current Locale: </strong> None
-       </div>
+      <div>
+        <strong>Current State / District: </strong> None / None
+        <br />
+        <strong>Current School / Terminal: </strong> None / None
+        <br />
+        <strong>Current Locale: </strong> None
+      </div>
      )
     if (this.props.configuration) {
-     currentConfig = (
-        <div>
-          <div style={styles.formRow}>
-            <div style={styles.label}>Current State / District: </div>
-            <span style={styles.value}>
-              {this.props.configuration.state} / {this.props.configuration.district}
-            </span>
-          </div>
-          <div style={styles.formRow}>
-            <div style={styles.label}>Current School / Terminal: </div>
-            <span style={styles.value}>
-              {this.props.configuration.schoolId} / {this.props.configuration.terminalId}
-            </span>
-          </div>
-          <div style={styles.formRow}>
-            <div style={styles.label}>Current Locale: </div>
-            <span style={styles.value}>
-              {this.props.configuration.locale}
-            </span>
-          </div>
+      currentConfig = (
+        <div className='c-school__config-wrapper'>
+          <h3>Current State / District: </h3>
+          <p>
+            {this.props.configuration.state} / {this.props.configuration.district}
+          </p>
+          <h3>Current School / Terminal: </h3>
+          <p>
+            {this.props.configuration.schoolId} / {this.props.configuration.terminalId}
+          </p>
+          <h3>Current Locale: </h3>
+          <p>
+            {this.props.configuration.locale}
+          </p>
         </div>
       )
     }
 
     let districts = (
-      <select id="district"
+      <select id='district'
         value={this.props.form.district}
-        style={styles.value}
-        onChange={this._onUpdateDistrict}>
-      </select>
+        onChange={this._onUpdateDistrict} />
     )
 
     if (this.props.form.state) {
       let options = {
-	    	"Chhattisgarh":["Dhamteri","Bilaspur"],
-	    	"Mizoram":["Aizawl"],
-	    	"Rajasthan":["Baran", "Jaipur", "Jhalawar", "Sirohi"],
-	    	"Telangana":["Karimnagar","Warangal","RangaReddy"]
-	    }
+        'Chhattisgarh':['Dhamteri', 'Bilaspur'],
+        'Mizoram':['Aizawl'],
+        'Rajasthan':['Baran', 'Jaipur', 'Jhalawar', 'Sirohi'],
+        'Telangana':['Karimnagar', 'Warangal', 'RangaReddy']
+      }
       districts = (
-        <select id="district"
+        <select id='district'
           value={this.props.form.district}
-          style={styles.value}
           onChange={this._onUpdateDistrict}>
-            <option value="-1"></option>
-            {_.map(options[this.props.form.state], (district) => {
-              return <option value={district}>{district}</option>
-            })}
-          </select>
+          <option value='-1' />
+          {_.map(options[this.props.form.state], (district) => {
+            return <option value={district}>{district}</option>
+          })}
+        </select>
         )
     }
 
     return (
-      <div style={styles.container} >
-        <div style={styles.navWrapper}>
-          <h1 style={styles.navTitle}>CLIx SCHOOL CONFIGURATION</h1>
-        </div>
-        <section style={styles.section}>
-          <h3>New Configuration</h3>
-          <form action="">
-            <div style={styles.formRow}>
-              <label for="state" style={styles.label}>Select State</label>
-              <select id="state"
-                value={this.props.form.state}
-                onChange={this._onUpdateState}
-                style={styles.value}>
-                <option value="None"></option>
-                <option value="Chhattisgarh">Chhattisgarh</option>
-                <option value="Mizoram">Mizoram</option>
-                <option value="Rajasthan">Rajasthan</option>
-                <option value="Telangana">Telangana</option>
-              </select>
-            </div>
-            <div style={styles.formRow}>
-              <label for="district" style={styles.label}>Select District</label>
-              {districts}
-            </div>
-            <div style={styles.formRow}>
-              <label for="schoolId" style={styles.label}>School ID</label>
-              <input id="schoolId" type="text"
-                style={styles.value}
-                value={this.props.form.schoolId}
-                onChange={this._onUpdateSchoolId}/>
-            </div>
-            <div style={styles.formRow}>
-              <label for="terminalId" style={styles.label}>Terminal ID</label>
-              <input id="terminalId" type="text"
-                style={styles.value}
-                value={this.props.form.terminalId}
-                onChange={this._onUpdateTerminalId}/>
-            </div>
-            <div style={styles.formRow}>
-              <label for="locale" style={styles.label}>Locale</label>
-              <select id="locale"
-                style={styles.value}
-                value={this.props.form.locale}
-                onChange={this._onUpdateLocale}>
-                  <option value="-1"></option>
-                  <option value="en">English</option>
-                  <option value="hi">Hindi</option>
-                  <option value="te">Telugu</option>
-                </select>
-            </div>
-            <div>
-              <button onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>
-            </div>
+      <div className='c-school__wrapper'>
+        <header className='c-school__header'>
+          <h1 className='c-school__heading'>CLIx SCHOOL CONFIGURATION</h1>
+        </header>
+        <section className='c-school__section'>
+          <h2>New Configuration</h2>
+          <form action=''>
+            <label htmlFor='state'>Select State</label>
+            <select id='state'
+              value={this.props.form.state}
+              onChange={this._onUpdateState}>
+              <option value='None' />
+              <option value='Chhattisgarh'>Chhattisgarh</option>
+              <option value='Mizoram'>Mizoram</option>
+              <option value='Rajasthan'>Rajasthan</option>
+              <option value='Telangana'>Telangana</option>
+            </select>
+            <label htmlFor='district'>Select District</label>
+            {districts}
+            <label htmlFor='schoolId'>School ID</label>
+            <input id='schoolId' type='text'
+              value={this.props.form.schoolId}
+              onChange={this._onUpdateSchoolId}
+            />
+            <label htmlFor='terminalId'>Terminal ID</label>
+            <input id='terminalId' type='text'
+              value={this.props.form.terminalId}
+              onChange={this._onUpdateTerminalId}
+            />
+            <label htmlFor='locale'>Locale</label>
+            <select id='locale'
+              value={this.props.form.locale}
+              onChange={this._onUpdateLocale}>
+              <option value='-1' />
+              <option value='en'>English</option>
+              <option value='hi'>Hindi</option>
+              <option value='te'>Telugu</option>
+            </select>
+            <button onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>
           </form>
         </section>
-        <section style={styles.section}>
-          <h3>Current Configuration</h3>
+        <section className='c-school__section'>
+          <h2>Current Configuration</h2>
           {currentConfig}
         </section>
       </div>

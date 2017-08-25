@@ -1,21 +1,17 @@
-/*body {
-  color: #777;
-}*/
-
 /* HEADER */
 
-.c-header: {
-  width: '100%';
-  height: '55px';
-  display: 'flex';
-  align-items: 'center';
-  position: 'relative';
+.c-header {
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  position: relative;
   top: 0;
   left: 0;
   z-index: 5;
   color: #777;
-  background-color: '#fff';
-  box-shadow: '0 2px 4px 0 rgba(0, 0, 0, 0.25)';
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .c-header__logo {
@@ -29,10 +25,10 @@
   white-space: nowrap;
 }
 
-.c-header__nav: {
-  position: 'absolute';
-  top: '29px';
-  right: '1em';
+.c-header__nav {
+  position: absolute;
+  top: 29px;
+  right: 1em;
 }
 .c-header__nav > button {
   margin-left: 1em;

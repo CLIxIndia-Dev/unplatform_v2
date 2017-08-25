@@ -1,0 +1,65 @@
+/*body {
+  background-image: none;
+  color: #777;
+}*/
+
+.act-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+/*  height: 100vh;*/
+  flex-direction: column;
+  color: #777;
+  background-color: #fff;
+}
+
+/* IFRAME */
+
+.act-iframe--fill-win {
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 100vh;
+  width: 100%;
+}
+
+.act-iframe--fill-win > body {
+  margin: 0;
+}
+
+
+/*NEED A HOME*/
+
+.c-navWrapper {
+  flex: 1;
+}
+
+.c-section {
+  flex: 50;
+  display: flex;
+  flexDirection: column;
+}
+
+.c-label {
+  font-weight: bold;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  flex: 2;
+}
+
+.c-formRow {
+  display: flex;
+  width: 400px;
+  margin: 5px 5px;
+}
+
+.c-value {
+  flex: 2;
+}
+
+.c-navTitle {
+}
+
+/*.c-background: {
+  background-color: 'white';
+}*/
