@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import { Icon } from 'react-fa'
+import ChevronRight from '../../../components/ChevronRight'
 
-let backgroundImage = require('../../../assets/clix-i2c-flowers4.svg')
+let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
 
 class HomeView extends Component {
   constructor (props) {
@@ -134,7 +134,7 @@ class HomeView extends Component {
           // style={[styles.button, styles.userSelectButton, styles.submitButton]}
           >
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
-          <Icon name='chevron-right' aria-hidden={true} /></button>
+          <ChevronRight /></button>
       )
     }
     return (

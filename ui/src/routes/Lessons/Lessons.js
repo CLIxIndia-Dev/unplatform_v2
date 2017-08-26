@@ -1,13 +1,13 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import { Icon } from 'react-fa'
+import BreadcrumbChevron from '../../components/BreadcrumbChevron'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
 import '../../styles/buttons.css'
 
-let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
+let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
 
 class Lessons extends Component {
 
@@ -22,7 +22,7 @@ class Lessons extends Component {
   }
 
   renderLessons = (lessonName, index) => {
-    return <button className='choice-select'
+    return <button className='lesn-but'
       onClick={() => this._onHandleSelectLesson(lessonName)}>{lessonName}</button>
   }
 
@@ -42,23 +42,19 @@ class Lessons extends Component {
           <nav className='c-breadcrumbs__nav'>
             <ul className='c-breadcrumbs__list'>
               <li>
-                <Icon name='chevron-left' className='pink-chev'
-                  aria-hidden={true} />
+                <BreadcrumbChevron />
                 <a onClick={this._onHandleSelectUser}>{this.props.strings.breadcrumbs.selectUser}</a>
               </li>
               <li>
-                <Icon name='chevron-left' className='pink-chev'
-                  aria-hidden={true} />
+                <BreadcrumbChevron />
                 <a onClick={this._onHandleSelectSubjects}>{this.props.strings.breadcrumbs.selectSubject}</a>
               </li>
               <li>
-                <Icon name='chevron-left' className='pink-chev'
-                  aria-hidden={true} />
+                <BreadcrumbChevron />
                 <a onClick={this._onHandleSelectGrades}>{this.props.strings.breadcrumbs.selectClass}</a>
               </li>
               <li>
-                <Icon name='chevron-left' className='pink-chev'
-                  aria-hidden={true} />
+                <BreadcrumbChevron />
                 <a onClick={this._onHandleSelectUnits}>{this.props.strings.breadcrumbs.selectUnit}</a>
               </li>
             </ul>
@@ -117,10 +113,7 @@ class Lessons extends Component {
       action: 'click',
       target: `Lesson: ${lessonName}`
     })
-    browserHistory.push(`/subjects/
-      ${this.props.subjectName}/grades/
-      ${this.props.gradeName}/units/
-      ${this.props.unitName}/lessons/${lessonName}`)
+    browserHistory.push(`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${lessonName}`)
   }
 }
 

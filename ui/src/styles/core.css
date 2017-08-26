@@ -261,6 +261,12 @@ nav {
   color: #fff;
 }
 
+.hi-but__chevron {
+  position: relative;
+  top: .125em;
+  display: inline-block;
+}
+
 .choice-select {
   width: 11.563rem;
   height: 11.563rem;

@@ -1,13 +1,13 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import { Icon } from 'react-fa'
+import BreadcrumbChevron from '../../components/BreadcrumbChevron'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
 import '../../styles/buttons.css'
 
-let backgroundImage = require('../../assets/clix-i2c-flowers4.svg')
+let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
 
 class Subjects extends Component {
 
@@ -43,13 +43,11 @@ class Subjects extends Component {
           <nav className='c-breadcrumbs__nav'>
             <ul className='c-breadcrumbs__list'>
               <li>
-                <Icon name='chevron-left' className='pink-chev'
-                  aria-hidden={true} />
+                <BreadcrumbChevron />
                 <a onClick={this._onHandleSelectUser}>{this.props.strings.breadcrumbs.selectUser}</a>
               </li>
               <li>
-                <Icon name='chevron-left' className='pink-chev'
-                  aria-hidden={true} />
+                <BreadcrumbChevron />
                 <a onClick={this._onHandleSelectSubject}>{this.props.strings.breadcrumbs.selectSubject}</a>
               </li>
             </ul>

@@ -26,6 +26,7 @@
 
 .c-breadcrumbs__list a {
   display: inline-block;
+  margin: 0 .25em;
   padding: 0.188em;
   font-size: 0.875em;
   text-transform: uppercase;
@@ -43,6 +44,13 @@
 
 .pink-chev {
   color: hsla(327, 100%, 60%, 1);
+}
+
+.c-breadcrumbs__chevron {
+  position: relative;
+  top: .188em;
+  display: inline-block;
+  margin: 0 .25em;
 }
 
 

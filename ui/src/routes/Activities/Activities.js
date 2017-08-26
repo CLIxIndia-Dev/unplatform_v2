@@ -60,11 +60,7 @@ class Subjects extends Component {
       )
     }
 
-    let epubUrl = `/static/content_player/index.html?epubUrl=/content/
-      ${this.props.subjectName}/
-      ${this.props.gradeName}/
-      ${this.props.unitName}/
-      ${this.props.lessonName}`
+    let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`
     return (
       <div className='act-container'>
         <header className='c-header'>
