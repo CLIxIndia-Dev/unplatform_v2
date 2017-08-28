@@ -54,7 +54,7 @@ class Subjects extends Component {
           </nav>
         </header>
         <main className='span_10_of_12 main-content'>
-          <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourSubject}</h1>
+          <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourTool}</h1>
           <article className='choice-select__wrapper button-group'>
             {_.map(this.props.tools, this.renderTool)}
           </article>

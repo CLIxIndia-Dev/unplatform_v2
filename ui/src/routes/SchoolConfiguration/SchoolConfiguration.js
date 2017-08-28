@@ -64,50 +64,54 @@ class SchoolConfiguration extends Component {
 
     return (
       <div className='c-school__wrapper'>
-        <header className='c-school__header'>
-          <h1 className='c-school__heading'>CLIx SCHOOL CONFIGURATION</h1>
-        </header>
-        <section className='c-school__section'>
-          <h2>New Configuration</h2>
-          <form action=''>
-            <label htmlFor='state'>Select State</label>
-            <select id='state'
-              value={this.props.form.state}
-              onChange={this._onUpdateState}>
-              <option value='None' />
-              <option value='Chhattisgarh'>Chhattisgarh</option>
-              <option value='Mizoram'>Mizoram</option>
-              <option value='Rajasthan'>Rajasthan</option>
-              <option value='Telangana'>Telangana</option>
-            </select>
-            <label htmlFor='district'>Select District</label>
-            {districts}
-            <label htmlFor='schoolId'>School ID</label>
-            <input id='schoolId' type='text'
-              value={this.props.form.schoolId}
-              onChange={this._onUpdateSchoolId}
-            />
-            <label htmlFor='terminalId'>Terminal ID</label>
-            <input id='terminalId' type='text'
-              value={this.props.form.terminalId}
-              onChange={this._onUpdateTerminalId}
-            />
-            <label htmlFor='locale'>Locale</label>
-            <select id='locale'
-              value={this.props.form.locale}
-              onChange={this._onUpdateLocale}>
-              <option value='-1' />
-              <option value='en'>English</option>
-              <option value='hi'>Hindi</option>
-              <option value='te'>Telugu</option>
-            </select>
-            <button onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>
-          </form>
-        </section>
-        <section className='c-school__section'>
-          <h2>Current Configuration</h2>
-          {currentConfig}
-        </section>
+        <main className='c-school__main'>
+          <header className='c-school__header'>
+            <h1 className='c-school__heading' aria-label='Clix school configuration'>CLIx School Configuration</h1>
+          </header>
+          <section className='c-school__section'>
+            <article className='c-school__curr-config'>
+              <h2 className="c-school__config-header">Current Configuration</h2>
+              {currentConfig}
+            </article>
+            <article className='c-school__new-config'>
+              <h2 className="c-school__config-header">New Configuration</h2>
+              <form action='' className='c-school__form'>
+                <label htmlFor='state'>Select State</label>
+                <select id='state'
+                  value={this.props.form.state}
+                  onChange={this._onUpdateState}>
+                  <option value='None' />
+                  <option value='Chhattisgarh'>Chhattisgarh</option>
+                  <option value='Mizoram'>Mizoram</option>
+                  <option value='Rajasthan'>Rajasthan</option>
+                  <option value='Telangana'>Telangana</option>
+                </select>
+                <label htmlFor='district'>Select District</label>
+                {districts}
+                <label htmlFor='schoolId'>School ID</label>
+                <input id='schoolId' type='text'
+                  value={this.props.form.schoolId}
+                  onChange={this._onUpdateSchoolId}
+                />
+                <label htmlFor='terminalId'>Terminal ID</label>
+                <input id='terminalId' type='text'
+                  value={this.props.form.terminalId}
+                  onChange={this._onUpdateTerminalId}
+                />
+                <label htmlFor='locale'>Locale</label>
+                <select id='locale'
+                  value={this.props.form.locale}
+                  onChange={this._onUpdateLocale}>
+                  <option value='-1' />
+                  <option value='en'>English</option>
+                  <option value='hi'>Hindi</option>
+                  <option value='te'>Telugu</option>
+                </select>
+                <button className='c-school__form-button' onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>
+              </form>
+            </article>
+          </section>
+        </main>
       </div>
     )
   }

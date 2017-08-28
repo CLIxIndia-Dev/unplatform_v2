@@ -71,10 +71,10 @@ class HomeView extends Component {
   }
 
   renderUserCountButtons = (label, index) => {
-    let className = 'count-select'
+    let className = 'count-num'
     let checked = false
     if (this.props.survey && this.props.survey.userCount === label) {
-      className = 'count-select button-gradient-active'
+      className = 'count-num button-gradient-active'
       checked = true
     }
     return (
