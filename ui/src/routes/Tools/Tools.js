@@ -44,18 +44,18 @@ class Subjects extends Component {
             <ul className='c-breadcrumbs__list'>
               <li>
                 <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectUser}>{this.props.strings.breadcrumbs.selectUser}</a>
+                <a onClick={this._onHandleSelectUser} href='/'>{this.props.strings.breadcrumbs.selectUser}</a>
               </li>
               <li>
                 <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectSubject}>{this.props.strings.breadcrumbs.selectSubject}</a>
+                <a onClick={this._onHandleSelectSubject} href='/subjects'>{this.props.strings.breadcrumbs.selectSubject}</a>
               </li>
             </ul>
           </nav>
         </header>
         <main className='span_10_of_12 main-content'>
           <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourTool}</h1>
-          <article className='choice-select__wrapper button-group'>
+          <article className='choice-select__wrapper button-group' role='group'>
             {_.map(this.props.tools, this.renderTool)}
           </article>
         </main>

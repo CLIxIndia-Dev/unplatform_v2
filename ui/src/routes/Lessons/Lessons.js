@@ -23,7 +23,7 @@ class Lessons extends Component {
 
   renderLessons = (lessonName, index) => {
     return <button className='lesn-but'
-      onClick={() => this._onHandleSelectLesson(lessonName)}>{lessonName}</button>
+      onClick={(e) => this._onHandleSelectLesson(e, lessonName)}>{lessonName}</button>
   }
 
   render () {
@@ -36,6 +36,7 @@ class Lessons extends Component {
     }
 
     return (
+
       <div className='gradient-wrapper'>
         <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
         <header className='c-breadcrumbs__header'>
@@ -43,26 +44,26 @@ class Lessons extends Component {
             <ul className='c-breadcrumbs__list'>
               <li>
                 <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectUser}>{this.props.strings.breadcrumbs.selectUser}</a>
+                <a onClick={this._onHandleSelectUser} href='/'>{this.props.strings.breadcrumbs.selectUser}</a>
               </li>
               <li>
                 <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectSubjects}>{this.props.strings.breadcrumbs.selectSubject}</a>
+                <a onClick={this._onHandleSelectSubjects} href='/subjects'>{this.props.strings.breadcrumbs.selectSubject}</a>
               </li>
               <li>
                 <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectGrades}>{this.props.strings.breadcrumbs.selectClass}</a>
+                <a onClick={this._onHandleSelectGrades} href={`/subjects/${this.props.subjectName}`}>{this.props.strings.breadcrumbs.selectClass}</a>
               </li>
               <li>
                 <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectUnits}>{this.props.strings.breadcrumbs.selectUnit}</a>
+                <a onClick={this._onHandleSelectUnits} href={`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}`}>{this.props.strings.breadcrumbs.selectUnit}</a>
               </li>
             </ul>
           </nav>
         </header>
         <main className='span_10_of_12 main-content'>
           <h1 className='pg-title'>{this.props.strings.moduleNav.selectYourLesson}</h1>
-          <article className='choice-select__wrapper button-group'>
+          <article className='choice-select__wrapper button-group' role='group'>
             {_.map(this.props.lessons, this.renderLessons)}
           </article>
         </main>
@@ -80,7 +81,8 @@ class Lessons extends Component {
     browserHistory.push('/')
   }
 
-  _onHandleSelectSubjects = () => {
+  _onHandleSelectSubjects = (e) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',
@@ -89,7 +91,8 @@ class Lessons extends Component {
     browserHistory.push(`/subjects`)
   }
 
-  _onHandleSelectGrades = () => {
+  _onHandleSelectGrades = (e) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',
@@ -98,7 +101,8 @@ class Lessons extends Component {
     browserHistory.push(`/subjects/${this.props.subjectName}`)
   }
 
-  _onHandleSelectUnits = () => {
+  _onHandleSelectUnits = (e) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',
@@ -107,7 +111,8 @@ class Lessons extends Component {
     browserHistory.push(`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}`)
   }
 
-  _onHandleSelectLesson = (lessonName) => {
+  _onHandleSelectLesson = (e, lessonName) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',

@@ -42,6 +42,11 @@
   border-bottom: 3px solid hsla(327, 100%, 70%, 1);
 }
 
+.c-breadcrumbs__list a:focus {
+  color: #fff;
+  border-bottom: 3px solid hsla(327, 100%, 75%, 1);
+}
+
 .pink-chev {
   color: hsla(327, 100%, 60%, 1);
 }

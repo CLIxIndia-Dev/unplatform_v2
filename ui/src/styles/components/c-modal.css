@@ -19,6 +19,16 @@
 
 }
 
+.c-modal__dialog::backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba(112, 0, 82, 0.8);
+}
+
 .c-modal__dialog-title {
   margin: 1.875em auto .625em;
   font-size: 1.75em;

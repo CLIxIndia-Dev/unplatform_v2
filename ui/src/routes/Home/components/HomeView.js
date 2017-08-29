@@ -17,7 +17,6 @@ class HomeView extends Component {
     // flush the cache because we don't want modules
     // being cached forever...in case someone loads
     // new ones, we need to refresh the value in state
-    console.log('home view mounting')
     this.props.onFlush()
     this.props.onGetConfiguration()
     this.props.onGetModules()
