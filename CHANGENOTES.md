@@ -1,3 +1,7 @@
+## [1.6.2] - 2017-08-29
+### Changed
+- How unicode file paths are handled within Tools.
+
 ## [1.6.1] - 2017-07-28
 ### Changed
 - The `save` action in school configuration re-routes to the root path.
@@ -157,6 +161,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.5.0...v1.5.1
