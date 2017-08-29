@@ -172,168 +172,182 @@ fi
 cd $BUILD_ROOT/tool-repos
 
 # Content player
-echo Processing Content Player
+# echo Processing Content Player
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d content_player ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/content_player.git
+#   cp content_player/.env.example content_player/.env
+# fi
+# cd content_player
+#
+# # remove our local config to prevent git merge conflicts
+# rm -f client/html/layouts/application.html
+#
+# git pull origin master
+# yarn install
+#
+# # put in our content player local config so it builds properly
+# cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/html/layouts/application.html
+#
+# yarn run build
+# mkdir $BUILD_ROOT/bundle/static/content_player/
+# cp -rf build/prod/*  $BUILD_ROOT/bundle/static/content_player/
+# rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
+#
+# # OEA Open Embedded Assessments
+# echo Processing Open Assessments Client
+# cd $BUILD_ROOT/tool-repos
+#
+# if [ ! -d "OpenAssessmentsClient" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
+# fi
+# cd OpenAssessmentsClient
+# git checkout master
+#
+# # remove our local config to prevent git merge conflicts
+# rm -f client/html/layouts/application.html
+# rm -f client/html/layouts/partials/_head.html
+# rm -f client/config/settings.js
+#
+# git pull origin master
+#
+# # Using Yarn (instead of npm) in spite of Yarn issue
+# # 1657 on Windows. Yarn seems to work on Windows now.
+# yarn install
+# cd client
+# yarn install
+# cd ..
+#
+# # put in our OEA local config so it builds properly
+# cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/application.html
+# cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
+# cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
+#
+# yarn run build
+#
+# mkdir $BUILD_ROOT/bundle/static/oea/
+# cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
+# rm -rf $BUILD_ROOT/bundle/static/oea/.git/
+#
+# # biomechanics game
+# echo Processing Biomechanics game
+# cd $BUILD_ROOT/tool-repos
+#
+# if [ ! -d "runkittyrun" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/runkittyrun.git
+# fi
+# cd runkittyrun
+# git checkout master
+# git pull origin master
+# cd ..
+# mkdir $BUILD_ROOT/bundle/static/runkittyrun/
+# cp -rf runkittyrun/en/* $BUILD_ROOT/bundle/static/runkittyrun/
+# rm -rf $BUILD_ROOT/bundle/static/runkittyrun/.git/
+#
+# # Physics Video player
+# echo Processing Physics Video player
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "physics-video-player" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
+# fi
+# cd physics-video-player
+# git checkout release
+# git pull origin release
+# cd ..
+# mkdir $BUILD_ROOT/bundle/static/physics-video-player/
+# cp -rf physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
+# rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
+#
+# # Audio record tool
+# echo Processing Audio Record tool
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "audio-record-tool" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
+# fi
+# cd audio-record-tool
+# git checkout release
+# git pull origin release
+# cd ..
+# mkdir $BUILD_ROOT/bundle/static/audio-record-tool/
+# cp -rf audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
+# rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
+#
+# # Police Quad
+# echo Processing Police Quad
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "policequad" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/policequad.git
+# fi
+# cd policequad
+# git checkout master
+# git pull origin master
+# cd ..
+# mkdir $BUILD_ROOT/bundle/static/policequad/
+# cp -rf policequad/en/*  $BUILD_ROOT/bundle/static/policequad/
+# rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
+#
+# # Open Story tool
+# echo Processing Open Story tool
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "open-story-tool" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
+# fi
+# cd open-story-tool
+# git checkout release
+# git pull origin release
+# cd ..
+# mkdir ../bundle/static/open-story-tool/
+# cp -rf open-story-tool/* ../bundle/static/open-story-tool/
+# rm -rf ../bundle/static/open-story-tool/.git/
+#
+# # Turtle Blocks
+# echo Processing Turtle Blocks
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "turtle-blocks" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
+# fi
+# cd turtle-blocks
+# git checkout release
+# git pull origin release
+# cd ..
+# mkdir ../bundle/static/turtle-blocks/
+# cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
+# rm -rf ../bundle/static/turtle-blocks/.git/
+#
+#
+# # QBank-lite Bundles
+# echo Processing QBank-lite Bundles
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "qbank-lite-bundles" ]
+# then
+#   git clone git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
+# fi
+# cd qbank-lite-bundles
+# git checkout release
+# git pull origin release
+
+# StarLogoNova simulations
+echo Processing StarLogo NOVA simulations
 cd $BUILD_ROOT/tool-repos
-if [ ! -d content_player ]
+if [ ! -d "StarLogoNova" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/content_player.git
-  cp content_player/.env.example content_player/.env
+  git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
 fi
-cd content_player
-
-# remove our local config to prevent git merge conflicts
-rm -f client/html/layouts/application.html
-
-git pull origin master
-yarn install
-
-# put in our content player local config so it builds properly
-cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/html/layouts/application.html
-
-yarn run build
-mkdir $BUILD_ROOT/bundle/static/content_player/
-cp -rf build/prod/*  $BUILD_ROOT/bundle/static/content_player/
-rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
-
-# OEA Open Embedded Assessments
-echo Processing Open Assessments Client
-cd $BUILD_ROOT/tool-repos
-
-if [ ! -d "OpenAssessmentsClient" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
-fi
-cd OpenAssessmentsClient
+cd StarLogoNova
 git checkout master
-
-# remove our local config to prevent git merge conflicts
-rm -f client/html/layouts/application.html
-rm -f client/html/layouts/partials/_head.html
-rm -f client/config/settings.js
-
-git pull origin master
-
-# Using Yarn (instead of npm) in spite of Yarn issue
-# 1657 on Windows. Yarn seems to work on Windows now.
-yarn install
-cd client
-yarn install
+git pull --rebase
 cd ..
-
-# put in our OEA local config so it builds properly
-cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/application.html
-cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
-cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
-
-yarn run build
-
-mkdir $BUILD_ROOT/bundle/static/oea/
-cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
-rm -rf $BUILD_ROOT/bundle/static/oea/.git/
-
-# biomechanics game
-echo Processing Biomechanics game
-cd $BUILD_ROOT/tool-repos
-
-if [ ! -d "runkittyrun" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/runkittyrun.git
-fi
-cd runkittyrun
-git checkout master
-git pull origin master
-cd ..
-mkdir $BUILD_ROOT/bundle/static/runkittyrun/
-cp -rf runkittyrun/en/* $BUILD_ROOT/bundle/static/runkittyrun/
-rm -rf $BUILD_ROOT/bundle/static/runkittyrun/.git/
-
-# Physics Video player
-echo Processing Physics Video player
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "physics-video-player" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
-fi
-cd physics-video-player
-git checkout release
-git pull origin release
-cd ..
-mkdir $BUILD_ROOT/bundle/static/physics-video-player/
-cp -rf physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
-rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
-
-# Audio record tool
-echo Processing Audio Record tool
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "audio-record-tool" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
-fi
-cd audio-record-tool
-git checkout release
-git pull origin release
-cd ..
-mkdir $BUILD_ROOT/bundle/static/audio-record-tool/
-cp -rf audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
-rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
-
-# Police Quad
-echo Processing Police Quad
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "policequad" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/policequad.git
-fi
-cd policequad
-git checkout master
-git pull origin master
-cd ..
-mkdir $BUILD_ROOT/bundle/static/policequad/
-cp -rf policequad/en/*  $BUILD_ROOT/bundle/static/policequad/
-rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
-
-# Open Story tool
-echo Processing Open Story tool
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "open-story-tool" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
-fi
-cd open-story-tool
-git checkout release
-git pull origin release
-cd ..
-mkdir ../bundle/static/open-story-tool/
-cp -rf open-story-tool/* ../bundle/static/open-story-tool/
-rm -rf ../bundle/static/open-story-tool/.git/
-
-# Turtle Blocks
-echo Processing Turtle Blocks
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "turtle-blocks" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
-fi
-cd turtle-blocks
-git checkout release
-git pull origin release
-cd ..
-mkdir ../bundle/static/turtle-blocks/
-cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
-rm -rf ../bundle/static/turtle-blocks/.git/
-
-
-# QBank-lite Bundles
-echo Processing QBank-lite Bundles
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "qbank-lite-bundles" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
-fi
-cd qbank-lite-bundles
-git checkout release
-git pull origin release
-
+mkdir ../bundle/static/StarLogoNova/
+cp -rf StarLogoNova/* ../bundle/static/StarLogoNova/
+rm -rf ../bundle/static/StarLogoNova/.git/
 
 # let's get back out of tool-repos and go to the root directory
 cd $BUILD_ROOT
