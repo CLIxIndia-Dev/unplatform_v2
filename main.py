@@ -1,4 +1,6 @@
 #!/bin/sh
+from __future__ import unicode_literals
+
 import codecs
 import functools
 import json
@@ -12,7 +14,7 @@ import urllib
 import web
 
 from datetime import datetime
-from natsort import natsorted, as_utf8
+from natsort import natsorted
 from requests.exceptions import ConnectionError
 
 from web.wsgiserver import CherryPyWSGIServer
@@ -92,7 +94,7 @@ def list_dir(root, directory, current_level=0, max_level=4):
                 if not sub_dir.startswith('.') and os.path.isdir(full_sub_dir_path):
                     sub_dirs.append(new_sub_dir)
                     sub_dirs += list_dir(root, new_sub_dir, current_level=current_level + 1)
-            sub_dirs = natsorted(sub_dirs, key=as_utf8)
+            sub_dirs = natsorted(sub_dirs)
     return sub_dirs
 
 
@@ -217,7 +219,7 @@ class common_tools:
     @require_login
     @utilities.format_html_response
     def GET(self, tool_name=None):
-        tool_file = u'{0}/modules/Tools/{1}/index.html'.format(ABS_PATH, tool_name)
+        tool_file = '{0}/modules/Tools/{1}/index.html'.format(ABS_PATH, tool_name)
         if not os.path.isfile(tool_file):
             yield web.notfound("Sorry, that tool was not found.")
         else:
