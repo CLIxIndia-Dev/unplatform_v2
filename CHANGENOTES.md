@@ -1,3 +1,8 @@
+## [1.6.3] - 2017-08-29
+### Changed
+- Use `unicode_literals` for all of `main.py`, to fix Windows issue
+  with paths.
+
 ## [1.6.2] - 2017-08-29
 ### Changed
 - How unicode file paths are handled within Tools.
@@ -161,6 +166,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.5.1...v1.6.0
