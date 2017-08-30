@@ -1,3 +1,5 @@
+# pylint: disable=unused-argument
+
 import glob
 import json
 import shutil

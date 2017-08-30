@@ -29,5 +29,7 @@ disable =
     too-many-ancestors,
     line-too-long,
     no-self-use,
-    missing-docstring,
+    missing-docstring
 
+[SIMILARITIES]
+min-similarity-lines=6

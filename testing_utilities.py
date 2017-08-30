@@ -1,13 +1,12 @@
-import glob
+# pylint: disable=duplicate-code
 import json
 import sys
 import os
-from unittest import TestCase
 
-from nose.tools import *
+# from nose.tools import *
 # from paste.fixture import TestApp
-from webtest import TestApp
 from unittest import TestCase
+from webtest import TestApp
 
 from main import app
 from session_migration import create_session_database

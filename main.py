@@ -1,4 +1,5 @@
 #!/bin/sh
+# pylint: disable=assigning-non-slot,duplicate-code
 from __future__ import unicode_literals
 
 import codecs
@@ -10,11 +11,11 @@ import string
 import sys
 import urllib
 
+import os
 from datetime import datetime
 from natsort import natsorted
 from requests.exceptions import ConnectionError
 
-import os
 import requests
 import web
 from web.wsgiserver import CherryPyWSGIServer
@@ -33,9 +34,11 @@ else:
 
 CherryPyWSGIServer.ssl_certificate_chain = ''
 try:
+    # pylint: disable=protected-access
     CherryPyWSGIServer.ssl_certificate = "{0}/unplatform/unplatform.cert.dummy.pem".format(sys._MEIPASS)
     CherryPyWSGIServer.ssl_private_key = "{0}/unplatform/unplatform.key.dummy.pem".format(sys._MEIPASS)
 except AttributeError:
+    # pylint: disable=protected-access
     CherryPyWSGIServer.ssl_certificate = "{0}/unplatform/unplatform.cert.dummy.pem".format(ABS_PATH)
     CherryPyWSGIServer.ssl_private_key = "{0}/unplatform/unplatform.key.dummy.pem".format(ABS_PATH)
 
@@ -124,6 +127,7 @@ class bootloader_storage_path:
 
 class index:
     @utilities.format_html_response
+    # pylint: disable=unused-argument
     def GET(self, path=None):
         # reset session on GET index
         # session.login = 0
@@ -249,6 +253,7 @@ class content:
     # whenever content logs to the generic logging API, that will check
     # logged in state.
     # @require_login
+    # pylint: disable=too-many-locals
     def GET(self, path=None):
         full_path = os.path.join(ABS_PATH, 'modules', path)
         if not os.path.isfile(full_path):
@@ -326,6 +331,7 @@ class modules_list:
 class oea_tool:
     @require_login
     @utilities.format_html_response
+    # pylint: disable=unused-argument
     def GET(self, path=None):
         oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
         with open(oea_file_path, 'rb') as oea_index:

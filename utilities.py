@@ -10,6 +10,7 @@ class BaseClass:
     def __init__(self):
         pass
 
+    # pylint: disable=unused-argument
     def OPTIONS(self, *args, **kwargs):
         # https://www.youtube.com/watch?v=gZelOtYjYv8
         web.header("Access-Control-Allow-Origin", "*")
