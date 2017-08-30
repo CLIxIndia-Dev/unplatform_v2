@@ -1,4 +1,6 @@
 #!/bin/sh
+from __future__ import unicode_literals
+
 import codecs
 import functools
 import json
