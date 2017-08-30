@@ -122,10 +122,7 @@ def mocked_logging_get(*args, **kwargs):
             return self.json_data
     if args[0] == "https://localhost:8080/api/v1/logging/logs":
         return MockResponse([SAMPLE_LOG], 200)
-    else:
-        return MockResponse([SAMPLE_ENTRY], 200)
-
-    return MockResponse({}, 404)
+    return MockResponse([SAMPLE_ENTRY], 200)
 
 
 class BaseMainTestCase(BaseTestCase):
@@ -150,6 +147,7 @@ class BasicServiceTests(BaseMainTestCase):
         return num_sessions
 
     def setUp(self):
+        # pylint: disable=useless-super-delegation
         super(BasicServiceTests, self).setUp()
         # self.data_dir = '{0}/webapps/unplatform/sessions'.format(ABS_PATH)
         # if os.path.isdir(self.data_dir):
@@ -157,6 +155,7 @@ class BasicServiceTests(BaseMainTestCase):
         # os.mkdir(self.data_dir)
 
     def tearDown(self):
+        # pylint: disable=useless-super-delegation
         super(BasicServiceTests, self).tearDown()
         # if os.path.isdir(self.data_dir):
         #     shutil.rmtree(self.data_dir)
@@ -308,6 +307,7 @@ class ModuleDirectoryListingTests(BaseMainTestCase):
         self.url = '/modules_list'
 
     def tearDown(self):
+        # pylint: disable=useless-super-delegation
         super(ModuleDirectoryListingTests, self).tearDown()
 
     def test_can_get_modules_listing(self):
@@ -438,6 +438,7 @@ class LoggingTests(BaseMainTestCase):
         #     shutil.rmtree(self.data_dir)
 
     def tearDown(self):
+        # pylint: disable=useless-super-delegation
         super(LoggingTests, self).tearDown()
         # if os.path.isdir(self.data_dir):
         #     shutil.rmtree(self.data_dir)
