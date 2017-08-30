@@ -20,13 +20,18 @@
 <body>
   <div id="root"></div>
   <dialog id="sessionWarning" class="c-modal__dialog span_6_of_12">
-      <div class="c-modal__dialog-title">
+      <h1 class="c-modal__dialog-title">
           Your session will expire in 10 minutes. Are you still actively using
           the activities?
-      </div>
+      </h1>
+      <span class="c-modal__dialog-subtitle">
+          Your session will expire in 10 minutes. Are you still actively using
+          the activities?
+      </span>
       <menu>
-          <button id="no">No</button>
-          <button id="yes">Yes</button>
+          <button class="c-modal__dialog-btn-primary" id="yes">Yes</button>
+          <button class="c-modal__dialog-btn-decondary" id="no">No</button>
+
       </menu>
   </dialog>
 </body>

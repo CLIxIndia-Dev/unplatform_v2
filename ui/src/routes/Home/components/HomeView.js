@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import {Icon} from 'react-fa'
 import ChevronRight from '../../../components/ChevronRight'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
@@ -44,25 +45,33 @@ class HomeView extends Component {
 
   renderUserTypeButtons = (label, index) => {
     let className = 'user-select'
+    let radioDot = 'circle-o'
+    let ariaHid = false
     let checked = false
     if (this.props.survey && this.props.survey.userType === label) {
       className = 'user-select button-gradient-active'
+      radioDot = 'dot-circle-o'
+      ariaHid = true
       checked = true
     }
     return (
       <div className={className}>
-        <label key={index}
-          htmlFor={label}>
-          <input key={index}
-            id={label}
-            onChange={(e) => this._onHandleUserTypeSelect(e)}
-            type='radio'
-            name='userType'
-            value={label}
-            checked={checked}
-            className='user-select__input'
-            ref={(input) => { this.inputField = input }}
-            />
+        <Icon
+          name={radioDot}
+          className='radio-dot'
+          aria-hidden={ariaHid}
+        />
+        <input key={index}
+          id={label}
+          onChange={(e) => this._onHandleUserTypeSelect(e)}
+          type='radio'
+          name='userType'
+          value={label}
+          checked={checked}
+          className='user-select__input'
+          ref={(input) => { this.inputField = input }}
+          />
+        <label htmlFor={label}>
           {label}
         </label>
       </div>
@@ -71,22 +80,31 @@ class HomeView extends Component {
 
   renderUserCountButtons = (label, index) => {
     let className = 'count-num'
+    let radioDot = 'circle-o'
+    let ariaHid = false
     let checked = false
     if (this.props.survey && this.props.survey.userCount === label) {
       className = 'count-num button-gradient-active'
+      radioDot = 'dot-circle-o'
+      ariaHid = true
       checked = true
     }
     return (
       <div className={className}>
-        <label key={index}
+        <Icon
+          name={radioDot}
+          className='radio-dot'
+          aria-hidden={ariaHid}
+        />
+        <input key={index}
+          onChange={(e) => this._onHandleUserCountSelect(e)}
+          type='radio'
+          name='userCount'
+          value={label}
+          id={label}
+          checked={checked} />
+        <label
           htmlFor={label}>
-          <input key={index}
-            onChange={(e) => this._onHandleUserCountSelect(e)}
-            type='radio'
-            name='userCount'
-            value={label}
-            id={label}
-            checked={checked} />
           {label}
         </label>
       </div>
