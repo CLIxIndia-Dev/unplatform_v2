@@ -1,3 +1,13 @@
+## [1.6.4] - 2017-08-30
+### Added
+- `pylint` to testing configuration.
+- Title attribute to tool iframes.
+- Set the `lang` attribute in the content player.
+
+### Changed
+- Content player title.
+- OEA player title.
+
 ## [1.6.3] - 2017-08-29
 ### Changed
 - Use `unicode_literals` for all of `main.py`, to fix Windows issue
@@ -166,6 +176,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.0...v1.6.1
