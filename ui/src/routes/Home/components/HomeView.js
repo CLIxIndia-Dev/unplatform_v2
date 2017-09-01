@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import {Icon} from 'react-fa'
+import { Icon } from 'react-fa'
 import ChevronRight from '../../../components/ChevronRight'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
@@ -55,11 +55,12 @@ class HomeView extends Component {
       checked = true
     }
     return (
-      <div className={className}>
+      <label htmlFor={label} className={className}>
         <Icon
           name={radioDot}
-          className='radio-dot'
+          className='user-select__radio-dot'
           aria-hidden={ariaHid}
+          role='img'
         />
         <input key={index}
           id={label}
@@ -68,13 +69,11 @@ class HomeView extends Component {
           name='userType'
           value={label}
           checked={checked}
-          className='user-select__input'
+          className='user-select__input visuallyhidden'
           ref={(input) => { this.inputField = input }}
-          />
-        <label htmlFor={label}>
-          {label}
-        </label>
-      </div>
+        />
+        {label}
+      </label>
     )
   }
 
@@ -90,10 +89,11 @@ class HomeView extends Component {
       checked = true
     }
     return (
-      <div className={className}>
+      <label
+        htmlFor={label} className={className}>
         <Icon
           name={radioDot}
-          className='radio-dot'
+          className='count-select__radio-dot'
           aria-hidden={ariaHid}
         />
         <input key={index}
@@ -102,12 +102,11 @@ class HomeView extends Component {
           name='userCount'
           value={label}
           id={label}
-          checked={checked} />
-        <label
-          htmlFor={label}>
-          {label}
-        </label>
-      </div>
+          checked={checked}
+          className='visuallyhidden'
+        />
+        {label}
+      </label>
     )
   }
 
@@ -130,7 +129,7 @@ class HomeView extends Component {
         <form action='' className='count-select-form'>
           <fieldset>
             <legend>
-              <h2 className='pg-subtitle'>{this.props.strings.splash.prompt}</h2>
+              <h3 className='pg-heading-3'>{this.props.strings.splash.prompt}</h3>
             </legend>
             <article className='but-select'>
               {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
@@ -159,11 +158,11 @@ class HomeView extends Component {
         <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
 
         <main className='span_11_of_12 main-content homeview__content'>
-          <h1 className='pg-title'>{this.props.strings.splash.title}</h1>
+          <h1 className='pg-heading-1'>{this.props.strings.splash.title}</h1>
           <form action='' className='user-select-form'>
             <fieldset>
               <legend>
-                <h2 className='pg-subtitle'>{this.props.strings.splash.subtitle}</h2>
+                <h2 className='pg-heading-2'>{this.props.strings.splash.subtitle}</h2>
               </legend>
               <article className='but-select'>
                 {_.map(this.userSelectStrings, this.renderUserTypeButtons)}

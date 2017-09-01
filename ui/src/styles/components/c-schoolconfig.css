@@ -2,7 +2,8 @@
 
 .c-school__wrapper {
   height: 100vh;
-  background-image: radial-gradient(circle at 50% 0, #a61680, #6b004e);
+  /*  clix-blue-purp*/
+  background-image: radial-gradient(circle at 50% 0, hsla(259, 40%, 30%, 1), hsla(259, 40%, 20%, 1));
 }
 
 .c-school__main {
@@ -52,8 +53,8 @@
   padding: .5em .875em;
   display: flex;
   flex-direction: column;
-  background-color: #6b004e;
-  border: 1px solid #ff33a3;
+  background-color: hsla(259, 40%, 10%, 1);
+  border: 1px solid hsla(259, 40%, 80%, 1);
 }
 
 
@@ -61,7 +62,7 @@
   margin-top: .8em;
   font-family:open_sansbold;
   font-size: .875em;
-  color: hsla(327, 100%, 80%, 1);
+  color: hsla(259, 40%, 80%, 1);
 }
 
 .c-school__config-wrapper p {
@@ -77,8 +78,10 @@
   padding: .5em .875em;
   display: flex;
   flex-direction: column;
-  background-color: #6b004e;
-  border: 1px solid #ff33a3;
+  /*background-color: #6b004e;
+  border: 1px solid #ff33a3;*/
+  background-color: hsla(259, 40%, 10%, 1);
+  border: 1px solid hsla(259, 40%, 80%, 1);
 }
 
 .c-school__form label {
@@ -86,7 +89,7 @@
   margin-bottom: .5em;
   font-family:open_sansbold;
   font-size: .875em;
-  color: hsla(327, 100%, 80%, 1);
+  color: hsla(259, 40%, 80%, 1);
 }
 
 .c-school__form input {
@@ -111,7 +114,8 @@
   color: #fff;
   text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
   background-color: #ff33a3;
-  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.6));
+  /*background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.6));*/
+  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 1), hsla(259, 40%,30%, 1));
   border: 2px solid #fff;
   border-radius: 6.25em;
   cursor: pointer;
@@ -119,12 +123,14 @@
 }
 
 .c-school__form-button:hover {
-  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));;
+  /*clix-magenta*/
+  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 1), hsla(327, 100%, 35%, 1));
   transform: scale3d(1.05, 1.05, 1);
 }
 
 .c-school__form-button:active {
-  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%,30%, 0.5))
+/*  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%,30%, 0.5));*/
+  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));;
 }
 
 /*MEDIA QUERIES */

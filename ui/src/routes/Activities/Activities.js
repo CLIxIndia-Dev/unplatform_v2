@@ -64,7 +64,7 @@ class Subjects extends Component {
     return (
       <div className='act-container'>
         <header className='c-header'>
-          <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
+          <h1 className='c-header__logo' aria-label='Clix Connected Learning Initiative'>CLIx Connected Learning Initiative</h1>
           <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
           <nav className='c-header__nav'>
             <button onClick={this._onChooseTool}>
@@ -90,10 +90,7 @@ class Subjects extends Component {
       appName: 'unplatform',
       action: 'clicked_finished',
       params: {
-        url: `/subjects/${this.props.subjectName}
-        /grades/${this.props.gradeName}
-        /units/${this.props.unitName}
-        /lessons/${this.props.lessonName}`,
+        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
         response: 'yes'
       }
     })
@@ -108,10 +105,7 @@ class Subjects extends Component {
       appName: 'unplatform',
       action: 'clicked_choose_tool',
       params: {
-        url: `/subjects/${this.props.subjectName}
-        /grades/${this.props.gradeName}
-        /units/${this.props.unitName}
-        /lessons/${this.props.lessonName}`
+        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`
       }
     })
     browserHistory.push('/tools')
@@ -124,16 +118,11 @@ class Subjects extends Component {
       appName: 'unplatform',
       action: 'clicked_choose_new_lesson',
       params: {
-        url: `/subjects/${this.props.subjectName}
-        /grades/${this.props.gradeName}
-        /units/${this.props.unitName}
-        /lessons/${this.props.lessonName}`
+        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`
       }
     })
     browserHistory.push(
-      `/subjects/${this.props.subjectName}
-      /grades/${this.props.gradeName}
-      /units/${this.props.unitName}`)
+      `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}`)
   }
 
   _onToggleModal = (e) => {
