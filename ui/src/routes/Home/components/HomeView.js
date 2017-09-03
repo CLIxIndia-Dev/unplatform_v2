@@ -155,7 +155,7 @@ class HomeView extends Component {
     }
     return (
       <div className='gradient-wrapper'>
-        <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
+        <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
 
         <main className='span_11_of_12 main-content homeview__content'>
           <h1 className='pg-heading-1'>{this.props.strings.splash.title}</h1>

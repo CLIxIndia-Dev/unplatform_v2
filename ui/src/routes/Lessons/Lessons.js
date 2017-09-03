@@ -38,7 +38,7 @@ class Lessons extends Component {
     return (
 
       <div className='gradient-wrapper'>
-        <img src={backgroundImage} alt='' className='gradient-wrapper__image' />
+        <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
         <header className='c-breadcrumbs__header'>
           <nav className='c-breadcrumbs__nav'>
             <ul className='c-breadcrumbs__list'>
