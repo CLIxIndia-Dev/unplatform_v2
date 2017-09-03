@@ -55,14 +55,18 @@ class HomeView extends Component {
       checked = true
     }
     return (
-      <label htmlFor={label} className={className}>
+      <label
+        htmlFor={label}
+        className={className}
+        key={index}
+      >
         <Icon
           name={radioDot}
           className='user-select__radio-dot'
           aria-hidden={ariaHid}
           role='img'
         />
-        <input key={index}
+        <input
           id={label}
           onChange={(e) => this._onHandleUserTypeSelect(e)}
           type='radio'
@@ -90,13 +94,16 @@ class HomeView extends Component {
     }
     return (
       <label
-        htmlFor={label} className={className}>
+        htmlFor={label}
+        className={className}
+        key={index}
+      >
         <Icon
           name={radioDot}
           className='count-select__radio-dot'
           aria-hidden={ariaHid}
         />
-        <input key={index}
+        <input
           onChange={(e) => this._onHandleUserCountSelect(e)}
           type='radio'
           name='userCount'
