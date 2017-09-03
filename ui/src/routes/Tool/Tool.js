@@ -31,7 +31,6 @@ class Subjects extends Component {
   }
 
   render () {
-
     if (!this.props.locale) {
       return (
         <div>
@@ -59,7 +58,6 @@ class Subjects extends Component {
     let toolUrl = `/common/${this.props.toolName}?lang=${this.props.locale}`
     return (
       <div className='act-container'>
-        <img alt=''/>
         <header className='c-header'>
           <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
           <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
@@ -70,7 +68,12 @@ class Subjects extends Component {
           </nav>
         </header>
         <main className='span_12_of_12'>
-          <iframe src={toolUrl} className='act-iframe--fill-win' frameBorder='0' allowFullScreen />
+          <iframe src={toolUrl}
+            title={this.props.toolName}
+            className='act-iframe--fill-win'
+            frameBorder='0'
+            allowFullScreen
+          />
           {sessionModal}
         </main>
       </div>

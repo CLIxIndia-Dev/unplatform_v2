@@ -76,7 +76,12 @@ class Subjects extends Component {
           </nav>
         </header>
         <main className='span_12_of_12'>
-          <iframe src={epubUrl} className='act-iframe--fill-win' frameBorder='0' allowFullScreen />
+          <iframe src={epubUrl}
+            title={`${this.props.subjectName} ${this.props.lessonName}`}
+            className='act-iframe--fill-win'
+            frameBorder='0'
+            allowFullScreen
+          />
           {sessionModal}
         </main>
       </div>
