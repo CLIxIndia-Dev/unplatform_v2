@@ -152,8 +152,8 @@ button {
   text-align: center;
 }
 
-.user-select-form fieldset,
-.count-select-form fieldset {
+.user-select-form,
+.count-select-form {
   margin-top: 0.5rem;
 }
 

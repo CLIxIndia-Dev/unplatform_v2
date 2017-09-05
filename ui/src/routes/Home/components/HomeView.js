@@ -86,22 +86,28 @@ class HomeView extends Component {
     let radioDot = 'circle-o'
     let ariaHid = false
     let checked = false
+    let ariaLab = 'users'
     if (this.props.survey && this.props.survey.userCount === label) {
       className = 'count-num button-gradient-active'
       radioDot = 'dot-circle-o'
       ariaHid = true
       checked = true
+      if (index === 0) {
+        ariaLab = 'user'
+      }
     }
     return (
       <label
         htmlFor={label}
         className={className}
         key={index}
+        aria-label={`${label} ${ariaLab}`}
       >
         <Icon
           name={radioDot}
           className='count-select__radio-dot'
           aria-hidden={ariaHid}
+          role='img'
         />
         <input
           onChange={(e) => this._onHandleUserCountSelect(e)}
@@ -133,16 +139,14 @@ class HomeView extends Component {
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
-        <form action='' className='count-select-form'>
-          <fieldset>
-            <legend>
-              <h3 className='pg-heading-3'>{this.props.strings.splash.prompt}</h3>
-            </legend>
-            <article className='but-select'>
-              {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
-            </article>
-          </fieldset>
-        </form>
+        <fieldset className='count-select-form'>
+          <legend>
+            <h3 className='pg-heading-3'>{this.props.strings.splash.prompt}</h3>
+          </legend>
+          <article className='but-select'>
+            {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
+          </article>
+        </fieldset>
       )
     }
 
@@ -164,10 +168,13 @@ class HomeView extends Component {
       <div className='gradient-wrapper'>
         <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
 
-        <main className='span_11_of_12 main-content homeview__content'>
-          <h1 className='pg-heading-1'>{this.props.strings.splash.title}</h1>
-          <form action='' className='user-select-form'>
-            <fieldset>
+        <main className='span_11_of_12 main-content homeview__content' role='main'>
+          <h1 className='pg-heading-1'>
+            <span aria-hidden={true}>{this.props.strings.splash.title}</span>
+            <span className='visuallyhidden'>{this.props.strings.splash.ariaLabelTitle}</span>
+          </h1>
+          <form action=''>
+            <fieldset className='user-select-form'>
               <legend>
                 <h2 className='pg-heading-2'>{this.props.strings.splash.subtitle}</h2>
               </legend>
@@ -175,8 +182,8 @@ class HomeView extends Component {
                 {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
               </article>
             </fieldset>
+            {userCount}
           </form>
-          {userCount}
           {submitButton}
         </main>
       </div>
