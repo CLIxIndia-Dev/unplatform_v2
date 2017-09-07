@@ -16,7 +16,8 @@ export default {
       selectUser: 'Select User', // Return to survey screen
       selectSubject: 'Select Subject', // Select the Subject
       selectClass: 'Select Class', // Select the class
-      selectUnit: 'Select Unit'
+      selectUnit: 'Select Unit',
+      selectLesson: 'Select Lesson'
     },
     moduleNav: {
       selectYourClass: 'Select Your Class', // prompt for user to select class

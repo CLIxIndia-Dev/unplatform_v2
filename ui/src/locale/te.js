@@ -16,7 +16,8 @@ export default {
       selectUser: 'వినియోగదారుని ఎంచుకోండ', // Return to survey screen
       selectSubject: 'విషయం ఎంచుకోండి', // Select the Subject
       selectClass: 'తరగతి ఎంచుకోండిి', // Select the class
-      selectUnit: 'యూనిట్ ఎంచుకోండి'
+      selectUnit: 'యూనిట్ ఎంచుకోండి',
+      selectLesson: 'పాఠం ఎంచుకోండి'
     },
     moduleNav: {
       selectYourClass: 'మీ తరగతి ఎంచుకోండి', // prompt for user to select class

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import DocumentTitle from 'react-document-title'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-header.css'
@@ -62,29 +63,31 @@ class Subjects extends Component {
 
     let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`
     return (
-      <div className='act-container'>
-        <header className='c-header'>
-          <h1 className='c-header__logo' aria-label='Clix Connected Learning Initiative'>CLIx Connected Learning Initiative</h1>
-          <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
-          <nav className='c-header__nav'>
-            <button onClick={this._onChooseTool}>
-              {this.props.strings.unplatformNav.chooseTool}</button>
-            <button onClick={this._onChooseLesson}>
-              {this.props.strings.unplatformNav.chooseNewLesson}</button>
-            <button onClick={this._onToggleModal}>
-              {this.props.strings.unplatformNav.finishLesson}</button>
-          </nav>
-        </header>
-        <main className='span_12_of_12'>
-          <iframe src={epubUrl}
-            title={`${this.props.subjectName} ${this.props.lessonName}`}
-            className='act-iframe--fill-win'
-            frameBorder='0'
-            allowFullScreen
-          />
-          {sessionModal}
-        </main>
-      </div>
+      <DocumentTitle title={`${this.props.lessonName} | Clix Modules`}>
+        <div className='act-container'>
+          <header className='c-header'>
+            <h1 className='c-header__logo' aria-label='Clix Connected Learning Initiative'>CLIx Connected Learning Initiative</h1>
+            <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
+            <nav className='c-header__nav'>
+              <button onClick={this._onChooseTool}>
+                {this.props.strings.unplatformNav.chooseTool}</button>
+              <button onClick={this._onChooseLesson}>
+                {this.props.strings.unplatformNav.chooseNewLesson}</button>
+              <button onClick={this._onToggleModal}>
+                {this.props.strings.unplatformNav.finishLesson}</button>
+            </nav>
+          </header>
+          <main className='span_12_of_12' aria-label='content'>
+            <iframe src={epubUrl}
+              title={`${this.props.subjectName} ${this.props.lessonName}`}
+              className='act-iframe--fill-win'
+              frameBorder='0'
+              allowFullScreen
+            />
+            {sessionModal}
+          </main>
+        </div>
+      </DocumentTitle>
     )
   }
 

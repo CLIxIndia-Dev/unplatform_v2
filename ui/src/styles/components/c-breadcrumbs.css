@@ -47,13 +47,13 @@
   border-bottom: 3px solid hsla(327, 100%, 75%, 1);
 }
 
-.pink-chev {
-  color: hsla(327, 100%, 60%, 1);
+.c-breadcrumb__icon {
+  color: hsla(327, 100%, 75%, 1);
 }
 
 .c-breadcrumbs__chevron {
   position: relative;
-  top: .188em;
+  top: .3em;
   display: inline-block;
   margin: 0 .25em;
 }

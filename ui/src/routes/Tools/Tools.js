@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import { Icon } from 'react-fa'
+import DocumentTitle from 'react-document-title'
 import BreadcrumbChevron from '../../components/BreadcrumbChevron'
 import { log } from '../../utilities'
 
@@ -37,29 +39,33 @@ class Subjects extends Component {
 
     console.log('tools', this.props.tools)
     return (
-      <div className='gradient-wrapper'>
-        <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
-        <header className='c-breadcrumbs__header'>
-          <nav className='c-breadcrumbs__nav'>
-            <ul className='c-breadcrumbs__list'>
-              <li>
-                <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectUser} href='/'>{this.props.strings.breadcrumbs.selectUser}</a>
-              </li>
-              <li>
-                <BreadcrumbChevron />
-                <a onClick={this._onHandleSelectSubject} href='/subjects'>{this.props.strings.breadcrumbs.selectSubject}</a>
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <main className='span_10_of_12 main-content'>
-          <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourTool}</h1>
-          <article className='choice-select__wrapper button-group' role='group'>
-            {_.map(this.props.tools, this.renderTool)}
-          </article>
-        </main>
-      </div>
+      <DocumentTitle title={`Tools | Clix Modules`}>
+        <div className='gradient-wrapper'>
+          <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
+          <header className='c-breadcrumbs__header'>
+            <nav className='c-breadcrumbs__nav'>
+              <ul className='c-breadcrumbs__list'>
+                <Icon
+                    name={'home'}
+                    className='c-breadcrumb__icon'
+                    aria-hidden={true}
+                    role='img'
+                  />
+                <li>
+                  <BreadcrumbChevron />
+                  <a onClick={this._onHandleSelectSubject} href='/subjects'>{this.props.strings.breadcrumbs.selectSubject}</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
+          <main className='span_10_of_12 main-content' aria-label='content'>
+            <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourTool}</h1>
+            <article className='choice-select__wrapper button-group' role='group'>
+              {_.map(this.props.tools, this.renderTool)}
+            </article>
+          </main>
+        </div>
+      </DocumentTitle>
     )
   }
 

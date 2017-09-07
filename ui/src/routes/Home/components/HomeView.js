@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
+import DocumentTitle from 'react-document-title'
 import ChevronRight from '../../../components/ChevronRight'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
@@ -46,13 +47,9 @@ class HomeView extends Component {
   }
 
   renderUserTypeButtons = (label, index) => {
-    // let className = 'user-select'
-    // let radioDot = 'circle-o'
     let ariaHid = false
     let checked = false
     if (this.props.survey && this.props.survey.userType === label) {
-      // className = 'user-select button-gradient-active'
-      // radioDot = 'dot-circle-o'
       ariaHid = true
       checked = true
     }
@@ -87,14 +84,10 @@ class HomeView extends Component {
   }
 
   renderUserCountButtons = (label, index) => {
-    // let className = 'count-num'
-    // let radioDot = 'circle-o'
     let ariaHid = false
     let checked = false
     let ariaLab = label === '1' ? 'user' : 'users'
     if (this.props.survey && this.props.survey.userCount === label) {
-      // className = 'count-num button-gradient-active'
-      // radioDot = 'dot-circle-o'
       ariaHid = true
       checked = true
     }
@@ -171,28 +164,44 @@ class HomeView extends Component {
       )
     }
     return (
-      <div className='gradient-wrapper'>
-        <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
-
-        <main className='span_11_of_12 main-content homeview__content' role='main'>
-          <h1 className='pg-heading-1'>
-            <span aria-hidden={true}>{this.props.strings.splash.title}</span>
-            <span className='visuallyhidden'>{this.props.strings.splash.ariaLabelTitle}</span>
-          </h1>
-          <form action=''>
-            <fieldset className='user-select-form'>
-              <legend>
-                <h2 className='pg-heading-2'>{this.props.strings.splash.subtitle}</h2>
-              </legend>
-              <article className='input-select__wrapper'>
-                {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
-              </article>
-            </fieldset>
-            {userCount}
-          </form>
-          {submitButton}
-        </main>
-      </div>
+      <DocumentTitle title='Select User | Clix Modules'>
+        <div className='gradient-wrapper'>
+          <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
+          <header className='c-breadcrumbs__header'>
+            <nav className='c-breadcrumbs__nav'>
+              <ul className='c-breadcrumbs__list'>
+                <li>
+                  <Icon
+                    name={'home'}
+                    className='c-breadcrumb__icon'
+                    aria-hidden={true}
+                    role='img'
+                  />
+                  <a onClick={this._onHandleSelectUser} href='/' aria-current='page'>{this.props.strings.breadcrumbs.selectUser}</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
+          <main className='span_11_of_12 main-content homeview__content' aria-label='content'>
+            <h1 className='pg-heading-1'>
+              <span aria-hidden={true}>{this.props.strings.splash.title}</span>
+              <span className='visuallyhidden'>{this.props.strings.splash.ariaLabelTitle}</span>
+            </h1>
+            <form action=''>
+              <fieldset className='user-select-form'>
+                <legend>
+                  <h2 className='pg-heading-2'>{this.props.strings.splash.subtitle}</h2>
+                </legend>
+                <article className='input-select__wrapper'>
+                  {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
+                </article>
+              </fieldset>
+              {userCount}
+            </form>
+            {submitButton}
+          </main>
+        </div>
+      </DocumentTitle>
     )
   }
 

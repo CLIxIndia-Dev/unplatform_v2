@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import DocumentTitle from 'react-document-title'
 import { log } from '../../utilities'
 
 // import '../../styles/buttons.css'
@@ -57,26 +58,28 @@ class Subjects extends Component {
 
     let toolUrl = `/common/${this.props.toolName}?lang=${this.props.locale}`
     return (
-      <div className='act-container'>
-        <header className='c-header'>
-          <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
-          <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
-          <nav className='c-header__nav'>
-            <button onClick={this._onChooseTool}>{this.props.strings.unplatformNav.chooseTool}</button>
-            <button onClick={this._onSelectSubject}>{this.props.strings.breadcrumbs.selectSubject}</button>
-            <button onClick={this._onToggleModal}>{this.props.strings.unplatformNav.finishLesson}</button>
-          </nav>
-        </header>
-        <main className='span_12_of_12'>
-          <iframe src={toolUrl}
-            title={this.props.toolName}
-            className='act-iframe--fill-win'
-            frameBorder='0'
-            allowFullScreen
-          />
-          {sessionModal}
-        </main>
-      </div>
+      <DocumentTitle title={`${this.props.toolName} | Clix Modules`}>
+        <div className='act-container'>
+          <header className='c-header'>
+            <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
+            <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
+            <nav className='c-header__nav'>
+              <button onClick={this._onChooseTool}>{this.props.strings.unplatformNav.chooseTool}</button>
+              <button onClick={this._onSelectSubject}>{this.props.strings.breadcrumbs.selectSubject}</button>
+              <button onClick={this._onToggleModal}>{this.props.strings.unplatformNav.finishLesson}</button>
+            </nav>
+          </header>
+          <main className='span_12_of_12' aria-label='content'>
+            <iframe src={toolUrl}
+              title={this.props.toolName}
+              className='act-iframe--fill-win'
+              frameBorder='0'
+              allowFullScreen
+            />
+            {sessionModal}
+          </main>
+        </div>
+      </DocumentTitle>
     )
   }
 

@@ -16,7 +16,8 @@ export default {
       selectUser: 'यूजर चुने', // Return to survey screen
       selectSubject: 'विषय चुन', // Select the Subject
       selectClass: 'वर्ग चुने', // Select the class
-      selectUnit: 'इकाई चुने'
+      selectUnit: 'इकाई चुने',
+      selectLesson: 'पाठ चुने'
     },
     moduleNav: {
       selectYourClass: 'अपना वर्ग चुने', // prompt for user to select class
