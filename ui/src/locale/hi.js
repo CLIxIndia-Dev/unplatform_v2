@@ -17,7 +17,8 @@ export default {
       selectSubject: 'विषय चुन', // Select the Subject
       selectClass: 'वर्ग चुने', // Select the class
       selectUnit: 'इकाई चुने',
-      selectLesson: 'पाठ चुने'
+      selectLesson: 'पाठ चुने',
+      selectTool: 'टूल चुने'
     },
     moduleNav: {
       selectYourClass: 'अपना वर्ग चुने', // prompt for user to select class

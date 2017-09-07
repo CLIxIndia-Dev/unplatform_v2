@@ -266,8 +266,6 @@ button {
   letter-spacing: -0.006rem;
   text-align: center;
   text-shadow: 0 0.125rem 0.125rem rgba(0, 0, 0, 0.3);
-  /*clix-orange*/
-  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
   /*  clix-blue-purp*/
   background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%,30%, 0.5));
   backface-visibility: hidden;

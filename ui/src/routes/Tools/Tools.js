@@ -37,7 +37,6 @@ class Subjects extends Component {
       )
     }
 
-    console.log('tools', this.props.tools)
     return (
       <DocumentTitle title={`Tools | Clix Modules`}>
         <div className='gradient-wrapper'>
@@ -45,15 +44,22 @@ class Subjects extends Component {
           <header className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
               <ul className='c-breadcrumbs__list'>
-                <Icon
+                <li>
+                  <Icon
                     name={'home'}
                     className='c-breadcrumb__icon'
-                    aria-hidden={true}
+                    aria-hidden
                     role='img'
                   />
+                  <a onClick={this._onHandleSelectUser} href='/'>{this.props.strings.breadcrumbs.selectUser}</a>
+                </li>
                 <li>
                   <BreadcrumbChevron />
                   <a onClick={this._onHandleSelectSubject} href='/subjects'>{this.props.strings.breadcrumbs.selectSubject}</a>
+                </li>
+                <li>
+                  <BreadcrumbChevron />
+                  <a onClick={this._onHandleSelectTools} href='/tools' aria-current='page'>{this.props.strings.breadcrumbs.selectTool}</a>
                 </li>
               </ul>
             </nav>
@@ -86,6 +92,16 @@ class Subjects extends Component {
       target: 'Select Subject'
     })
     browserHistory.push(`/subjects`)
+  }
+
+  _onHandleSelectTools = (e) => {
+    e.preventDefault()
+    log({
+      sessionId: this.props.sessionId,
+      action: 'click',
+      target: 'Select Tools'
+    })
+    browserHistory.push(`/tools/`)
   }
 
   _onHandleSelectTool = (tool) => {

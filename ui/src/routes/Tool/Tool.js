@@ -64,9 +64,15 @@ class Subjects extends Component {
             <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
             <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
             <nav className='c-header__nav'>
-              <button onClick={this._onChooseTool}>{this.props.strings.unplatformNav.chooseTool}</button>
-              <button onClick={this._onSelectSubject}>{this.props.strings.breadcrumbs.selectSubject}</button>
-              <button onClick={this._onToggleModal}>{this.props.strings.unplatformNav.finishLesson}</button>
+              <a href='/tools'
+                onClick={this._onChooseTool}>
+                {this.props.strings.unplatformNav.chooseTool}</a>
+              <a href='/subjects'
+                onClick={this._onSelectSubject}>
+                {this.props.strings.breadcrumbs.selectSubject}</a>
+              <a href='/'
+                onClick={this._onToggleModal}>
+                {this.props.strings.unplatformNav.finishLesson}</a>
             </nav>
           </header>
           <main className='span_12_of_12' aria-label='content'>

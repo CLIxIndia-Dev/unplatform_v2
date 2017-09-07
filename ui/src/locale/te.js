@@ -17,7 +17,8 @@ export default {
       selectSubject: 'విషయం ఎంచుకోండి', // Select the Subject
       selectClass: 'తరగతి ఎంచుకోండిి', // Select the class
       selectUnit: 'యూనిట్ ఎంచుకోండి',
-      selectLesson: 'పాఠం ఎంచుకోండి'
+      selectLesson: 'పాఠం ఎంచుకోండి',
+      selectTool: 'సాధనం ఎంచుకోండి'
     },
     moduleNav: {
       selectYourClass: 'మీ తరగతి ఎంచుకోండి', // prompt for user to select class

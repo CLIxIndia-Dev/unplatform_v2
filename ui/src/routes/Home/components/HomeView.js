@@ -47,10 +47,8 @@ class HomeView extends Component {
   }
 
   renderUserTypeButtons = (label, index) => {
-    let ariaHid = false
     let checked = false
     if (this.props.survey && this.props.survey.userType === label) {
-      ariaHid = true
       checked = true
     }
     return (
@@ -64,7 +62,7 @@ class HomeView extends Component {
           name={index === this.state.userFocusedIndex
             ? 'dot-circle-o' : 'circle-o'}
           className='user-select__radio-dot'
-          aria-hidden={ariaHid}
+          aria-hidden
           role='img'
         />
         <input
@@ -84,11 +82,9 @@ class HomeView extends Component {
   }
 
   renderUserCountButtons = (label, index) => {
-    let ariaHid = false
     let checked = false
     let ariaLab = label === '1' ? 'user' : 'users'
     if (this.props.survey && this.props.survey.userCount === label) {
-      ariaHid = true
       checked = true
     }
     return (
@@ -104,7 +100,7 @@ class HomeView extends Component {
           name={index === this.state.countFocusedIndex
             ? 'dot-circle-o' : 'circle-o'}
           className='count-select__radio-dot'
-          aria-hidden={ariaHid}
+          aria-hidden
           role='img'
         />
         <input

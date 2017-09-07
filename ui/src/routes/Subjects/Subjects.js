@@ -49,7 +49,7 @@ class Subjects extends Component {
                   <Icon
                     name={'home'}
                     className='c-breadcrumb__icon'
-                    aria-hidden={true}
+                    aria-hidden
                     role='img'
                   />
                   <a onClick={this._onHandleSelectUser} href='/'>{this.props.strings.breadcrumbs.selectUser}</a>

@@ -17,7 +17,8 @@ export default {
       selectSubject: 'Select Subject', // Select the Subject
       selectClass: 'Select Class', // Select the class
       selectUnit: 'Select Unit',
-      selectLesson: 'Select Lesson'
+      selectLesson: 'Select Lesson',
+      selectTool: 'Select Tool'
     },
     moduleNav: {
       selectYourClass: 'Select Your Class', // prompt for user to select class
