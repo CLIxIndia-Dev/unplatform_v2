@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
 import DocumentTitle from 'react-document-title'
 import ChevronRight from '../../../components/ChevronRight'
+import SkipLinks from '../../../components/SkipLinks'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
 
@@ -13,7 +14,15 @@ class HomeView extends Component {
     this.state = {
       englishUserSelectStrings: ['teacher', 'student', 'visitor', 'demonstration'],
       userFocusedIndex: null,
-      countFocusedIndex: null
+      countFocusedIndex: null,
+      skiplinks: [{
+        link: '#global-nav',
+        text: 'Skip to navigation'
+      },
+      {
+        link: '#main',
+        text: 'Skip to main content'
+      }]
     }
   }
 
@@ -51,6 +60,7 @@ class HomeView extends Component {
     if (this.props.survey && this.props.survey.userType === label) {
       checked = true
     }
+
     return (
       <label
         htmlFor={label}
@@ -87,6 +97,7 @@ class HomeView extends Component {
     if (this.props.survey && this.props.survey.userCount === label) {
       checked = true
     }
+
     return (
       <label
         htmlFor={label}
@@ -131,6 +142,7 @@ class HomeView extends Component {
       this.props.strings.splash.student,
       this.props.strings.splash.visitor,
       this.props.strings.splash.demonstration]
+
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
@@ -146,7 +158,6 @@ class HomeView extends Component {
     }
 
     let submitButton
-
     if (this.props.survey &&
         this.props.survey.userType &&
       (this.props.survey.userCount || this._getEnglishUserType() === 'demonstration')) {
@@ -159,28 +170,34 @@ class HomeView extends Component {
           <ChevronRight /></button>
       )
     }
+
     return (
       <DocumentTitle title='Select User | Clix Modules'>
         <div className='gradient-wrapper'>
-          <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
-          <header className='c-breadcrumbs__header'>
+          <SkipLinks skiplinks={this.state.skiplinks} />
+          <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
               <ul className='c-breadcrumbs__list'>
                 <li>
                   <Icon
                     name={'home'}
                     className='c-breadcrumb__icon'
-                    aria-hidden={true}
+                    aria-hidden
                     role='img'
                   />
-                  <a onClick={this._onHandleSelectUser} href='/' aria-current='page'>{this.props.strings.breadcrumbs.selectUser}</a>
+                  <a onClick={this._onHandleSelectUser}
+                    href='/'
+                    aria-current='page'>
+                    {this.props.strings.breadcrumbs.selectUser}
+                  </a>
                 </li>
               </ul>
             </nav>
           </header>
-          <main className='span_11_of_12 main-content homeview__content' aria-label='content'>
+          <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_11_of_12 main-content homeview__content' >
             <h1 className='pg-heading-1'>
-              <span aria-hidden={true}>{this.props.strings.splash.title}</span>
+              <span aria-hidden>{this.props.strings.splash.title}</span>
               <span className='visuallyhidden'>{this.props.strings.splash.ariaLabelTitle}</span>
             </h1>
             <form action=''>

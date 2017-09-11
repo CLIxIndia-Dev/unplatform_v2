@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
 import DocumentTitle from 'react-document-title'
 import BreadcrumbChevron from '../../components/BreadcrumbChevron'
+import SkipLinks from '../../components/SkipLinks'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
@@ -12,6 +13,19 @@ import '../../styles/buttons.css'
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
 
 class Subjects extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      skiplinks: [{
+        link: '#global-nav',
+        text: 'Skip to navigation'
+      },
+      {
+        link: '#main',
+        text: 'Skip to main content'
+      }]
+    }
+  }
 
   componentDidMount () {
     if (!this.props.sessionId) {
@@ -40,8 +54,9 @@ class Subjects extends Component {
     return (
       <DocumentTitle title={`Tools | Clix Modules`}>
         <div className='gradient-wrapper'>
-          <img src={backgroundImage} alt='' aria-hidden='true' className='gradient-wrapper__image' />
-          <header className='c-breadcrumbs__header'>
+          <SkipLinks skiplinks={this.state.skiplinks} />
+          <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
               <ul className='c-breadcrumbs__list'>
                 <li>
@@ -51,20 +66,29 @@ class Subjects extends Component {
                     aria-hidden
                     role='img'
                   />
-                  <a onClick={this._onHandleSelectUser} href='/'>{this.props.strings.breadcrumbs.selectUser}</a>
+                  <a onClick={this._onHandleSelectUser}
+                    href='/'>
+                    {this.props.strings.breadcrumbs.selectUser}
+                  </a>
                 </li>
                 <li>
                   <BreadcrumbChevron />
-                  <a onClick={this._onHandleSelectSubject} href='/subjects'>{this.props.strings.breadcrumbs.selectSubject}</a>
+                  <a onClick={this._onHandleSelectSubject}
+                    href='/subjects'>
+                    {this.props.strings.breadcrumbs.selectSubject}
+                  </a>
                 </li>
                 <li>
                   <BreadcrumbChevron />
-                  <a onClick={this._onHandleSelectTools} href='/tools' aria-current='page'>{this.props.strings.breadcrumbs.selectTool}</a>
+                  <a onClick={this._onHandleSelectTools}
+                    href='/tools' aria-current='page'>
+                    {this.props.strings.breadcrumbs.selectTool}
+                  </a>
                 </li>
               </ul>
             </nav>
           </header>
-          <main className='span_10_of_12 main-content' aria-label='content'>
+          <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_10_of_12 main-content'>
             <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourTool}</h1>
             <article className='choice-select__wrapper button-group' role='group'>
               {_.map(this.props.tools, this.renderTool)}

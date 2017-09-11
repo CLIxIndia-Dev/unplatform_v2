@@ -23,7 +23,7 @@ body {
   font-family: 'open_sansregular', Arial, sans-serif;
   font-weight: normal;
   font-size: 1rem;
-  color: #fff;
+/*  color: #fff;*/
 }
 
 /* Text styles */
@@ -46,17 +46,17 @@ p {
 }
 
 a {
-  color: #fff;
+/*  color: #fff;*/
   text-decoration: none;
 }
 
 a:link {
-  color: #fff;
+/*  color: #fff;*/
   border-bottom: none;
 }
 
 a:visited {
-  color: #fff;
+/*  color: #fff;*/
   border-bottom: 3px solid #ff99d1;
 }
 
@@ -68,7 +68,7 @@ button {
   cursor: pointer;
 }
 
-/*RESETS*/
+/*ACCESSIBILITY*/
 
 .visuallyhidden {
     border: 0;
@@ -81,6 +81,33 @@ button {
     padding: 0;
     width: 1px;
     white-space: nowrap; /* 1 */
+}
+
+.skip-links {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skip-links li a {
+  position: absolute;
+  display: block;
+  left: -600000px;
+  padding: 0.5em;
+  color: #fff;
+  text-decoration: none;
+  /*clix-orange*/
+  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
+  border: 2px solid white;
+}
+
+.skip-links li a:focus {
+  left: 0;
+}
+
+[tabindex="-1"]:focus {
+  outline: none;
 }
 
 /*SECTIONS AND BLOCKS*/
@@ -117,22 +144,23 @@ button {
   font-size: 2.862rem;
   letter-spacing: -0.009rem;
   text-align: center;
+  color: #fff;
 }
 
 .pg-heading-2 {
-  /*margin-top: 1.063rem;*/
   font-size: 1.606rem;
   line-height: 1.1;
   letter-spacing: -0.005rem;
   text-align: center;
+  color: #fff;
 }
 
 .pg-heading-3 {
-  /*margin-top: 1.063rem;*/
   font-size: 1.306rem;
   line-height: 1.1;
   letter-spacing: -0.005rem;
   text-align: center;
+  color: #fff;
 }
 
 .input-select__wrapper{
@@ -154,7 +182,7 @@ button {
 }
 
 .count-select-form {
-  margin-top: 0.9rem;
+/*  margin-top: 0.9rem;*/
 }
 
 .user-select-form legend,
@@ -177,7 +205,7 @@ button {
   letter-spacing: -0.006rem;
   text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
   /*  clix-blue-purp*/
-  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%,30%, 0.5));
+  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%, 30%, 0.5));
   border: solid 0.094rem #ffffff;
   border-radius: .5rem;
   transition: transform 0.4s;

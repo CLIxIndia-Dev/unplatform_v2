@@ -5,7 +5,7 @@ import '../../styles/_base.scss'
 
 export const CoreLayout = ({ children }) => (
   <div className='container text-center'>
-    <div className='core-layout__viewport' aria-live='polite'>
+    <div className='core-layout__viewport'>
       {children}
     </div>
   </div>

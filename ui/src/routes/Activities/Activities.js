@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import DocumentTitle from 'react-document-title'
+import SkipLinks from '../../components/SkipLinks'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-header.css'
@@ -11,7 +12,15 @@ class Subjects extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showModal: false
+      showModal: false,
+      skiplinks: [{
+        link: '#global-nav',
+        text: 'Skip to navigation'
+      },
+      {
+        link: '#main',
+        text: 'Skip to main content'
+      }]
     }
   }
 
@@ -65,7 +74,8 @@ class Subjects extends Component {
     return (
       <DocumentTitle title={`${this.props.lessonName} | Clix Modules`}>
         <div className='act-container'>
-          <header className='c-header'>
+          <SkipLinks skiplinks={this.state.skiplinks} />
+          <header role='banner' id='global-nav' tabIndex='-1' className='c-header'>
             <h1 className='c-header__logo' aria-label='Clix Connected Learning Initiative'>CLIx Connected Learning Initiative</h1>
             <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
             <nav className='c-header__nav'>
@@ -80,7 +90,7 @@ class Subjects extends Component {
                 {this.props.strings.unplatformNav.finishLesson}</a>
             </nav>
           </header>
-          <main className='span_12_of_12' aria-label='content'>
+          <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_12_of_12'>
             <iframe src={epubUrl}
               title={`${this.props.subjectName} ${this.props.lessonName}`}
               className='act-iframe--fill-win'
