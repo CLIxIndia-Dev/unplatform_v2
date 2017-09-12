@@ -2,7 +2,7 @@
 
 .c-breadcrumbs__header {
   position: relative;
-    margin: 30px auto 0px;
+    margin: 1.2em auto 0px;
     z-index: 10;
     width: 100%;
 }
@@ -14,7 +14,7 @@
 .c-breadcrumbs__list {
   position: absolute;
   top: 0;
-  left: 2em;
+  left: 1.5em;
   display: inline-block;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .c-breadcrumbs__list a[aria-current="page"] {
-  border-bottom: 4px solid hsla(327, 100%, 80%, 1);
+  border-bottom: 4px dotted hsla(28, 91%, 66%, 1);
   font-family: 'open_sansbold'
 }
 
@@ -48,7 +48,7 @@
 }
 
 .c-breadcrumbs__list a:focus {
-  border-bottom: 4px dotted hsla(327, 100%, 75%, 1);
+  border-bottom: 4px solid hsla(28, 91%, 66%, 1);
 }
 
 

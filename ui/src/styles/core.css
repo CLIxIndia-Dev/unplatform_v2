@@ -87,6 +87,7 @@ button {
   position: relative;
   margin: 0;
   padding: 0;
+  z-index: 20;
   list-style: none;
 }
 
@@ -94,11 +95,12 @@ button {
   position: absolute;
   display: block;
   left: -600000px;
-  padding: 0.5em;
+  padding: .875em;
   color: #fff;
   text-decoration: none;
+  text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
   /*clix-orange*/
-  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
+  background: radial-gradient(circle at 50% 50%, #573d8f, #412e6b);
   border: 2px solid white;
 }
 
@@ -179,10 +181,6 @@ button {
 
 .user-select-form {
   margin-top: 0.5rem;
-}
-
-.count-select-form {
-/*  margin-top: 0.9rem;*/
 }
 
 .user-select-form legend,

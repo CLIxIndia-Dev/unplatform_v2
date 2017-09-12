@@ -15,8 +15,7 @@
 }
 
 .c-school__header {
-/*  position:relative;
-  top: 2em;*/
+  color: #fff;
 }
 
 .c-school__heading {
@@ -24,6 +23,7 @@
   font-size: 2.862rem;
   letter-spacing: -0.009rem;
   text-align: center;
+  color: #fff;
 }
 
 .c-school__section {

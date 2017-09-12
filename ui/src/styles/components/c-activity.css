@@ -1,8 +1,8 @@
 .act-container {
-  display: flex;
+/*  display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column;*/
   color: #777;
   background-color: #fff;
 }
