@@ -1,14 +1,16 @@
 import React from 'react'
-import './CoreLayout.scss'
+import { LiveAnnouncer } from 'react-aria-live'
 // import '../../styles/core.css'
 import '../../styles/_base.scss'
 
 export const CoreLayout = ({ children }) => (
-  <div className='container text-center'>
-    <div className='core-layout__viewport'>
-      {children}
+  <LiveAnnouncer>
+    <div className='container text-center'>
+      <div className='core-layout__viewport'>
+        {children}
+      </div>
     </div>
-  </div>
+  </LiveAnnouncer>
 )
 
 CoreLayout.propTypes = {

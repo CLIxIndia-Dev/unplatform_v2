@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import createHistory from 'history/createBrowserHistory'
 import { Icon } from 'react-fa'
 import DocumentTitle from 'react-document-title'
 import ChevronRight from '../../../components/ChevronRight'
@@ -244,6 +245,19 @@ class HomeView extends Component {
       userType: this._getEnglishUserType(),
       userCount: this.props.survey.userCount
     })
+
+    const history = createHistory()
+
+    history.listen((location, action) => {
+      console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+      console.log(`The last navigation action was ${action}`)
+    })
+
+    // location = {
+    //   pathname: '/subjects',
+    //   state: { setFocus: true }
+    // }
+    history.push('/subjects', { state: { setFocus: true } })
     browserHistory.push('/subjects')
   }
 }

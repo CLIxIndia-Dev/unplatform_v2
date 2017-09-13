@@ -2,9 +2,9 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
-import DocumentTitle from 'react-document-title'
 import BreadcrumbChevron from '../../components/BreadcrumbChevron'
 import SkipLinks from '../../components/SkipLinks'
+import PageFocusSection from '../../components/PageFocusSection'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
@@ -53,7 +53,11 @@ class Subjects extends Component {
     }
 
     return (
-      <DocumentTitle title='Select Subject | Clix Modules'>
+      <PageFocusSection
+        docTitle='Select Subject | Clix Modules'
+        liveMessage='Contact page loaded.'
+        headingText='Contact information'
+      >
         <div className='gradient-wrapper'>
           <SkipLinks skiplinks={this.state.skiplinks} />
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
@@ -69,15 +73,15 @@ class Subjects extends Component {
                   />
                   <a onClick={this._onHandleSelectUser}
                     href='/'>
-                      {this.props.strings.breadcrumbs.selectUser}
-                    </a>
+                    {this.props.strings.breadcrumbs.selectUser}
+                  </a>
                 </li>
                 <li>
                   <BreadcrumbChevron />
                   <a onClick={this._onHandleSelectSubjects}
                     href='/subjects' aria-current='page'>
-                      {this.props.strings.breadcrumbs.selectSubject}
-                    </a>
+                    {this.props.strings.breadcrumbs.selectSubject}
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -91,7 +95,7 @@ class Subjects extends Component {
             </article>
           </main>
         </div>
-      </DocumentTitle>
+      </PageFocusSection>
     )
   }
 

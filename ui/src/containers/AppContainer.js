@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 
-import {getSchoolConfiguration} from '../reducers/SchoolConfiguration/getSchoolConfiguration'
-import {getSession} from '../reducers/Survey/getSession'
-import {getModules} from '../reducers/Module/getModules'
-import {getVersion} from '../reducers/Version/getVersion'
+import { getSchoolConfiguration } from '../reducers/SchoolConfiguration/getSchoolConfiguration'
+import { getSession } from '../reducers/Survey/getSession'
+import { getModules } from '../reducers/Module/getModules'
+import { getVersion } from '../reducers/Version/getVersion'
 
 class AppContainer extends Component {
   static propTypes = {
@@ -13,9 +13,9 @@ class AppContainer extends Component {
     store  : PropTypes.object.isRequired
   }
 
-  componentDidMount() {
-    const store = this.props.store;
-    const state = store.getState();      // because AppContainer is the top-level parent
+  componentDidMount () {
+    const store = this.props.store
+    const state = store.getState()      // because AppContainer is the top-level parent
 
     if (!state.survey.sessionId) {
       store.dispatch(getSession())
