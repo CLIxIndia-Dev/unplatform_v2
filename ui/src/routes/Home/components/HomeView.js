@@ -5,7 +5,7 @@ import createHistory from 'history/createBrowserHistory'
 import { Icon } from 'react-fa'
 import DocumentTitle from 'react-document-title'
 import ChevronRight from '../../../components/ChevronRight'
-import SkipLinks from '../../../components/SkipLinks'
+import PageFocusSection from '../../../components/PageFocusSection'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
 
@@ -23,7 +23,11 @@ class HomeView extends Component {
       {
         link: '#main',
         text: 'Skip to main content'
-      }]
+      }],
+      location: {
+        pathname: '/',
+        state: { setFocus: true }
+      }
     }
   }
 
@@ -173,9 +177,12 @@ class HomeView extends Component {
     }
 
     return (
-      <DocumentTitle title='Select User | Clix Modules'>
+      <PageFocusSection
+        docTitle={'Select User | Clix Modules'}
+        liveMessage='Select user page loaded.'
+        location={this.state.location}
+      >
         <div className='gradient-wrapper'>
-          <SkipLinks skiplinks={this.state.skiplinks} />
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
           <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
@@ -215,7 +222,7 @@ class HomeView extends Component {
             {submitButton}
           </main>
         </div>
-      </DocumentTitle>
+      </PageFocusSection>
     )
   }
 
@@ -245,19 +252,6 @@ class HomeView extends Component {
       userType: this._getEnglishUserType(),
       userCount: this.props.survey.userCount
     })
-
-    const history = createHistory()
-
-    history.listen((location, action) => {
-      console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
-      console.log(`The last navigation action was ${action}`)
-    })
-
-    // location = {
-    //   pathname: '/subjects',
-    //   state: { setFocus: true }
-    // }
-    history.push('/subjects', { state: { setFocus: true } })
     browserHistory.push('/subjects')
   }
 }

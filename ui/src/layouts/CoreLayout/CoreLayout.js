@@ -1,6 +1,5 @@
 import React from 'react'
 import { LiveAnnouncer } from 'react-aria-live'
-// import '../../styles/core.css'
 import '../../styles/_base.scss'
 
 export const CoreLayout = ({ children }) => (

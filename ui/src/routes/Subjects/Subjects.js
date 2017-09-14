@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
 import BreadcrumbChevron from '../../components/BreadcrumbChevron'
-import SkipLinks from '../../components/SkipLinks'
 import PageFocusSection from '../../components/PageFocusSection'
 import { log } from '../../utilities'
 
@@ -22,7 +21,11 @@ class Subjects extends Component {
       {
         link: '#main',
         text: 'Skip to main content'
-      }]
+      }],
+      location: {
+        pathname: '/subjects',
+        state: { setFocus: true }
+      }
     }
   }
 
@@ -33,7 +36,6 @@ class Subjects extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('receiving new props')
   }
 
   renderSubjects = (subjectName, index) => {
@@ -55,11 +57,10 @@ class Subjects extends Component {
     return (
       <PageFocusSection
         docTitle='Select Subject | Clix Modules'
-        liveMessage='Contact page loaded.'
-        headingText='Contact information'
+        liveMessage='Select subject page loaded.'
+        location={this.state.location}
       >
         <div className='gradient-wrapper'>
-          <SkipLinks skiplinks={this.state.skiplinks} />
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
           <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>

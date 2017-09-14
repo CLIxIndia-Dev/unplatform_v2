@@ -1,5 +1,6 @@
 // Subjects Container
 import { connect } from 'react-redux'
+// import { withRouter } from 'react-router-dom'
 import { getSubjects } from '../selectors'
 import { localizeStrings } from '../utilities'
 

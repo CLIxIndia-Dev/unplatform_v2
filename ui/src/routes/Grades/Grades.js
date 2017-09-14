@@ -2,9 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
-import DocumentTitle from 'react-document-title'
 import BreadcrumbChevron from '../../components/BreadcrumbChevron'
-import SkipLinks from '../../components/SkipLinks'
+import PageFocusSection from '../../components/PageFocusSection'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
@@ -23,7 +22,11 @@ class Grades extends Component {
       {
         link: '#main',
         text: 'Skip to main content'
-      }]
+      }],
+      location: {
+        pathname: `/subjects/${this.props.subject}`,
+        state: { setFocus: true }
+      }
     }
   }
 
@@ -53,9 +56,12 @@ class Grades extends Component {
     }
 
     return (
-      <DocumentTitle title={`${this.props.subjectName} | Clix Modules`}>
+      <PageFocusSection
+        docTitle={`${this.props.subjectName} | Clix Modules`}
+        liveMessage='Select class page loaded.'
+        location={this.state.location}
+      >
         <div className='gradient-wrapper'>
-          <SkipLinks skiplinks={this.state.skiplinks} />
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
           <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
@@ -97,7 +103,7 @@ class Grades extends Component {
             </article>
           </main>
         </div>
-      </DocumentTitle>
+      </PageFocusSection>
     )
   }
 
