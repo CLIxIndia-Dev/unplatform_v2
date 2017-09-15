@@ -2,9 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Icon } from 'react-fa'
-import DocumentTitle from 'react-document-title'
 import BreadcrumbChevron from '../../components/BreadcrumbChevron'
-import SkipLinks from '../../components/SkipLinks'
+import PageFocusSection from '../../components/PageFocusSection'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-breadcrumbs.css'
@@ -12,7 +11,7 @@ import '../../styles/buttons.css'
 
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
 
-class Subjects extends Component {
+class Tools extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -23,7 +22,11 @@ class Subjects extends Component {
       {
         link: '#main',
         text: 'Skip to main content'
-      }]
+      }],
+      location: {
+        pathname: '/tools/',
+        state: { setFocus: true }
+      }
     }
   }
 
@@ -52,9 +55,12 @@ class Subjects extends Component {
     }
 
     return (
-      <DocumentTitle title={`Tools | Clix Modules`}>
+      <PageFocusSection
+        docTitle={`Tools | Clix Modules`}
+        liveMessage='Select tools page loaded.'
+        location={this.state.location}
+      >
         <div className='gradient-wrapper'>
-          <SkipLinks skiplinks={this.state.skiplinks} />
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
           <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
@@ -95,7 +101,7 @@ class Subjects extends Component {
             </article>
           </main>
         </div>
-      </DocumentTitle>
+      </PageFocusSection>
     )
   }
 
@@ -138,4 +144,4 @@ class Subjects extends Component {
   }
 }
 
-export default Subjects
+export default Tools

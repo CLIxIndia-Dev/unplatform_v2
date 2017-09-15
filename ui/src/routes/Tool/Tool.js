@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import DocumentTitle from 'react-document-title'
-import SkipLinks from '../../components/SkipLinks'
+import PageFocusSection from '../../components/PageFocusSection'
 import { log } from '../../utilities'
 
-// import '../../styles/buttons.css'
 import '../../styles/components/c-header.css'
 import '../../styles/components/c-activity.css'
 import '../../styles/components/c-modal.css'
 
-class Subjects extends Component {
+class Tool extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -21,7 +19,11 @@ class Subjects extends Component {
       {
         link: '#main',
         text: 'Skip to main content'
-      }]
+      }],
+      location: {
+        pathname: `/tools/${this.props.toolName}`,
+        state: { setFocus: true }
+      }
     }
   }
 
@@ -67,9 +69,12 @@ class Subjects extends Component {
 
     let toolUrl = `/common/${this.props.toolName}?lang=${this.props.locale}`
     return (
-      <DocumentTitle title={`${this.props.toolName} | Clix Modules`}>
+      <PageFocusSection
+        docTitle={`${this.props.toolName} | Clix Modules`}
+        liveMessage='Select tool page loaded.'
+        location={this.state.location}
+      >
         <div className='act-container'>
-          <SkipLinks skiplinks={this.state.skiplinks} />
           <header role='banner' id='global-nav' tabIndex='-1' className='c-header'>
             <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
             <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
@@ -95,7 +100,7 @@ class Subjects extends Component {
             {sessionModal}
           </main>
         </div>
-      </DocumentTitle>
+      </PageFocusSection>
     )
   }
 
@@ -146,4 +151,4 @@ class Subjects extends Component {
 
 }
 
-export default Subjects
+export default Tool

@@ -1,9 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import createHistory from 'history/createBrowserHistory'
 import { Icon } from 'react-fa'
-import DocumentTitle from 'react-document-title'
 import ChevronRight from '../../../components/ChevronRight'
 import PageFocusSection from '../../../components/PageFocusSection'
 
@@ -213,7 +211,7 @@ class HomeView extends Component {
                 <legend>
                   <h2 className='pg-heading-2'>{this.props.strings.splash.subtitle}</h2>
                 </legend>
-                <article className='input-select__wrapper'>
+                <article className='input-select__wrapper' tabIndex='-1'>
                   {_.map(this.userSelectStrings, this.renderUserTypeButtons)}
                 </article>
               </fieldset>
