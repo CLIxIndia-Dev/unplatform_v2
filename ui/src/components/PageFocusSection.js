@@ -14,8 +14,8 @@ class PageFocusSection extends Component {
       {
         link: '#main',
         text: 'Skip to main content'
-      }],
-      sectionFocus: true
+      }]
+      // sectionFocus: true
     }
   }
 
@@ -46,8 +46,7 @@ PageFocusSection.propTypes = {
   location    : React.PropTypes.object.isRequired,
   docTitle    : React.PropTypes.string,
   liveMessage : React.PropTypes.string,
-  children    : React.PropTypes.object,
-  headingText : React.PropTypes.string
+  children    : React.PropTypes.object
 }
 
 export default PageFocusSection

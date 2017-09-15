@@ -29,7 +29,8 @@
   top: 30px;
   right: 1em;
 }
-.c-header__nav > a {
+.c-header__nav > a,
+.c-header__nav > button {
   margin-left: 1em;
   padding: 5px;
   background: none;
@@ -42,21 +43,24 @@
   transition: all .1s ease;
 }
 
-.c-header__nav > a:hover {
+.c-header__nav > a:hover,
+.c-header__nav > button:hover {
   background: radial-gradient(hsla(316, 77%, 37%, 1), hsla(316, 88%, 26%, 1));
   border-bottom: 3px solid hsla(316, 88%, 42%, 1);
   color: #fff;
 }
 
-.c-header__nav > a:active {
-  background: radial-gradient(hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
-  border-bottom: 3px solid hsla(259, 40%, 50%, 1);
+.c-header__nav > a:focus,
+.c-header__nav > button:focus {
+  background: radial-gradient(hsla(316, 77%, 26%, 1), hsla(316, 88%, 16%, 1));
+  border-bottom: 3px solid hsla(316, 88%, 42%, 1);
   color: #fff;
 }
 
-.c-header__nav > a:focus {
-  background: radial-gradient(hsla(316, 77%, 26%, 1), hsla(316, 88%, 16%, 1));
-  border-bottom: 3px solid hsla(316, 88%, 42%, 1);
+.c-header__nav > a:active,
+.c-header__nav > button:active {
+  background: radial-gradient(#f37f2f, #f54b32);
+  border-bottom: 3px solid #b41f08;
   color: #fff;
 }
 

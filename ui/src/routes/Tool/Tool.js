@@ -85,7 +85,7 @@ class Tool extends Component {
               <a href='/subjects'
                 onClick={this._onSelectSubject}>
                 {this.props.strings.breadcrumbs.selectSubject}</a>
-              <a href='/'
+              <a href='#'
                 onClick={this._onToggleModal}>
                 {this.props.strings.unplatformNav.finishLesson}</a>
             </nav>

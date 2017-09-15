@@ -12,6 +12,7 @@ class Subjects extends Component {
     super(props)
     this.state = {
       showModal: false,
+      modalFocus: false,
       skiplinks: [{
         link: '#global-nav',
         text: 'Skip to navigation'
@@ -53,7 +54,7 @@ class Subjects extends Component {
 
     let sessionModal
 
-    if (this.state.showModal) {
+    if (this.state.showModal && this.state.modalFocus) {
       sessionModal = (
         <div className='c-modal__container'>
           <dialog open className='c-modal__dialog span_6_of_12'>
@@ -71,6 +72,8 @@ class Subjects extends Component {
           </dialog>
         </div>
       )
+      const finSessDialog = document.querySelector('dialog')
+      finSessDialog.focus()
     }
 
     let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`
@@ -91,9 +94,9 @@ class Subjects extends Component {
               <a href={`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}`}
                 onClick={this._onChooseLesson}>
                 {this.props.strings.unplatformNav.chooseNewLesson}</a>
-              <a href='/'
+              <button
                 onClick={this._onToggleModal}>
-                {this.props.strings.unplatformNav.finishLesson}</a>
+                {this.props.strings.unplatformNav.finishLesson}</button>
             </nav>
           </header>
           <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_12_of_12'>
@@ -153,7 +156,9 @@ class Subjects extends Component {
   }
 
   _onToggleModal = (e) => {
-    this.setState({ showModal: !this.state.showModal })
+    this.setState({
+      showModal: !this.state.showModal,
+      modalFocus: !this.state.false })
   }
 
 }

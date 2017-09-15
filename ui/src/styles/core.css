@@ -83,6 +83,10 @@ button {
     white-space: nowrap; /* 1 */
 }
 
+.domhidden {
+  display: none;
+}
+
 .skip-links {
   position: relative;
   margin: 0;
