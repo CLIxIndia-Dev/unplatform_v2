@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import PageFocusSection from '../../components/PageFocusSection'
+import LessonModal from '../../components/LessonModal'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-header.css'
 import '../../styles/components/c-activity.css'
 import '../../styles/components/c-modal.css'
 
-class Subjects extends Component {
+class Activities extends Component {
   constructor (props) {
     super(props)
     this.state = {
       showModal: false,
-      modalFocus: false,
       skiplinks: [{
         link: '#global-nav',
         text: 'Skip to navigation'
@@ -38,11 +38,6 @@ class Subjects extends Component {
 
   }
 
-  renderTool = (tool, index) => {
-    return <button className='choice-select'
-      onClick={() => this._onHandleSelectTool(tool)}>{tool}</button>
-  }
-
   render () {
     if (!this.props.locale) {
       return (
@@ -50,30 +45,6 @@ class Subjects extends Component {
           <h1>Please set your school configuration at this <a href='/school'>link</a>.</h1>
         </div>
       )
-    }
-
-    let sessionModal
-
-    if (this.state.showModal && this.state.modalFocus) {
-      sessionModal = (
-        <div className='c-modal__container'>
-          <dialog open className='c-modal__dialog span_6_of_12'>
-            <h2 className='c-modal__dialog-title'>
-              {this.props.strings.unplatformNav.endSession}
-            </h2>
-            <form method='dialog'>
-              <button value='close' onClick={this._onFinishLesson}>
-                {this.props.strings.prompt.yes}
-              </button>
-              <button value='close' onClick={this._onToggleModal}>
-                {this.props.strings.prompt.no}
-              </button>
-            </form>
-          </dialog>
-        </div>
-      )
-      const finSessDialog = document.querySelector('dialog')
-      finSessDialog.focus()
     }
 
     let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`
@@ -106,26 +77,19 @@ class Subjects extends Component {
               frameBorder='0'
               allowFullScreen
             />
-            {sessionModal}
+            {this.state.showModal
+              ? <LessonModal
+                {...this.props}
+                titleId='modal-title'
+                onExit={this._onToggleModal}
+                underlayClickExits={false}
+                verticallyCenter
+              /> : ''
+            }
           </main>
         </div>
       </PageFocusSection>
     )
-  }
-
-  _onFinishLesson = (e) => {
-    e.preventDefault()
-    log({
-      sessionId: this.props.sessionId,
-      appName: 'unplatform',
-      action: 'clicked_finished',
-      params: {
-        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
-        response: 'yes'
-      }
-    })
-    this.props.onFinish()
-    browserHistory.push('/')
   }
 
   _onChooseTool = (e) => {
@@ -157,10 +121,22 @@ class Subjects extends Component {
 
   _onToggleModal = (e) => {
     this.setState({
-      showModal: !this.state.showModal,
-      modalFocus: !this.state.false })
+      showModal: !this.state.showModal
+    })
   }
 
 }
 
-export default Subjects
+Activities.propTypes = {
+  strings     : React.PropTypes.object,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string,
+  version     : React.PropTypes.string,
+  subjectName : React.PropTypes.string,
+  gradeName   : React.PropTypes.string,
+  unitName    : React.PropTypes.string,
+  lessonName  : React.PropTypes.string,
+  onFinish    : React.PropTypes.func
+}
+
+export default Activities

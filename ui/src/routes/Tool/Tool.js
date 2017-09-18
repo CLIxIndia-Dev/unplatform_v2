@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import PageFocusSection from '../../components/PageFocusSection'
+import LessonModal from '../../components/LessonModal'
 import { log } from '../../utilities'
 
 import '../../styles/components/c-header.css'
@@ -37,32 +38,16 @@ class Tool extends Component {
 
   }
 
-  renderTool = (tool, index) => {
-    return <button className='choice-select'
-      onClick={() => this._onHandleSelectTool(tool)}>{tool}</button>
-  }
+  // renderTool = (tool, index) => {
+  //   return <button className='choice-select'
+  //     onClick={() => this._onHandleSelectTool(tool)}>{tool}</button>
+  // }
 
   render () {
     if (!this.props.locale) {
       return (
         <div>
           <h1>Please set your school configuration at this <a href='/school'>link</a>.</h1>
-        </div>
-      )
-    }
-
-    let sessionModal
-
-    if (this.state.showModal) {
-      sessionModal = (
-        <div className='c-modal__container'>
-          <dialog open className='c-modal__dialog span_6_of_12'>
-            <h2 className='c-modal__dialog-title'>{this.props.strings.unplatformNav.endSession}</h2>
-            <form method='dialog'>
-              <button value='close' onClick={this._onFinishLesson}>{this.props.strings.prompt.yes}</button>
-              <button value='close' onClick={this._onToggleModal}>{this.props.strings.prompt.no}</button>
-            </form>
-          </dialog>
         </div>
       )
     }
@@ -97,26 +82,19 @@ class Tool extends Component {
               frameBorder='0'
               allowFullScreen
             />
-            {sessionModal}
+            {this.state.showModal
+              ? <LessonModal
+                {...this.props}
+                titleId='modal-title'
+                onExit={this._onToggleModal}
+                underlayClickExits={false}
+                verticallyCenter
+              /> : ''
+            }
           </main>
         </div>
       </PageFocusSection>
     )
-  }
-
-  _onFinishLesson = (e) => {
-    e.preventDefault()
-    log({
-      sessionId: this.props.sessionId,
-      appName: 'unplatform',
-      action: 'clicked_finished',
-      params: {
-        url: `/tools/${this.props.toolName}`,
-        response: 'yes'
-      }
-    })
-    this.props.onFinish()
-    browserHistory.push('/')
   }
 
   _onChooseTool = (e) => {
@@ -149,6 +127,14 @@ class Tool extends Component {
     this.setState({ showModal: !this.state.showModal })
   }
 
+}
+
+Tool.propTypes = {
+  strings     : React.PropTypes.object,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string,
+  version     : React.PropTypes.string,
+  toolName    : React.PropTypes.string
 }
 
 export default Tool

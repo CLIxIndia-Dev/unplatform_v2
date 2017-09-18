@@ -35,20 +35,20 @@
 }
 
 .c-breadcrumbs__list a[aria-current="page"] {
-  border-bottom: 4px dotted hsla(28, 91%, 66%, 1);
+  border-bottom: 4px solid hsla(28, 91%, 66%, 1);
   font-family: 'open_sansbold'
 }
 
 .c-breadcrumbs__list a:hover {
-  border-bottom: 4px dotted hsla(327, 100%, 75%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 85%, 1);
 }
 
 .c-breadcrumbs__list a:active {
-  border-bottom: 4px dotted hsla(327, 100%, 60%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 60%, 1);
 }
 
 .c-breadcrumbs__list a:focus {
-  border-bottom: 4px solid hsla(28, 91%, 66%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 85%, 1);
 }
 
 
