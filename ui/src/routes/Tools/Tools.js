@@ -144,4 +144,11 @@ class Tools extends Component {
   }
 }
 
+Tools.propTypes = {
+  strings     : React.PropTypes.object,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string,
+  tools       : React.PropTypes.object
+}
+
 export default Tools

@@ -1,4 +1,3 @@
-import { injectReducer } from '../../store/reducers'
 import SchoolConfigurationComponent from './SchoolConfiguration'
 
 export default (store) => ({
@@ -16,6 +15,6 @@ export default (store) => ({
       cb(null, SchoolConfigurationFactory(SchoolConfigurationComponent))
 
     /* Webpack named bundle   */
-  }, 'school')
+    }, 'school')
   }
 })

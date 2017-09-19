@@ -151,4 +151,14 @@ class Units extends Component {
   }
 }
 
+Units.propTypes = {
+  units       : React.PropTypes.object,
+  strings     : React.PropTypes.object,
+  subjectName : React.PropTypes.string,
+  gradeName   : React.PropTypes.string,
+  unitName    : React.PropTypes.string,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string
+}
+
 export default Units

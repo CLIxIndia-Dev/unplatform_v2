@@ -136,4 +136,13 @@ class Grades extends Component {
   }
 }
 
+Grades.propTypes = {
+  grades      : React.PropTypes.object,
+  strings     : React.PropTypes.object,
+  subject     : React.PropTypes.string,
+  subjectName : React.PropTypes.string,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string
+}
+
 export default Grades

@@ -1,4 +1,3 @@
-import { injectReducer } from '../../store/reducers'
 import ActivitiesComponent from './Activities'
 
 export default (store) => ({
@@ -16,6 +15,6 @@ export default (store) => ({
       cb(null, ActivitiesFactory(ActivitiesComponent))
 
     /* Webpack named bundle   */
-  }, 'activities')
+    }, 'activities')
   }
 })

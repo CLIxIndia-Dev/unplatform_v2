@@ -129,4 +129,11 @@ class Subjects extends Component {
   }
 }
 
+Subjects.propTypes = {
+  subjects    : React.PropTypes.object,
+  strings     : React.PropTypes.object,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string
+}
+
 export default Subjects

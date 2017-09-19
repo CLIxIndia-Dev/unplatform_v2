@@ -1,4 +1,3 @@
-import { injectReducer } from '../../store/reducers'
 import GradesComponent from './Grades'
 
 export default (store) => ({
@@ -16,6 +15,6 @@ export default (store) => ({
       cb(null, GradesFactory(GradesComponent))
 
     /* Webpack named bundle   */
-  }, 'grades')
+    }, 'grades')
   }
 })

@@ -71,11 +71,11 @@ class SchoolConfiguration extends Component {
             </header>
             <section className='c-school__section'>
               <article className='c-school__curr-config'>
-                <h2 className="c-school__config-header">Current Configuration</h2>
+                <h2 className='c-school__config-header'>Current Configuration</h2>
                 {currentConfig}
               </article>
               <article className='c-school__new-config'>
-                <h2 className="c-school__config-header">New Configuration</h2>
+                <h2 className='c-school__config-header'>New Configuration</h2>
                 <form action='' className='c-school__form'>
                   <label htmlFor='state'>Select State</label>
                   <select id='state'
@@ -173,6 +173,14 @@ class SchoolConfiguration extends Component {
       terminalId: e.target.value
     })
   }
+}
+
+SchoolConfiguration.propTypes = {
+  onGetSchoolConfiguration    : React.PropTypes.func,
+  onSetSchoolConfiguration    : React.PropTypes.func,
+  onUpdateSchoolConfiguration : React.PropTypes.func,
+  configuration               : React.PropTypes.object,
+  form                        : React.PropTypes.object
 }
 
 export default SchoolConfiguration

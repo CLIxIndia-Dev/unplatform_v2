@@ -170,4 +170,15 @@ class Lessons extends Component {
   }
 }
 
+Lessons.propTypes = {
+  lessons     : React.PropTypes.object,
+  strings     : React.PropTypes.object,
+  subject     : React.PropTypes.string,
+  subjectName : React.PropTypes.string,
+  gradeName   : React.PropTypes.string,
+  unitName    : React.PropTypes.string,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string
+}
+
 export default Lessons
