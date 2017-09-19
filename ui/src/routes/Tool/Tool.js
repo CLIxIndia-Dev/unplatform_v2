@@ -38,11 +38,6 @@ class Tool extends Component {
 
   }
 
-  // renderTool = (tool, index) => {
-  //   return <button className='choice-select'
-  //     onClick={() => this._onHandleSelectTool(tool)}>{tool}</button>
-  // }
-
   render () {
     if (!this.props.locale) {
       return (
@@ -124,6 +119,7 @@ class Tool extends Component {
   }
 
   _onToggleModal = (e) => {
+    e.preventDefault()
     this.setState({ showModal: !this.state.showModal })
   }
 

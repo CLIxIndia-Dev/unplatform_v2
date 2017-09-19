@@ -167,7 +167,6 @@ class HomeView extends Component {
       submitButton = (
         <button className='hi-but'
           onClick={this._onHandleSubmit}
-          // style={[styles.button, styles.userSelectButton, styles.submitButton]}
           >
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
           <ChevronRight /></button>
@@ -252,6 +251,19 @@ class HomeView extends Component {
     })
     browserHistory.push('/subjects')
   }
+}
+
+HomeView.propTypes = {
+  onFlush            : React.PropTypes.func,
+  onGetConfiguration : React.PropTypes.func,
+  onGetModules       : React.PropTypes.func,
+  onUpdateSurvey     : React.PropTypes.func,
+  onSetSurvey        : React.PropTypes.func,
+  modules            : React.PropTypes.object,
+  strings            : React.PropTypes.object,
+  survey             : React.PropTypes.object,
+  locale             : React.PropTypes.string,
+  hasConfiguration   : React.PropTypes.bool
 }
 
 export default HomeView

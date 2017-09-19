@@ -120,6 +120,7 @@ class Activities extends Component {
   }
 
   _onToggleModal = (e) => {
+    e.preventDefault()
     this.setState({
       showModal: !this.state.showModal
     })
