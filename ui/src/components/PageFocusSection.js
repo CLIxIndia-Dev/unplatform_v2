@@ -32,7 +32,7 @@ class PageFocusSection extends Component {
       <DocumentTitle title={docTitle}>
         <div>
           <LiveMessage aria-live='polite' message={liveMessage} />
-          <section tabIndex='-1' ref={section => (this.section = section)}>
+          <section id='skiplinks-focus' tabIndex='-1' ref={section => (this.section = section)}>
             <SkipLinks skiplinks={this.state.skiplinks} />
             {children}
           </section>

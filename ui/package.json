@@ -98,8 +98,10 @@
     "css-loader": "^0.26.0",
     "cssnano": "^3.7.4",
     "debug": "^2.2.0",
+    "dialog-polyfill": "^0.4.9",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "focus-trap": "^2.3.0",
     "font-awesome": "^4.7.0",
     "fs-extra": "^1.0.0",
     "html-webpack-plugin": "^2.22.0",
@@ -134,6 +136,7 @@
     "url-loader": "^0.5.7",
     "uuid": "^3.1.0",
     "webpack": "^1.12.14",
+    "wicg-inert": "^1.1.4",
     "yargs": "^6.3.0"
   },
   "devDependencies": {

@@ -65,9 +65,9 @@ class Tool extends Component {
               <a href='/subjects'
                 onClick={this._onSelectSubject}>
                 {this.props.strings.breadcrumbs.selectSubject}</a>
-              <a href='#'
+              <button
                 onClick={this._onToggleModal}>
-                {this.props.strings.unplatformNav.finishLesson}</a>
+                {this.props.strings.unplatformNav.finishLesson}</button>
             </nav>
           </header>
           <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_12_of_12'>
