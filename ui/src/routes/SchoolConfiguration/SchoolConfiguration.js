@@ -38,9 +38,15 @@ class SchoolConfiguration extends Component {
     }
 
     let districts = (
-      <select id='district'
-        value={this.props.form.district}
-        onChange={this._onUpdateDistrict} />
+      <div className='c-school__form--district-select'>
+        <label
+          htmlFor='district'
+          className='c-school__form--label-disabled'>
+          Select District
+          <span> (required)</span>
+        </label>
+        <select id='district' disabled />
+      </div>
     )
 
     if (this.props.form.state) {
@@ -51,16 +57,35 @@ class SchoolConfiguration extends Component {
         'Telangana':['Karimnagar', 'Warangal', 'RangaReddy']
       }
       districts = (
-        <select id='district'
-          value={this.props.form.district}
-          onChange={this._onUpdateDistrict}>
-          <option value='-1' />
-          {_.map(options[this.props.form.state], (district) => {
-            return <option value={district}>{district}</option>
-          })}
-        </select>
+        <div className='c-school__form--district-select'>
+          <label
+            htmlFor='district'
+            className='c-school__form--label'>
+            Select District
+            <span> (required)</span>
+          </label>
+          <select id='district'
+            value={this.props.form.district}
+            onChange={this._onUpdateDistrict}
+            aria-required>
+            <option value='-1' />
+            {_.map(options[this.props.form.state], (district) => {
+              return <option value={district}>{district}</option>
+            })}
+          </select>
+        </div>
         )
     }
+
+    // check if form is filled out, disable button if not
+    const formVals = Object.values(this.props.form)
+    const formFilled = formVals.every(formVal => (formVal !== null) && (formVal !== ''))
+    const buttonRegion = !formFilled
+      ? (<div className='c-school__form-button-region'>
+        <button disabled className='c-school__form-button'>Save</button>
+        <span>Please fill in all form fields</span>
+      </div>)
+      : (<button className='c-school__form-button' onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>)
 
     return (
       <DocumentTitle title='Clix School Configuration | Clix Modules'>
@@ -77,38 +102,60 @@ class SchoolConfiguration extends Component {
               <article className='c-school__new-config'>
                 <h2 className='c-school__config-header'>New Configuration</h2>
                 <form action='' className='c-school__form'>
-                  <label htmlFor='state'>Select State</label>
+                  <label
+                    htmlFor='state'
+                    className='c-school__form--label'>
+                    Select State
+                    <span> (required)</span>
+                  </label>
                   <select id='state'
                     value={this.props.form.state}
-                    onChange={this._onUpdateState}>
+                    onChange={this._onUpdateState}
+                    aria-required>
                     <option value='None' />
                     <option value='Chhattisgarh'>Chhattisgarh</option>
                     <option value='Mizoram'>Mizoram</option>
                     <option value='Rajasthan'>Rajasthan</option>
                     <option value='Telangana'>Telangana</option>
                   </select>
-                  <label htmlFor='district'>Select District</label>
                   {districts}
-                  <label htmlFor='schoolId'>School ID</label>
+                  <label
+                    htmlFor='schoolId'
+                    className='c-school__form--label'>
+                    School ID
+                    <span> (required)</span>
+                  </label>
                   <input id='schoolId' type='text'
                     value={this.props.form.schoolId}
                     onChange={this._onUpdateSchoolId}
+                    aria-required
                   />
-                  <label htmlFor='terminalId'>Terminal ID</label>
+                  <label
+                    htmlFor='terminalId'
+                    className='c-school__form--label'>
+                    Terminal ID
+                    <span> (required)</span>
+                  </label>
                   <input id='terminalId' type='text'
                     value={this.props.form.terminalId}
                     onChange={this._onUpdateTerminalId}
+                    aria-required
                   />
-                  <label htmlFor='locale'>Locale</label>
+                  <label
+                    htmlFor='locale'
+                    className='c-school__form--label'>
+                    Locale
+                    <span> (required)</span>
+                  </label>
                   <select id='locale'
                     value={this.props.form.locale}
-                    onChange={this._onUpdateLocale}>
-                    <option value='-1' />
+                    onChange={this._onUpdateLocale}
+                    aria-required>
                     <option value='en'>English</option>
                     <option value='hi'>Hindi</option>
                     <option value='te'>Telugu</option>
                   </select>
-                  <button className='c-school__form-button' onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>
+                  {buttonRegion}
                 </form>
               </article>
             </section>

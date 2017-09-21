@@ -92,13 +92,34 @@
   cursor: pointer;
 }
 
-.c-school__form label {
+.c-school__form--label {
   margin-top: .8em;
   margin-bottom: .5em;
   font-family:open_sansbold;
   font-size: .875em;
   color: hsla(259, 40%, 80%, 1);
 }
+
+.c-school__form--label-disabled {
+  margin-top: .8em;
+  margin-bottom: .5em;
+  font-family:open_sansbold;
+  font-size: .875em;
+  color: hsla(259, 40%, 40%, 1);
+}
+
+.c-school__form--label span {
+  font-family:open_sansregular;
+  font-size: 0.875em;
+  color: #9a86c2;
+}
+
+.c-school__form--label-disabled span {
+  font-family:open_sansregular;
+  font-size: 0.875em;
+  color: hsla(259, 40%, 40%, 1);
+}
+
 
 .c-school__form input {
   margin-bottom: .5em;
@@ -116,7 +137,33 @@
   outline-offset: .188em;
 }
 
+.c-school__form select:disabled {
+  cursor: none;
+  outline: none;
+  outline-offset: .188em;
+}
 
+.c-school__form select:disabled:focus {
+  outline: none;
+  outline-offset: .188em;
+}
+
+.c-school__form--district-select {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.c-school__form-button-region {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c-school__form-button-region span {
+  color: #c5b8e0;
+  font-size: 0.875em;
+}
 
 
 .c-school__form-button {
@@ -149,6 +196,14 @@
 
 .c-school__form-button:active {
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));;
+}
+
+.c-school__form-button:disabled {
+  color: hsla(0, 100%, 100%, 0.5);
+  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, .5), hsla(259, 40%,30%, .5));
+  border: 2px solid hsla(0, 100%, 100%, 0.5);
+  cursor: none;
+  transform: none;
 }
 
 /*MEDIA QUERIES */
