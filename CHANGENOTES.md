@@ -1,3 +1,17 @@
+## [1.6.5] - 2017-09-22
+### Added
+- Accessibility enhancements to unplatform including:
+- Color contrast
+- Screen reader navigation
+- Keyboard navigation
+- Skip links
+- Focus trap management
+- Form validation on school config page
+- Props validation on view components
+
+### Changed
+- Structure of CSS, code cleanup
+
 ## [1.6.4] - 2017-08-30
 ### Added
 - `pylint` to testing configuration.
@@ -176,6 +190,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.4...v1.6.5
 [1.6.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.1...v1.6.2
