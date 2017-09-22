@@ -14,14 +14,6 @@ class Subjects extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      skiplinks: [{
-        link: '#global-nav',
-        text: 'Skip to navigation'
-      },
-      {
-        link: '#main',
-        text: 'Skip to main content'
-      }],
       location: {
         pathname: '/subjects',
         state: { setFocus: true }
@@ -130,10 +122,11 @@ class Subjects extends Component {
 }
 
 Subjects.propTypes = {
-  subjects    : React.PropTypes.object,
-  strings     : React.PropTypes.object,
-  locale      : React.PropTypes.string,
-  sessionId   : React.PropTypes.string
+  subjects              : React.PropTypes.object,
+  strings               : React.PropTypes.object,
+  locale                : React.PropTypes.string,
+  sessionId             : React.PropTypes.string,
+  isSetSurveyInProgress : React.PropTypes.bool
 }
 
 export default Subjects

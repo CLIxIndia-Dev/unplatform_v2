@@ -15,14 +15,6 @@ class Lessons extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      skiplinks: [{
-        link: '#global-nav',
-        text: 'Skip to navigation'
-      },
-      {
-        link: '#main',
-        text: 'Skip to main content'
-      }],
       location: {
         pathname: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
         state: { setFocus: true }

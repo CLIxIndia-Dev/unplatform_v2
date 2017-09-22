@@ -13,14 +13,6 @@ class Activities extends Component {
     super(props)
     this.state = {
       showModal: false,
-      skiplinks: [{
-        link: '#global-nav',
-        text: 'Skip to navigation'
-      },
-      {
-        link: '#main',
-        text: 'Skip to main content'
-      }],
       location: {
         pathname: `/subjects/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`,
         state: { setFocus: true }

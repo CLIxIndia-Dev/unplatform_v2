@@ -13,14 +13,6 @@ class Tool extends Component {
     super(props)
     this.state = {
       showModal: false,
-      skiplinks: [{
-        link: '#global-nav',
-        text: 'Skip to navigation'
-      },
-      {
-        link: '#main',
-        text: 'Skip to main content'
-      }],
       location: {
         pathname: `/tools/${this.props.toolName}`,
         state: { setFocus: true }

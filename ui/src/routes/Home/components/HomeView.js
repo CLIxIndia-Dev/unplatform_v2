@@ -14,14 +14,6 @@ class HomeView extends Component {
       englishUserSelectStrings: ['teacher', 'student', 'visitor', 'demonstration'],
       userFocusedIndex: null,
       countFocusedIndex: null,
-      skiplinks: [{
-        link: '#global-nav',
-        text: 'Skip to navigation'
-      },
-      {
-        link: '#main',
-        text: 'Skip to main content'
-      }],
       location: {
         pathname: '/',
         state: { setFocus: true }
