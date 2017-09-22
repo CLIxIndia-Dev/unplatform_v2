@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import PageFocusSection from '../../components/PageFocusSection'
+import LessonModal from '../../components/LessonModal'
 import { log } from '../../utilities'
 
-// import '../../styles/buttons.css'
 import '../../styles/components/c-header.css'
 import '../../styles/components/c-activity.css'
 import '../../styles/components/c-modal.css'
 
-class Subjects extends Component {
+class Tool extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showModal: false
+      showModal: false,
+      location: {
+        pathname: `/tools/${this.props.toolName}`,
+        state: { setFocus: true }
+      }
     }
   }
 
@@ -25,13 +30,7 @@ class Subjects extends Component {
 
   }
 
-  renderTool = (tool, index) => {
-    return <button className='choice-select'
-      onClick={() => this._onHandleSelectTool(tool)}>{tool}</button>
-  }
-
   render () {
-
     if (!this.props.locale) {
       return (
         <div>
@@ -40,56 +39,49 @@ class Subjects extends Component {
       )
     }
 
-    let sessionModal
-
-    if (this.state.showModal) {
-      sessionModal = (
-        <div className='c-modal__container'>
-          <dialog open className='c-modal__dialog span_6_of_12'>
-            <h2 className='c-modal__dialog-title'>{this.props.strings.unplatformNav.endSession}</h2>
-            <form method='dialog'>
-              <button value='close' onClick={this._onFinishLesson}>{this.props.strings.prompt.yes}</button>
-              <button value='close' onClick={this._onToggleModal}>{this.props.strings.prompt.no}</button>
-            </form>
-          </dialog>
-        </div>
-      )
-    }
-
     let toolUrl = `/common/${this.props.toolName}?lang=${this.props.locale}`
     return (
-      <div className='act-container'>
-        <img alt=''/>
-        <header className='c-header'>
-          <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
-          <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
-          <nav className='c-header__nav'>
-            <button onClick={this._onChooseTool}>{this.props.strings.unplatformNav.chooseTool}</button>
-            <button onClick={this._onSelectSubject}>{this.props.strings.breadcrumbs.selectSubject}</button>
-            <button onClick={this._onToggleModal}>{this.props.strings.unplatformNav.finishLesson}</button>
-          </nav>
-        </header>
-        <main className='span_12_of_12'>
-          <iframe src={toolUrl} className='act-iframe--fill-win' frameBorder='0' allowFullScreen />
-          {sessionModal}
-        </main>
-      </div>
+      <PageFocusSection
+        docTitle={`${this.props.toolName} | Clix Modules`}
+        liveMessage='Select tool page loaded.'
+        location={this.state.location}
+      >
+        <div className='act-container'>
+          <header role='banner' id='global-nav' tabIndex='-1' className='c-header'>
+            <h1 className='c-header__logo'>CLIx Connected Learning Initiative</h1>
+            <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
+            <nav className='c-header__nav'>
+              <a href='/tools'
+                onClick={this._onChooseTool}>
+                {this.props.strings.unplatformNav.chooseTool}</a>
+              <a href='/subjects'
+                onClick={this._onSelectSubject}>
+                {this.props.strings.breadcrumbs.selectSubject}</a>
+              <button
+                onClick={this._onToggleModal}>
+                {this.props.strings.unplatformNav.finishLesson}</button>
+            </nav>
+          </header>
+          <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_12_of_12'>
+            <iframe src={toolUrl}
+              title={this.props.toolName}
+              className='act-iframe--fill-win'
+              frameBorder='0'
+              allowFullScreen
+            />
+            {this.state.showModal
+              ? <LessonModal
+                {...this.props}
+                titleId='modal-title'
+                onExit={this._onToggleModal}
+                underlayClickExits={false}
+                verticallyCenter
+              /> : ''
+            }
+          </main>
+        </div>
+      </PageFocusSection>
     )
-  }
-
-  _onFinishLesson = (e) => {
-    e.preventDefault()
-    log({
-      sessionId: this.props.sessionId,
-      appName: 'unplatform',
-      action: 'clicked_finished',
-      params: {
-        url: `/tools/${this.props.toolName}`,
-        response: 'yes'
-      }
-    })
-    this.props.onFinish()
-    browserHistory.push('/')
   }
 
   _onChooseTool = (e) => {
@@ -119,9 +111,18 @@ class Subjects extends Component {
   }
 
   _onToggleModal = (e) => {
+    e.preventDefault()
     this.setState({ showModal: !this.state.showModal })
   }
 
 }
 
-export default Subjects
+Tool.propTypes = {
+  strings     : React.PropTypes.object,
+  locale      : React.PropTypes.string,
+  sessionId   : React.PropTypes.string,
+  version     : React.PropTypes.string,
+  toolName    : React.PropTypes.string
+}
+
+export default Tool

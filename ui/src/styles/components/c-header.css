@@ -18,7 +18,6 @@
   margin-left: 16px;
   width: 143px;
   height: 32px;
-/*   swap bg image url with locally-hosted svg */
   background-image: url('/static/assets/clix-logo.svg');
   text-indent: 100%;
   overflow: hidden;
@@ -27,9 +26,10 @@
 
 .c-header__nav {
   position: absolute;
-  top: 29px;
+  top: 30px;
   right: 1em;
 }
+.c-header__nav > a,
 .c-header__nav > button {
   margin-left: 1em;
   padding: 5px;
@@ -40,18 +40,27 @@
   font-size: .7em;
   letter-spacing: .05em;
   text-transform: uppercase;
-  transition: all .5s;
+  transition: all .1s ease;
 }
 
+.c-header__nav > a:hover,
 .c-header__nav > button:hover {
   background: radial-gradient(hsla(316, 77%, 37%, 1), hsla(316, 88%, 26%, 1));
   border-bottom: 3px solid hsla(316, 88%, 42%, 1);
   color: #fff;
 }
 
-.c-header__nav > button:active {
+.c-header__nav > a:focus,
+.c-header__nav > button:focus {
   background: radial-gradient(hsla(316, 77%, 26%, 1), hsla(316, 88%, 16%, 1));
   border-bottom: 3px solid hsla(316, 88%, 42%, 1);
+  color: #fff;
+}
+
+.c-header__nav > a:active,
+.c-header__nav > button:active {
+  background: radial-gradient(#f37f2f, #f54b32);
+  border-bottom: 3px solid #b41f08;
   color: #fff;
 }
 

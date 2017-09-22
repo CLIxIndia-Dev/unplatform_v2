@@ -1,7 +1,7 @@
 // Subjects Container
 import { connect } from 'react-redux'
-
-import {getSubjects} from '../selectors'
+// import { withRouter } from 'react-router-dom'
+import { getSubjects } from '../selectors'
 import { localizeStrings } from '../utilities'
 
 const mapStateToProps = (state, ownProps) => {
