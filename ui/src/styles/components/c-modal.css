@@ -49,8 +49,7 @@
   justify-content: center;
 }
 
-.c-modal__dialog nav,
-.c-modal__dialog menu {
+.c-modal__dialog nav {
   display: flex;
   justify-content: center;
 }
