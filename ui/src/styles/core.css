@@ -202,7 +202,7 @@ button {
   display: flex;
   align-items: center;
   font-family: open_sansregular;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   color: #fff;
   letter-spacing: -0.006rem;
   text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
@@ -233,7 +233,7 @@ button {
 }
 
 .user-select__radio-dot {
-  margin: 0 .7rem;
+  margin: 0 .5rem 0 .6rem;
   color: #fff;
   text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
 }
@@ -260,7 +260,7 @@ button {
   display: flex;
   align-items: center;
   font-family: open_sansregular;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   color: #ffffff;
   color: var(--white-three);
   letter-spacing: -0.006rem;
@@ -286,12 +286,15 @@ button {
 
 
 .hi-but {
-  width: 9.375rem;
+  width: 12rem;
   height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 1rem;
   padding: 0 0.5rem;
   font-family: open_sansregular;
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: #ffffff;
   letter-spacing: -0.006rem;
   text-align: center;
@@ -318,14 +321,12 @@ button {
 .hi-but:focus {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
-  outline: dotted #fff 4px;
-  outline-offset: .188rem;
+/*  outline: dotted #fff 4px;
+  outline-offset: .188rem;*/
 }
 
 .hi-but__chevron {
-  position: relative;
-  top: .125em;
-  display: inline-block;
+  text-shadow: 0 0.125rem 0.125rem rgba(0, 0, 0, 0.3);
 }
 
 .choice-select {
@@ -363,8 +364,8 @@ button {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.6));
   transform: scale3d(1.05, 1.05, 1);
-  outline: dotted #fff 4px;
-  outline-offset: .188rem;
+/*  outline: dotted #fff 4px;
+  outline-offset: .188rem;*/
 }
 
 .lesn-but {

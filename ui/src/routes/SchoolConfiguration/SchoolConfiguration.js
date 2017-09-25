@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import { LiveMessage } from 'react-aria-live'
 import DocumentTitle from 'react-document-title'
 import '../../styles/components/c-schoolconfig.css'
 
@@ -58,6 +59,7 @@ class SchoolConfiguration extends Component {
       }
       districts = (
         <div className='c-school__form--district-select'>
+          <LiveMessage aria-live='polite' message='Select the school district' />
           <label
             htmlFor='district'
             className='c-school__form--label'>
@@ -82,10 +84,14 @@ class SchoolConfiguration extends Component {
     const formFilled = formVals.every(formVal => (formVal !== null) && (formVal !== ''))
     const buttonRegion = !formFilled
       ? (<div className='c-school__form-button-region'>
+        <LiveMessage aria-live='polite' message='Fill out all form inputs, please' />
         <button disabled className='c-school__form-button'>Save</button>
         <span>Please fill in all form fields</span>
       </div>)
-      : (<button className='c-school__form-button' onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>)
+      : (<div className='c-school__form-button-region'>
+        <LiveMessage aria-live='polite' message='All fields filled, save button enabled' />
+        <button className='c-school__form-button' onClick={(e) => this._setSchoolConfiguration(e)}>Save</button>
+      </div>)
 
     return (
       <DocumentTitle title='Clix School Configuration | Clix Modules'>
@@ -95,11 +101,11 @@ class SchoolConfiguration extends Component {
               <h1 className='c-school__heading' aria-label='Clix school configuration'>CLIx School Configuration</h1>
             </header>
             <section className='c-school__section'>
-              <article className='c-school__curr-config'>
+              <article className='c-school__curr-config' aria-label='Current Configuration'>
                 <h2 className='c-school__config-header'>Current Configuration</h2>
                 {currentConfig}
               </article>
-              <article className='c-school__new-config'>
+              <article className='c-school__new-config' aria-label='New Configuration'>
                 <h2 className='c-school__config-header'>New Configuration</h2>
                 <form action='' className='c-school__form'>
                   <label

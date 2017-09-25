@@ -19,6 +19,6 @@
 .button-gradient-active {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, .9), hsla(10, 100%, 50%, .7));
-  outline: dotted #fff 4px;
-  outline-offset: .25rem;
+/*  outline: dotted #fff 4px;
+  outline-offset: .25rem;*/
 }
