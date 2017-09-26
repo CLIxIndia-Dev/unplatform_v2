@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
-import dialogPolyfill from 'dialog-polyfill'
+
 import createFocusTrap from 'focus-trap'
+import dialogPolyfill from 'dialog-polyfill/dialog-polyfill'
 import wicgInert from 'wicg-inert/dist/inert.min.js' // adds aria-hidden attr when inert attr added
 
 import { LOCATION_CHANGE } from '../store/location'
@@ -26,6 +27,7 @@ function closeSessionWarningModal () {
   const skipLinks = document.getElementById('skiplinks-focus')
   if (sessionModal) {
     sessionModal.close()
+    sessionModal.removeAttribute('open', '')
     rootWrapper.removeAttribute('inert', '')
     focusTrap.deactivate()
     setTimeout(function () {
@@ -101,6 +103,7 @@ function startSessionCounter () {
   window.SESSION_TIMER_ID = setTimeout(function () {
     if (sessionModal) {
       sessionModal.showModal()
+
       rootWrapper.setAttribute('inert', '')
       focusTrap.activate()
     }

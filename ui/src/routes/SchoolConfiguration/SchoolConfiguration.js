@@ -40,6 +40,7 @@ class SchoolConfiguration extends Component {
 
     let districts = (
       <div className='c-school__form--district-select'>
+        <LiveMessage aria-live='polite' message='' />
         <label
           htmlFor='district'
           className='c-school__form--label-disabled'>
@@ -84,7 +85,7 @@ class SchoolConfiguration extends Component {
     const formFilled = formVals.every(formVal => (formVal !== null) && (formVal !== ''))
     const buttonRegion = !formFilled
       ? (<div className='c-school__form-button-region'>
-        <LiveMessage aria-live='polite' message='Fill out all form inputs, please' />
+        <LiveMessage aria-live='polite' message='Please fill in all form fields to change school configuration' />
         <button disabled className='c-school__form-button'>Save</button>
         <span>Please fill in all form fields</span>
       </div>)
