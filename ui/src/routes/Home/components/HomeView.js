@@ -12,8 +12,8 @@ class HomeView extends Component {
     super(props)
     this.state = {
       englishUserSelectStrings: ['teacher', 'student', 'visitor', 'demonstration'],
-      userFocusedIndex: null,
-      countFocusedIndex: null,
+      userSelectedIndex: null,
+      countSelectedIndex: null,
       location: {
         pathname: '/',
         state: { setFocus: true }
@@ -59,12 +59,13 @@ class HomeView extends Component {
     return (
       <label
         htmlFor={label}
-        className={index === this.state.userFocusedIndex
+        className={index === this.state.userSelectedIndex
           ? 'user-select button-gradient-active' : 'user-select'}
         key={index}
+        onClick={() => this._onHandleUserTypeClick(index)}
       >
         <Icon
-          name={index === this.state.userFocusedIndex
+          name={index === this.state.userSelectedIndex
             ? 'dot-circle-o' : 'circle-o'}
           className='user-select__radio-dot'
           aria-hidden
@@ -97,13 +98,14 @@ class HomeView extends Component {
       <label
         htmlFor={label}
         className={
-          index === this.state.countFocusedIndex
+          index === this.state.countSelectedIndex
           ? 'count-num button-gradient-active' : 'count-num'}
         key={index}
         aria-label={`${label} ${ariaLab}`}
+        onClick={() => this._onHandleUserCountClick(index)}
       >
         <Icon
-          name={index === this.state.countFocusedIndex
+          name={index === this.state.countSelectedIndex
             ? 'dot-circle-o' : 'circle-o'}
           className='count-select__radio-dot'
           aria-hidden
@@ -222,7 +224,7 @@ class HomeView extends Component {
   }
 
   _onHandleUserTypeFocus = (index) => {
-    this.setState({ userFocusedIndex: index })
+    this.setState({ userSelectedIndex: index })
   }
 
   _onHandleUserCountSelect = (e) => {
@@ -233,7 +235,7 @@ class HomeView extends Component {
   }
 
   _onHandleUserCountFocus = (index) => {
-    this.setState({ countFocusedIndex: index })
+    this.setState({ countSelectedIndex: index })
   }
 
   _onHandleSubmit = () => {
@@ -242,6 +244,14 @@ class HomeView extends Component {
       userCount: this.props.survey.userCount
     })
     browserHistory.push('/subjects')
+  }
+
+  _onHandleUserCountClick = (index) => {
+    this.setState({ countSelectedIndex: index })
+  }
+
+  _onHandleUserTypeClick = (index) => {
+    this.setState({ userSelectedIndex: index })
   }
 }
 

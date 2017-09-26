@@ -16,7 +16,10 @@
   top: 5%;
   border: none;
   border-radius: .3em;
+}
 
+.c-modal__dialog[open] {
+  display: block;
 }
 
 .c-modal__dialog::backdrop {
