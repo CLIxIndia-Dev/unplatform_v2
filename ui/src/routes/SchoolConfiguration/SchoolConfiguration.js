@@ -40,7 +40,7 @@ class SchoolConfiguration extends Component {
 
     let districts = (
       <div className='c-school__form--district-select'>
-        <LiveMessage aria-live='polite' message='' />
+
         <label
           htmlFor='district'
           className='c-school__form--label-disabled'>
