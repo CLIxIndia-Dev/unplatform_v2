@@ -45,6 +45,7 @@ class Tool extends Component {
         docTitle={`${this.props.toolName} | Clix Modules`}
         liveMessage='Select tool page loaded.'
         location={this.state.location}
+        locale={this.props.locale}
       >
         <div className='act-container'>
           <header role='banner' id='global-nav' tabIndex='-1' className='c-header'>
