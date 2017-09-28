@@ -1,3 +1,8 @@
+## [1.6.6] - 2017-09-28
+### Added
+- Updates the `html` `lang` attribute, depending on the
+  UI language / school configuration.
+
 ## [1.6.5] - 2017-09-22
 ### Added
 - Accessibility enhancements to unplatform including:
@@ -190,6 +195,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.5...v1.6.6
 [1.6.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.4...v1.6.5
 [1.6.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.2...v1.6.3
