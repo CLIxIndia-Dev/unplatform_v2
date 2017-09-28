@@ -51,6 +51,7 @@ class Tools extends Component {
         docTitle={`Tools | Clix Modules`}
         liveMessage='Select tools page loaded.'
         location={this.state.location}
+        locale={this.props.locale}
       >
         <div className='gradient-wrapper'>
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />

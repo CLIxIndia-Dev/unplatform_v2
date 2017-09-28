@@ -45,6 +45,7 @@ class Activities extends Component {
         docTitle={`${this.props.lessonName} | Clix Modules`}
         liveMessage='Select activity page loaded.'
         location={this.state.location}
+        locale={this.props.locale}
       >
         <div className='act-container'>
           <header role='banner' id='global-nav' tabIndex='-1' className='c-header'>
