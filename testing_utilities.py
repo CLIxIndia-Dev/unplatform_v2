@@ -1,12 +1,12 @@
-import os
+# pylint: disable=duplicate-code
 import json
 import sys
-import glob
+import os
 
-from nose.tools import *
+# from nose.tools import *
 # from paste.fixture import TestApp
-from webtest import TestApp
 from unittest import TestCase
+from webtest import TestApp
 
 from main import app
 from session_migration import create_session_database
@@ -21,8 +21,6 @@ SESSIONS_DB = os.path.join(ABS_PATH, 'unplatform.sqlite3')
 
 
 class BaseTestCase(TestCase):
-    """
-    """
     @staticmethod
     def _filename(file_object):
         return file_object.name.split('/')[-1]

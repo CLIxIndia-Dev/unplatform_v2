@@ -10,6 +10,7 @@ class BaseClass:
     def __init__(self):
         pass
 
+    # pylint: disable=unused-argument
     def OPTIONS(self, *args, **kwargs):
         # https://www.youtube.com/watch?v=gZelOtYjYv8
         web.header("Access-Control-Allow-Origin", "*")
@@ -48,10 +49,9 @@ def format_response(func):
         web.header("Access-Control-Allow-Headers", CORS_HEADERS)
         web.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
         web.header("Access-Control-Max-Age", "1728000")
-        if isinstance(results, dict) or isinstance(results, list):
+        if isinstance(results, (dict, list)):
             return json.dumps(results)
-        else:
-            return results
+        return results
     return wrapper
 
 
@@ -68,8 +68,7 @@ def format_xml_response(func):
         web.header("Access-Control-Max-Age", "1728000")
         if isinstance(results, dict):
             return json.dumps(results)
-        else:
-            return results
+        return results
     return wrapper
 
 

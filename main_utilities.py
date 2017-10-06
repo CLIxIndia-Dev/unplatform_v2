@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 # util functions for the classes in main.py
 import os
 import sys
