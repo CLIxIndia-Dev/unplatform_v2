@@ -17,7 +17,9 @@ class HomeView extends Component {
       location: {
         pathname: '/',
         state: { setFocus: true }
-      }
+      },
+      focusedItem: null,
+      selectedRadio: null
     }
   }
 
@@ -79,7 +81,7 @@ class HomeView extends Component {
           name='userType'
           value={label}
           checked={checked}
-          className='user-select__input visuallyhidden'
+          className='user-select__input '
           ref={(input) => { this.inputField = input }}
         />
         {label}
@@ -160,7 +162,7 @@ class HomeView extends Component {
       (this.props.survey.userCount || this._getEnglishUserType() === 'demonstration')) {
       submitButton = (
         <button className='hi-but'
-          onClick={this._onHandleSubmit}
+          onClick={() => this._onHandleSubmit()}
           >
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
           <ChevronRight /></button>
@@ -218,28 +220,28 @@ class HomeView extends Component {
     )
   }
 
-  _onHandleUserTypeSelect = (e) => {
+  _onHandleUserTypeSelect (e) {
     this.props.onUpdateSurvey({
       userType: e.currentTarget.value
     })
   }
 
-  _onHandleUserTypeFocus = (index) => {
+  _onHandleUserTypeFocus (index) {
     this.setState({ userSelectedIndex: index })
   }
 
-  _onHandleUserCountSelect = (e) => {
+  _onHandleUserCountSelect (e) {
     this.props.onUpdateSurvey({
       userType: this.props.survey.userType,
       userCount: e.currentTarget.value
     })
   }
 
-  _onHandleUserCountFocus = (index) => {
+  _onHandleUserCountFocus (index) {
     this.setState({ countSelectedIndex: index })
   }
 
-  _onHandleSubmit = () => {
+  _onHandleSubmit () {
     this.props.onSetSurvey({
       userType: this._getEnglishUserType(),
       userCount: this.props.survey.userCount
@@ -247,11 +249,11 @@ class HomeView extends Component {
     browserHistory.push('/subjects')
   }
 
-  _onHandleUserCountClick = (index) => {
+  _onHandleUserCountClick (index) {
     this.setState({ countSelectedIndex: index })
   }
 
-  _onHandleUserTypeClick = (index) => {
+  _onHandleUserTypeClick (index) {
     this.setState({ userSelectedIndex: index })
   }
 }
