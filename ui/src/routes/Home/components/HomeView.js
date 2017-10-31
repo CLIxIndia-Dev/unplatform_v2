@@ -53,19 +53,12 @@ class HomeView extends Component {
   }
 
   renderUserTypeButtons = (label, index) => {
-    let checked = false
-    if (this.props.survey && this.props.survey.userType === label) {
-      checked = true
-      console.log(`usr selectedItem is ${this.state.userSelectedItem}`)
-    }
-
     return (
       <label
         htmlFor={label}
-        className={this.state.focusedItem === label
+        className={this.state.focusedItem === index
           ? 'user-select button-gradient-active' : 'user-select'}
         key={index}
-        onClick={() => this._onHandleUserTypeClick(label)}
       >
         <Icon
           name={this.state.userSelectedItem === label
@@ -77,12 +70,12 @@ class HomeView extends Component {
         <input
           id={label}
           onChange={(e) => this._onHandleUserTypeSelect(e)}
-          onFocus={() => this.focusItem(true, label)}
+          onFocus={() => this.focusItem(true, index)}
           type='radio'
           name='userType'
           value={label}
           checked={this.state.userSelectedItem === label}
-          className='user-select__input '
+          className='visuallyhidden'
           ref={(input) => { this.inputField = input }}
         />
         {label}
@@ -91,22 +84,14 @@ class HomeView extends Component {
   }
 
   renderUserCountButtons = (label, index) => {
-    let checked = false
     let ariaLab = label === '1' ? 'user' : 'users'
-    if (this.props.survey && this.props.survey.userCount === label) {
-      checked = true
-      console.log(`count selectedItem is ${this.state.countSelectedItem}`)
-    }
-             // onFocus={() => this._onHandleUserCountFocus(index)}
-
     return (
       <label
         htmlFor={label}
-        className={this.state.focusedCount === label
+        className={this.state.focusedCount === index
           ? 'count-num button-gradient-active' : 'count-num'}
         key={index}
         aria-label={`${label} ${ariaLab}`}
-        onClick={() => this._onHandleUserCountClick(label)}
       >
         <Icon
           name={this.state.countSelectedItem === label
@@ -117,7 +102,7 @@ class HomeView extends Component {
         />
         <input
           onChange={(e) => this._onHandleUserCountSelect(e)}
-          onFocus={() => this.focusCount(true, label)}
+          onFocus={() => this.focusCount(true, index)}
           type='radio'
           name='userCount'
           value={label}
@@ -229,18 +214,6 @@ class HomeView extends Component {
     this.setState({ userSelectedItem: e.currentTarget.value })
   }
 
-  _onHandleUserTypeFocus (item) {
-    this.setState({ userSelectedItem: item })
-  }
-
-  focusItem (shouldFocus, item) { // set currently-focused item
-    if (shouldFocus) {
-      this.setState({ focusedItem: item })
-    } else {
-      this.setState({ focusedItem: null })
-    }
-  }
-
   _onHandleUserCountSelect (e) {
     this.props.onUpdateSurvey({
       userType: this.props.survey.userType,
@@ -249,8 +222,12 @@ class HomeView extends Component {
     this.setState({ countSelectedItem: e.currentTarget.value })
   }
 
-  _onHandleUserCountFocus (item) {
-    this.setState({ countSelectedItem: item })
+  focusItem (shouldFocus, item) { // set currently-focused item
+    if (shouldFocus) {
+      this.setState({ focusedItem: item })
+    } else {
+      this.setState({ focusedItem: null })
+    }
   }
 
   focusCount (shouldFocus, item) { // set currently-focused item
@@ -267,14 +244,6 @@ class HomeView extends Component {
       userCount: this.props.survey.userCount
     })
     browserHistory.push('/subjects')
-  }
-
-  _onHandleUserCountClick (item) {
-    this.setState({ countSelectedItem: item })
-  }
-
-  _onHandleUserTypeClick (item) {
-    this.setState({ userSelectedItem: item })
   }
 }
 
