@@ -1,3 +1,9 @@
+## [1.6.10] - 2017-11-1
+### Fixed
+- Modified listitem focusing pattern.
+- Refactors homeview synthetic events.
+- Tweaks CSS focus / active for improved UX.
+
 ## [1.6.9] - 2017-11-1
 ### Added
 - TISS developed tools, to the static folder.
@@ -207,6 +213,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.10]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.9...v1.6.10
 [1.6.9]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.8...v1.6.9
 [1.6.8]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.7...v1.6.8
 [1.6.7]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.6...v1.6.7

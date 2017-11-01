@@ -1,6 +1,6 @@
 {
   "name": "Unplatform-V2",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "Unplatform for remote LMS deployments",
   "main": "index.js",
   "engines": {
