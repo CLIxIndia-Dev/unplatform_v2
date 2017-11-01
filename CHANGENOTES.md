@@ -1,3 +1,7 @@
+## [1.6.9] - 2017-11-1
+### Added
+- TISS developed tools, to the static folder.
+
 ## [1.6.8] - 2017-10-25
 ### Added
 - Bumping version to grab `2017.10.r1` release of OEA.
@@ -203,6 +207,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.9]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.8...v1.6.9
 [1.6.8]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.7...v1.6.8
 [1.6.7]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.6...v1.6.7
 [1.6.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.5...v1.6.6
