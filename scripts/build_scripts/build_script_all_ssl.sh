@@ -322,6 +322,156 @@ mkdir ../bundle/static/turtle-blocks/
 cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
 rm -rf ../bundle/static/turtle-blocks/.git/
 
+# StarLogoNova simulations
+echo Processing StarLogoNova Simluations
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "StarLogoNova" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
+fi
+cd StarLogoNova
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/StarLogoNova/
+cp -rf StarLogoNova/* ../bundle/static/StarLogoNova/
+rm -rf ../bundle/static/StarLogoNova/.git/
+
+# Rotation of Earth Animation
+echo Processing Rotation of Earth Animation
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Rotation_of_Earth_Animation" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Rotation_of_Earth_Animation.git
+fi
+cd Rotation_of_Earth_Animation
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Rotation_of_Earth_Animation/
+cp -rf Rotation_of_Earth_Animation/* ../bundle/static/Rotation_of_Earth_Animation/
+rm -rf ../bundle/static/Rotation_of_Earth_Animation/.git/
+
+# Motions_of_the_Moon_Animation
+echo Processing Motions_of_the_Moon_Animation
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Motions_of_the_Moon_Animation" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Motions_of_the_Moon_Animation.git
+fi
+cd Motions_of_the_Moon_Animation
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Motions_of_the_Moon_Animation/
+cp -rf Motions_of_the_Moon_Animation/* ../bundle/static/Motions_of_the_Moon_Animation/
+rm -rf ../bundle/static/Motions_of_the_Moon_Animation/.git/
+
+
+# Astroamer_Planet_Trek_Activity
+echo Processing Astroamer_Planet_Trek_Activity
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Astroamer_Planet_Trek_Activity" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Astroamer_Planet_Trek_Activity.git
+fi
+cd Astroamer_Planet_Trek_Activity
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Astroamer_Planet_Trek_Activity/
+cp -rf Astroamer_Planet_Trek_Activity/* ../bundle/static/Astroamer_Planet_Trek_Activity/
+rm -rf ../bundle/static/Astroamer_Planet_Trek_Activity/.git/
+
+# Astroamer_Element_Hunt_Activity
+echo Processing Astroamer_Element_Hunt_Activity
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Astroamer_Element_Hunt_Activity" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Astroamer_Element_Hunt_Activity.git
+fi
+cd Astroamer_Element_Hunt_Activity
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Astroamer_Element_Hunt_Activity/
+cp -rf Astroamer_Element_Hunt_Activity/* ../bundle/static/Astroamer_Element_Hunt_Activity/
+rm -rf ../bundle/static/Astroamer_Element_Hunt_Activity/.git/
+
+# Solar_System_Animation
+echo Processing Solar_System_Animation
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Solar_System_Animation" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Solar_System_Animation.git
+fi
+cd Solar_System_Animation
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Solar_System_Animation/
+cp -rf Solar_System_Animation/* ../bundle/static/Solar_System_Animation/
+rm -rf ../bundle/static/Solar_System_Animation/.git/
+
+# Astroamer_Moon_Track
+echo Processing Astroamer_Moon_Track
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Astroamer_Moon_Track" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Astroamer_Moon_Track.git
+fi
+cd Astroamer_Moon_Track
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Astroamer_Moon_Track/
+cp -rf Astroamer_Moon_Track/* ../bundle/static/Astroamer_Moon_Track/
+rm -rf ../bundle/static/Astroamer_Moon_Track/.git/
+
+# Ratio-Patterns
+echo Processing Ratio-Patterns
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Ratio-Patterns" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Ratio-Patterns.git
+fi
+cd Ratio-Patterns
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Ratio-Patterns/
+cp -rf Ratio-Patterns/* ../bundle/static/Ratio-Patterns/
+rm -rf ../bundle/static/Ratio-Patterns/.git/
+
+# Ice-cubes-in-lemonade
+echo Processing Ice-cubes-in-lemonade
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "Ice-cubes-in-lemonade" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/Ice-cubes-in-lemonade.git
+fi
+cd Ice-cubes-in-lemonade
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/Ice-cubes-in-lemonade/
+cp -rf Ice-cubes-in-lemonade/* ../bundle/static/Ice-cubes-in-lemonade/
+rm -rf ../bundle/static/Ice-cubes-in-lemonade/.git/
+
+# food_sharing_tool
+echo Processing food_sharing_tool
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "food_sharing_tool" ]
+then
+  git clone https://github.com/CLIxIndia-Dev/food_sharing_tool.git
+fi
+cd food_sharing_tool
+git checkout master
+git pull origin master
+cd ..
+mkdir ../bundle/static/food_sharing_tool/
+cp -rf food_sharing_tool/* ../bundle/static/food_sharing_tool/
+rm -rf ../bundle/static/food_sharing_tool/.git/
 
 # QBank-lite Bundles
 echo Processing QBank-lite Bundles
