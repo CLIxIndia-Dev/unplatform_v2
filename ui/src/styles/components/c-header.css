@@ -15,7 +15,7 @@
 }
 
 .c-header__logo {
-  margin-left: 16px;
+  margin-left: 1.25em;
   width: 143px;
   height: 32px;
   background-image: url('/static/assets/clix-logo.svg');
@@ -27,7 +27,7 @@
 .c-header__nav {
   position: absolute;
   top: 30px;
-  right: 1em;
+  right: 1.25em;
 }
 .c-header__nav > a,
 .c-header__nav > button {
@@ -66,10 +66,10 @@
 
 .c-header--unplat-v {
   margin-top: 5px;
-  margin-right: 16px;
+  margin-right: 1.25em;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1.25em;
   font-size: 9px;
   text-transform: uppercase;
   color: #777;

@@ -12,12 +12,14 @@ class HomeView extends Component {
     super(props)
     this.state = {
       englishUserSelectStrings: ['teacher', 'student', 'visitor', 'demonstration'],
-      userSelectedIndex: null,
-      countSelectedIndex: null,
+      userSelectedItem: null,
+      countSelectedItem: null,
       location: {
         pathname: '/',
         state: { setFocus: true }
-      }
+      },
+      focusedItem: null,
+      focusedCount: null
     }
   }
 
@@ -51,21 +53,15 @@ class HomeView extends Component {
   }
 
   renderUserTypeButtons = (label, index) => {
-    let checked = false
-    if (this.props.survey && this.props.survey.userType === label) {
-      checked = true
-    }
-
     return (
       <label
         htmlFor={label}
-        className={index === this.state.userSelectedIndex
+        className={this.state.focusedItem === index
           ? 'user-select button-gradient-active' : 'user-select'}
         key={index}
-        onClick={() => this._onHandleUserTypeClick(index)}
       >
         <Icon
-          name={index === this.state.userSelectedIndex
+          name={this.state.userSelectedItem === label
             ? 'dot-circle-o' : 'circle-o'}
           className='user-select__radio-dot'
           aria-hidden
@@ -74,12 +70,12 @@ class HomeView extends Component {
         <input
           id={label}
           onChange={(e) => this._onHandleUserTypeSelect(e)}
-          onFocus={() => this._onHandleUserTypeFocus(index)}
+          onFocus={() => this.focusItem(true, index)}
           type='radio'
           name='userType'
           value={label}
-          checked={checked}
-          className='user-select__input visuallyhidden'
+          checked={this.state.userSelectedItem === label}
+          className='visuallyhidden'
           ref={(input) => { this.inputField = input }}
         />
         {label}
@@ -88,24 +84,17 @@ class HomeView extends Component {
   }
 
   renderUserCountButtons = (label, index) => {
-    let checked = false
     let ariaLab = label === '1' ? 'user' : 'users'
-    if (this.props.survey && this.props.survey.userCount === label) {
-      checked = true
-    }
-
     return (
       <label
         htmlFor={label}
-        className={
-          index === this.state.countSelectedIndex
+        className={this.state.focusedCount === index
           ? 'count-num button-gradient-active' : 'count-num'}
         key={index}
         aria-label={`${label} ${ariaLab}`}
-        onClick={() => this._onHandleUserCountClick(index)}
       >
         <Icon
-          name={index === this.state.countSelectedIndex
+          name={this.state.countSelectedItem === label
             ? 'dot-circle-o' : 'circle-o'}
           className='count-select__radio-dot'
           aria-hidden
@@ -113,12 +102,12 @@ class HomeView extends Component {
         />
         <input
           onChange={(e) => this._onHandleUserCountSelect(e)}
-          onFocus={() => this._onHandleUserCountFocus(index)}
+          onFocus={() => this.focusCount(true, index)}
           type='radio'
           name='userCount'
           value={label}
           id={label}
-          checked={checked}
+          checked={this.state.countSelectedItem === label}
           className='visuallyhidden'
         />
         {label}
@@ -160,7 +149,7 @@ class HomeView extends Component {
       (this.props.survey.userCount || this._getEnglishUserType() === 'demonstration')) {
       submitButton = (
         <button className='hi-but'
-          onClick={this._onHandleSubmit}
+          onClick={() => this._onHandleSubmit()}
           >
           {this.props.strings.breadcrumbs.selectSubject}&nbsp;&nbsp;
           <ChevronRight /></button>
@@ -218,41 +207,43 @@ class HomeView extends Component {
     )
   }
 
-  _onHandleUserTypeSelect = (e) => {
+  _onHandleUserTypeSelect (e) {
     this.props.onUpdateSurvey({
       userType: e.currentTarget.value
     })
+    this.setState({ userSelectedItem: e.currentTarget.value })
   }
 
-  _onHandleUserTypeFocus = (index) => {
-    this.setState({ userSelectedIndex: index })
-  }
-
-  _onHandleUserCountSelect = (e) => {
+  _onHandleUserCountSelect (e) {
     this.props.onUpdateSurvey({
       userType: this.props.survey.userType,
       userCount: e.currentTarget.value
     })
+    this.setState({ countSelectedItem: e.currentTarget.value })
   }
 
-  _onHandleUserCountFocus = (index) => {
-    this.setState({ countSelectedIndex: index })
+  focusItem (shouldFocus, item) { // set currently-focused item
+    if (shouldFocus) {
+      this.setState({ focusedItem: item })
+    } else {
+      this.setState({ focusedItem: null })
+    }
   }
 
-  _onHandleSubmit = () => {
+  focusCount (shouldFocus, item) { // set currently-focused item
+    if (shouldFocus) {
+      this.setState({ focusedCount: item })
+    } else {
+      this.setState({ focusedCount: null })
+    }
+  }
+
+  _onHandleSubmit () {
     this.props.onSetSurvey({
       userType: this._getEnglishUserType(),
       userCount: this.props.survey.userCount
     })
     browserHistory.push('/subjects')
-  }
-
-  _onHandleUserCountClick = (index) => {
-    this.setState({ countSelectedIndex: index })
-  }
-
-  _onHandleUserTypeClick = (index) => {
-    this.setState({ userSelectedIndex: index })
   }
 }
 
