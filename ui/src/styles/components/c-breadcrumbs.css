@@ -30,17 +30,18 @@
   padding: 0.33em 0.188em;
   color: #fff;
   font-size: 0.875em;
+  letter-spacing: .02em;
   text-transform: uppercase;
-  border-bottom: 4px solid hsla(327, 100%, 60%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 60%, 0);
 }
 
 .c-breadcrumbs__list a[aria-current="page"] {
-  border-bottom: 4px solid hsla(28, 91%, 66%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 60%, 1);
   font-family: 'open_sansbold'
 }
 
 .c-breadcrumbs__list a:hover {
-  border-bottom: 4px solid hsla(327, 100%, 85%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 75%, 1);
 }
 
 .c-breadcrumbs__list a:active {
@@ -48,13 +49,15 @@
 }
 
 .c-breadcrumbs__list a:focus {
-  border-bottom: 4px solid hsla(327, 100%, 85%, 1);
+  box-shadow: 0 0 0 0.15em hsla(327, 100%, 75%, 1);
+  border-bottom: 4px solid hsla(327, 100%, 75%, 1);
 }
 
 
 
 .c-breadcrumb__icon {
   color: hsla(327, 100%, 75%, 1);
+  margin-right: 0.35em;
 }
 
 .c-breadcrumbs__chevron {

@@ -259,6 +259,13 @@ dialog.fixed {
   transform: scale3d(1.05, 1.05, 1);
 }
 
+.user-select:focus,
+.count-select:focus {
+  /*clix-magenta*/
+  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.6));
+  transform: scale3d(1.05, 1.05, 1);
+}
+
 .user-select:active,
 .count-select:active {
   /*clix-orange*/
@@ -352,16 +359,16 @@ dialog.fixed {
   transform: scale3d(1.05, 1.05, 1);
 }
 
-.hi-but:active {
-  /*clix-orange*/
-  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
-}
-
 .hi-but:focus {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
-/*  outline: dotted #fff 4px;
-  outline-offset: .188rem;*/
+  outline: dotted #fff 4px;
+  outline-offset: .188rem;
+}
+
+.hi-but:active {
+  /*clix-orange*/
+  background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.7));
 }
 
 .hi-but__chevron {
@@ -393,18 +400,19 @@ dialog.fixed {
   transform: scale3d(1.05, 1.05, 1);
 }
 
-.choice-select:active {
-  color: #fff;
-  /*clix-magenta*/
-  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 35%, 0.9), hsla(327, 100%, 25%, 0.6));
-}
-
 .choice-select:focus {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.6));
   transform: scale3d(1.05, 1.05, 1);
-/*  outline: dotted #fff 4px;
-  outline-offset: .188rem;*/
+  outline: dotted #fff 4px;
+  outline-offset: .188rem;
+}
+
+
+.choice-select:active {
+  color: #fff;
+  /*clix-blue-purp*/
+  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%, 30%, 0.5));
 }
 
 .lesn-but {
@@ -432,18 +440,18 @@ dialog.fixed {
   transform: scale3d(1.05, 1.05, 1);
 }
 
-.lesn-but:active {
-  /*clix-magenta*/
-  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 35%, 0.9), hsla(327, 100%, 25%, 0.6));
-  color: #fff;
-}
-
 .lesn-but:focus {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.6));
   transform: scale3d(1.05, 1.05, 1);
   outline: dotted #fff 4px;
   outline-offset: .188rem;
+}
+
+.lesn-but:active {
+  /*clix-blue-purp*/
+  background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%, 30%, 0.5));
+  color: #fff;
 }
 
 .selected {
