@@ -535,7 +535,7 @@ case $UN2_BUILD_OS in
         ;;
     'osx')
         # TODO: When we build working QBank-lite binaries for OSX, change "ubuntu" to the "osx" slug
-        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*ubuntu* | sort -n | tail -1)
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*osx* | sort -n | tail -1)
         ;;
 esac
 echo QBank-lite binary is $QBANK_FILE
