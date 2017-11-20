@@ -211,14 +211,14 @@ class OEATests(BaseMainTestCase):
         url = '/oea'
         req = self.app.get(url)
         self.ok(req)
-        self.message(req, 'Open Assessments')
+        self.message(req, 'Clix assessment activity')
 
     def test_users_can_get_oea_index_with_trailing_slash(self):
         self.login()
         url = '/oea/'
         req = self.app.get(url)
         self.ok(req)
-        self.message(req, 'Open Assessments')
+        self.message(req, 'Clix assessment activity')
 
 
 class ContentTests(BaseMainTestCase):
