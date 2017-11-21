@@ -27,21 +27,19 @@ export function getGrades (state, props) {
 
 export function getUnits (state, props) {
   if (!state.module.modules ||
-      !props.params.subjectName ||
-      !props.params.gradeName) {
+      !props.params.subjectName) {
     return null
   }
 
-  return _.keys(state.module.modules[props.params.subjectName][props.params.gradeName])
+  return _.keys(state.module.modules[props.params.subjectName])
 }
 
 export function getLessons (state, props) {
   if (!state.module.modules ||
       !props.params.subjectName ||
-      !props.params.gradeName ||
       !props.params.unitName) {
     return null
   }
 
-  return _.keys(state.module.modules[props.params.subjectName][props.params.gradeName][props.params.unitName])
+  return _.keys(state.module.modules[props.params.subjectName][props.params.unitName])
 }

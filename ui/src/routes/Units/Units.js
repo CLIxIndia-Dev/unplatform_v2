@@ -16,7 +16,7 @@ class Units extends Component {
     super(props)
     this.state = {
       location: {
-        pathname: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}`,
+        pathname: `/subjects/${this.props.subjectName}`,
         state: { setFocus: true }
       }
     }
@@ -80,15 +80,8 @@ class Units extends Component {
                 </li>
                 <li>
                   <BreadcrumbChevron />
-                  <a onClick={this._onHandleSelectGrades}
-                    href={`/subjects/${this.props.subjectName}`}>
-                    {this.props.strings.breadcrumbs.selectClass}
-                  </a>
-                </li>
-                <li>
-                  <BreadcrumbChevron />
                   <a onClick={this._onHandleSelectUnits}
-                    href={`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}`}
+                    href={`/subjects/${this.props.subjectName}`}
                     aria-current='page'>{this.props.strings.breadcrumbs.selectUnit}
                   </a>
                 </li>
@@ -125,22 +118,13 @@ class Units extends Component {
     browserHistory.push(`/subjects`)
   }
 
-  _onHandleSelectGrades = () => {
-    log({
-      sessionId: this.props.sessionId,
-      action: 'click',
-      target: 'Select Grades'
-    })
-    browserHistory.push(`/subjects/${this.props.subjectName}`)
-  }
-
   _onHandleSelectUnit = (unitName) => {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
       target: `Unit: ${unitName}`
     })
-    browserHistory.push(`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${unitName}`)
+    browserHistory.push(`/subjects/${this.props.subjectName}/units/${unitName}`)
   }
 }
 
@@ -148,8 +132,6 @@ Units.propTypes = {
   units       : React.PropTypes.object,
   strings     : React.PropTypes.object,
   subjectName : React.PropTypes.string,
-  gradeName   : React.PropTypes.string,
-  unitName    : React.PropTypes.string,
   locale      : React.PropTypes.string,
   sessionId   : React.PropTypes.string
 }

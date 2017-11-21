@@ -16,7 +16,7 @@ class Lessons extends Component {
     super(props)
     this.state = {
       location: {
-        pathname: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
+        pathname: `/subjects/${this.props.subjectName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
         state: { setFocus: true }
       }
     }
@@ -79,22 +79,15 @@ class Lessons extends Component {
                 </li>
                 <li>
                   <BreadcrumbChevron />
-                  <a onClick={this._onHandleSelectGrades}
-                    href={`/subjects/${this.props.subjectName}`}>
-                    {this.props.strings.breadcrumbs.selectClass}
-                  </a>
-                </li>
-                <li>
-                  <BreadcrumbChevron />
                   <a onClick={this._onHandleSelectUnits}
-                    href={`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}`}>
+                    href={`/subjects/${this.props.subjectName}`}>
                     {this.props.strings.breadcrumbs.selectUnit}
                   </a>
                 </li>
                 <li>
                   <BreadcrumbChevron />
                   <a onClick={this._onHandleSelectLesson}
-                    href={`/subjects/${this.props.subjectName}/grades/${this.props.unitName}`} aria-current='page'>
+                    href={`/subjects/${this.props.subjectName}/units/${this.props.unitName}`} aria-current='page'>
                     {this.props.strings.breadcrumbs.selectLesson}
                   </a>
                 </li>
@@ -132,16 +125,6 @@ class Lessons extends Component {
     browserHistory.push(`/subjects`)
   }
 
-  _onHandleSelectGrades = (e) => {
-    e.preventDefault()
-    log({
-      sessionId: this.props.sessionId,
-      action: 'click',
-      target: 'Select Grades'
-    })
-    browserHistory.push(`/subjects/${this.props.subjectName}`)
-  }
-
   _onHandleSelectUnits = (e) => {
     e.preventDefault()
     log({
@@ -149,7 +132,7 @@ class Lessons extends Component {
       action: 'click',
       target: 'Select Units'
     })
-    browserHistory.push(`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}`)
+    browserHistory.push(`/subjects/${this.props.subjectName}`)
   }
 
   _onHandleSelectLesson = (e, lessonName) => {
@@ -159,16 +142,14 @@ class Lessons extends Component {
       action: 'click',
       target: `Lesson: ${lessonName}`
     })
-    browserHistory.push(`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${lessonName}`)
+    browserHistory.push(`/subjects/${this.props.subjectName}/units/${this.props.unitName}/lessons/${lessonName}`)
   }
 }
 
 Lessons.propTypes = {
   lessons     : React.PropTypes.object,
   strings     : React.PropTypes.object,
-  subject     : React.PropTypes.string,
   subjectName : React.PropTypes.string,
-  gradeName   : React.PropTypes.string,
   unitName    : React.PropTypes.string,
   locale      : React.PropTypes.string,
   sessionId   : React.PropTypes.string
