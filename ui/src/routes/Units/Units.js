@@ -49,7 +49,7 @@ class Units extends Component {
     return (
 
       <PageFocusSection
-        docTitle={`${this.props.gradeName} | Clix Modules`}
+        docTitle={`${this.props.subjectName} | Clix Modules`}
         liveMessage='Select unit page loaded.'
         location={this.state.location}
         locale={this.props.locale}
