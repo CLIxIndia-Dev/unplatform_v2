@@ -283,12 +283,12 @@ class ToolTests(BaseMainTestCase):
         req = self.app.get(url, expect_errors=True)
         self.ok(req)
 
-    def test_passing_locale_to_tool_iframe_renders_query_param(self):
+    def test_passing_locale_to_tool_iframe_renders_the_language_param(self):
         self.login()
         url = '/common/test_tool?lang=hi'
         req = self.app.get(url)
         self.ok(req)
-        self.assertEqual(req.body, '?lang=hi\n')
+        self.assertEqual(req.body, 'hi\n')
 
     def test_not_passing_locale_to_tool_iframe_just_returns_raw_text(self):
         self.login()
