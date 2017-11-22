@@ -1,6 +1,7 @@
 node_modules/
 *.pyc
 modules/
+!modules/Tools/
 .idea/
 build/
 webapps/
