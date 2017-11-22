@@ -230,7 +230,7 @@ class common_tools:
                 if 'lang' in web.input():
                     template = string.Template(tool.read())
                     yield template.substitute({
-                        'lang': '?lang={0}'.format(web.input()['lang'])
+                        'lang': web.input()['lang']
                     })
                 else:
                     yield tool.read()
