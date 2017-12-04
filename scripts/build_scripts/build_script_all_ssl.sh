@@ -327,7 +327,9 @@ echo Processing StarLogoNova Simluations
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "StarLogoNova" ]
 then
-  git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
+  # Use SSH version until we figure out licensing for SLN
+  # git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
+  git clone git@github.com:CLIxIndia-Dev/StarLogoNova.git
 fi
 cd StarLogoNova
 git checkout master
