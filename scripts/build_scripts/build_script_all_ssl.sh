@@ -158,6 +158,7 @@ cp $BUILD_ROOT/LICENSE_OpenSansFont.txt $BUILD_ROOT/bundle/
 cp $BUILD_ROOT/LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/
 cp $BUILD_ROOT/LICENSE_Requests.txt $BUILD_ROOT/bundle/
 cp $BUILD_ROOT/LICENSE_VarelaFont.txt $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/LICENSE_wicg_inert.txt $BUILD_ROOT/bundle/
 cp $BUILD_ROOT/NOTICES.md $BUILD_ROOT/bundle/
 
 # copy package.json so unplatform can report its version
@@ -485,6 +486,28 @@ fi
 cd qbank-lite-bundles
 git checkout release
 git pull origin release
+
+
+# QBank-lite -- just so we can grab the requirements.txt file
+echo Processing QBank-lite
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "qbank-lite" ]
+then
+  git clone git@github.com:CLIxIndia-Dev/qbank-lite.git
+fi
+cd qbank-lite
+git checkout master
+git pull origin master
+
+# Copy the requirements.txt for reference
+# Copy the licenses and README
+cp requirements.txt $BUILD_ROOT/bundle/qbank-requirements.txt
+cp test_requirements.txt $BUILD_ROOT/bundle/qbank-test_requirements.txt
+cp NOTICES.md $BUILD_ROOT/bundle/qbank-NOTICES.md
+cp README.md $BUILD_ROOT/bundle/qbank-README.md
+cp LICENSE.md $BUILD_ROOT/bundle/qbank-LICENSE.md
+cp LICENSE_PyMongo.txt $BUILD_ROOT/bundle/qbank-LICENSE_PyMongo.txt
+cp LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/qbank-LICENSE_PyOpenSSL.txt
 
 
 # let's get back out of tool-repos and go to the root directory
