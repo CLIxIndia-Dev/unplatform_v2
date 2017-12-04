@@ -1,8 +1,7 @@
-// Tool Container
+// Subtool Container
 
 import { connect } from 'react-redux'
 
-import { getSubTools } from '../selectors'
 import { localizeStrings } from '../utilities'
 
 import { clearSurvey } from '../reducers/Survey/clearSurvey'
@@ -12,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     locale: state.school.schoolConfiguration ? state.school.schoolConfiguration.locale : null,
     sessionId: state.survey.sessionId ? state.survey.sessionId : null,
     toolName: ownProps.params.toolName,
-    subtools: getSubTools(state, ownProps),
+    subtoolName: ownProps.params.subtoolName,
     strings: localizeStrings(state, ownProps),
     version: state.version.version ? state.version.version : null
   }

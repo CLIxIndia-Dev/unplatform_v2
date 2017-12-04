@@ -17,6 +17,14 @@ export function getTools (state, props) {
   return _.keys(state.module.modules.Tools)
 }
 
+export function getSubTools (state, props) {
+  if (!state.module.modules || !props.params.toolName) {
+    return null
+  }
+
+  return _.keys(state.module.modules.Tools[props.params.toolName])
+}
+
 export function getGrades (state, props) {
   if (!state.module.modules || !props.params.subjectName) {
     return null
