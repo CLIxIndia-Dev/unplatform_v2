@@ -14,7 +14,7 @@ class Activities extends Component {
     this.state = {
       showModal: false,
       location: {
-        pathname: `/subjects/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`,
+        pathname: `/subjects/${this.props.subjectName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
         state: { setFocus: true }
       }
     }
@@ -39,7 +39,7 @@ class Activities extends Component {
       )
     }
 
-    let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.gradeName}/${this.props.unitName}/${this.props.lessonName}`
+    let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.unitName}/${this.props.lessonName}`
     return (
       <PageFocusSection
         docTitle={`${this.props.lessonName} | Clix Modules`}
@@ -55,7 +55,7 @@ class Activities extends Component {
               <a href='/tools'
                 onClick={this._onChooseTool}>
                 {this.props.strings.unplatformNav.chooseTool}</a>
-              <a href={`/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}`}
+              <a href={`/subjects/${this.props.subjectName}/units/${this.props.unitName}`}
                 onClick={this._onChooseLesson}>
                 {this.props.strings.unplatformNav.chooseNewLesson}</a>
               <button
@@ -92,7 +92,7 @@ class Activities extends Component {
       appName: 'unplatform',
       action: 'clicked_choose_tool',
       params: {
-        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`
+        url: `/subjects/${this.props.subjectName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`
       }
     })
     browserHistory.push('/tools')
@@ -105,11 +105,11 @@ class Activities extends Component {
       appName: 'unplatform',
       action: 'clicked_choose_new_lesson',
       params: {
-        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`
+        url: `/subjects/${this.props.subjectName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`
       }
     })
     browserHistory.push(
-      `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}`)
+      `/subjects/${this.props.subjectName}/units/${this.props.unitName}`)
   }
 
   _onToggleModal = (e) => {
@@ -127,10 +127,8 @@ Activities.propTypes = {
   sessionId   : React.PropTypes.string,
   version     : React.PropTypes.string,
   subjectName : React.PropTypes.string,
-  gradeName   : React.PropTypes.string,
   unitName    : React.PropTypes.string,
-  lessonName  : React.PropTypes.string,
-  onFinish    : React.PropTypes.func
+  lessonName  : React.PropTypes.string
 }
 
 export default Activities

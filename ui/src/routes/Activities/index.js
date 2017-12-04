@@ -1,7 +1,7 @@
 import ActivitiesComponent from './Activities'
 
 export default (store) => ({
-  path : 'subjects/:subjectName/grades/:gradeName/units/:unitName/lessons/:lessonName',
+  path : 'subjects/:subjectName/units/:unitName/lessons/:lessonName',
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
