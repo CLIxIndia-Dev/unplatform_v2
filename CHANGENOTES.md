@@ -1,3 +1,14 @@
+## [1.6.11] - 2017-12-4
+### Added
+- iframes to all the TISS tools in `/Modules/Tools`.
+- License file for the WICG accessibility library.
+
+### Changed
+- Bumped React to 15.6.2.
+
+### Removed
+- Removed `Grades` from the navigational flow.
+
 ## [1.6.10] - 2017-11-1
 ### Fixed
 - Modified listitem focusing pattern.
@@ -213,6 +224,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.11]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.10...v1.6.11
 [1.6.10]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.9...v1.6.10
 [1.6.9]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.8...v1.6.9
 [1.6.8]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.7...v1.6.8
