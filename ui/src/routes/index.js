@@ -6,6 +6,7 @@ import SchoolConfigurationRoute from './SchoolConfiguration'
 import SubjectsRoute from './Subjects'
 import ToolsRoute from './Tools'
 import ToolRoute from './Tool'
+import SubtoolRoute from './Subtool'
 import UnitsRoute from './Units'
 import LessonsRoute from './Lessons'
 import ActivitiesRoute from './Activities'
@@ -21,6 +22,7 @@ export const createRoutes = (store) => ({
     SubjectsRoute(store),
     ToolsRoute(store),
     ToolRoute(store),
+    SubtoolRoute(store),
     UnitsRoute(store),
     LessonsRoute(store),
     ActivitiesRoute(store)

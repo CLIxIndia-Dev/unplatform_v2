@@ -18,7 +18,8 @@ export default {
       selectClass: 'Select Class', // Select the class
       selectUnit: 'Select Unit',
       selectLesson: 'Select Lesson',
-      selectTool: 'Select Tool'
+      selectTool: 'Select Tool',
+      selectSubtool: 'Select Subtool'
     },
     moduleNav: {
       selectYourClass: 'Select Your Class', // prompt for user to select class
@@ -26,7 +27,8 @@ export default {
       selectYourSubject: 'Select Your Subject', // prompt for user to select subject
       tools: 'Tools', // The tools folder -- may be unnecessary
       selectYourTool: 'Select Your Tool', // prompt for user to select a tool
-      selectYourUnit: 'Select Your Unit' // prompt for user to select a unit
+      selectYourUnit: 'Select Your Unit', // prompt for user to select a unit
+      selectYourSubtool: 'Select Your Subtool' // prompt for user to select a subtool
     },
     splash: {
       title: 'CLIx Module', // welcome title
