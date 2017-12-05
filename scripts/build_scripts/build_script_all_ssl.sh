@@ -233,7 +233,7 @@ for i in $(cat < $BUILD_ROOT/requirements.txt); do
     mkdir $TARGET_DIR
   fi
   # 3 grabs enum34 license, too?
-  cp -rf $(find . -maxdepth 3 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ) $TARGET_DIR
+  cp -rf $(find . -maxdepth 3 \( -name '*LICENSE*' -o -name '*LICENCE*' \) ) $TARGET_DIR
   cd $BUILD_ROOT
   rm -rf $BUILD_ROOT/tmp_package
 done
@@ -650,7 +650,7 @@ for i in $(cat < requirements.txt); do
     mkdir $TARGET_DIR
   fi
   # 3 grabs enum34 license, too?
-  cp -rf $(find . -maxdepth 3 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ) $TARGET_DIR
+  cp -rf $(find . -maxdepth 3 \( -name '*LICENSE*' -o -name '*LICENCE*' \) ) $TARGET_DIR
   cd $BUILD_ROOT
   rm -rf $BUILD_ROOT/tmp_package
 done
