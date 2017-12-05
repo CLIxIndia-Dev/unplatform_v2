@@ -220,7 +220,11 @@ for i in $(cat < $BUILD_ROOT/requirements.txt); do
     yolk -F $PACKAGE
     FILE=$(find . -name "$PACKAGE*" | sort -n | tail -1)
     echo Expanding $FILE
-    tar -zxvf $FILE
+    if [[ $FILE == *.zip ]]; then
+      unzip $FILE
+    else
+      tar -zxvf $FILE
+    fi
     rm $FILE
   fi
   TARGET_DIR="$BUILD_ROOT/bundle/licenses/$PACKAGE"
@@ -269,7 +273,14 @@ cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/ht
 
 yarn run build
 mkdir $BUILD_ROOT/bundle/static/content_player/
-cp -rf $BUILD_ROOT/tool-repos/content_player/build/prod/  $BUILD_ROOT/bundle/static/content_player/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/content_player/build/prod/  $BUILD_ROOT/bundle/static/content_player/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/content_player/build/prod/*  $BUILD_ROOT/bundle/static/content_player/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
 
 # copy the license files over from node_modules
@@ -318,7 +329,14 @@ cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
 yarn run build
 
 mkdir $BUILD_ROOT/bundle/static/oea/
-cp -rf $BUILD_ROOT/tool-repos/OpenAssessmentsClient/build/prod/  $BUILD_ROOT/bundle/static/oea/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/OpenAssessmentsClient/build/prod/  $BUILD_ROOT/bundle/static/oea/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/OpenAssessmentsClient/build/prod/*  $BUILD_ROOT/bundle/static/oea/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/oea/.git/
 
 # copy the license files over from node_modules
@@ -346,7 +364,14 @@ cd runkittyrun
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/runkittyrun/
-cp -rf $BUILD_ROOT/tool-repos/runkittyrun/en/ $BUILD_ROOT/bundle/static/runkittyrun/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/runkittyrun/en/ $BUILD_ROOT/bundle/static/runkittyrun/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/runkittyrun/en/* $BUILD_ROOT/bundle/static/runkittyrun/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/runkittyrun/.git/
 
 # Physics Video player
@@ -357,10 +382,17 @@ then
   git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
 fi
 cd physics-video-player
-git checkout release
-git pull origin release
+git checkout master
+git pull origin master
 mkdir $BUILD_ROOT/bundle/static/physics-video-player/
-cp -rf $BUILD_ROOT/tool-repos/physics-video-player/ $BUILD_ROOT/bundle/static/physics-video-player/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/physics-video-player/ $BUILD_ROOT/bundle/static/physics-video-player/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
 
 # Audio record tool
@@ -371,10 +403,17 @@ then
   git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
 fi
 cd audio-record-tool
-git checkout release
-git pull origin release
+git checkout master
+git pull origin master
 mkdir $BUILD_ROOT/bundle/static/audio-record-tool/
-cp -rf $BUILD_ROOT/tool-repos/audio-record-tool/  $BUILD_ROOT/bundle/static/audio-record-tool/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/audio-record-tool/  $BUILD_ROOT/bundle/static/audio-record-tool/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
 
 # Police Quad
@@ -388,7 +427,14 @@ cd policequad
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/policequad/
-cp -rf $BUILD_ROOT/tool-repos/policequad/en/  $BUILD_ROOT/bundle/static/policequad/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/policequad/  $BUILD_ROOT/bundle/static/policequad/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/policequad/*  $BUILD_ROOT/bundle/static/policequad/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
 
 # Open Story tool
@@ -399,10 +445,17 @@ then
   git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
 fi
 cd open-story-tool
-git checkout release
-git pull origin release
+git checkout master
+git pull origin master
 mkdir $BUILD_ROOT/bundle/static/open-story-tool/
-cp -rf $BUILD_ROOT/tool-repos/open-story-tool/ $BUILD_ROOT/bundle/static/open-story-tool/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/open-story-tool/ $BUILD_ROOT/bundle/static/open-story-tool/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/open-story-tool/* $BUILD_ROOT/bundle/static/open-story-tool/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/open-story-tool/.git/
 
 # Turtle Blocks
@@ -413,10 +466,17 @@ then
   git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
 fi
 cd turtle-blocks
-git checkout release
-git pull origin release
+git checkout master
+git pull origin master
 mkdir $BUILD_ROOT/bundle/static/turtle-blocks/
-cp -rf $BUILD_ROOT/tool-repos/turtle-blocks/ $BUILD_ROOT/bundle/static/turtle-blocks/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/turtle-blocks/ $BUILD_ROOT/bundle/static/turtle-blocks/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/turtle-blocks/* $BUILD_ROOT/bundle/static/turtle-blocks/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/turtle-blocks/.git/
 
 # StarLogoNova simulations
@@ -432,7 +492,14 @@ cd StarLogoNova
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/StarLogoNova/
-cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/ $BUILD_ROOT/bundle/static/StarLogoNova/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/ $BUILD_ROOT/bundle/static/StarLogoNova/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/* $BUILD_ROOT/bundle/static/StarLogoNova/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/StarLogoNova/.git/
 
 # Rotation of Earth Animation
@@ -446,7 +513,14 @@ cd Rotation_of_Earth_Animation
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/
-cp -rf $BUILD_ROOT/tool-repos/Rotation_of_Earth_Animation/ $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Rotation_of_Earth_Animation/ $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Rotation_of_Earth_Animation/* $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/.git/
 
 # Motions_of_the_Moon_Animation
@@ -460,7 +534,14 @@ cd Motions_of_the_Moon_Animation
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/
-cp -rf $BUILD_ROOT/tool-repos/Motions_of_the_Moon_Animation/ $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Motions_of_the_Moon_Animation/ $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Motions_of_the_Moon_Animation/* $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/.git/
 
 
@@ -475,7 +556,14 @@ cd Astroamer_Planet_Trek_Activity
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/
-cp -rf $BUILD_ROOT/tool-repos/Astroamer_Planet_Trek_Activity/ $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Astroamer_Planet_Trek_Activity/ $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Astroamer_Planet_Trek_Activity/* $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/.git/
 
 # Astroamer_Element_Hunt_Activity
@@ -489,7 +577,14 @@ cd Astroamer_Element_Hunt_Activity
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/
-cp -rf $BUILD_ROOT/tool-repos/Astroamer_Element_Hunt_Activity/ $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Astroamer_Element_Hunt_Activity/ $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Astroamer_Element_Hunt_Activity/* $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/.git/
 
 # Solar_System_Animation
@@ -503,7 +598,14 @@ cd Solar_System_Animation
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Solar_System_Animation/
-cp -rf $BUILD_ROOT/tool-repos/Solar_System_Animation/ $BUILD_ROOT/bundle/static/Solar_System_Animation/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Solar_System_Animation/ $BUILD_ROOT/bundle/static/Solar_System_Animation/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Solar_System_Animation/* $BUILD_ROOT/bundle/static/Solar_System_Animation/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Solar_System_Animation/.git/
 
 # Astroamer_Moon_Track
@@ -517,7 +619,14 @@ cd Astroamer_Moon_Track
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/
-cp -rf $BUILD_ROOT/tool-repos/Astroamer_Moon_Track/ $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Astroamer_Moon_Track/ $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Astroamer_Moon_Track/* $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/.git/
 
 # Ratio-Patterns
@@ -531,7 +640,14 @@ cd Ratio-Patterns
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Ratio-Patterns/
-cp -rf $BUILD_ROOT/tool-repos/Ratio-Patterns/ $BUILD_ROOT/bundle/static/Ratio-Patterns/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Ratio-Patterns/ $BUILD_ROOT/bundle/static/Ratio-Patterns/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Ratio-Patterns/* $BUILD_ROOT/bundle/static/Ratio-Patterns/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Ratio-Patterns/.git/
 
 # Ice-cubes-in-lemonade
@@ -545,7 +661,14 @@ cd Ice-cubes-in-lemonade
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/
-cp -rf $BUILD_ROOT/tool-repos/Ice-cubes-in-lemonade/ $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/Ice-cubes-in-lemonade/ $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/Ice-cubes-in-lemonade/* $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/.git/
 
 # food_sharing_tool
@@ -559,7 +682,14 @@ cd food_sharing_tool
 git checkout master
 git pull origin master
 mkdir $BUILD_ROOT/bundle/static/food_sharing_tool/
-cp -rf $BUILD_ROOT/tool-repos/food_sharing_tool/ $BUILD_ROOT/bundle/static/food_sharing_tool/
+case $UN2_BUILD_OS in
+    'osx')
+        cp -rf $BUILD_ROOT/tool-repos/food_sharing_tool/ $BUILD_ROOT/bundle/static/food_sharing_tool/
+        ;;
+    *)
+        cp -rf $BUILD_ROOT/tool-repos/food_sharing_tool/* $BUILD_ROOT/bundle/static/food_sharing_tool/
+        ;;
+esac
 rm -rf $BUILD_ROOT/bundle/static/food_sharing_tool/.git/
 
 # QBank-lite Bundles
@@ -629,7 +759,13 @@ for i in $(cat < requirements.txt); do
     yolk -F $PACKAGE
     FILE=$(find . -name "$PACKAGE*" | sort -n | tail -1)
     echo Expanding $FILE
-    tar -zxvf $FILE
+    # Test if .tar.gz or .zip. enum34 comes down as a .zip, so on
+    #   Windows we need to make sure to use gzip
+    if [[ $FILE == *.zip ]]; then
+      unzip $FILE
+    else
+      tar -zxvf $FILE
+    fi
     rm $FILE
   fi
   TARGET_DIR="$BUILD_ROOT/bundle/licenses/$PACKAGE"
