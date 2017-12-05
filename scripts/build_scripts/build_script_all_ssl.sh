@@ -153,17 +153,98 @@ cp -r $BUILD_ROOT/modules/* $BUILD_ROOT/bundle/modules/
 cp $BUILD_ROOT/README.md $BUILD_ROOT/bundle/
 
 # copy the license, notices, and third-party licenses
+mkdir $BUILD_ROOT/bundle/licenses
 cp $BUILD_ROOT/LICENSE.md $BUILD_ROOT/bundle/
-cp $BUILD_ROOT/LICENSE_OpenSansFont.txt $BUILD_ROOT/bundle/
-cp $BUILD_ROOT/LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/
-cp $BUILD_ROOT/LICENSE_Requests.txt $BUILD_ROOT/bundle/
-cp $BUILD_ROOT/LICENSE_VarelaFont.txt $BUILD_ROOT/bundle/
-cp $BUILD_ROOT/LICENSE_wicg_inert.txt $BUILD_ROOT/bundle/
+cp $BUILD_ROOT/LICENSE_OpenSansFont.txt $BUILD_ROOT/bundle/licenses
+cp $BUILD_ROOT/LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/licenses
+cp $BUILD_ROOT/LICENSE_Requests.txt $BUILD_ROOT/bundle/licenses
+cp $BUILD_ROOT/LICENSE_VarelaFont.txt $BUILD_ROOT/bundle/licenses
+cp $BUILD_ROOT/LICENSE_wicg_inert.txt $BUILD_ROOT/bundle/licenses
 cp $BUILD_ROOT/NOTICES.md $BUILD_ROOT/bundle/
+
+# copy the licenses from Unplatform UI node_modules
+# Do this later for OEA and content_player, too...
+echo Copying Unplatform UI node_modules licenses
+for i in $(find $BUILD_ROOT/ui/node_modules -maxdepth 2 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ); do
+  LICENSE_FILE="$(basename $i)"
+  TMP_DIR="$(dirname $i)"
+  TMP_DIR="$(basename $TMP_DIR)"
+  TARGET_DIR="$BUILD_ROOT/bundle/licenses/$TMP_DIR"
+  if [ ! -d $TARGET_DIR ]
+  then
+    mkdir $TARGET_DIR
+  fi
+  LICENSE_FULL_PATH="$BUILD_ROOT/ui/node_modules/$TMP_DIR/$LICENSE_FILE"
+  if [ -f $LICENSE_FULL_PATH ]
+  then
+    cp -rf $LICENSE_FULL_PATH $TARGET_DIR
+  fi
+done
+
+# copy the Python license files
+echo Copying Unplatform Python license files
+pip install yolk3k
+# Tips from https://unix.stackexchange.com/a/7012
+# Tips from https://stackoverflow.com/a/2172367
+rm -rf $BUILD_ROOT/tmp_package
+IFS=$'\n'
+set -f
+for i in $(cat < $BUILD_ROOT/requirements.txt); do
+  mkdir $BUILD_ROOT/tmp_package
+  cd $BUILD_ROOT/tmp_package
+  if [[ $i == -e* ]]; then
+    # Download directly from GIT / find the license file / clean up
+    REPO=$(expr "$i" : '.*git://\(.*\)@')
+    PACKAGE=$(expr "$i" : '.*CLIxIndia-Dev/\(.*\)\.git')
+    COMMIT=$(expr "$i" : '.*@\(.*\)#')
+    git clone https://$REPO
+    cd $(find . -type d | head -2 | tail -1)  # head -1 should be current directory, "."
+    git checkout $COMMIT
+    # For web.py also copy over the CherryPy WSGI server license manually
+    if [[ $PACKAGE == "webpy" ]]; then
+      CHERRY_PY_SUBDIR="$BUILD_ROOT/bundle/licenses/$PACKAGE/web/wsgiserver"
+      CHERRY_PY_LICENSE="web/wsgiserver/LICENSE.txt"
+      if [ ! -d $CHERRY_PY_SUBDIR ]
+      then
+        mkdir -p $CHERRY_PY_SUBDIR
+      fi
+      if [ -f $CHERRY_PY_LICENSE ]
+      then
+        cp -rf $CHERRY_PY_LICENSE $CHERRY_PY_SUBDIR
+      fi
+    fi
+    cd ..
+  else
+    # Use yolk3k to download / unzip / find the license file / clean up
+    PACKAGE=$(expr "$i" : '\(.*\)==')
+    yolk -F $PACKAGE
+    FILE=$(find . -name "$PACKAGE*" | sort -n | tail -1)
+    echo Expanding $FILE
+    if [[ $FILE == *.zip ]]; then
+      unzip $FILE
+    else
+      tar -zxvf $FILE
+    fi
+    rm $FILE
+  fi
+  TARGET_DIR="$BUILD_ROOT/bundle/licenses/$PACKAGE"
+  if [ ! -d $TARGET_DIR ]
+  then
+    mkdir $TARGET_DIR
+  fi
+  # 3 grabs enum34 license, too?
+  cp -rf $(find . -maxdepth 3 \( -name '*LICENSE*' -o -name '*LICENCE*' \) ) $TARGET_DIR
+  cd $BUILD_ROOT
+  rm -rf $BUILD_ROOT/tmp_package
+done
+set +f
 
 # copy package.json so unplatform can report its version
 cp $BUILD_ROOT/package.json $BUILD_ROOT/bundle/
 
+# copy unplatform requirements.txt files for reference
+cp $BUILD_ROOT/requirements.txt $BUILD_ROOT/bundle/unplatform-requirements.txt
+cp $BUILD_ROOT/test_requirements.txt $BUILD_ROOT/bundle/unplatform-test_requirements.txt
 
 # generate the latest releases of each tool, from the release branch
 if [ ! -d $BUILD_ROOT/tool-repos ]
@@ -193,8 +274,21 @@ cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/ht
 
 yarn run build
 mkdir $BUILD_ROOT/bundle/static/content_player/
-cp -rf build/prod/*  $BUILD_ROOT/bundle/static/content_player/
+cp -rf $BUILD_ROOT/tool-repos/content_player/build/prod/*  $BUILD_ROOT/bundle/static/content_player/
 rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
+
+# copy the license files over from node_modules
+echo Copying NPM license files from content player
+for i in $(find $BUILD_ROOT/tool-repos/content_player/client/node_modules -maxdepth 2 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ); do
+  LICENSE_FILE="$(basename $i)"
+  TMP_DIR="$(dirname $i)"
+  TMP_DIR="$(basename $TMP_DIR)"
+  if [ ! -d $BUILD_ROOT/bundle/licenses/$TMP_DIR ]
+  then
+    mkdir $BUILD_ROOT/bundle/licenses/$TMP_DIR
+  fi
+  cp -rf $BUILD_ROOT/tool-repos/content_player/client/node_modules/$TMP_DIR/$LICENSE_FILE $BUILD_ROOT/bundle/licenses/$TMP_DIR
+done
 
 # OEA Open Embedded Assessments
 echo Processing Open Assessments Client
@@ -229,8 +323,21 @@ cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
 yarn run build
 
 mkdir $BUILD_ROOT/bundle/static/oea/
-cp -rf build/prod/*  $BUILD_ROOT/bundle/static/oea/
+cp -rf $BUILD_ROOT/tool-repos/OpenAssessmentsClient/build/prod/*  $BUILD_ROOT/bundle/static/oea/
 rm -rf $BUILD_ROOT/bundle/static/oea/.git/
+
+# copy the license files over from node_modules
+echo Copying NPM license files from OEA
+for i in $(find $BUILD_ROOT/tool-repos/OpenAssessmentsClient/client/node_modules -maxdepth 2 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ); do
+  LICENSE_FILE="$(basename $i)"
+  TMP_DIR="$(dirname $i)"
+  TMP_DIR="$(basename $TMP_DIR)"
+  if [ ! -d $BUILD_ROOT/bundle/licenses/$TMP_DIR ]
+  then
+    mkdir $BUILD_ROOT/bundle/licenses/$TMP_DIR
+  fi
+  cp -rf $BUILD_ROOT/tool-repos/OpenAssessmentsClient/client/node_modules/$TMP_DIR/$LICENSE_FILE $BUILD_ROOT/bundle/licenses/$TMP_DIR
+done
 
 # biomechanics game
 echo Processing Biomechanics game
@@ -243,9 +350,8 @@ fi
 cd runkittyrun
 git checkout master
 git pull origin master
-cd ..
 mkdir $BUILD_ROOT/bundle/static/runkittyrun/
-cp -rf runkittyrun/en/* $BUILD_ROOT/bundle/static/runkittyrun/
+cp -rf $BUILD_ROOT/tool-repos/runkittyrun/en/* $BUILD_ROOT/bundle/static/runkittyrun/
 rm -rf $BUILD_ROOT/bundle/static/runkittyrun/.git/
 
 # Physics Video player
@@ -256,11 +362,10 @@ then
   git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
 fi
 cd physics-video-player
-git checkout release
-git pull origin release
-cd ..
+git checkout master
+git pull origin master
 mkdir $BUILD_ROOT/bundle/static/physics-video-player/
-cp -rf physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
+cp -rf $BUILD_ROOT/tool-repos/physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
 rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
 
 # Audio record tool
@@ -271,11 +376,10 @@ then
   git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
 fi
 cd audio-record-tool
-git checkout release
-git pull origin release
-cd ..
+git checkout master
+git pull origin master
 mkdir $BUILD_ROOT/bundle/static/audio-record-tool/
-cp -rf audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
+cp -rf $BUILD_ROOT/tool-repos/audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
 rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
 
 # Police Quad
@@ -288,9 +392,8 @@ fi
 cd policequad
 git checkout master
 git pull origin master
-cd ..
 mkdir $BUILD_ROOT/bundle/static/policequad/
-cp -rf policequad/en/*  $BUILD_ROOT/bundle/static/policequad/
+cp -rf $BUILD_ROOT/tool-repos/policequad/*  $BUILD_ROOT/bundle/static/policequad/
 rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
 
 # Open Story tool
@@ -301,12 +404,11 @@ then
   git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
 fi
 cd open-story-tool
-git checkout release
-git pull origin release
-cd ..
-mkdir ../bundle/static/open-story-tool/
-cp -rf open-story-tool/* ../bundle/static/open-story-tool/
-rm -rf ../bundle/static/open-story-tool/.git/
+git checkout master
+git pull origin master
+mkdir $BUILD_ROOT/bundle/static/open-story-tool/
+cp -rf $BUILD_ROOT/tool-repos/open-story-tool/* $BUILD_ROOT/bundle/static/open-story-tool/
+rm -rf $BUILD_ROOT/bundle/static/open-story-tool/.git/
 
 # Turtle Blocks
 echo Processing Turtle Blocks
@@ -316,15 +418,14 @@ then
   git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
 fi
 cd turtle-blocks
-git checkout release
-git pull origin release
-cd ..
-mkdir ../bundle/static/turtle-blocks/
-cp -rf turtle-blocks/* ../bundle/static/turtle-blocks/
-rm -rf ../bundle/static/turtle-blocks/.git/
+git checkout master
+git pull origin master
+mkdir $BUILD_ROOT/bundle/static/turtle-blocks/
+cp -rf $BUILD_ROOT/tool-repos/turtle-blocks/* $BUILD_ROOT/bundle/static/turtle-blocks/
+rm -rf $BUILD_ROOT/bundle/static/turtle-blocks/.git/
 
 # StarLogoNova simulations
-echo Processing StarLogoNova Simluations
+echo Processing StarLogoNova Simulations
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "StarLogoNova" ]
 then
@@ -335,10 +436,9 @@ fi
 cd StarLogoNova
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/StarLogoNova/
-cp -rf StarLogoNova/* ../bundle/static/StarLogoNova/
-rm -rf ../bundle/static/StarLogoNova/.git/
+mkdir $BUILD_ROOT/bundle/static/StarLogoNova/
+cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/* $BUILD_ROOT/bundle/static/StarLogoNova/
+rm -rf $BUILD_ROOT/bundle/static/StarLogoNova/.git/
 
 # Rotation of Earth Animation
 echo Processing Rotation of Earth Animation
@@ -350,10 +450,9 @@ fi
 cd Rotation_of_Earth_Animation
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Rotation_of_Earth_Animation/
-cp -rf Rotation_of_Earth_Animation/* ../bundle/static/Rotation_of_Earth_Animation/
-rm -rf ../bundle/static/Rotation_of_Earth_Animation/.git/
+mkdir $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/
+cp -rf $BUILD_ROOT/tool-repos/Rotation_of_Earth_Animation/* $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/
+rm -rf $BUILD_ROOT/bundle/static/Rotation_of_Earth_Animation/.git/
 
 # Motions_of_the_Moon_Animation
 echo Processing Motions_of_the_Moon_Animation
@@ -365,10 +464,9 @@ fi
 cd Motions_of_the_Moon_Animation
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Motions_of_the_Moon_Animation/
-cp -rf Motions_of_the_Moon_Animation/* ../bundle/static/Motions_of_the_Moon_Animation/
-rm -rf ../bundle/static/Motions_of_the_Moon_Animation/.git/
+mkdir $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/
+cp -rf $BUILD_ROOT/tool-repos/Motions_of_the_Moon_Animation/* $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/
+rm -rf $BUILD_ROOT/bundle/static/Motions_of_the_Moon_Animation/.git/
 
 
 # Astroamer_Planet_Trek_Activity
@@ -381,10 +479,9 @@ fi
 cd Astroamer_Planet_Trek_Activity
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Astroamer_Planet_Trek_Activity/
-cp -rf Astroamer_Planet_Trek_Activity/* ../bundle/static/Astroamer_Planet_Trek_Activity/
-rm -rf ../bundle/static/Astroamer_Planet_Trek_Activity/.git/
+mkdir $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/
+cp -rf $BUILD_ROOT/tool-repos/Astroamer_Planet_Trek_Activity/* $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/
+rm -rf $BUILD_ROOT/bundle/static/Astroamer_Planet_Trek_Activity/.git/
 
 # Astroamer_Element_Hunt_Activity
 echo Processing Astroamer_Element_Hunt_Activity
@@ -396,10 +493,9 @@ fi
 cd Astroamer_Element_Hunt_Activity
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Astroamer_Element_Hunt_Activity/
-cp -rf Astroamer_Element_Hunt_Activity/* ../bundle/static/Astroamer_Element_Hunt_Activity/
-rm -rf ../bundle/static/Astroamer_Element_Hunt_Activity/.git/
+mkdir $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/
+cp -rf $BUILD_ROOT/tool-repos/Astroamer_Element_Hunt_Activity/* $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/
+rm -rf $BUILD_ROOT/bundle/static/Astroamer_Element_Hunt_Activity/.git/
 
 # Solar_System_Animation
 echo Processing Solar_System_Animation
@@ -411,10 +507,9 @@ fi
 cd Solar_System_Animation
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Solar_System_Animation/
-cp -rf Solar_System_Animation/* ../bundle/static/Solar_System_Animation/
-rm -rf ../bundle/static/Solar_System_Animation/.git/
+mkdir $BUILD_ROOT/bundle/static/Solar_System_Animation/
+cp -rf $BUILD_ROOT/tool-repos/Solar_System_Animation/* $BUILD_ROOT/bundle/static/Solar_System_Animation/
+rm -rf $BUILD_ROOT/bundle/static/Solar_System_Animation/.git/
 
 # Astroamer_Moon_Track
 echo Processing Astroamer_Moon_Track
@@ -426,10 +521,9 @@ fi
 cd Astroamer_Moon_Track
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Astroamer_Moon_Track/
-cp -rf Astroamer_Moon_Track/* ../bundle/static/Astroamer_Moon_Track/
-rm -rf ../bundle/static/Astroamer_Moon_Track/.git/
+mkdir $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/
+cp -rf $BUILD_ROOT/tool-repos/Astroamer_Moon_Track/* $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/
+rm -rf $BUILD_ROOT/bundle/static/Astroamer_Moon_Track/.git/
 
 # Ratio-Patterns
 echo Processing Ratio-Patterns
@@ -441,25 +535,23 @@ fi
 cd Ratio-Patterns
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Ratio-Patterns/
-cp -rf Ratio-Patterns/* ../bundle/static/Ratio-Patterns/
-rm -rf ../bundle/static/Ratio-Patterns/.git/
+mkdir $BUILD_ROOT/bundle/static/Ratio-Patterns/
+cp -rf $BUILD_ROOT/tool-repos/Ratio-Patterns/* $BUILD_ROOT/bundle/static/Ratio-Patterns/
+rm -rf $BUILD_ROOT/bundle/static/Ratio-Patterns/.git/
 
 # Ice-cubes-in-lemonade
 echo Processing Ice-cubes-in-lemonade
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "Ice-cubes-in-lemonade" ]
 then
-  git clone https://github.com/CLIxIndia-Dev/Ice-cubes-in-lemonade.git
+  git clone git@github.com:CLIxIndia-Dev/Ice-cubes-in-lemonade.git
 fi
 cd Ice-cubes-in-lemonade
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/Ice-cubes-in-lemonade/
-cp -rf Ice-cubes-in-lemonade/* ../bundle/static/Ice-cubes-in-lemonade/
-rm -rf ../bundle/static/Ice-cubes-in-lemonade/.git/
+mkdir $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/
+cp -rf $BUILD_ROOT/tool-repos/Ice-cubes-in-lemonade/* $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/
+rm -rf $BUILD_ROOT/bundle/static/Ice-cubes-in-lemonade/.git/
 
 # food_sharing_tool
 echo Processing food_sharing_tool
@@ -471,10 +563,9 @@ fi
 cd food_sharing_tool
 git checkout master
 git pull origin master
-cd ..
-mkdir ../bundle/static/food_sharing_tool/
-cp -rf food_sharing_tool/* ../bundle/static/food_sharing_tool/
-rm -rf ../bundle/static/food_sharing_tool/.git/
+mkdir $BUILD_ROOT/bundle/static/food_sharing_tool/
+cp -rf $BUILD_ROOT/tool-repos/food_sharing_tool/* $BUILD_ROOT/bundle/static/food_sharing_tool/
+rm -rf $BUILD_ROOT/bundle/static/food_sharing_tool/.git/
 
 # QBank-lite Bundles
 echo Processing QBank-lite Bundles
@@ -501,14 +592,69 @@ git pull origin master
 
 # Copy the requirements.txt for reference
 # Copy the licenses and README
+echo Copying the QBank README and documentation
 cp requirements.txt $BUILD_ROOT/bundle/qbank-requirements.txt
 cp test_requirements.txt $BUILD_ROOT/bundle/qbank-test_requirements.txt
 cp NOTICES.md $BUILD_ROOT/bundle/qbank-NOTICES.md
 cp README.md $BUILD_ROOT/bundle/qbank-README.md
 cp LICENSE.md $BUILD_ROOT/bundle/qbank-LICENSE.md
-cp LICENSE_PyMongo.txt $BUILD_ROOT/bundle/qbank-LICENSE_PyMongo.txt
-cp LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/qbank-LICENSE_PyOpenSSL.txt
+cp LICENSE_PyMongo.txt $BUILD_ROOT/bundle/licenses
+cp LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/licenses
 
+# copy the qbank python licenses
+set -f
+echo Copy the QBank Python licenses
+for i in $(cat < requirements.txt); do
+  mkdir $BUILD_ROOT/tmp_package
+  cd $BUILD_ROOT/tmp_package
+  if [[ $i == -e* ]]; then
+    # Download directly from GIT / find the license file / clean up
+    REPO=$(expr "$i" : '.*git://\(.*\)@')
+    PACKAGE=$(expr "$i" : '.*CLIxIndia-Dev/\(.*\)\.git')
+    COMMIT=$(expr "$i" : '.*@\(.*\)#')
+    git clone https://$REPO
+    cd $(find . -type d | head -2 | tail -1)  # head -1 should be current directory, "."
+    git checkout $COMMIT
+    # For web.py also copy over the CherryPy WSGI server license manually
+    if [[ $PACKAGE == "webpy" ]]; then
+      CHERRY_PY_SUBDIR="$BUILD_ROOT/bundle/licenses/$PACKAGE/web/wsgiserver"
+      CHERRY_PY_LICENSE="web/wsgiserver/LICENSE.txt"
+      if [ ! -d $CHERRY_PY_SUBDIR ]
+      then
+        mkdir -p $CHERRY_PY_SUBDIR
+      fi
+      if [ -f $CHERRY_PY_LICENSE ]
+      then
+        cp -rf $CHERRY_PY_LICENSE $CHERRY_PY_SUBDIR
+      fi
+    fi
+    cd ..
+  else
+    # Use yolk3k to download / unzip / find the license file / clean up
+    PACKAGE=$(expr "$i" : '\(.*\)==')
+    yolk -F $PACKAGE
+    FILE=$(find . -name "$PACKAGE*" | sort -n | tail -1)
+    echo Expanding $FILE
+    # Test if .tar.gz or .zip. enum34 comes down as a .zip, so on
+    #   Windows we need to make sure to use gzip
+    if [[ $FILE == *.zip ]]; then
+      unzip $FILE
+    else
+      tar -zxvf $FILE
+    fi
+    rm $FILE
+  fi
+  TARGET_DIR="$BUILD_ROOT/bundle/licenses/$PACKAGE"
+  if [ ! -d $TARGET_DIR ]
+  then
+    mkdir $TARGET_DIR
+  fi
+  # 3 grabs enum34 license, too?
+  cp -rf $(find . -maxdepth 3 \( -name '*LICENSE*' -o -name '*LICENCE*' \) ) $TARGET_DIR
+  cd $BUILD_ROOT
+  rm -rf $BUILD_ROOT/tmp_package
+done
+set +f
 
 # let's get back out of tool-repos and go to the root directory
 cd $BUILD_ROOT
