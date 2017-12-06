@@ -464,6 +464,31 @@ dialog.fixed {
   background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.3));
 }
 
+/* Username input fields */
+.username-input-form .username-input-form__wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 600px;
+  padding: 0.5em 0.875em;
+  margin: 1rem auto 1.3rem;
+}
+
+.username-input-form label {
+  margin-top: 0.8em;
+  margin-bottom: 0.5em;
+  font-family: open_sansbold;
+  font-size: 0.875em;
+  color: white;
+}
+
+.username-input-form input {
+  margin-bottom: 0.5em;
+  padding: 0.29em;
+  font-size: 0.875em;
+}
+
 /* BACKGROUND */
 
 .bg-img {

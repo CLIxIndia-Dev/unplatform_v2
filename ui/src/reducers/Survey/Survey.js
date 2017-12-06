@@ -15,7 +15,7 @@ const initialState = {
 export default function surveyReducer (state = initialState, action) {
   switch (action.type) {
     case RECEIVE_CLEAR_SURVEY:
-      return {data: {}}
+      return { data: {} }
 
     case RECEIVE_UPDATE_SURVEY:
       return _.assign({}, state, {

@@ -19,7 +19,8 @@ class HomeView extends Component {
         state: { setFocus: true }
       },
       focusedItem: null,
-      focusedCount: null
+      focusedCount: null,
+      username: null
     }
   }
 
@@ -132,14 +133,33 @@ class HomeView extends Component {
     let userCount
     if (this.props.survey && this.props.survey.userType && this._getEnglishUserType() !== 'demonstration') {
       userCount = (
-        <fieldset className='count-select-form'>
-          <legend>
-            <h3 className='pg-heading-3'>{this.props.strings.splash.prompt}</h3>
-          </legend>
-          <article className='input-select__wrapper'>
-            {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
-          </article>
-        </fieldset>
+        <div>
+          <fieldset className='count-select-form'>
+            <legend>
+              <h3 className='pg-heading-3'>{this.props.strings.splash.prompt}</h3>
+            </legend>
+            <article className='input-select__wrapper'>
+              {_.map(['1', '2', '3', '3+'], this.renderUserCountButtons)}
+            </article>
+          </fieldset>
+          <fieldset className='username-input-form'>
+            <article className='username-input-form__wrapper'>
+              <label
+                htmlFor='studentIds'
+                className='c-survey__form--label'>
+                {this.props.strings.splash.usernameLabel}
+              </label>
+              <input
+                id='studentIds'
+                type='text'
+                placeholder={this.props.strings.splash.usernamePlaceholder}
+                value={this.state.username}
+                className='c-survey__form--input'
+                onChange={(e) => { this.setState({ username: e.target.value }) }}
+              />
+            </article>
+          </fieldset>
+        </div>
       )
     }
 
@@ -184,7 +204,12 @@ class HomeView extends Component {
               </ul>
             </nav>
           </header>
-          <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_11_of_12 main-content homeview__content' >
+          <main
+            role='main'
+            aria-label='content'
+            id='main'
+            tabIndex='-1'
+            className='span_11_of_12 main-content homeview__content' >
             <h1 className='pg-heading-1'>
               <span aria-hidden>{this.props.strings.splash.title}</span>
               <span className='visuallyhidden'>{this.props.strings.splash.ariaLabelTitle}</span>
@@ -241,7 +266,8 @@ class HomeView extends Component {
   _onHandleSubmit () {
     this.props.onSetSurvey({
       userType: this._getEnglishUserType(),
-      userCount: this.props.survey.userCount
+      userCount: this.props.survey.userCount,
+      username: this.state.username
     })
     browserHistory.push('/subjects')
   }

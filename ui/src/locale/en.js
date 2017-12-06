@@ -38,7 +38,9 @@ export default {
       student: 'Student', // demographic option
       visitor: 'Visitor/Other', // demographic option
       demonstration: 'Class Demonstration', // demographic option
-      prompt: 'How many users are at this computer?' // prompt
+      prompt: 'How many users are at this computer?', // prompt
+      usernameLabel: 'Student IDs (optional).',  // label for the username input field
+      usernamePlaceholder: 'Please type in your student IDs, like: 100, 120, and 97'  // placeholder for the username input field
     }
   }
 }

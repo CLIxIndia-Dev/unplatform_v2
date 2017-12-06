@@ -35,7 +35,9 @@ export default {
       student: 'విద్యార్థి', // demographic option
       visitor: 'సందర్శకుల / ఇతర', // demographic option
       demonstration: 'క్లాస్ ప్రదర్శన', // demographic option
-      prompt: 'ఎంతమంది ఈ కంప్యూటర్ వద్ద ఉన్నాయి?' // prompt
+      prompt: 'ఎంతమంది ఈ కంప్యూటర్ వద్ద ఉన్నాయి?', // prompt
+      usernameLabel: 'విద్యార్థి ID లు (ఐచ్ఛికం).',  // label for the username input field
+      usernamePlaceholder: 'దయచేసి 100, 120 మరియు 97 వంటి మీ విద్యార్థి ID లలో టైప్ చేయండి'  // placeholder for the username input field
     }
   }
 }
