@@ -34,9 +34,9 @@ export function setSurvey (data) {
     return axios(options)
     .then((response) => {
       // console.log(response.data)
-
-      Cookies.set('session_id', response.data.sessionId)
-      dispatch(receiveSetSurvey(response.data.sessionId))
+      const sessionId = response.data.username || response.data.sessionId
+      Cookies.set('session_id', sessionId)
+      dispatch(receiveSetSurvey(sessionId))
     })
     .catch((error) => {
       console.log('error setting survey into session', error)
