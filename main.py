@@ -30,17 +30,22 @@ if getattr(sys, 'frozen', False):
     ABS_PATH = os.path.dirname(sys.executable)
 else:
     PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-    ABS_PATH = '{0}/unplatform_v2'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
+    ABS_PATH = '{0}/unplatform_v2'.format(
+        os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 
 CherryPyWSGIServer.ssl_certificate_chain = ''
 try:
     # pylint: disable=protected-access
-    CherryPyWSGIServer.ssl_certificate = "{0}/unplatform/unplatform.cert.dummy.pem".format(sys._MEIPASS)
-    CherryPyWSGIServer.ssl_private_key = "{0}/unplatform/unplatform.key.dummy.pem".format(sys._MEIPASS)
+    CherryPyWSGIServer.ssl_certificate = \
+        "{0}/unplatform/unplatform.cert.dummy.pem".format(sys._MEIPASS)
+    CherryPyWSGIServer.ssl_private_key = \
+        "{0}/unplatform/unplatform.key.dummy.pem".format(sys._MEIPASS)
 except AttributeError:
     # pylint: disable=protected-access
-    CherryPyWSGIServer.ssl_certificate = "{0}/unplatform/unplatform.cert.dummy.pem".format(ABS_PATH)
-    CherryPyWSGIServer.ssl_private_key = "{0}/unplatform/unplatform.key.dummy.pem".format(ABS_PATH)
+    CherryPyWSGIServer.ssl_certificate = \
+        "{0}/unplatform/unplatform.cert.dummy.pem".format(ABS_PATH)
+    CherryPyWSGIServer.ssl_private_key = \
+        "{0}/unplatform/unplatform.key.dummy.pem".format(ABS_PATH)
 
 
 web.config.debug = False
@@ -84,19 +89,26 @@ def list_dir(root, directory, current_level=0, max_level=4):
     # the epubs are structured, but let's make that an option
     # Tools will show up with an extra level of depth.
     # Sample output:
-    # ['modules/English Elementary', 'modules/English Elementary/G9', 'modules/English Elementary/G9/U1',
-    #  'modules/Tools', 'modules/Tools/Bio- Mechanic', 'modules/Tools/Open Story',
-    #  'modules/Tools/Open Story/css', 'modules/Tools/Open Story/fonts', 'modules/Tools/Physics Video Player',
+    # ['modules/English Elementary', 'modules/English Elementary/G9',
+    #       'modules/English Elementary/G9/U1',
+    #  'modules/Tools', 'modules/Tools/Bio- Mechanic',
+    #       'modules/Tools/Open Story',
+    #  'modules/Tools/Open Story/css', 'modules/Tools/Open Story/fonts',
+    #       'modules/Tools/Physics Video Player',
     #  'modules/Tools/Police Quad', 'modules/Tools/Turtle Blocks']
     sub_dirs = []
     if current_level < max_level:
-        if os.path.isdir('{0}/{1}'.format(root, directory)) and not directory.startswith('.'):
+        if (os.path.isdir('{0}/{1}'.format(root, directory)) and
+                not directory.startswith('.')):
             for sub_dir in os.listdir('{0}/{1}'.format(root, directory)):
                 new_sub_dir = '{0}/{1}'.format(directory, sub_dir)
                 full_sub_dir_path = '{0}/{1}'.format(root, new_sub_dir)
-                if not sub_dir.startswith('.') and os.path.isdir(full_sub_dir_path):
+                if (not sub_dir.startswith('.') and
+                        os.path.isdir(full_sub_dir_path)):
                     sub_dirs.append(new_sub_dir)
-                    sub_dirs += list_dir(root, new_sub_dir, current_level=current_level + 1)
+                    sub_dirs += list_dir(root,
+                                         new_sub_dir,
+                                         current_level=current_level + 1)
             sub_dirs = natsorted(sub_dirs)
     return sub_dirs
 
@@ -114,7 +126,8 @@ def require_login(func):
     @functools.wraps(func)
     def wrapper(self, *args):
         if not logged_in():
-            with open('{0}/templates/session_expired.html'.format(ABS_PATH), 'rb') as session_template:
+            with open('{0}/templates/session_expired.html'.format(ABS_PATH),
+                      'rb') as session_template:
                 raise web.Forbidden(session_template.read())
         results = func(self, *args)
         return results
@@ -152,7 +165,8 @@ class generic_logging:
         if default_log is None:
             payload = {
                 'name': 'Default CLIx log',
-                'description': 'For logging info from unplatform and tools, which do not know about catalog IDs',
+                'description': 'For logging info from unplatform and ' +
+                               'tools, which do not know about catalog IDs',
                 'genusTypeId': settings.DEFAULT_LOG_GENUS_TYPE
             }
             req = requests.post(url, json=payload, verify=False)
@@ -192,8 +206,9 @@ class generic_logging:
             payload = {
                 'data': received_data
             }
-            log_entry_url = '{0}/{1}/logentries'.format(settings.QBANK_LOGGING_ENDPOINT,
-                                                        default_log['id'])
+            log_entry_url = '{0}/{1}/logentries'.format(
+                settings.QBANK_LOGGING_ENDPOINT,
+                default_log['id'])
             session_id = 'none_provided'
             if 'session_id' in received_data:
                 session_id = received_data['session_id']
@@ -223,7 +238,8 @@ class common_tools:
     @require_login
     @utilities.format_html_response
     def GET(self, tool_name=None):
-        tool_file = '{0}/modules/Tools/{1}/index.html'.format(ABS_PATH, tool_name)
+        tool_file = '{0}/modules/Tools/{1}/index.html'.format(
+            ABS_PATH, tool_name)
         if not os.path.isfile(tool_file):
             yield web.notfound("Sorry, that tool was not found.")
         else:
@@ -276,8 +292,8 @@ class content:
                 file_handle = open(full_path, 'rb')
             file_handle.seek(0)
 
-            # The algorithm below for streaming partial content was based off of this
-            # post:
+            # The algorithm below for streaming partial content was
+            # based off of this post:
             # https://benramsey.com/blog/2008/05/206-partial-content-and-range-requests/
 
             continue_with_stream = True
@@ -287,14 +303,19 @@ class content:
             bytes_to_throw_away = 0
             if byte_range is not None:
                 bytes_to_throw_away = int(byte_range[0])
-                if bytes_to_throw_away > total_bytes_to_read or bytes_to_throw_away < 0:
+                if (bytes_to_throw_away > total_bytes_to_read or
+                        bytes_to_throw_away < 0):
                     web.ctx.status = '416 Requested Range Not Satisfiable'
                     continue_with_stream = False
                     yield ''
                 file_handle.read(bytes_to_throw_away)
-                total_bytes_to_read = os.path.getsize(file_handle.name) - bytes_to_throw_away
+                total_bytes_to_read = os.path.getsize(
+                    file_handle.name
+                ) - bytes_to_throw_away
                 if byte_range[1] != '':
-                    total_bytes_to_read = int(byte_range[1]) - bytes_to_throw_away
+                    total_bytes_to_read = int(
+                        byte_range[1]
+                    ) - bytes_to_throw_away
 
             bytes_read = 0
 
@@ -310,9 +331,10 @@ class content:
                     break
 
                 # web.header('Content-Length', str(bytes_to_read))
-                web.header('Content-Range', 'bytes {0}-{1}/{2}'.format(str(starting_bytes),
-                                                                       str(starting_bytes + bytes_to_read),
-                                                                       str(content_length)))
+                web.header('Content-Range', 'bytes {0}-{1}/{2}'.format(
+                    str(starting_bytes),
+                    str(starting_bytes + bytes_to_read),
+                    str(content_length)))
 
                 bytes_read += bytes_to_read
                 starting_bytes += bytes_to_read
@@ -373,6 +395,7 @@ def is_test():
     if 'WEBPY_ENV' in os.environ:
         return os.environ['WEBPY_ENV'] == 'test'
     return False
+
 
 if (not is_test()) and __name__ == "__main__":
     sys.argv.append('8888')
