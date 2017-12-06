@@ -1,6 +1,6 @@
 #!/bin/sh
 # pylint: disable=assigning-non-slot,duplicate-code
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 
 import codecs
 import functools
@@ -67,10 +67,11 @@ web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
 
 # store sessions in SQLite3, because we're running into concurrency issues
 # when using filesystem
-db = web.database(dbn='sqlite', db='unplatform.sqlite3')
+DB_PATH = os.path.join(ABS_PATH, 'unplatform.sqlite3')
+db = web.database(dbn='sqlite', db=DB_PATH)
 store = web.session.DBStore(db, 'sessions')
 
-connection = sqlite3.connect('unplatform.sqlite3')
+connection = sqlite3.connect(DB_PATH)
 connection.execute('PRAGMA journal_mode=WAL;')
 
 session = web.session.Session(app,
