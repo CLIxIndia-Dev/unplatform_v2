@@ -37,7 +37,7 @@ export default {
       demonstration: 'वर्ग प्रदर्शन', // demographic option
       prompt: 'इस कंप्यूटर पर कितने यूजर हैं?', // prompt
       usernameLabel: 'छात्र आईडी (वैकल्पिक).',  // label for the username input field
-      usernamePlaceholder: 'कृपया अपने छात्र आईडी टाइप करें (वैकल्पिक).'  // placeholder for the username input field
+      usernamePlaceholder: 'कृपया अपने छात्र आईडी टाइप करें, जैसे: 100, 120, और 97'  // placeholder for the username input field
     }
   }
 }
