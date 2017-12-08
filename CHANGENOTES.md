@@ -1,3 +1,10 @@
+## [1.6.12] - 2017-12-8
+### Changed
+- OS X processes start in individual terminal windows,
+  instead of background processes.
+- Set `os.chdir()` to make sure bundled files are found
+  when running in an app bundle.
+
 ## [1.6.11] - 2017-12-4
 ### Added
 - iframes to all the TISS tools in `/Modules/Tools`.
@@ -224,6 +231,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.12]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.11...v1.6.12
 [1.6.11]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.10...v1.6.11
 [1.6.10]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.9...v1.6.10
 [1.6.9]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.8...v1.6.9
