@@ -712,6 +712,12 @@ esac
 echo QBank-lite binary is $QBANK_FILE
 cp $QBANK_FILE  $BUILD_ROOT/bundle/
 
+# Manually copy BeautifulSoup4 license over, because it is missing
+#   from the .tar.gz file downloaded from PyPI.
+echo Manually copying BeautifulSoup4 license
+cp $BUILD_ROOT/LICENSE_BeautifulSoup4.txt $BUILD_ROOT/bundle/licenses/beautifulsoup4
+
+
 # Zip up the final bundle/ directory and name the file per the unplatform version
 VERSION=$(python -c "import json; print json.load(open('package.json', 'rb'))['version']")
 
