@@ -1,3 +1,7 @@
+## [1.6.13] - 2017-12-8
+### Added
+- Manually copy in BeautifulSoup4 license.
+
 ## [1.6.12] - 2017-12-8
 ### Changed
 - OS X processes start in individual terminal windows,
@@ -231,6 +235,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.13]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.12...v1.6.13
 [1.6.12]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.11...v1.6.12
 [1.6.11]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.10...v1.6.11
 [1.6.10]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.9...v1.6.10
