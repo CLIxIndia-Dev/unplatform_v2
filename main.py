@@ -66,6 +66,12 @@ urls = (
 )
 app = web.application(urls, locals())
 
+
+# To fix static file issue with OS X bundle
+# https://stackoverflow.com/a/11274226
+os.chdir(ABS_PATH)
+
+
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
