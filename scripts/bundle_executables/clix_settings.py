@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import biplist
 import os.path
+import biplist
 
 #
 # Example settings file for dmgbuild, to use with the
@@ -12,28 +12,30 @@ import os.path
 
 # Use like this: dmgbuild -s clix_settings.py "CLIx" CLIx.dmg
 
-# .. Useful stuff ..............................................................
+# .. Useful stuff .............................................................
 
 application = defines.get('app', 'CLIx.app')
 appname = os.path.basename(application)
+
 
 def icon_from_app(app_path):
     plist_path = os.path.join(app_path, 'Contents', 'Info.plist')
     plist = biplist.readPlist(plist_path)
     icon_name = plist['CFBundleIconFile']
-    icon_root,icon_ext = os.path.splitext(icon_name)
+    icon_root, icon_ext = os.path.splitext(icon_name)
     if not icon_ext:
         icon_ext = '.icns'
     icon_name = icon_root + icon_ext
     return os.path.join(app_path, 'Contents', 'Resources', icon_name)
 
-# .. Basics ....................................................................
+# .. Basics ...................................................................
 
 # Uncomment to override the output filename
 # filename = 'test.dmg'
 
 # Uncomment to override the output volume name
 # volume_name = 'Test'
+
 
 # Volume format (see hdiutil create -help)
 format = defines.get('format', 'UDBZ')
@@ -43,15 +45,17 @@ format = defines.get('format', 'UDBZ')
 size = '3g'
 
 # Files to include
-files = [ application ]
+files = [application]
 
 # Symlinks to create
-symlinks = { 'Applications': '/Applications' }
+symlinks = {'Applications': '/Applications'}
 
 # Volume icon
 #
-# You can either define icon, in which case that icon file will be copied to the
-# image, *or* you can define badge_icon, in which case the icon file you specify
+# You can either define icon, in which case that icon file will be
+# copied to the
+# image, *or* you can define badge_icon, in which case the icon file
+# you specify
 # will be used to badge the system's Removable Disk icon
 #
 # icon = '/path/to/icon.icns'
@@ -61,9 +65,9 @@ badge_icon = icon_from_app(application)
 icon_locations = {
     appname:        (140, 120),
     'Applications': (500, 120)
-    }
+}
 
-# .. Window configuration ......................................................
+# .. Window configuration .....................................................
 
 # Background
 #
@@ -120,7 +124,7 @@ arrange_by = None
 grid_offset = (0, 0)
 grid_spacing = 100
 scroll_position = (0, 0)
-label_pos = 'bottom' # or 'right'
+label_pos = 'bottom'  # or 'right'
 text_size = 16
 icon_size = 128
 
@@ -144,7 +148,7 @@ list_text_size = 12
 list_scroll_position = (0, 0)
 list_sort_by = 'name'
 list_use_relative_dates = True
-list_calculate_all_sizes = False,
+list_calculate_all_sizes = False
 list_columns = ('name', 'date-modified', 'size', 'kind', 'date-added')
 list_column_widths = {
     'name': 300,
