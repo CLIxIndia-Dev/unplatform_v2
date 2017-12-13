@@ -116,6 +116,7 @@ case $UN2_BUILD_OS in
 esac
 
 cp -r $BUILD_ROOT/static/assets/ $BUILD_ROOT/bundle/static/assets/
+
 if [ ! -d $BUILD_ROOT/bundle/static/ui ]
 then
   mkdir -p $BUILD_ROOT/bundle/static/ui
@@ -686,12 +687,16 @@ case $UN2_BUILD_OS in
         # make sure to copy the msvcr100.dll from the system into bundle/
         # otherwise you'll run into an error on deployments
         cp C:\\Windows\\System32\\msvcr100.dll bundle/
+        # copy over the NSIS build script
+        cp $BUILD_ROOT/scripts/bundle_executables/clix.nsi $BUILD_ROOT/bundle/
        ;;
     'linux')
         cp $BUILD_ROOT/scripts/launchers/unplatform_linux64_ssl.sh bundle/
         ;;
     'osx')
         cp $BUILD_ROOT/scripts/launchers/unplatform_osx_ssl.sh bundle/
+        # copy over the dmgbuild settings file
+        cp $BUILD_ROOT/scripts/bundle_executables/clix_settings.py $BUILD_ROOT/bundle/
         ;;
 esac
 
