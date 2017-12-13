@@ -135,9 +135,9 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 4. Download and extract the precompiled [zlib 1.2.7 dll](http://nsis.sourceforge.net/Zlib).
 5. Install a [Visual C++ compiler](http://landinghub.visualstudio.com/visual-cpp-build-tools). I used the 2015 build tools, and it worked fine.
 6. In `Command Prompt`, set the `ZLIB_W32` environment variable to where you extracted `zlib` from step 4. `set ZLIB_32=C:\<path>\zlib127`.
-7. Run an elevated `Command Prompt` (right-click and select `Run as administrator`).
-8. Download and install [wxWidgets](https://wxwidgets.org/downloads/).
-9. Navigate to the `NSISBI` folder that you extracted in step 1, in the elevated `Command Prompt`. Build with `scons PREFIX="C:\Program Files\NSIS" install`.
+7. Download and install [wxWidgets](https://wxwidgets.org/downloads/).
+8. Run an elevated `Command Prompt` (right-click and select `Run as administrator`).
+9. In the elevated `Command Prompt`, navigate to the `NSISBI` folder that you extracted in step 1. Build with `scons PREFIX="C:\Program Files\NSIS" install`.
 10. Once the installation has finished, you can use `Explorer` to navigate to `C:\Program Files\NSIS`. You should see `makensisw.exe` -- that's what we'll use to build the CLIx Installer.
 11. Now, you need to install the `inetc` plugin for `NSIS`. Download and unzip [Inetc.zip](http://nsis.sourceforge.net/Inetc_plug-in).
 12. Copy `Inetc\Plugins\x86-unicode\INetC.dll` to `C:\Program Files\NSIS\Plugins\x86-unicode`.
@@ -152,7 +152,7 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 6. Now you have a `CLIxInstaller.exe` that you can distribute!
 
 ## Notes
-For the Windows build, it is super-important to note that we **do not** distribute the required `msvcr100.dll` file in the installer. It is expected that users who install from `CLIxInstaller.exe` will have to obtain the `msvcr100.dll` file themselves. This is included with the free  [Microsoft Visual C++ 2010 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=5555). The NSIS script will attempt to detect and download / install that package if it is not on the system.
+For the Windows build, it is super-important to note that we **do not** distribute the required `msvcr100.dll` file in the installer. It is expected that users who install from `CLIxInstaller.exe` will have to obtain the `msvcr100.dll` file themselves. This is included with the free  [Microsoft Visual C++ 2010 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=5555). The compiled installer will attempt to detect and download / install that package if it is not on the system.
 
 
 # ACKNOWLEDGEMENTS
