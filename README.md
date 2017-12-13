@@ -144,11 +144,11 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 13. Copy `Inetc\Plugins\x86-ansi\INetC.dll` to `C:\Program Files\NSIS\Plugins\x86-ansi`.
 
 ## Build Steps
-1. Run the `build_script_all_ssl.sh` script in `scripts/build_scripts`. OR, download a pre-bundled `*.zip` file from Google Drive and extract everything.
-2. Copy the modules you want installed to `bundle/modules`.
-3. Copy the corresponding unzipped `webapps` data bundle to `bundle/webapps`.
+1. Run the `build_script_all_ssl.sh` script in `scripts\build_scripts`. OR, download a pre-bundled `*.zip` file from Google Drive and extract everything.
+2. Copy the modules you want installed to `bundle\modules`.
+3. Copy the corresponding unzipped `webapps` data bundle to `bundle\webapps`.
 4. Run the `C:\Program Files\NSIS\makensisw.exe` program.
-5. In NSIS, click `File`, and load the `bundle/clix.nsi` script. Watch it build.
+5. In NSIS, click `File`, and load the `bundle\clix.nsi` script. Watch it build.
 6. Now you have a `CLIxInstaller.exe` that you can distribute!
 
 ## Notes
