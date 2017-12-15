@@ -369,20 +369,6 @@ mkdir $BUILD_ROOT/bundle/static/physics-video-player/
 cp -rf $BUILD_ROOT/tool-repos/physics-video-player/* $BUILD_ROOT/bundle/static/physics-video-player/
 rm -rf $BUILD_ROOT/bundle/static/physics-video-player/.git/
 
-# Audio record tool
-echo Processing Audio Record tool
-cd $BUILD_ROOT/tool-repos
-if [ ! -d "audio-record-tool" ]
-then
-  git clone git@github.com:CLIxIndia-Dev/audio-record-tool.git
-fi
-cd audio-record-tool
-git checkout master
-git pull origin master
-mkdir $BUILD_ROOT/bundle/static/audio-record-tool/
-cp -rf $BUILD_ROOT/tool-repos/audio-record-tool/*  $BUILD_ROOT/bundle/static/audio-record-tool/
-rm -rf $BUILD_ROOT/bundle/static/audio-record-tool/.git/
-
 # Police Quad
 echo Processing Police Quad
 cd $BUILD_ROOT/tool-repos
