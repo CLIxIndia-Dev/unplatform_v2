@@ -152,8 +152,18 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 6. Now you have a `CLIxInstaller.exe` that you can distribute!
 
 ## Notes
-For the Windows build, it is super-important to note that we **do not** distribute the required `msvcr100.dll` file in the installer. It is expected that users who install from `CLIxInstaller.exe` will have to obtain the `msvcr100.dll` file themselves. This is included with the free  [Microsoft Visual C++ 2010 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=5555). The compiled installer will attempt to detect and download / install that package if it is not on the system.
+For the Windows build, it is super-important to note that we **do not** distribute the required `msvcr100.dll` file in the installer. It is expected that users who install from `CLIxInstaller.exe` will have to obtain the `msvcr100.dll` file themselves. This is included with the free  [Microsoft Visual C++ 2010 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=5555). The compiled installer will attempt to detect and download / install that package if it is not on the system. If you are installing in an offline computer, you will have to manually download and install the above package before installing `CLIx`.
 
+
+# Wiki Documents
+More detailed documentation about how to use the platform is located [in the wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki). The set of topics discussed include:
+
+* [Structure of the code repository](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Repository-structure)
+* [How to develop and test unplatform locally](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Developing-and--testing-locally)
+* [Bundling unplatform](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform).
+* [Installing unplatform and where to put data files](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Field-installation-and-data-files).
+* [Testing the installation to make sure it works](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Verifying-the-Bundle).
+* [List of interactive tools and how to get them in different languages](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Interactive-Tools).
 
 # ACKNOWLEDGEMENTS
 This software uses many third-party software packages, and the authors are grateful
