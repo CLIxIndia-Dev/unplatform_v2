@@ -672,15 +672,22 @@ case $UN2_BUILD_OS in
         cp $BUILD_ROOT/scripts/data_extraction/zipjs.bat bundle/
 
         # copy over the NSIS build script
-        cp $BUILD_ROOT/scripts/bundle_executables/clix.nsi $BUILD_ROOT/bundle/
+        cp $BUILD_ROOT/scripts/bundle_executables/windows/clix.nsi $BUILD_ROOT/bundle/
        ;;
     'linux')
         cp $BUILD_ROOT/scripts/launchers/unplatform_linux64_ssl.sh bundle/
+        # copy over the Debian rules file
+        cp $BUILD_ROOT/scripts/bundle_executables/debian/rules $BUILD_ROOT/bundle/
+        # copy over the Debian install file, which copies files to the host
+        cp $BUILD_ROOT/scripts/bundle_executables/debian/install $BUILD_ROOT/bundle/
+        # copy over the clix.desktop file, which puts the CLIx application
+        #   into the Ubuntu Dashboard
+        cp $BUILD_ROOT/scripts/bundle_executables/debian/clix.desktop $BUILD_ROOT/bundle/
         ;;
     'osx')
         cp $BUILD_ROOT/scripts/launchers/unplatform_osx_ssl.sh bundle/
         # copy over the dmgbuild settings file
-        cp $BUILD_ROOT/scripts/bundle_executables/clix_settings.py $BUILD_ROOT/bundle/
+        cp $BUILD_ROOT/scripts/bundle_executables/macos/clix_settings.py $BUILD_ROOT/bundle/
         ;;
 esac
 
