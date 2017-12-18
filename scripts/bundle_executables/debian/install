@@ -1,0 +1,3 @@
+source/* opt/clix
+clix.desktop usr/share/applications
+source/static/assets/clix.png usr/share/icons
