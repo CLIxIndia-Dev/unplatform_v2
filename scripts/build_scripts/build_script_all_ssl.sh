@@ -670,9 +670,7 @@ case $UN2_BUILD_OS in
         cp $BUILD_ROOT/scripts/data_extraction/DataExtractionScript.bat bundle/
         cp $BUILD_ROOT/scripts/data_extraction/md5.exe bundle/
         cp $BUILD_ROOT/scripts/data_extraction/zipjs.bat bundle/
-        # make sure to copy the msvcr100.dll from the system into bundle/
-        # otherwise you'll run into an error on deployments
-        cp C:\\Windows\\System32\\msvcr100.dll bundle/
+
         # copy over the NSIS build script
         cp $BUILD_ROOT/scripts/bundle_executables/clix.nsi $BUILD_ROOT/bundle/
        ;;
