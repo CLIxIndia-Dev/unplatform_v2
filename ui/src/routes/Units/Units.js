@@ -109,7 +109,8 @@ class Units extends Component {
     browserHistory.push('/')
   }
 
-  _onHandleSelectSubjects = () => {
+  _onHandleSelectSubjects = (e) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',
