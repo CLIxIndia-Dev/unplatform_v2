@@ -27,8 +27,8 @@
 # to make them writable by the user.
 override_dh_fixperms:
 	dh_fixperms
-	chmod 666 debian/clix-1.6/opt/clix/unplatform.sqlite3*
-	chmod 777 debian/clix-1.6/opt/clix/webapps
+	SQLITE3_PLACEHOLDER
+	WEBAPPS_PLACEHOLDER
 
 # add a symlink so you can run the app from the command line
 override_dh_link:
