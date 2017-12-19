@@ -112,7 +112,8 @@ class Subjects extends Component {
     browserHistory.push(`/subjects/${subject}`)
   }
 
-  _onHandleClickTools = () => {
+  _onHandleClickTools = (e) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',

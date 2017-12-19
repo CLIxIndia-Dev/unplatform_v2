@@ -165,7 +165,8 @@ class Tool extends Component {
     browserHistory.push('/')
   }
 
-  _onHandleSelectSubject = () => {
+  _onHandleSelectSubject = (e) => {
+    e.preventDefault()
     log({
       sessionId: this.props.sessionId,
       action: 'click',
