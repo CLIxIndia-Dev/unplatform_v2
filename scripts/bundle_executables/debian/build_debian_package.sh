@@ -49,6 +49,14 @@ sed -i "s/WEBAPPS_PLACEHOLDER/$WEBAPPS/g" $BUILD_ROOT/clix/clix-$VERSION/debian/
 SQLITE3="chmod 666 debian\/clix-$VERSION\/opt\/clix\/unplatform.sqlite3*"
 sed -i "s/SQLITE3_PLACEHOLDER/$SQLITE3/g" $BUILD_ROOT/clix/clix-$VERSION/debian/rules
 
+# Modify the control file with website and descriptions
+WEBSITE="https:\/\/clix.tiss.edu"
+SHORT_DESC="Connected Learning Initiative"
+LONG_DESC="Learning modules for Maths, English, and Sciences."
+sed -i "s/<insert the upstream URL, if relevant>/$WEBSITE/g" $BUILD_ROOT/clix/clix-$VERSION/debian/control
+sed -i "s/<insert up to 60 chars description>/$SHORT_DESC/g" $BUILD_ROOT/clix/clix-$VERSION/debian/control
+sed -i "s/<insert long description, indented with spaces>/$LONG_DESC/g" $BUILD_ROOT/clix/clix-$VERSION/debian/control
+
 # Copy all the unplatform files into the debian source directory
 echo Copying the source files over
 cp -rf $BUILD_ROOT/bundle/* $BUILD_ROOT/clix/clix-$VERSION/source/
