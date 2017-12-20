@@ -1,5 +1,5 @@
 [MASTER]
-ignore=.git,scripts/bundle_executables/clix_settings.py
+ignore=.git,scripts/bundle_executables/macos/clix_settings.py
 load-plugins =
 
 [BASIC]
