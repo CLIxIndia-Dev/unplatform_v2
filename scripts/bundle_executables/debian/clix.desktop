@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.6
+Name=CLIx
+Comment=Connected Learning Initiative
+Icon=clix
+Exec=gnome-terminal --window -e '/opt/clix/unplatform_linux64_ssl.sh'
+Path=/opt/clix
+Categories=Education;
