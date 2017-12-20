@@ -151,8 +151,12 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 5. In NSIS, click `File`, and load the `bundle\clix.nsi` script. Watch it build.
 6. Now you have a `CLIxInstaller.exe` that you can distribute!
 
-## Notes
-For the Windows build, it is super-important to note that we **do not** distribute the required `msvcr100.dll` file in the installer. It is expected that users who install from `CLIxInstaller.exe` will have to obtain the `msvcr100.dll` file themselves. This is included with the free  [Microsoft Visual C++ 2010 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=5555). The compiled installer will attempt to detect and download / install that package if it is not on the system. If you are installing in an offline computer, you will have to manually download and install the above package before installing `CLIx`.
+
+# Bundling into a Debian .deb package (i.e. for Ubuntu)
+## Tools
+
+
+## Build Steps
 
 
 # Wiki Documents
