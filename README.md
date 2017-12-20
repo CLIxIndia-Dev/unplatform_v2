@@ -154,9 +154,20 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 
 # Bundling into a Debian .deb package (i.e. for Ubuntu)
 ## Tools
+The build scripts and steps provided here have been tested on Ubuntu 16.04, but theoretically should work on any other Debian platform.
 
+You do not need any additional tools -- the build script provided will download and install the tools that it needs.
 
 ## Build Steps
+1. Build the bundle or unzip a prepared bundle.
+2. Copy in the `modules` and `webapps` files into the `bundle/` directory.
+3. Run the `build_debian_package.sh` script. You will get prompted for two things:
+  - Your `sudo` password, to install some of the Debian build tools.
+  - Verify that the Debian build information (e-mail, version, contact, etc.) are correct.
+4. Wait.
+5. After the build process is finished, you should see a Debian package in the `clix/` directory (sibling to `bundle/`).
+
+To install, you can use a package manager like [GDebi](https://apps.ubuntu.com/cat/applications/precise/gdebi/). **NOTE** that there is a [bug in Ubuntu](https://bugs.launchpad.net/ubuntu/+source/gnome-software/+bug/1573206), that may prevent from using the default Software Center to install third-party `deb` packages. Alternatively, you can install from the command-line, using `sudo dpkg -i <filename>.deb`.
 
 
 # Wiki Documents
