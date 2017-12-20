@@ -683,6 +683,9 @@ case $UN2_BUILD_OS in
         # copy over the clix.desktop file, which puts the CLIx application
         #   into the Ubuntu Dashboard
         cp $BUILD_ROOT/scripts/bundle_executables/debian/clix.desktop $BUILD_ROOT/bundle/
+
+        # copy over the helper Debian build script
+        cp $BUILD_ROOT/scripts/bundle_executables/debian/build_debian_package.sh $BUILD_ROOT/bundle/
         ;;
     'osx')
         cp $BUILD_ROOT/scripts/launchers/unplatform_osx_ssl.sh bundle/
