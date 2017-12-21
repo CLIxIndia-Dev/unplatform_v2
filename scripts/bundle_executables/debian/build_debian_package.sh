@@ -77,7 +77,7 @@ rm -f $BUILD_ROOT/clix/clix-$VERSION/source/unplatform_*.zip
 cd $BUILD_ROOT/clix/clix-$VERSION
 
 echo Building the Debian binary. Please wait.
-debuild -b
+debuild --no-lintian -b
 
 # The output should be something like ``clix/clix-$VERSION_1ubuntu1.deb``
 echo Done building the Debian binary!
