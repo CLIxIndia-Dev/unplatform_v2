@@ -48,6 +48,9 @@ WEBAPPS="chmod 777 debian\/clix-$VERSION\/opt\/clix\/webapps"
 sed -i "s/WEBAPPS_PLACEHOLDER/$WEBAPPS/g" $BUILD_ROOT/clix/clix-$VERSION/debian/rules
 SQLITE3="chmod 666 debian\/clix-$VERSION\/opt\/clix\/unplatform.sqlite3*"
 sed -i "s/SQLITE3_PLACEHOLDER/$SQLITE3/g" $BUILD_ROOT/clix/clix-$VERSION/debian/rules
+CLIX_DIR="chmod 777 debian\/clix-$VERSION\/opt\/clix\/"
+sed -i "s/CLIX_DIR_PLACEHOLDER/$CLIX_DIR/g" $BUILD_ROOT/clix/clix-$VERSION/debian/rules
+
 
 # Modify the control file with website and descriptions
 WEBSITE="https:\/\/clix.tiss.edu"

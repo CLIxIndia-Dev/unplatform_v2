@@ -29,6 +29,7 @@ override_dh_fixperms:
 	dh_fixperms
 	SQLITE3_PLACEHOLDER
 	WEBAPPS_PLACEHOLDER
+	CLIX_DIR_PLACEHOLDER
 
 # add a symlink so you can run the app from the command line
 override_dh_link:
