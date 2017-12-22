@@ -686,6 +686,9 @@ case $UN2_BUILD_OS in
 
         # copy over the helper Debian build script
         cp $BUILD_ROOT/scripts/bundle_executables/debian/build_debian_package.sh $BUILD_ROOT/bundle/
+
+        # copy over the postrm script that does a better clean up
+        cp $BUILD_ROOT/scripts/bundle_executables/debian/postrm $BUILD_ROOT/bundle/
         ;;
     'osx')
         cp $BUILD_ROOT/scripts/launchers/unplatform_osx_ssl.sh bundle/

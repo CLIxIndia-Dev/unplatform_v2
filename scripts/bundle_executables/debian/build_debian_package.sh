@@ -42,6 +42,7 @@ rm -rf $BUILD_ROOT/clix/clix-$VERSION/debian/README.*
 # Copy over our install and rules files
 cp $BUILD_ROOT/bundle/install $BUILD_ROOT/clix/clix-$VERSION/debian/
 cp $BUILD_ROOT/bundle/rules $BUILD_ROOT/clix/clix-$VERSION/debian/
+cp $BUILD_ROOT/bundle/postrm $BUILD_ROOT/clix/clix-$VERSION/debian/
 
 # Modify the rules file with the current version's path
 WEBAPPS="chmod 777 debian\/clix-$VERSION\/opt\/clix\/webapps"

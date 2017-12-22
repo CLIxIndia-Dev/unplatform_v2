@@ -1,0 +1,2 @@
+rm -rf /opt/clix/unplatform.sqlite3*
+rm -rf /opt/clix/webapps/
