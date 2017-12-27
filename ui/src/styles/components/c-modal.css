@@ -15,7 +15,7 @@
   padding: 1.5rem;
   top: 5%;
   border: none;
-  border-radius: .3em;
+  border-radius: 0.3em;
 }
 
 .c-modal__dialog[open] {
@@ -40,7 +40,7 @@
 }
 
 .c-modal__dialog-subtitle {
-  margin: .2rem auto;
+  margin: 0.2rem auto;
   display: block;
   font-family: open_sanslight;
   font-size: 1.2rem;
@@ -58,10 +58,10 @@
 }
 
 .c-modal__dialog button {
-  margin: .625em .125rem;
-  padding: .625rem 2.5rem;
+  margin: 0.625em 0.125rem;
+  padding: 0.625rem 2.5rem;
   border: 2px solid #fff;
-  border-radius: .313rem;
+  border-radius: 0.313rem;
   font-size: 1em;
   color: #fff;
   text-shadow: 0 0.125rem 0.125rem rgba(0, 0, 0, 0.3);

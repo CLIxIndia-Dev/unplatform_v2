@@ -1,8 +1,4 @@
 .act-container {
-/*  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;*/
   color: #777;
   background-color: #fff;
 }
@@ -13,7 +9,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  height: 100vh;
+  height: calc(100vh - 3.438em);
   width: 100%;
 }
 
@@ -36,24 +32,17 @@
 
 .c-label {
   font-weight: bold;
-  margin-right: 15px;
-  margin-bottom: 15px;
+  margin-right: 0.938em;
+  margin-bottom: 0.938em;
   flex: 2;
 }
 
 .c-formRow {
   display: flex;
-  width: 400px;
-  margin: 5px 5px;
+  width: 25em;
+  margin: 0.313em;
 }
 
 .c-value {
   flex: 2;
 }
-
-.c-navTitle {
-}
-
-/*.c-background: {
-  background-color: 'white';
-}*/
