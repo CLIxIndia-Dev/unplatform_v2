@@ -102,15 +102,15 @@ case $UN2_BUILD_OS in
     'windows')
         echo Compiling only UI for Windows...
         cd $BUILD_ROOT/ui
-        yarn install
-        yarn run compile:prod
+        npm install
+        npm run compile:prod
         cp -rf $BUILD_ROOT/ui/dist/* $BUILD_ROOT/static/ui/
         ;;
     *)
         echo Compiling the UI...
         cd $BUILD_ROOT/ui
-        yarn install
-        yarn run compile:prod
+        npm install
+        npm run compile:prod
         cp -rf $BUILD_ROOT/ui/dist/* $BUILD_ROOT/static/ui/
         ;;
 esac
@@ -268,12 +268,12 @@ cd content_player
 rm -f client/html/layouts/application.html
 
 git pull origin master
-yarn install
+npm install
 
 # put in our content player local config so it builds properly
 cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/html/layouts/application.html
 
-yarn run build
+npm run build
 mkdir $BUILD_ROOT/bundle/static/content_player/
 cp -rf $BUILD_ROOT/tool-repos/content_player/build/prod/*  $BUILD_ROOT/bundle/static/content_player/
 rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
@@ -309,11 +309,8 @@ rm -f client/config/settings.js
 
 git pull origin master
 
-# Using Yarn (instead of npm) in spite of Yarn issue
-# 1657 on Windows. Yarn seems to work on Windows now.
-yarn install
 cd client
-yarn install
+npm install
 cd ..
 
 # put in our OEA local config so it builds properly
@@ -321,7 +318,7 @@ cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/
 cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
 cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
 
-yarn run build
+npm run build
 
 mkdir $BUILD_ROOT/bundle/static/oea/
 cp -rf $BUILD_ROOT/tool-repos/OpenAssessmentsClient/build/prod/*  $BUILD_ROOT/bundle/static/oea/
