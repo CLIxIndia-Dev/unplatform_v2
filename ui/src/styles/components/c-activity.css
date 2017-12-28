@@ -9,7 +9,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  height: calc(100vh - 3.438em);
+  height: calc(100vh - 3.75em); /*changed from 3.438em to remove stray 5px vh scrollbar bug*/
   width: 100%;
 }
 
