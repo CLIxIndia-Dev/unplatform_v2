@@ -157,7 +157,7 @@ dialog.fixed {
 /*SECTIONS AND BLOCKS*/
 
 .gradient-wrapper {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -376,10 +376,10 @@ dialog.fixed {
 
 .choice-select {
   width: 11.563rem;
-  height: 11.563rem;
+  height: 9.563rem;
   margin: 0.4em 0.4em;
   font-family: open_sansregular;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #ffffff;
   letter-spacing: -0.006rem;
   text-overflow: ellipsis;
