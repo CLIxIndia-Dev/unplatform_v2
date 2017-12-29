@@ -5,6 +5,7 @@
   height: 3.438em;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   top: 0;
   left: 0;
@@ -19,15 +20,22 @@
   width: 8.938em;
   height: 2em;
   background-image: url('/static/assets/clix-logo.svg');
-  text-indent: 100%;
+  text-indent: -6000px;
   overflow: hidden;
   white-space: nowrap;
 }
 
+.c-header__nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 3.438em;
+}
+
 .c-header__nav {
-  position: absolute;
-  top: 1.875em;
+  position: relative;
   right: 1.25em;
+  align-self: flex-end;
 }
 .c-header__nav > a,
 .c-header__nav > button {
@@ -37,8 +45,11 @@
   border: none;
   border-bottom: 3px solid hsla(316, 77%, 37%, 1);
   color: #777;
-  font-size: .7em;
-  letter-spacing: .05em;
+  display: inline-block;
+  font-size: 0.7em;
+  height: 2.5em;
+  letter-spacing: 0.05em;
+  line-height: 2em;
   text-transform: uppercase;
   transition: all .1s ease;
 }
@@ -64,12 +75,10 @@
   color: #fff;
 }
 
-.c-header--unplat-v {
+.c-header__unplat-v {
   margin-top: 0.313em;
-  margin-right: 1.25em;
-  position: absolute;
-  top: 0;
-  right: 1.25em;
+  margin-right: 2.55em;
+  align-self: flex-end;
   font-size:0.563em;
   text-transform: uppercase;
   color: #777;

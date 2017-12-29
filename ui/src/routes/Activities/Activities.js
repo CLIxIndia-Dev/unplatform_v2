@@ -50,18 +50,20 @@ class Activities extends Component {
         <div className='act-container'>
           <header role='banner' id='global-nav' tabIndex='-1' className='c-header'>
             <h1 className='c-header__logo' aria-label='Clix Connected Learning Initiative'>CLIx Connected Learning Initiative</h1>
-            <p className='c-header--unplat-v'>unplatform version {this.props.version}</p>
-            <nav className='c-header__nav'>
-              <a href='/tools'
-                onClick={this._onChooseTool}>
-                {this.props.strings.unplatformNav.chooseTool}</a>
-              <a href={`/subjects/${this.props.subjectName}/units/${this.props.unitName}`}
-                onClick={this._onChooseLesson}>
-                {this.props.strings.unplatformNav.chooseNewLesson}</a>
-              <button
-                onClick={this._onToggleModal}>
-                {this.props.strings.unplatformNav.finishLesson}</button>
-            </nav>
+            <div className='c-header__nav-wrapper'>
+              <p className='c-header__unplat-v'>unplatform version {this.props.version}</p>
+              <nav className='c-header__nav'>
+                <a href='/tools'
+                  onClick={this._onChooseTool}>
+                  {this.props.strings.unplatformNav.chooseTool}</a>
+                <a href={`/subjects/${this.props.subjectName}/units/${this.props.unitName}`}
+                  onClick={this._onChooseLesson}>
+                  {this.props.strings.unplatformNav.chooseNewLesson}</a>
+                <button
+                  onClick={this._onToggleModal}>
+                  {this.props.strings.unplatformNav.finishLesson}</button>
+              </nav>
+            </div>
           </header>
           <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_12_of_12'>
             <iframe src={epubUrl}
