@@ -1,3 +1,17 @@
+## [1.6.14] - 2018-01-08
+### Added
+- Instructions and files for bundling exe, dmg, and deb packages.
+
+### Changed
+- Standardize on npm; discard yarn.
+- Updated content_player and OEA player / author.
+  - Content Player includes:
+    - Next / previous buttons
+    - Citation button in footer, if ePub includes that metadata
+
+### Fixed
+- Single scrollbar (when used with updated content_player).
+
 ## [1.6.13] - 2017-12-8
 ### Added
 - Manually copy in BeautifulSoup4 license.
@@ -235,6 +249,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.14]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.13...v1.6.14
 [1.6.13]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.12...v1.6.13
 [1.6.12]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.11...v1.6.12
 [1.6.11]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.10...v1.6.11
