@@ -11,6 +11,7 @@
 
 ### Fixed
 - Single scrollbar (when used with updated content_player).
+- Unplatform version styling in Tool page nav bar.
 
 ## [1.6.13] - 2017-12-8
 ### Added
