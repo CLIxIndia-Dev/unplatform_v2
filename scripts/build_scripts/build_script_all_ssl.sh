@@ -673,6 +673,7 @@ case $UN2_BUILD_OS in
        ;;
     'linux')
         cp $BUILD_ROOT/scripts/launchers/unplatform_linux64_ssl.sh bundle/
+        cp $BUILD_ROOT/scripts/launchers/unplatform_linux64_ssl-deb.sh bundle/
         # copy over the Debian rules file
         cp $BUILD_ROOT/scripts/bundle_executables/debian/rules $BUILD_ROOT/bundle/
         # copy over the Debian install file, which copies files to the host
