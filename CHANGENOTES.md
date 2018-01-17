@@ -1,3 +1,7 @@
+## [1.6.15] - 2018-01-17
+### Added
+- Second linux launch script for non-Debian packages.
+
 ## [1.6.14] - 2018-01-08
 ### Added
 - Instructions and files for bundling exe, dmg, and deb packages.
@@ -250,6 +254,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[1.6.15]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.14...v1.6.15
 [1.6.14]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.13...v1.6.14
 [1.6.13]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.12...v1.6.13
 [1.6.12]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.11...v1.6.12
