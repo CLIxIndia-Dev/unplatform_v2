@@ -1,12 +1,9 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import { Icon } from 'react-fa'
-import BreadcrumbChevron from '../../components/BreadcrumbChevron'
 import PageFocusSection from '../../components/PageFocusSection'
+import Breadcrumbs from '../../components/Breadcrumbs'
 import { log } from '../../utilities'
-
-import '../../styles/components/c-breadcrumbs.css'
 
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
 
@@ -55,31 +52,10 @@ class Subjects extends Component {
       >
         <div className='gradient-wrapper'>
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
-          <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
-            <nav className='c-breadcrumbs__nav'>
-              <ul className='c-breadcrumbs__list'>
-                <li>
-                  <Icon
-                    name={'home'}
-                    className='c-breadcrumb__icon'
-                    aria-hidden
-                    role='img'
-                  />
-                  <a onClick={this._onHandleSelectUser}
-                    href='/'>
-                    {this.props.strings.breadcrumbs.selectUser}
-                  </a>
-                </li>
-                <li>
-                  <BreadcrumbChevron />
-                  <a onClick={this._onHandleSelectSubjects}
-                    href='/subjects' aria-current='page'>
-                    {this.props.strings.breadcrumbs.selectSubject}
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </header>
+          <Breadcrumbs
+            hrefs={['/', '/subjects']}
+            breadcrumbTexts={[this.props.strings.breadcrumbs.selectUser, this.props.strings.breadcrumbs.selectSubject]}
+            clickHandlers={[this._onHandleSelectUser, this._onHandleSelectSubjects]} />
           <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_10_of_12 main-content'>
             <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourSubject}</h1>
             <article className='choice-select__wrapper button-group' role='group'>
