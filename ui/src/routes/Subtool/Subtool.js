@@ -1,8 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import { Icon } from 'react-fa'
-import BreadcrumbChevron from '../../components/BreadcrumbChevron'
 import PageFocusSection from '../../components/PageFocusSection'
 import LessonModal from '../../components/LessonModal'
 import { log } from '../../utilities'
@@ -10,8 +8,6 @@ import { log } from '../../utilities'
 import '../../styles/components/c-header.css'
 import '../../styles/components/c-activity.css'
 import '../../styles/components/c-modal.css'
-
-let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
 
 class Tool extends Component {
   constructor (props) {
