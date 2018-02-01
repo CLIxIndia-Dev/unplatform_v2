@@ -18,7 +18,7 @@ from requests.exceptions import ConnectionError
 
 import requests
 import web
-from web.wsgiserver import CherryPyWSGIServer
+# from web.wsgiserver import CherryPyWSGIServer
 
 import settings
 import utilities
@@ -33,19 +33,19 @@ else:
     ABS_PATH = '{0}/unplatform_v2'.format(
         os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 
-CherryPyWSGIServer.ssl_certificate_chain = ''
-try:
-    # pylint: disable=protected-access
-    CherryPyWSGIServer.ssl_certificate = \
-        "{0}/unplatform/unplatform.cert.dummy.pem".format(sys._MEIPASS)
-    CherryPyWSGIServer.ssl_private_key = \
-        "{0}/unplatform/unplatform.key.dummy.pem".format(sys._MEIPASS)
-except AttributeError:
-    # pylint: disable=protected-access
-    CherryPyWSGIServer.ssl_certificate = \
-        "{0}/unplatform/unplatform.cert.dummy.pem".format(ABS_PATH)
-    CherryPyWSGIServer.ssl_private_key = \
-        "{0}/unplatform/unplatform.key.dummy.pem".format(ABS_PATH)
+# CherryPyWSGIServer.ssl_certificate_chain = ''
+# try:
+#     # pylint: disable=protected-access
+#     CherryPyWSGIServer.ssl_certificate = \
+#         "{0}/unplatform/unplatform.cert.dummy.pem".format(sys._MEIPASS)
+#     CherryPyWSGIServer.ssl_private_key = \
+#         "{0}/unplatform/unplatform.key.dummy.pem".format(sys._MEIPASS)
+# except AttributeError:
+#     # pylint: disable=protected-access
+#     CherryPyWSGIServer.ssl_certificate = \
+#         "{0}/unplatform/unplatform.cert.dummy.pem".format(ABS_PATH)
+#     CherryPyWSGIServer.ssl_private_key = \
+#         "{0}/unplatform/unplatform.key.dummy.pem".format(ABS_PATH)
 
 
 web.config.debug = False
@@ -395,14 +395,4 @@ class version:
 ################################################
 # INITIALIZER
 ################################################
-
-
-def is_test():
-    if 'WEBPY_ENV' in os.environ:
-        return os.environ['WEBPY_ENV'] == 'test'
-    return False
-
-
-if (not is_test()) and __name__ == "__main__":
-    sys.argv.append('8888')
-    app.run()
+application = app.wsgifunc()
