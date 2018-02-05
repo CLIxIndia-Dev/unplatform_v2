@@ -259,7 +259,7 @@ echo Processing Content Player
 cd $BUILD_ROOT/tool-repos
 if [ ! -d content_player ]
 then
-  git clone git@github.com:CLIxIndia-Dev/content_player.git
+  git clone https://github.com/CLIxIndia-Dev/content_player.git
   cp content_player/.env.example content_player/.env
 fi
 cd content_player
@@ -299,7 +299,7 @@ cd $BUILD_ROOT/tool-repos
 
 if [ ! -d "OpenAssessmentsClient" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/OpenAssessmentsClient.git
+  git clone https://github.com/CLIxIndia-Dev/OpenAssessmentsClient.git
 fi
 cd OpenAssessmentsClient
 git checkout master
@@ -345,7 +345,7 @@ cd $BUILD_ROOT/tool-repos
 
 if [ ! -d "runkittyrun" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/runkittyrun.git
+  git clone https://github.com/CLIxIndia-Dev/runkittyrun.git
 fi
 cd runkittyrun
 git checkout master
@@ -359,7 +359,7 @@ echo Processing Physics Video player
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "physics-video-player" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/physics-video-player.git
+  git clone https://github.com/CLIxIndia-Dev/physics-video-player.git
 fi
 cd physics-video-player
 git checkout master
@@ -387,7 +387,7 @@ echo Processing Open Story tool
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "open-story-tool" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/open-story-tool.git
+  git clone https://github.com/CLIxIndia-Dev/open-story-tool.git
 fi
 cd open-story-tool
 git checkout master
@@ -401,7 +401,7 @@ echo Processing Turtle Blocks
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "turtle-blocks" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/turtle-blocks.git
+  git clone https://github.com/CLIxIndia-Dev/turtle-blocks.git
 fi
 cd turtle-blocks
 git checkout master
@@ -410,21 +410,6 @@ mkdir $BUILD_ROOT/bundle/static/turtle-blocks/
 cp -rf $BUILD_ROOT/tool-repos/turtle-blocks/* $BUILD_ROOT/bundle/static/turtle-blocks/
 rm -rf $BUILD_ROOT/bundle/static/turtle-blocks/.git/
 
-# StarLogoNova simulations
-# echo Processing StarLogoNova Simulations
-# cd $BUILD_ROOT/tool-repos
-# if [ ! -d "StarLogoNova" ]
-# then
-#   # Use SSH version until we figure out licensing for SLN
-#   # git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
-#   git clone git@github.com:CLIxIndia-Dev/StarLogoNova.git
-# fi
-# cd StarLogoNova
-# git checkout master
-# git pull origin master
-# mkdir $BUILD_ROOT/bundle/static/StarLogoNova/
-# cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/* $BUILD_ROOT/bundle/static/StarLogoNova/
-# rm -rf $BUILD_ROOT/bundle/static/StarLogoNova/.git/
 echo Processing StarLogoNova lite
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "sln_clix" ]
@@ -543,7 +528,7 @@ echo Processing Ice-cubes-in-lemonade
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "Ice-cubes-in-lemonade" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/Ice-cubes-in-lemonade.git
+  git clone https://github.com/CLIxIndia-Dev/Ice-cubes-in-lemonade.git
 fi
 cd Ice-cubes-in-lemonade
 git checkout master
@@ -589,7 +574,7 @@ echo Processing QBank-lite Bundles
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "qbank-lite-bundles" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/qbank-lite-bundles.git
+  git clone https://github.com/CLIxIndia-Dev/qbank-lite-bundles.git
 fi
 cd qbank-lite-bundles
 git checkout release
@@ -601,7 +586,7 @@ echo Processing QBank-lite
 cd $BUILD_ROOT/tool-repos
 if [ ! -d "qbank-lite" ]
 then
-  git clone git@github.com:CLIxIndia-Dev/qbank-lite.git
+  git clone https://github.com/CLIxIndia-Dev/qbank-lite.git
 fi
 cd qbank-lite
 git checkout master
