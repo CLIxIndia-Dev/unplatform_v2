@@ -26,13 +26,14 @@ from main_utilities import get_configuration_file, set_configuration_file,\
     set_user_data_file
 
 # http://pythonhosted.org/PyInstaller/runtime-information.html#run-time-information
-if getattr(sys, 'frozen', False):
-    ABS_PATH = os.path.dirname(sys.executable)
-else:
-    PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-    ABS_PATH = '{0}/unplatform'.format(
-        os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
-
+# if getattr(sys, 'frozen', False):
+#     ABS_PATH = os.path.dirname(sys.executable)
+# else:
+#     PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+#     ABS_PATH = '{0}/unplatform'.format(
+#         os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
+HTML_PATH = '/var/www/html/unplatform'
+ABS_PATH = '/var/www/webapps'
 # CherryPyWSGIServer.ssl_certificate_chain = ''
 # try:
 #     # pylint: disable=protected-access
@@ -69,7 +70,7 @@ app = web.application(urls, locals())
 
 # To fix static file issue with OS X bundle
 # https://stackoverflow.com/a/11274226
-os.chdir(ABS_PATH)
+# os.chdir(ABS_PATH)
 
 
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
@@ -78,7 +79,7 @@ web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
 
 # store sessions in SQLite3, because we're running into concurrency issues
 # when using filesystem
-DB_PATH = os.path.join(ABS_PATH, 'unplatform.sqlite3')
+DB_PATH = os.path.join(ABS_PATH, 'CLIx', 'unplatform', 'unplatform.sqlite3')
 db = web.database(dbn='sqlite', db=DB_PATH)
 store = web.session.DBStore(db, 'sessions')
 
@@ -132,7 +133,7 @@ def require_login(func):
     @functools.wraps(func)
     def wrapper(self, *args):
         if not logged_in():
-            with open('{0}/templates/session_expired.html'.format(ABS_PATH),
+            with open('{0}/unplatform/templates/session_expired.html'.format(ABS_PATH),
                       'rb') as session_template:
                 raise web.Forbidden(session_template.read())
         results = func(self, *args)
@@ -154,7 +155,7 @@ class index:
         # session.kill()
 
         # render the unplatform v2 front-end
-        index_file = '{0}/static/ui/index.html'.format(ABS_PATH)
+        index_file = '{0}/static/ui/index.html'.format(HTML_PATH)
         yield open(index_file, 'rb').read()
 
 
