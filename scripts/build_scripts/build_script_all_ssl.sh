@@ -268,7 +268,9 @@ cd content_player
 rm -f client/html/layouts/application.html
 
 git pull origin master
+cd client
 npm install
+cd ..
 
 # put in our content player local config so it builds properly
 cp -f $BUILD_ROOT/scripts/content_player_build_config/application.html client/html/layouts/application.html
