@@ -25,29 +25,8 @@ import utilities
 from main_utilities import get_configuration_file, set_configuration_file,\
     set_user_data_file
 
-# http://pythonhosted.org/PyInstaller/runtime-information.html#run-time-information
-# if getattr(sys, 'frozen', False):
-#     ABS_PATH = os.path.dirname(sys.executable)
-# else:
-#     PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-#     ABS_PATH = '{0}/unplatform'.format(
-#         os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
 HTML_PATH = '/var/www/html/unplatform'
 ABS_PATH = '/var/www/webapps'
-# CherryPyWSGIServer.ssl_certificate_chain = ''
-# try:
-#     # pylint: disable=protected-access
-#     CherryPyWSGIServer.ssl_certificate = \
-#         "{0}/unplatform/unplatform.cert.dummy.pem".format(sys._MEIPASS)
-#     CherryPyWSGIServer.ssl_private_key = \
-#         "{0}/unplatform/unplatform.key.dummy.pem".format(sys._MEIPASS)
-# except AttributeError:
-#     # pylint: disable=protected-access
-#     CherryPyWSGIServer.ssl_certificate = \
-#         "{0}/unplatform/unplatform.cert.dummy.pem".format(ABS_PATH)
-#     CherryPyWSGIServer.ssl_private_key = \
-#         "{0}/unplatform/unplatform.key.dummy.pem".format(ABS_PATH)
-
 
 web.config.debug = False
 
@@ -68,18 +47,14 @@ urls = (
 app = web.application(urls, locals())
 
 
-# To fix static file issue with OS X bundle
-# https://stackoverflow.com/a/11274226
-# os.chdir(ABS_PATH)
-
-
 web.config.session_parameters['cookie_name'] = 'unplatform_session_id'
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
 
 # store sessions in SQLite3, because we're running into concurrency issues
 # when using filesystem
-DB_PATH = os.path.join(ABS_PATH, 'CLIx', 'unplatform', 'unplatform.sqlite3')
+DB_PATH = os.path.join('var', 'www', 'tmp',
+                       'CLIx', 'unplatform', 'unplatform.sqlite3')
 db = web.database(dbn='sqlite', db=DB_PATH)
 store = web.session.DBStore(db, 'sessions')
 
@@ -246,7 +221,7 @@ class common_tools:
     @utilities.format_html_response
     def GET(self, tool_name=None):
         tool_file = '{0}/modules/Tools/{1}/index.html'.format(
-            ABS_PATH, tool_name)
+            HTML_PATH, tool_name)
         if not os.path.isfile(tool_file):
             yield web.notfound("Sorry, that tool was not found.")
         else:
@@ -279,7 +254,7 @@ class content:
     # @require_login
     # pylint: disable=too-many-locals
     def GET(self, path=None):
-        full_path = os.path.join(ABS_PATH, 'modules', path)
+        full_path = os.path.join(HTML_PATH, 'modules', path)
         if not os.path.isfile(full_path):
             yield web.notfound("Sorry, {0} was not found".format(path))
         else:
@@ -354,7 +329,7 @@ class modules_list:
         # send the entire
         # file structure for /modules in one go, so that the
         # OS doesn't have to be re-walked every time.
-        data = list_dir(ABS_PATH, 'modules')
+        data = list_dir(HTML_PATH, 'modules')
         return data
 
 
@@ -363,7 +338,7 @@ class oea_tool:
     @utilities.format_html_response
     # pylint: disable=unused-argument
     def GET(self, path=None):
-        oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
+        oea_file_path = '{0}/static/oea/index.html'.format(HTML_PATH)
         with open(oea_file_path, 'rb') as oea_index:
             yield oea_index.read()
 
@@ -389,7 +364,7 @@ class user_session:
 class version:
     def GET(self):
         web.header('Content-type', 'text/plain')
-        with open('{0}/package.json'.format(ABS_PATH), 'rb') as package_json:
+        with open('{0}/unplatform/package.json'.format(ABS_PATH), 'rb') as package_json:
             package = json.load(package_json)
             return package['version']
 

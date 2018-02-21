@@ -4,12 +4,7 @@ import os
 import sys
 import json
 
-# if getattr(sys, 'frozen', False):
-#     ABS_PATH = os.path.dirname(sys.executable)
-# else:
-#     PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-#     ABS_PATH = '{0}/unplatform_v2'.format(os.path.abspath(os.path.join(PROJECT_PATH, os.pardir)))
-ABS_PATH = '/var/www/webapps'
+ABS_PATH = '/var/www/html/unplatform'
 
 CONFIG_DIR = '{0}/CLIx/unplatform/configuration'.format(ABS_PATH)
 CONFIG_FILE = '{0}/config.json'.format(CONFIG_DIR)
