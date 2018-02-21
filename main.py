@@ -53,8 +53,7 @@ web.config.session_parameters['timeout'] = 20 * 60  # 20 minutes of inactivity
 
 # store sessions in SQLite3, because we're running into concurrency issues
 # when using filesystem
-DB_PATH = os.path.join('var', 'www', 'tmp',
-                       'CLIx', 'unplatform', 'unplatform.sqlite3')
+DB_PATH = '/var/www/tmp/CLIx/unplatform/unplatform.sqlite3'
 db = web.database(dbn='sqlite', db=DB_PATH)
 store = web.session.DBStore(db, 'sessions')
 
