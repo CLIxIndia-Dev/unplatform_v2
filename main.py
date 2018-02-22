@@ -117,7 +117,7 @@ def require_login(func):
 
 class bootloader_storage_path:
     def GET(self):
-        return ABS_PATH
+        return HTML_PATH
 
 
 class index:
