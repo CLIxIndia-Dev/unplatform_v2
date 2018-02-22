@@ -99,6 +99,18 @@ Pep8 is configured in ``pytest.ini``.
 
 Pylint is configured in ``.pylintrc``.
 
+# Logging
+
+Unplatform will log UI click events to an internal logging API, which is routed
+over to the associated qbank API (set in `settings.py` file). The types of events
+logged are:
+
+* Click "Yes" to the "Finish Lesson" modal.
+* Selecting a Tool.
+* Selecting a Breadcrumb element.
+* Selecting a Subject / Unit / Lesson.
+
+
 # Bundling into a macOS Application
 ## Tools
 To create a macOS application (i.e. `CLIx.app`), we use the [Platypus](http://sveinbjorn.org/platypus/) application to create the `.app` bundle, and [dmgbuild](https://github.com/al45tair/dmgbuild) to create a distributable installer.

@@ -45,7 +45,7 @@ class LessonModal extends Component {
       appName: 'unplatform',
       action: 'clicked_finished',
       params: {
-        url: `/subjects/${this.props.subjectName}/grades/${this.props.gradeName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
+        url: `/subjects/${this.props.subjectName}/units/${this.props.unitName}/lessons/${this.props.lessonName}`,
         response: 'yes'
       }
     })
