@@ -42,7 +42,7 @@ function bindContentPlayerMessageHandler () {
 }
 
 function contentPlayerMessageHandler (e) {
-  if (e.origin === 'https://localhost:8888' && e.data === 'startSessionCounter') {
+  if (e.origin === 'https://unplatform-dev.mit.edu' && e.data === 'startSessionCounter') {
     startSessionCounter()
   }
 }
