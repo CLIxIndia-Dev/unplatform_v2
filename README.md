@@ -105,11 +105,56 @@ Unplatform will log UI click events to an internal logging API, which is routed
 over to the associated qbank API (set in `settings.py` file). The types of events
 logged are:
 
-* Click "Yes" to the "Finish Lesson" modal.
+* In a Lesson or Tool, clicking "Yes" to the "Finish Lesson" modal.
+* In a Lesson or Tool, clicking Choose Tool or Choose New Lesson.
 * Selecting a Tool.
 * Selecting a Breadcrumb element.
 * Selecting a Subject / Unit / Lesson.
 
+
+For the first two event types, the data sent to the server appears like:
+
+```
+{
+  sessionId: <unplatform session ID>,
+  appName: 'unplatform',
+  action: 'clicked_choose_tool',
+  params: {
+    url: "<url of pre-click page>"
+  }
+}
+```
+
+Example:
+```
+{
+  sessionId: "5a15c2e2be773168a5a048fc2739a4451870ad97",
+  appName: 'unplatform',
+  action: 'clicked_choose_tool',
+  params: {
+    url: "/subjects/English Beginner/units/Unit 1/lessons/Lesson 0"
+  }
+}
+```
+
+For the last three event types (simple navigation), the logged event looks like:
+
+```
+{
+  sessionId: <unplatform session ID>,
+  action: 'click',
+  target: <location clicked>
+}
+```
+
+Example:
+```
+{
+  sessionId: "5a15c2e2be773168a5a048fc2739a4451870ad97",
+  action: 'click',
+  target: "Select Subject"
+}
+```
 
 # Bundling into a macOS Application
 ## Tools
