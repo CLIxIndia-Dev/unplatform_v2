@@ -306,6 +306,7 @@ git checkout master
 
 # remove our local config to prevent git merge conflicts
 rm -f client/html/layouts/application.html
+rm -f client/html/layouts/author.html
 rm -f client/html/layouts/partials/_head.html
 rm -f client/config/settings.js
 
@@ -317,6 +318,7 @@ cd ..
 
 # put in our OEA local config so it builds properly
 cp -f $BUILD_ROOT/scripts/oea_build_config/application.html client/html/layouts/application.html
+cp -f $BUILD_ROOT/scripts/oea_build_config/author.html client/html/layouts/author.html
 cp -f $BUILD_ROOT/scripts/oea_build_config/_head.html client/html/layouts/partials/_head.html
 cp -f $BUILD_ROOT/scripts/oea_build_config/settings.js client/config/settings.js
 
