@@ -266,9 +266,13 @@ cd content_player
 
 # remove our local config to prevent git merge conflicts
 rm -f client/html/layouts/application.html
+git checkout -- client/package-lock.json
 
 git pull origin master
 cd client
+
+# this file seems to be causing problems on RHEL
+rm package-lock.json
 npm install
 cd ..
 
@@ -309,10 +313,14 @@ rm -f client/html/layouts/application.html
 rm -f client/html/layouts/author.html
 rm -f client/html/layouts/partials/_head.html
 rm -f client/config/settings.js
+git checkout -- client/package-lock.json
 
 git pull origin master
 
 cd client
+
+# this file seems to be causing problems on RHEL
+rm package-lock.json
 npm install
 cd ..
 
