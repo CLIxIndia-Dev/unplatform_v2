@@ -1,15 +1,11 @@
 import _ from 'lodash'
 
-const MAX_CHARS = 40;
-
 export function getSubjects (state, props) {
   if (!state.module.modules) {
     return null
   }
 
-  return _.map(_.filter(_.keys(state.module.modules), (key) => {
-    return key !== 'Tools'}),
-    subject => _.truncate(subject, MAX_CHARS))
+  return _.filter(_.keys(state.module.modules), key => key !== 'Tools')
 }
 
 export function getTools (state, props) {
@@ -33,8 +29,7 @@ export function getGrades (state, props) {
     return null
   }
 
-  return _.map(_.keys(state.module.modules[props.params.subjectName]),
-    grades => _.truncate(grades, MAX_CHARS))
+  return _.keys(state.module.modules[props.params.subjectName])
 }
 
 export function getUnits (state, props) {
@@ -43,8 +38,7 @@ export function getUnits (state, props) {
     return null
   }
 
-  return _.map(_.keys(state.module.modules[props.params.subjectName]),
-    unit => _.truncate(unit, MAX_CHARS))
+  return _.keys(state.module.modules[props.params.subjectName])
 }
 
 export function getLessons (state, props) {
@@ -54,6 +48,5 @@ export function getLessons (state, props) {
     return null
   }
 
-  return _.map(_.keys(state.module.modules[props.params.subjectName][props.params.unitName]),
-    lesson => _.truncate(lesson, MAX_CHARS))
+  return _.keys(state.module.modules[props.params.subjectName][props.params.unitName])
 }

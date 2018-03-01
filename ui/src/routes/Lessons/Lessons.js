@@ -32,7 +32,7 @@ class Lessons extends Component {
 
   renderLessons = (lessonName, index) => {
     return <button className='lesn-but'
-      onClick={(e) => this._onHandleSelectLesson(e, lessonName)}>{lessonName}</button>
+      onClick={(e) => this._onHandleSelectLesson(e, lessonName)}>{_.truncate(lessonName, 40)}</button>
   }
 
   render () {
