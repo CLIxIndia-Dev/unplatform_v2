@@ -1,3 +1,7 @@
+## [2.0.3] - 2018-03-01
+### Fixed
+- Truncate long names only at the view layer.
+
 ## [2.0.2] - 2018-03-01
 ### Changed
 - Decreased size of focus ring dots.
@@ -272,6 +276,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.0.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.15...v2.0.0
