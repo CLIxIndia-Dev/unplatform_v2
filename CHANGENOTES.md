@@ -1,3 +1,9 @@
+## [2.0.1] - 2018-03-01
+### Changed
+- Lesson button size is same as Unit / Subject.
+- Dot outline focus ring for breadcrumbs.
+- Truncate and ellipsize button text.
+
 ## [2.0.0] - 2018-02-28
 ### Added
 - Account for `diskcache` license in `qbank`.
@@ -262,6 +268,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.0.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.15...v2.0.0
 [1.6.15]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.14...v1.6.15
 [1.6.14]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.13...v1.6.14
