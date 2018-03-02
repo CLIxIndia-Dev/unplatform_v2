@@ -374,7 +374,8 @@ dialog.fixed {
   text-shadow: 0 0.125rem 0.125rem rgba(0, 0, 0, 0.3);
 }
 
-.choice-select {
+.choice-select,
+.lesn-but {
   width: 11.563rem;
   height: 9.563rem;
   margin: 0.4em 0.4em;
@@ -403,7 +404,7 @@ dialog.fixed {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.6));
   transform: scale3d(1.05, 1.05, 1);
-  outline: dotted #fff 0.25em;
+  outline: dotted #fff 0.18em;
   outline-offset: .188rem;
 }
 
@@ -414,7 +415,7 @@ dialog.fixed {
   background: radial-gradient(circle at 50% 50%, hsla(259, 40%, 40%, 0.5), hsla(259, 40%, 30%, 0.5));
 }
 
-.lesn-but {
+/*.lesn-but {
   width: 15.625rem;
   height: 3.125rem;
   margin: 0.5rem 0.6rem;
@@ -427,11 +428,11 @@ dialog.fixed {
   text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
   word-wrap: break-word;
   /*clix-magenta*/
-  background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.3));
+  /*background: radial-gradient(circle at 50% 50%, hsla(327, 100%, 45%, 0.9), hsla(327, 100%, 35%, 0.3));
   border: solid 0.094rem #ffffff;
   border-radius: 0.5rem;
   transition: transform 0.4s;
-}
+}*/
 
 .lesn-but:hover {
   /*clix-orange*/
@@ -443,7 +444,7 @@ dialog.fixed {
   /*clix-orange*/
   background: radial-gradient(circle at 50% 50%, hsla(28, 91%, 54%, 0.9), hsla(10, 100%, 50%, 0.6));
   transform: scale3d(1.05, 1.05, 1);
-  outline: dotted #fff 0.25em;
+  outline: dotted #fff 0.18em;
   outline-offset: .188rem;
 }
 

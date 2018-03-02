@@ -5,8 +5,7 @@ export function getSubjects (state, props) {
     return null
   }
 
-  return _.filter(_.keys(state.module.modules), (key) => {
-    return key !== 'Tools'})
+  return _.filter(_.keys(state.module.modules), key => key !== 'Tools')
 }
 
 export function getTools (state, props) {

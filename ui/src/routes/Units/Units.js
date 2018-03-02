@@ -32,7 +32,7 @@ class Units extends Component {
 
   renderUnits = (unitName, index) => {
     return <button className='choice-select'
-      onClick={() => this._onHandleSelectUnit(unitName)}>{unitName}</button>
+      onClick={() => this._onHandleSelectUnit(unitName)}>{_.truncate(unitName, 40)}</button>
   }
 
   render () {

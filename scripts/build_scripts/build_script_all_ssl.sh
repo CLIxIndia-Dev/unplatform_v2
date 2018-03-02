@@ -596,6 +596,7 @@ cp README.md $BUILD_ROOT/bundle/qbank-README.md
 cp LICENSE.md $BUILD_ROOT/bundle/qbank-LICENSE.md
 cp LICENSE_PyMongo.txt $BUILD_ROOT/bundle/licenses
 cp LICENSE_PyOpenSSL.txt $BUILD_ROOT/bundle/licenses
+cp LICENSE_diskcache.txt $BUILD_ROOT/bundle/licenses
 
 # copy the qbank python licenses
 set -f

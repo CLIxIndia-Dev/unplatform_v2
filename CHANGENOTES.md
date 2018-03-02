@@ -1,3 +1,25 @@
+## [2.0.3] - 2018-03-01
+### Fixed
+- Truncate long names only at the view layer.
+
+## [2.0.2] - 2018-03-01
+### Changed
+- Decreased size of focus ring dots.
+
+## [2.0.1] - 2018-03-01
+### Changed
+- Lesson button size is same as Unit / Subject.
+- Dot outline focus ring for breadcrumbs.
+- Truncate and ellipsize button text.
+
+## [2.0.0] - 2018-02-28
+### Added
+- Account for `diskcache` license in `qbank`.
+
+### Changed
+- Pull in `content_player` without pink focus indicator.
+- Pull in `qbank` `3.16.0`.
+
 ## [1.6.15] - 2018-01-17
 ### Added
 - Second linux launch script for non-Debian packages.
@@ -254,6 +276,10 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.0.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.2...v2.0.3
+[2.0.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.15...v2.0.0
 [1.6.15]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.14...v1.6.15
 [1.6.14]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.13...v1.6.14
 [1.6.13]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v1.6.12...v1.6.13

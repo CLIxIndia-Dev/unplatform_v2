@@ -30,7 +30,7 @@ class Subjects extends Component {
   renderSubjects = (subjectName, index) => {
     if (subjectName !== 'Tools') {
       return <button className='choice-select'
-        onClick={() => this._onHandleSelectSubject(subjectName)}>{subjectName}</button>
+        onClick={() => this._onHandleSelectSubject(subjectName)}>{_.truncate(subjectName, 40)}</button>
     }
   }
 
