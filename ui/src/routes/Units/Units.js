@@ -66,7 +66,7 @@ class Units extends Component {
               this._onHandleSelectUnits]}
           />
           <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_10_of_12 main-content'>
-            <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourUnit}</h1>
+            <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourUnit}: {this.props.subjectName}</h1>
             <article className='choice-select__wrapper button-group' role='group'>
               {_.map(this.props.units, this.renderUnits)}
             </article>

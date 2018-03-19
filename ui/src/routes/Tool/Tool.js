@@ -73,7 +73,7 @@ class Tool extends Component {
                 this._onHandleSelectSubtools]}
             />
             <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_10_of_12 main-content'>
-              <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourSubtool}</h1>
+              <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourSubtool}: {this.props.toolName}</h1>
               <article className='choice-select__wrapper button-group' role='group'>
                 {_.map(this.props.subtools, this.renderSubtool)}
               </article>

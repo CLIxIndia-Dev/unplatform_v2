@@ -23,12 +23,12 @@ export default {
     },
     moduleNav: {
       selectYourClass: 'Select Your Class', // prompt for user to select class
-      selectYourLesson: 'Select Your Lesson', // prompt for user to select lesson
+      selectYourLesson: 'Select Your Lesson for', // prompt for user to select lesson
       selectYourSubject: 'Select Your Subject', // prompt for user to select subject
       tools: 'Tools', // The tools folder -- may be unnecessary
       selectYourTool: 'Select Your Tool', // prompt for user to select a tool
-      selectYourUnit: 'Select Your Unit', // prompt for user to select a unit
-      selectYourSubtool: 'Select Your Subtool' // prompt for user to select a subtool
+      selectYourUnit: 'Select Your Unit for', // prompt for user to select a unit
+      selectYourSubtool: 'Select Your Subtool for' // prompt for user to select a subtool
     },
     splash: {
       title: 'CLIx Module', // welcome title
