@@ -1,3 +1,12 @@
+## [2.0.5] - 2018-03-19
+### Changed
+- Renamed `Biomechanic` to `Run Kitty Run`.
+
+## [2.0.4] - 2018-03-15
+### Changed
+- Added the folder names for navigating to lessons,
+  with an ellipsis effect for long headings.
+
 ## [2.0.3] - 2018-03-01
 ### Fixed
 - Truncate long names only at the view layer.
@@ -276,6 +285,8 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.0.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.4...v2.0.5
+[2.0.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.3...v2.0.4
 [2.0.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.0...v2.0.1

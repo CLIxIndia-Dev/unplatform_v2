@@ -189,6 +189,10 @@ dialog.fixed {
   letter-spacing: -0.009rem;
   text-align: center;
   color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 1rem;
 }
 
 .pg-heading-2 {

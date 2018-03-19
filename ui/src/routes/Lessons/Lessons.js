@@ -68,7 +68,7 @@ class Lessons extends Component {
               this._onHandleSelectLesson]}
           />
           <main role='main' aria-label='content' id='main' tabIndex='-1' className='span_10_of_12 main-content'>
-            <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourLesson}</h1>
+            <h1 className='pg-heading-1'>{this.props.strings.moduleNav.selectYourLesson}: {this.props.subjectName} / {this.props.unitName}</h1>
             <article className='choice-select__wrapper button-group' role='group'>
               {_.map(this.props.lessons, this.renderLessons)}
             </article>
