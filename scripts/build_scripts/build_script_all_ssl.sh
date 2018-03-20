@@ -47,7 +47,7 @@ rm -rf $BUILD_ROOT/build/
 rm -rf $BUILD_ROOT/dist/
 rm -rf $BUILD_ROOT/static/ui/
 
-find . -type f -name '*.pyc' -exec rm -f '{}' \;
+find . -type f -iname '*.pyc' -exec rm -f '{}' \;
 
 # remove the sqlite3 database used to store sessions
 if [ -f $BUILD_ROOT/unplatform.sqlite3 ]
@@ -166,7 +166,7 @@ cp $BUILD_ROOT/NOTICES.md $BUILD_ROOT/bundle/
 # copy the licenses from Unplatform UI node_modules
 # Do this later for OEA and content_player, too...
 echo Copying Unplatform UI node_modules licenses
-for i in $(find $BUILD_ROOT/ui/node_modules -maxdepth 2 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ); do
+for i in $(find $BUILD_ROOT/ui/node_modules -maxdepth 2 \( -iname 'LICENSE*' -o -iname 'LICENCE*' \) ); do
   LICENSE_FILE="$(basename $i)"
   TMP_DIR="$(dirname $i)"
   TMP_DIR="$(basename $TMP_DIR)"
@@ -219,7 +219,7 @@ for i in $(cat < $BUILD_ROOT/requirements.txt); do
     # Use yolk3k to download / unzip / find the license file / clean up
     PACKAGE=$(expr "$i" : '\(.*\)==')
     yolk -F $PACKAGE
-    FILE=$(find . -name "$PACKAGE*" | sort -n | tail -1)
+    FILE=$(find . -iname "$PACKAGE*" | sort -n | tail -1)
     echo Expanding $FILE
     if [[ $FILE == *.zip ]]; then
       unzip $FILE
@@ -234,7 +234,7 @@ for i in $(cat < $BUILD_ROOT/requirements.txt); do
     mkdir $TARGET_DIR
   fi
   # 3 grabs enum34 license, too?
-  cp -rf $(find . -maxdepth 3 \( -name '*LICENSE*' -o -name '*LICENCE*' \) ) $TARGET_DIR
+  cp -rf $(find . -maxdepth 3 \( -iname '*LICENSE*' -o -iname '*LICENCE*' \) ) $TARGET_DIR
   cd $BUILD_ROOT
   rm -rf $BUILD_ROOT/tmp_package
 done
@@ -282,7 +282,7 @@ rm -rf $BUILD_ROOT/bundle/static/content_player/.git/
 
 # copy the license files over from node_modules
 echo Copying NPM license files from content player
-for i in $(find $BUILD_ROOT/tool-repos/content_player/client/node_modules -maxdepth 2 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ); do
+for i in $(find $BUILD_ROOT/tool-repos/content_player/client/node_modules -maxdepth 2 \( -iname 'LICENSE*' -o -iname 'LICENCE*' \) ); do
   LICENSE_FILE="$(basename $i)"
   TMP_DIR="$(dirname $i)"
   TMP_DIR="$(basename $TMP_DIR)"
@@ -328,7 +328,7 @@ rm -rf $BUILD_ROOT/bundle/static/oea/.git/
 
 # copy the license files over from node_modules
 echo Copying NPM license files from OEA
-for i in $(find $BUILD_ROOT/tool-repos/OpenAssessmentsClient/client/node_modules -maxdepth 2 \( -name 'LICENSE*' -o -name 'LICENCE*' \) ); do
+for i in $(find $BUILD_ROOT/tool-repos/OpenAssessmentsClient/client/node_modules -maxdepth 2 \( -iname 'LICENSE*' -o -iname 'LICENCE*' \) ); do
   LICENSE_FILE="$(basename $i)"
   TMP_DIR="$(dirname $i)"
   TMP_DIR="$(basename $TMP_DIR)"
@@ -620,7 +620,7 @@ for i in $(cat < requirements.txt); do
     # Use yolk3k to download / unzip / find the license file / clean up
     PACKAGE=$(expr "$i" : '\(.*\)==')
     yolk -F $PACKAGE
-    FILE=$(find . -name "$PACKAGE*" | sort -n | tail -1)
+    FILE=$(find . -iname "$PACKAGE*" | sort -n | tail -1)
     echo Expanding $FILE
     # Test if .tar.gz or .zip. enum34 comes down as a .zip, so on
     #   Windows we need to make sure to use gzip
@@ -637,7 +637,7 @@ for i in $(cat < requirements.txt); do
     mkdir $TARGET_DIR
   fi
   # 3 grabs enum34 license, too?
-  cp -rf $(find . -maxdepth 3 \( -name '*LICENSE*' -o -name '*LICENCE*' \) ) $TARGET_DIR
+  cp -rf $(find . -maxdepth 3 \( -iname '*LICENSE*' -o -iname '*LICENCE*' \) ) $TARGET_DIR
   cd $BUILD_ROOT
   rm -rf $BUILD_ROOT/tmp_package
 done
@@ -702,14 +702,14 @@ esac
 
 case $UN2_BUILD_OS in
     'windows')
-        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*exe | sort -n | tail -1)
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -iname qbank-lite*exe | sort -n | tail -1)
         ;;
     'linux')
-        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*ubuntu* | sort -n | tail -1)
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -iname qbank-lite*ubuntu* | sort -n | tail -1)
         ;;
     'osx')
         # TODO: When we build working QBank-lite binaries for OSX, change "ubuntu" to the "osx" slug
-        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -name qbank-lite*osx* | sort -n | tail -1)
+        QBANK_FILE=$(find $BUILD_ROOT/tool-repos/qbank-lite-bundles/release/ -iname qbank-lite*osx* | sort -n | tail -1)
         ;;
 esac
 echo QBank-lite binary is $QBANK_FILE
