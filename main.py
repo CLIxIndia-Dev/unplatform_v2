@@ -51,17 +51,23 @@ except AttributeError:
 web.config.debug = False
 
 urls = (
-    '/api/v1/configuration', 'configuration',
-    '/api/v1/session', 'user_session',
-    '/api/appdata', 'generic_logging',
-    '/datastore_path', 'bootloader_storage_path',
-    '/version', 'version',
-    '/modules_list', 'modules_list',
-    '/oea/(.*)', 'oea_tool',
-    '/oea', 'oea_tool',
+    '/api/v1/configuration/?', 'configuration',
+    '/api/v1/session/?', 'user_session',
+    '/api/appdata/?', 'generic_logging',
+    '/datastore_path/?', 'bootloader_storage_path',
+    '/version/?', 'version',
+    '/modules_list/?', 'modules_list',
+    '/oea/(.*)/?', 'oea_tool',
+    '/oea/?', 'oea_tool',
+    # These are for StarLogoNova
+    '/editor/(.*)/?', 'star_logo_nova',
+    '/editor/?', 'star_logo_nova',
+    '/projects/?', 'sln_projects',
+    '/project/(.*)/?', 'sln_project',
+    # End SLN endpoints
     '/common/(.*)', 'common_tools',
     '/content/(.*)', 'content',
-    '/reset_session', 'reset_session',
+    '/reset_session/?', 'reset_session',
     '/(.*)', 'index'
 )
 app = web.application(urls, locals())
@@ -358,6 +364,7 @@ class modules_list:
 
 
 class oea_tool:
+    """ Opens up the OpenEmbeddedAssessments player """
     @require_login
     @utilities.format_html_response
     # pylint: disable=unused-argument
@@ -365,6 +372,169 @@ class oea_tool:
         oea_file_path = '{0}/static/oea/index.html'.format(ABS_PATH)
         with open(oea_file_path, 'rb') as oea_index:
             yield oea_index.read()
+
+
+class star_logo_nova:
+    """ Opens up the StarLogoNova editor """
+    @require_login
+    @utilities.format_html_response
+    # pylint: disable=unused-argument
+    def GET(self, path=None):
+        sln_file_path = '{0}/static/star_logo_nova/index.html'.format(ABS_PATH)
+        with open(sln_file_path, 'rb') as sln_index:
+            yield sln_index.read()
+
+
+class sln_shared:
+    """ Contains shared helper methods for StarLogoNova endpoints """
+    def _get_or_create_bank(self):
+        url = '{0}?genusTypeId={1}'.format(settings.QBANK_ASSESSMENT_ENDPOINT,
+                                           settings.DEFAULT_BANK_GENUS_TYPE)
+        req = requests.get(url, verify=False)
+        banks = req.json()
+        default_bank = None
+        if len(banks) > 0:
+            default_bank = banks[0]
+        else:
+            payload = {
+                'name': 'Default StarLogoNova Assessment Bank',
+                'description': 'For storing student projects',
+                'genusTypeId': settings.DEFAULT_BANK_GENUS_TYPE
+            }
+            req = requests.post(settings.QBANK_ASSESSMENT_ENDPOINT,
+                                json=payload,
+                                verify=False)
+            default_bank = req.json()
+        return default_bank
+
+    def _get_or_create_item(self, bank_id):
+        """ In the given bank, find or create a SLN item (extended
+            text interaction). """
+        base_url = '{0}/{1}/items'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id)
+        url = '{0}?genusTypeId={1}'.format(
+            base_url,
+            settings.DEFAULT_ITEM_GENUS_TYPE)
+        req = requests.get(url, verify=False)
+        items = req.json()
+        default_item = None
+        if len(items) > 0:
+            default_item = items[0]
+        else:
+            payload = {
+                'name': 'Default StarLogoNova Item',
+                'description': (
+                    'To accept student projects as Taken submissions'
+                ),
+                'genusTypeId': (
+                    'item-genus-type%3A'
+                    'qti-extended-text-interaction%40ODL.MIT.EDU'
+                ),
+                'question': {
+                    'genusTypeId': (
+                        'question-type%3A'
+                        'qti-extended-text-interaction%40ODL.MIT.EDU'
+                    ),
+                    'questionString': 'Please submit your SLN project'
+                }
+            }
+            req = requests.post(base_url,
+                                json=payload,
+                                verify=False)
+            default_item = req.json()
+        return default_item
+
+    def _get_or_create_assessment(self, bank_id, item_id):
+        """ In the given bank, find or create a SLN assessment,
+            and make sure the given item is part of it """
+        base_url = '{0}/{1}/assessments'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id)
+        url = '{0}?genusTypeId={1}'.format(
+            base_url,
+            settings.DEFAULT_ASSESSMENT_GENUS_TYPE)
+        req = requests.get(url, verify=False)
+        assessments = req.json()
+        default_assessment = None
+        if len(default_assessment) > 0:
+            default_assessment = assessments[0]
+
+            # check if the item is part of this assessment
+            url = '{0}/items'.format(base_url)
+            req = requests.get(url)
+            assessment_items = req.json()
+            current_item_ids = [i['id'] for i in assessment_items]
+            if len(current_item_ids) == 0 or item_id not in current_item_ids:
+                payload = {
+                    'itemIds': [item_id]
+                }
+                requests.post(base_url,
+                              json=payload,
+                              verify=False)
+        else:
+            payload = {
+                'name': 'Default StarLogoNova Assessment',
+                'description': (
+                    'To accept student projects as Taken submissions'
+                ),
+                'genusTypeId': settings.DEFAULT_ASSESSMENT_GENUS_TYPE,
+                'itemIds': [item_id]
+            }
+            req = requests.post(base_url,
+                                json=payload,
+                                verify=False)
+            default_assessment = req.json()
+        return default_assessment
+
+    def _get_or_create_assessment_offered(self, bank_id, assessment_id):
+        """ In the given bank, find or create a SLN item (extended
+            text interaction), assessment, and assessment offered.
+            For performance reasons, we'll assume if the offered exists,
+            we do **NOT** need to create the item / assessment. If the
+            offered does not exist, we will need to create the item and
+            assessment. """
+        base_url = '{0}/{1}/assessmentsoffered'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id)
+        url = '{0}?genusTypeId={1}'.format(
+            base_url,
+            settings.DEFAULT_OFFERED_GENUS_TYPE)
+        req = requests.get(url, verify=False)
+        offereds = req.json()
+        default_offered = None
+        if len(offereds) > 0:
+            default_offered = offereds[0]
+        else:
+            item = self._get_or_create_item(bank_id)
+            assessment = self._get_or_create_assessment(bank_id, item['id'])
+            url = '{0}/{1}/assessments/{2}/assessmentsoffered'.format(
+                settings.QBANK_ASSESSMENT_ENDPOINT,
+                bank_id,
+                assessment['id']
+            )
+            payload = {
+                'name': 'Default StarLogoNova AssessmentOffered',
+                'description': (
+                    'To accept student projects as Taken submissions'
+                ),
+                'genusTypeId': settings.DEFAULT_OFFERED_GENUS_TYPE
+            }
+            req = requests.post(url,
+                                json=payload,
+                                verify=False)
+            default_offered = req.json()
+        return default_offered
+
+
+class sln_projects(sln_shared):
+    """ Shows the list of available StarLogoNova projects """
+    pass
+
+
+class sln_project(sln_shared):
+    """ Manage a specific StarLogoNova project """
+    pass
 
 
 class user_session:
