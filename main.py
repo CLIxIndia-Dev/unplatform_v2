@@ -457,7 +457,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         assessments = req.json()
         default_assessment = None
-        if len(default_assessment) > 0:
+        if len(assessments) > 0:
             default_assessment = assessments[0]
 
             # check if the item is part of this assessment
@@ -487,7 +487,7 @@ class sln_shared:
             default_assessment = req.json()
         return default_assessment
 
-    def _get_or_create_assessment_offered(self, bank_id, assessment_id):
+    def _get_or_create_assessment_offered(self, bank_id):
         """ In the given bank, find or create a SLN item (extended
             text interaction), assessment, and assessment offered.
             For performance reasons, we'll assume if the offered exists,

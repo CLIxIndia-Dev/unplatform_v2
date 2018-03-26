@@ -11,3 +11,4 @@ pytest-cov
 # semantic_version
 WebTest
 nose==1.3.7
+mock==2.0.0
