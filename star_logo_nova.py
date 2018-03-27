@@ -316,6 +316,123 @@ class sln_shared:
             default_offered = req.json()
         return default_offered
 
+    def get_assessment_taken(self, bank_id, taken_id):
+        """ get the specific taken """
+        url = '{0}/{1}/assessmentstaken/{2}'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id,
+            taken_id)
+        req = requests.get(url, verify=False)
+        return req.json()
+
+    def create_assessment_taken(self, bank_id, offered_id, data):
+        """ data should be all the editable things for a project:
+            * title (displayName)
+            * description (description)
+            * project_string (the text response)
+            * user_id (some randomly generated agentId ... probably
+                       sessionId + timestamp)
+
+            Note: given how dlkit works, the ``user_id`` is only
+              set in the AssessmentTaken on create ...
+              don't expect to be able to track who made
+              every single save / update to a project.
+        """
+        if 'title' not in data:
+            raise KeyError('title required in data')
+        if 'description' not in data:
+            raise KeyError('description required in data')
+        if 'user_id' not in data:
+            raise KeyError('user_id required in data')
+        if 'project_string' not in data:
+            raise KeyError('project_string required in data')
+        url = '{0}/{1}/assessmentsoffered/{2}/assessmentstaken'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id,
+            offered_id)
+        payload = {
+            'displayName': data['title'],
+            'description': data['description']
+        }
+        if 'provenanceId' in data:
+            payload['provenanceId'] = data['provenanceId']
+
+        req = requests.post(url,
+                            json=payload,
+                            verify=False,
+                            headers={'x-api-proxy': data['user_id']})
+
+        # Now submit the text response
+        taken = req.json()
+        self.save_project(bank_id, taken['id'], data)
+        return taken
+
+    def update_assessment_taken(self, bank_id, taken_id, data):
+        """ data should be all the editable things for a project:
+            * title (displayName)
+            * description (description)
+            * project_string (the text response)
+            * user_id (some randomly generated agentId ... probably
+                       sessionId + timestamp)
+        """
+        if 'project_string' not in data:
+            raise KeyError('project_string required in data')
+
+        url = '{0}/{1}/assessmentstaken/{2}'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id,
+            taken_id)
+        payload = {}
+        if 'title' in data:
+            payload['displayName'] = data['title']
+        if 'description' in data:
+            payload['description'] = data['description']
+        taken = None
+        if 'title' in data or 'description' in data:
+            req = requests.put(url,
+                               json=payload,
+                               verify=False)
+            taken = req.json()
+        # Re-submit the project_string
+        self.save_project(bank_id, taken_id, data)
+
+        # Then we need to return the taken if we didn't grab it from the PUT
+        if taken is None:
+            url = '{0}/{1}/assessmentstaken/{2}'.format(
+                settings.QBANK_ASSESSMENT_ENDPOINT,
+                bank_id,
+                taken_id)
+            req = requests.get(url, verify=False)
+            taken = req.json()
+        return taken
+
+    def save_project(self, bank_id, taken_id, data):
+        """ Submits a text string to an existing AssessmentTaken.
+            Can be used for project creation and also updating.
+
+            ``data`` is required to have one field:
+                * project_string
+        """
+        if 'project_string' not in data:
+            raise KeyError('project_string required in data')
+        # First, get the question ID
+        url = '{0}/{1}/assessmentstaken/{2}/questions'.format(
+            settings.QBANK_ASSESSMENT_ENDPOINT,
+            bank_id,
+            taken_id)
+
+        req = requests.get(url,
+                           verify=False)
+        questions = req.json()
+        url = '{0}/{1}/submit'.format(url,
+                                      questions[0]['id'])
+        payload = {
+            'text': data['project_string']
+        }
+        req = requests.post(url,
+                            json=payload,
+                            verify=False)
+
     def results_url(self, bank_id, offered_id):
         """ helper method to return the results URL """
         return '{0}/{1}/assessmentsoffered/{2}/results'.format(

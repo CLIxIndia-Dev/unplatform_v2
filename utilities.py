@@ -2,6 +2,8 @@ import functools
 import json
 import web
 
+from urllib import quote
+
 
 CORS_HEADERS = "Content-Type,Authorization,X-Api-Proxy,X-Api-Key,request-line,X-Api-Locale"
 CORS_METHODS = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
@@ -85,6 +87,14 @@ def allow_cors(func):
         web.header("Access-Control-Max-Age", "1728000")
         return results
     return wrapper
+
+
+def escape(string_):
+    """ if ``string_`` includes special characters like : or @
+        as in an ID, we want to return the escaped version """
+    if ':' in string_ or '@' in string_:
+        return quote(string_)
+    return string_
 
 
 def get_byte_ranges():

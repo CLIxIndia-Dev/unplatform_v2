@@ -206,7 +206,7 @@ class SLNSharedTests(BaseMainTestCase):
             assert offered['id'] == 'foo7'
 
     def test_will_create_offered_if_none_exists(self):
-        # Also make sure that item and assessment are created here
+        # Also make sure that item and assessment are created here?
         class FakeGetReq:
             @staticmethod
             def json():
@@ -221,8 +221,8 @@ class SLNSharedTests(BaseMainTestCase):
 
         with patch('requests.get') as MockGet:
             with patch('requests.post') as MockPost:
-                with patch('main.sln_shared.get_or_create_item') as MockItem:
-                    with patch('main.sln_shared.get_or_create_assessment') as MockAssessment:
+                with patch('star_logo_nova.sln_shared.get_or_create_item') as MockItem:
+                    with patch('star_logo_nova.sln_shared.get_or_create_assessment') as MockAssessment:
                         MockGet.return_value = FakeGetReq
                         MockPost.return_value = FakePostReq
                         MockItem.return_value = {
@@ -244,6 +244,254 @@ class SLNSharedTests(BaseMainTestCase):
             'bar'  # from setUp()
         )
         assert url == expected
+
+    def test_can_get_taken(self):
+        class FakeReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo9'
+                }
+
+        with patch('requests.get') as MockGet:
+            MockGet.return_value = FakeReq
+            taken = self.shared.get_assessment_taken(
+                'fake-bank',
+                'foo9')
+            assert taken['id'] == 'foo9'
+
+    def test_can_create_taken(self):
+        class FakeGetReq:
+            @staticmethod
+            def json():
+                return []
+
+        class FakePostReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo8'
+                }
+
+        with patch('requests.get') as MockGet:
+            with patch('requests.post') as MockPost:
+                with patch('star_logo_nova.sln_shared.save_project') as MockSave:
+                    MockGet.return_value = FakeGetReq
+                    MockPost.return_value = FakePostReq
+
+                    taken = self.shared.create_assessment_taken(
+                        'fake-bank',
+                        'fake-offered',
+                        {
+                            'title': 'project',
+                            'description': 'what?',
+                            'user_id': 'me',
+                            'project_string': '123'
+                        })
+                    assert taken['id'] == 'foo8'
+                    assert MockSave.called
+
+    def test_can_create_taken_with_provenance(self):
+        class FakeGetReq:
+            @staticmethod
+            def json():
+                return []
+
+        class FakePostReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo8',
+                    'provenanceId': 'fake-parent'
+                }
+
+        with patch('requests.get') as MockGet:
+            with patch('requests.post') as MockPost:
+                with patch('star_logo_nova.sln_shared.save_project') as MockSave:
+                    MockGet.return_value = FakeGetReq
+                    MockPost.return_value = FakePostReq
+
+                    taken = self.shared.create_assessment_taken(
+                        'fake-bank',
+                        'fake-offered',
+                        {
+                            'title': 'project',
+                            'description': 'what?',
+                            'user_id': 'me',
+                            'project_string': '123',
+                            'provenanceId': 'foo'
+                        })
+                    assert taken['id'] == 'foo8'
+                    assert taken['provenanceId'] == 'fake-parent'
+                    assert MockSave.called
+
+    def test_create_taken_throws_exception_if_missing_parameters(self):
+        with pytest.raises(KeyError):
+            self.shared.create_assessment_taken(
+                'fake-bank',
+                'fake-offered',
+                {})
+        with pytest.raises(KeyError):
+            self.shared.create_assessment_taken(
+                'fake-bank',
+                'fake-offered',
+                {
+                    'title': 'project',
+                    'description': 'what?',
+                    'user_id': 'me'
+                })
+        with pytest.raises(KeyError):
+            self.shared.create_assessment_taken(
+                'fake-bank',
+                'fake-offered',
+                {
+                    'title': 'project',
+                    'description': 'what?',
+                    'project_string': 'algae'
+                })
+        with pytest.raises(KeyError):
+            self.shared.create_assessment_taken(
+                'fake-bank',
+                'fake-offered',
+                {
+                    'title': 'project',
+                    'user_id': 'foo',
+                    'project_string': 'algae'
+                })
+        with pytest.raises(KeyError):
+            self.shared.create_assessment_taken(
+                'fake-bank',
+                'fake-offered',
+                {
+                    'user_id': 'M',
+                    'description': 'what?',
+                    'project_string': 'algae'
+                })
+
+    def test_can_update_taken_with_title_description(self):
+        class FakeGetReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo10'
+                }
+
+        class FakePutReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo11'
+                }
+
+        with patch('requests.put') as MockPut:
+            with patch('requests.get') as MockGet:
+                with patch('star_logo_nova.sln_shared.save_project') as MockSave:
+                    MockPut.return_value = FakePutReq
+                    MockGet.return_value = FakeGetReq
+
+                    taken = self.shared.update_assessment_taken(
+                        'fake-bank',
+                        'fake-taken',
+                        {
+                            'title': 'project',
+                            'description': 'what?',
+                            'project_string': '123'
+                        })
+                    assert taken['id'] == 'foo11'
+                    assert MockPut.called
+                    assert MockSave.called
+                    assert not MockGet.called
+
+    def test_can_update_taken_without_title_description(self):
+        class FakeGetReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo12'
+                }
+
+        class FakePutReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo13'
+                }
+
+        with patch('requests.put') as MockPut:
+            with patch('requests.get') as MockGet:
+                with patch('star_logo_nova.sln_shared.save_project') as MockSave:
+                    MockPut.return_value = FakePutReq
+                    MockGet.return_value = FakeGetReq
+
+                    taken = self.shared.update_assessment_taken(
+                        'fake-bank',
+                        'fake-taken',
+                        {
+                            'project_string': '123'
+                        })
+                    assert taken['id'] == 'foo12'
+                    assert not MockPut.called
+                    assert MockSave.called
+                    assert MockGet.called
+
+    def test_update_taken_throws_exception_if_no_user_id_or_project_str(self):
+        with pytest.raises(KeyError):
+            self.shared.update_assessment_taken(
+                'fake-bank',
+                'fake-taken',
+                {})
+        with pytest.raises(KeyError):
+            self.shared.update_assessment_taken(
+                'fake-bank',
+                'fake-taken',
+                {
+                    'title': 'project',
+                    'description': 'what?',
+                    'user_id': 'me'
+                })
+
+    def test_can_save_project_string(self):
+        class FakeGetReq:
+            @staticmethod
+            def json():
+                return [{
+                    'id': '0'
+                }]
+
+        class FakePostReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo8'
+                }
+
+        with patch('requests.get') as MockGet:
+            with patch('requests.post') as MockPost:
+                MockGet.return_value = FakeGetReq
+                MockPost.return_value = FakePostReq
+
+                self.shared.save_project(
+                    'fake-bank',
+                    'fake-taken',
+                    {
+                        'project_string': '0x123'
+                    }
+                )
+
+                assert MockGet.called
+                assert MockPost.called
+
+    def test_saving_project_throws_exception_if_missing_parameters(self):
+        with pytest.raises(KeyError):
+            self.shared.save_project('fake-bank',
+                                     'fake-taken',
+                                     {})
+        with pytest.raises(KeyError):
+            self.shared.save_project('fake-bank',
+                                     'fake-taken',
+                                     {
+                                         'user_id': 'foo'
+                                     })
 
 
 # pylint: disable=R0904
@@ -353,7 +601,7 @@ class TestSLNProject(BaseMainTestCase):
             self.project.section = section
             return section
 
-        with patch('main.SLNProject.get_section') as MockSection:
+        with patch('star_logo_nova.SLNProject.get_section') as MockSection:
             MockSection.side_effect = side_effect
             self.project.section = None
             assert self.project.project_str == expected
@@ -405,7 +653,7 @@ class TestSLNProject(BaseMainTestCase):
             self.project.section = section
             return section
 
-        with patch('main.SLNProject.get_section') as MockSection:
+        with patch('star_logo_nova.SLNProject.get_section') as MockSection:
             MockSection.side_effect = side_effect
             self.project.section = None
             assert self.project.saved_at == '1910-10-20T02:05:15.000127Z'
@@ -421,7 +669,7 @@ class TestSLNProject(BaseMainTestCase):
         assert self.project.saved_at is None
 
     def test_get_parent_project_throws_exception_if_not_found(self):
-        with patch('main.SLNProject.get_all_results') as MockResults:
+        with patch('star_logo_nova.SLNProject.get_all_results') as MockResults:
             MockResults.return_value = [{
                 'id': 'foo1'
             }]
@@ -433,7 +681,7 @@ class TestSLNProject(BaseMainTestCase):
         assert self.project.parent_project is None
 
     def test_get_parent_project_throws_exception_if_no_provenance_id(self):
-        with patch('main.SLNProject.get_all_results') as MockResults:
+        with patch('star_logo_nova.SLNProject.get_all_results') as MockResults:
             MockResults.return_value = [{
                 'id': 'foo10'
             }]
@@ -445,7 +693,7 @@ class TestSLNProject(BaseMainTestCase):
         assert self.project.parent_project == 'foo1'
 
     def test_get_parent_project_returns_project(self):
-        with patch('main.SLNProject.get_all_results') as MockResults:
+        with patch('star_logo_nova.SLNProject.get_all_results') as MockResults:
             MockResults.return_value = [{
                 'id': 'foo1',
                 'sections': [{
@@ -464,7 +712,7 @@ class TestSLNProject(BaseMainTestCase):
             assert parent.id == 'foo1'
 
     def test_remixes_returns_children_projects(self):
-        with patch('main.SLNProject.get_all_results') as MockResults:
+        with patch('star_logo_nova.SLNProject.get_all_results') as MockResults:
             MockResults.return_value = [{
                 'id': 'foo1',
                 'provenanceId': 'foo'
@@ -598,7 +846,7 @@ class TestSLNProjects(BaseMainTestCase):
             project_self.section = section[0]
             return section
 
-        with patch('main.SLNProject.get_section',
+        with patch('star_logo_nova.SLNProject.get_section',
                    autospec=True) as MockSection:
             MockSection.side_effect = side_effect
 
