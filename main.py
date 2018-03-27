@@ -6,12 +6,12 @@ import codecs
 import functools
 import json
 import mimetypes
+import os
 import sqlite3
 import string
 import sys
 import urllib
 
-import os
 from datetime import datetime
 from natsort import natsorted
 from requests.exceptions import ConnectionError
@@ -24,6 +24,7 @@ import settings
 import utilities
 from main_utilities import get_configuration_file, set_configuration_file,\
     set_user_data_file
+from star_logo_nova import SLNProject, SLNProjects, sln_shared
 
 # http://pythonhosted.org/PyInstaller/runtime-information.html#run-time-information
 if getattr(sys, 'frozen', False):
@@ -385,156 +386,21 @@ class star_logo_nova:
             yield sln_index.read()
 
 
-class sln_shared:
-    """ Contains shared helper methods for StarLogoNova endpoints """
-    def _get_or_create_bank(self):
-        url = '{0}?genusTypeId={1}'.format(settings.QBANK_ASSESSMENT_ENDPOINT,
-                                           settings.DEFAULT_BANK_GENUS_TYPE)
-        req = requests.get(url, verify=False)
-        banks = req.json()
-        default_bank = None
-        if len(banks) > 0:
-            default_bank = banks[0]
-        else:
-            payload = {
-                'name': 'Default StarLogoNova Assessment Bank',
-                'description': 'For storing student projects',
-                'genusTypeId': settings.DEFAULT_BANK_GENUS_TYPE
-            }
-            req = requests.post(settings.QBANK_ASSESSMENT_ENDPOINT,
-                                json=payload,
-                                verify=False)
-            default_bank = req.json()
-        return default_bank
-
-    def _get_or_create_item(self, bank_id):
-        """ In the given bank, find or create a SLN item (extended
-            text interaction). """
-        base_url = '{0}/{1}/items'.format(
-            settings.QBANK_ASSESSMENT_ENDPOINT,
-            bank_id)
-        url = '{0}?genusTypeId={1}'.format(
-            base_url,
-            settings.DEFAULT_ITEM_GENUS_TYPE)
-        req = requests.get(url, verify=False)
-        items = req.json()
-        default_item = None
-        if len(items) > 0:
-            default_item = items[0]
-        else:
-            payload = {
-                'name': 'Default StarLogoNova Item',
-                'description': (
-                    'To accept student projects as Taken submissions'
-                ),
-                'genusTypeId': (
-                    'item-genus-type%3A'
-                    'qti-extended-text-interaction%40ODL.MIT.EDU'
-                ),
-                'question': {
-                    'genusTypeId': (
-                        'question-type%3A'
-                        'qti-extended-text-interaction%40ODL.MIT.EDU'
-                    ),
-                    'questionString': 'Please submit your SLN project'
-                }
-            }
-            req = requests.post(base_url,
-                                json=payload,
-                                verify=False)
-            default_item = req.json()
-        return default_item
-
-    def _get_or_create_assessment(self, bank_id, item_id):
-        """ In the given bank, find or create a SLN assessment,
-            and make sure the given item is part of it """
-        base_url = '{0}/{1}/assessments'.format(
-            settings.QBANK_ASSESSMENT_ENDPOINT,
-            bank_id)
-        url = '{0}?genusTypeId={1}'.format(
-            base_url,
-            settings.DEFAULT_ASSESSMENT_GENUS_TYPE)
-        req = requests.get(url, verify=False)
-        assessments = req.json()
-        default_assessment = None
-        if len(assessments) > 0:
-            default_assessment = assessments[0]
-
-            # check if the item is part of this assessment
-            url = '{0}/items'.format(base_url)
-            req = requests.get(url)
-            assessment_items = req.json()
-            current_item_ids = [i['id'] for i in assessment_items]
-            if len(current_item_ids) == 0 or item_id not in current_item_ids:
-                payload = {
-                    'itemIds': [item_id]
-                }
-                requests.post(base_url,
-                              json=payload,
-                              verify=False)
-        else:
-            payload = {
-                'name': 'Default StarLogoNova Assessment',
-                'description': (
-                    'To accept student projects as Taken submissions'
-                ),
-                'genusTypeId': settings.DEFAULT_ASSESSMENT_GENUS_TYPE,
-                'itemIds': [item_id]
-            }
-            req = requests.post(base_url,
-                                json=payload,
-                                verify=False)
-            default_assessment = req.json()
-        return default_assessment
-
-    def _get_or_create_assessment_offered(self, bank_id):
-        """ In the given bank, find or create a SLN item (extended
-            text interaction), assessment, and assessment offered.
-            For performance reasons, we'll assume if the offered exists,
-            we do **NOT** need to create the item / assessment. If the
-            offered does not exist, we will need to create the item and
-            assessment. """
-        base_url = '{0}/{1}/assessmentsoffered'.format(
-            settings.QBANK_ASSESSMENT_ENDPOINT,
-            bank_id)
-        url = '{0}?genusTypeId={1}'.format(
-            base_url,
-            settings.DEFAULT_OFFERED_GENUS_TYPE)
-        req = requests.get(url, verify=False)
-        offereds = req.json()
-        default_offered = None
-        if len(offereds) > 0:
-            default_offered = offereds[0]
-        else:
-            item = self._get_or_create_item(bank_id)
-            assessment = self._get_or_create_assessment(bank_id, item['id'])
-            url = '{0}/{1}/assessments/{2}/assessmentsoffered'.format(
-                settings.QBANK_ASSESSMENT_ENDPOINT,
-                bank_id,
-                assessment['id']
-            )
-            payload = {
-                'name': 'Default StarLogoNova AssessmentOffered',
-                'description': (
-                    'To accept student projects as Taken submissions'
-                ),
-                'genusTypeId': settings.DEFAULT_OFFERED_GENUS_TYPE
-            }
-            req = requests.post(url,
-                                json=payload,
-                                verify=False)
-            default_offered = req.json()
-        return default_offered
-
-
 class sln_projects(sln_shared):
     """ Shows the list of available StarLogoNova projects """
-    pass
+    def GET(self):
+        """ get all StarLogoNova projects """
+        bank = self._get_or_create_bank()
+        offered = self._get_or_create_assessment_offered(bank['id'])
+        req = requests.get(self._results_url(bank['id'], offered['id']),
+                           verify=False)
+        return SLNProjects(req.json())
 
 
 class sln_project(sln_shared):
     """ Manage a specific StarLogoNova project """
-    pass
+    def GET(self, project_id):
+        """ get the specific project """
 
 
 class user_session:

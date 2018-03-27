@@ -4,6 +4,7 @@ import web
 
 
 CORS_HEADERS = "Content-Type,Authorization,X-Api-Proxy,X-Api-Key,request-line,X-Api-Locale"
+CORS_METHODS = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
 
 
 class BaseClass:
@@ -16,7 +17,7 @@ class BaseClass:
         web.header("Access-Control-Allow-Origin", "*")
         web.header("Access-Control-Allow-Credentials", "true")
         web.header("Access-Control-Allow-Headers", CORS_HEADERS)
-        web.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+        web.header("Access-Control-Allow-Methods", CORS_METHODS)
         web.header("Access-Control-Max-Age", "1728000")
         return
 
@@ -47,7 +48,7 @@ def format_response(func):
         web.header("Access-Control-Allow-Origin", "*")
         web.header("Access-Control-Allow-Credentials", "true")
         web.header("Access-Control-Allow-Headers", CORS_HEADERS)
-        web.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+        web.header("Access-Control-Allow-Methods", CORS_METHODS)
         web.header("Access-Control-Max-Age", "1728000")
         if isinstance(results, (dict, list)):
             return json.dumps(results)
@@ -64,7 +65,7 @@ def format_xml_response(func):
         web.header("Access-Control-Allow-Origin", "*")
         web.header("Access-Control-Allow-Credentials", "true")
         web.header("Access-Control-Allow-Headers", CORS_HEADERS)
-        web.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+        web.header("Access-Control-Allow-Methods", CORS_METHODS)
         web.header("Access-Control-Max-Age", "1728000")
         if isinstance(results, dict):
             return json.dumps(results)
@@ -80,7 +81,7 @@ def allow_cors(func):
         web.header("Access-Control-Allow-Origin", "*")
         web.header("Access-Control-Allow-Credentials", "true")
         web.header("Access-Control-Allow-Headers", CORS_HEADERS)
-        web.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+        web.header("Access-Control-Allow-Methods", CORS_METHODS)
         web.header("Access-Control-Max-Age", "1728000")
         return results
     return wrapper
