@@ -411,6 +411,15 @@ class sln_remix_project(sln_shared, utilities.BaseClass):
                                             str(time.time()))
         data['provenanceId'] = utilities.escape(project_id)
         bank = self.get_or_create_bank()
+
+        if 'title' not in data or 'description' not in data:
+            taken = self.get_assessment_taken(bank['id'], project_id)
+            project = SLNProject(taken)
+            if 'title' not in data:
+                data['title'] = 'Copy of {0}'.format(project.title)
+            if 'description' not in data:
+                data['description'] = project.description
+
         offered = self.get_or_create_assessment_offered(bank['id'])
         taken = self.create_assessment_taken(bank['id'],
                                              offered['id'],

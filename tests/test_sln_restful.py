@@ -138,6 +138,136 @@ class SLNRestfulTests(BaseMainTestCase):
                         assert MockTaken.called
                         assert MockSerialize.called
 
+    # pylint: disable=too-many-arguments
+    @patch('star_logo_nova.SLNProject.serialize',
+           new_callable=PropertyMock)
+    @patch('star_logo_nova.sln_shared.create_assessment_taken',
+           autospec=True)
+    @patch('star_logo_nova.sln_shared.get_assessment_taken')
+    @patch('star_logo_nova.sln_shared.get_or_create_assessment_offered')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_remixing_without_new_title_sets_default(self,
+                                                     MockBank,
+                                                     MockOffered,
+                                                     MockGetTaken,
+                                                     MockTaken,
+                                                     MockSerialize):
+        def side_effect(*args):
+            data = args[3]
+            assert 'user_id' in data
+            assert '--' in data['user_id']
+            assert 'provenanceId' in data
+            assert data['provenanceId'] == 'foo%3A3%40ODL'
+            assert 'title' in data
+            assert data['title'] == 'Copy of taken-text'
+            assert 'description' in data
+            assert data['description'] == 'bar'
+            return {
+                'id': 'taken'
+            }
+
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockOffered.return_value = {
+            'id': 'offered'
+        }
+        MockGetTaken.return_value = {
+            'id': 'taken2',
+            'displayName': {
+                'text': 'taken-text'
+            },
+            'description': {
+                'text': 'taken-description'
+            }
+        }
+        MockTaken.side_effect = side_effect
+        MockSerialize.return_value = {
+            'id': 'taken7'
+        }
+        url = '/api/remixProject/foo%3A3%40ODL'
+        payload = {
+            'description': 'bar',
+            'project_string': '123x'
+        }
+        req = self.app.post(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'})
+        self.ok(req)
+        data = self.json(req)
+        assert data['id'] == 'taken7'
+        assert MockBank.called
+        assert MockOffered.called
+        assert MockGetTaken.called
+        assert MockTaken.called
+        assert MockSerialize.called
+
+    # pylint: disable=too-many-arguments
+    @patch('star_logo_nova.SLNProject.serialize',
+           new_callable=PropertyMock)
+    @patch('star_logo_nova.sln_shared.create_assessment_taken',
+           autospec=True)
+    @patch('star_logo_nova.sln_shared.get_assessment_taken')
+    @patch('star_logo_nova.sln_shared.get_or_create_assessment_offered')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_remixing_without_new_description_sets_default(self,
+                                                           MockBank,
+                                                           MockOffered,
+                                                           MockGetTaken,
+                                                           MockTaken,
+                                                           MockSerialize):
+        def side_effect(*args):
+            data = args[3]
+            assert 'user_id' in data
+            assert '--' in data['user_id']
+            assert 'provenanceId' in data
+            assert data['provenanceId'] == 'foo%3A3%40ODL'
+            assert 'title' in data
+            assert data['title'] == 'foo'
+            assert 'description' in data
+            assert data['description'] == 'taken-description'
+            return {
+                'id': 'taken'
+            }
+
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockOffered.return_value = {
+            'id': 'offered'
+        }
+        MockGetTaken.return_value = {
+            'id': 'taken3',
+            'displayName': {
+                'text': 'taken-text'
+            },
+            'description': {
+                'text': 'taken-description'
+            }
+        }
+        MockTaken.side_effect = side_effect
+        MockSerialize.return_value = {
+            'id': 'taken7'
+        }
+        url = '/api/remixProject/foo%3A3%40ODL'
+        payload = {
+            'title': 'foo',
+            'project_string': '123x'
+        }
+        req = self.app.post(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'})
+        self.ok(req)
+        data = self.json(req)
+        assert data['id'] == 'taken7'
+        assert MockBank.called
+        assert MockOffered.called
+        assert MockGetTaken.called
+        assert MockTaken.called
+        assert MockSerialize.called
+
     def test_can_create_a_new_project(self):
         def side_effect(*args):
             data = args[3]

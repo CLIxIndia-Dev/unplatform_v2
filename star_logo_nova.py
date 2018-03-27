@@ -72,10 +72,11 @@ class SLNProject:
         # First question (1 of 1)
         # Last response
         # Extended text interaction response
-        latest_response = self.section['questions'][0]['response']
-        if 'missingResponse' in latest_response:
-            return None
-        return latest_response['text']['text']
+        question = self.section['questions'][0]
+        if question['responded']:
+            latest_response = question['response']
+            return latest_response['text']['text']
+        return None
 
     @property
     def created_at(self):
@@ -96,13 +97,14 @@ class SLNProject:
         # First question (1 of 1)
         # Last response
         # Submission time, if present
-        latest_response = self.section['questions'][0]['response']
-        if 'missingResponse' in latest_response:
-            return None
-        submission_time_with_tz = latest_response['submissionTime']
-        submission_time_with_tz['tzinfo'] = pytz.utc
-        submission_time = datetime(**submission_time_with_tz)
-        return submission_time.strftime(self.time_format)
+        question = self.section['questions'][0]
+        if question['responded']:
+            latest_response = question['response']
+            submission_time_with_tz = latest_response['submissionTime']
+            submission_time_with_tz['tzinfo'] = pytz.utc
+            submission_time = datetime(**submission_time_with_tz)
+            return submission_time.strftime(self.time_format)
+        return None
 
     @property
     def parent_project(self):
@@ -338,21 +340,28 @@ class sln_shared:
               don't expect to be able to track who made
               every single save / update to a project.
         """
-        if 'title' not in data:
-            raise KeyError('title required in data')
-        if 'description' not in data:
-            raise KeyError('description required in data')
         if 'user_id' not in data:
             raise KeyError('user_id required in data')
-        if 'project_string' not in data:
-            raise KeyError('project_string required in data')
         url = '{0}/{1}/assessmentsoffered/{2}/assessmentstaken'.format(
             settings.QBANK_ASSESSMENT_ENDPOINT,
             bank_id,
             offered_id)
+        # ``title``, ``description``, and ``project_string``
+        #    are not sent for new projects
+        # They might be sent already with remixes?
+        title = 'StarLogoNova project'
+        if 'title' in data:
+            title = data['title']
+        description = 'Student submitted project'
+        if 'description' in data:
+            description = data['description']
+
+        if 'project_string' not in data:
+            data['project_string'] = ''
+
         payload = {
-            'displayName': data['title'],
-            'description': data['description']
+            'displayName': title,
+            'description': description
         }
         if 'provenanceId' in data:
             payload['provenanceId'] = data['provenanceId']
@@ -425,7 +434,7 @@ class sln_shared:
                            verify=False)
         questions = req.json()
         url = '{0}/{1}/submit'.format(url,
-                                      questions[0]['id'])
+                                      questions['data'][0]['id'])
         payload = {
             'text': data['project_string']
         }

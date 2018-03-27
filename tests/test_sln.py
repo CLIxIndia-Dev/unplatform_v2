@@ -44,6 +44,7 @@ class StarLogoNovaTests(BaseMainTestCase):
         self.code(req, 200)
 
 
+# pylint: disable=too-many-public-methods
 class SLNSharedTests(BaseMainTestCase):
     """ Test the helper class that grabs the bank / offered IDs.
         Mock out the requests.
@@ -325,6 +326,34 @@ class SLNSharedTests(BaseMainTestCase):
                     assert taken['provenanceId'] == 'fake-parent'
                     assert MockSave.called
 
+    def test_create_taken_with_only_user_id(self):
+        class FakeGetReq:
+            @staticmethod
+            def json():
+                return []
+
+        class FakePostReq:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo11'
+                }
+
+        with patch('requests.get') as MockGet:
+            with patch('requests.post') as MockPost:
+                with patch('star_logo_nova.sln_shared.save_project') as MockSave:
+                    MockGet.return_value = FakeGetReq
+                    MockPost.return_value = FakePostReq
+
+                    taken = self.shared.create_assessment_taken(
+                        'fake-bank',
+                        'fake-offered',
+                        {
+                            'user_id': 'me'
+                        })
+                    assert taken['id'] == 'foo11'
+                    assert MockSave.called
+
     def test_create_taken_throws_exception_if_missing_parameters(self):
         with pytest.raises(KeyError):
             self.shared.create_assessment_taken(
@@ -336,36 +365,7 @@ class SLNSharedTests(BaseMainTestCase):
                 'fake-bank',
                 'fake-offered',
                 {
-                    'title': 'project',
-                    'description': 'what?',
-                    'user_id': 'me'
-                })
-        with pytest.raises(KeyError):
-            self.shared.create_assessment_taken(
-                'fake-bank',
-                'fake-offered',
-                {
-                    'title': 'project',
-                    'description': 'what?',
-                    'project_string': 'algae'
-                })
-        with pytest.raises(KeyError):
-            self.shared.create_assessment_taken(
-                'fake-bank',
-                'fake-offered',
-                {
-                    'title': 'project',
-                    'user_id': 'foo',
-                    'project_string': 'algae'
-                })
-        with pytest.raises(KeyError):
-            self.shared.create_assessment_taken(
-                'fake-bank',
-                'fake-offered',
-                {
-                    'user_id': 'M',
-                    'description': 'what?',
-                    'project_string': 'algae'
+                    'project_str': 'me'
                 })
 
     def test_can_update_taken_with_title_description(self):
@@ -454,9 +454,11 @@ class SLNSharedTests(BaseMainTestCase):
         class FakeGetReq:
             @staticmethod
             def json():
-                return [{
-                    'id': '0'
-                }]
+                return {
+                    'data': [{
+                        'id': '0'
+                    }]
+                }
 
         class FakePostReq:
             @staticmethod
@@ -494,7 +496,7 @@ class SLNSharedTests(BaseMainTestCase):
                                      })
 
 
-# pylint: disable=R0904
+# pylint: disable=too-many-public-methods
 class TestSLNProject(BaseMainTestCase):
     """ Make sure our project wrapper works as expected """
     def setUp(self):
@@ -576,6 +578,7 @@ class TestSLNProject(BaseMainTestCase):
         expected = 'bar'
         self.project.section = {
             'questions': [{
+                'responded': True,
                 'response': {
                     'text': {
                         'text': expected
@@ -591,6 +594,7 @@ class TestSLNProject(BaseMainTestCase):
         def side_effect():
             section = {
                 'questions': [{
+                    'responded': True,
                     'response': {
                         'text': {
                             'text': expected
@@ -609,9 +613,8 @@ class TestSLNProject(BaseMainTestCase):
     def test_project_str_returns_none_if_no_submission(self):
         self.project.section = {
             'questions': [{
-                'response': {
-                    'missingResponse': 1
-                }
+                'responded': False,
+                'response': None
             }]
         }
         assert self.project.project_str is None
@@ -622,6 +625,7 @@ class TestSLNProject(BaseMainTestCase):
     def test_saved_at_returns_last_response_time_string(self):
         self.project.section = {
             'questions': [{
+                'responded': True,
                 'response': {
                     'submissionTime': {
                         'year': 1900,
@@ -637,6 +641,7 @@ class TestSLNProject(BaseMainTestCase):
         def side_effect():
             section = {
                 'questions': [{
+                    'responded': True,
                     'response': {
                         'submissionTime': {
                             'year': 1910,
@@ -661,9 +666,8 @@ class TestSLNProject(BaseMainTestCase):
     def test_saved_at_returns_none_if_no_submission(self):
         self.project.section = {
             'questions': [{
-                'response': {
-                    'missingResponse': 1
-                }
+                'responded': False,
+                'response': None
             }]
         }
         assert self.project.saved_at is None
@@ -734,6 +738,7 @@ class TestSLNProject(BaseMainTestCase):
         expected = 'bar'
         self.project.section = {
             'questions': [{
+                'responded': True,
                 'response': {
                     'text': {
                         'text': expected
@@ -816,6 +821,7 @@ class TestSLNProjects(BaseMainTestCase):
             if project_self.my_map['id'] == 'foo':
                 section = [{
                     'questions': [{
+                        'responded': True,
                         'response': {
                             'text': {
                                 'text': 'project 1'
@@ -831,6 +837,7 @@ class TestSLNProjects(BaseMainTestCase):
             else:
                 section = [{
                     'questions': [{
+                        'responded': True,
                         'response': {
                             'text': {
                                 'text': 'project 2'
