@@ -381,11 +381,10 @@ class oea_tool:
 
 class star_logo_nova:
     """ Opens up the StarLogoNova editor """
-    @require_login
     @utilities.format_html_response
     # pylint: disable=unused-argument
     def GET(self, path=None):
-        sln_file_path = '{0}/static/star_logo_nova/index.html'.format(ABS_PATH)
+        sln_file_path = '{0}/static/editor/editor.html'.format(ABS_PATH)
         with open(sln_file_path, 'rb') as sln_index:
             yield sln_index.read()
 
