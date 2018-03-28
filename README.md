@@ -62,6 +62,8 @@ A basic bundle includes:
 
 This bundle does **not** include actual ePub content nor assessments, and the output of this script is a zip file. The distributor is responsible for unzipping the bundle, adding in ePub content and assessment data, and then re-packing for final distribution.
 
+For more detailed instructions on building a basic bundle and the technical prerequisites on the build machine, please [read the Wiki page about the process](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform).
+
 **NOTES:**
 
 * You MUST run this script on the target platform. I.e. to bundle for Windows, run this on Windows.
