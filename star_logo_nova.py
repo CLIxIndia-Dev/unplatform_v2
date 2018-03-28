@@ -104,7 +104,7 @@ class SLNProject:
             submission_time_with_tz['tzinfo'] = pytz.utc
             submission_time = datetime(**submission_time_with_tz)
             return submission_time.strftime(self.time_format)
-        return None
+        return self.created_at
 
     @property
     def parent_project(self):
@@ -331,7 +331,7 @@ class sln_shared:
         """ data should be all the editable things for a project:
             * title (displayName)
             * description (description)
-            * project_string (the text response)
+            * project_str (the text response)
             * user_id (some randomly generated agentId ... probably
                        sessionId + timestamp)
 
@@ -346,7 +346,7 @@ class sln_shared:
             settings.QBANK_ASSESSMENT_ENDPOINT,
             bank_id,
             offered_id)
-        # ``title``, ``description``, and ``project_string``
+        # ``title``, ``description``, and ``project_str``
         #    are not sent for new projects
         # They might be sent already with remixes?
         title = 'StarLogoNova project'
@@ -356,8 +356,8 @@ class sln_shared:
         if 'description' in data:
             description = data['description']
 
-        if 'project_string' not in data:
-            data['project_string'] = ''
+        if 'project_str' not in data:
+            data['project_str'] = ''
 
         payload = {
             'displayName': title,
@@ -374,18 +374,21 @@ class sln_shared:
         # Now submit the text response
         taken = req.json()
         self.save_project(bank_id, taken['id'], data)
+
+        # Now we need to get the updated taken (with timestamp)
+        taken = self.get_assessment_taken(bank_id, taken['id'])
         return taken
 
     def update_assessment_taken(self, bank_id, taken_id, data):
         """ data should be all the editable things for a project:
             * title (displayName)
             * description (description)
-            * project_string (the text response)
+            * project_str (the text response)
             * user_id (some randomly generated agentId ... probably
                        sessionId + timestamp)
         """
-        if 'project_string' not in data:
-            raise KeyError('project_string required in data')
+        if 'project_str' not in data:
+            raise KeyError('project_str required in data')
 
         url = '{0}/{1}/assessmentstaken/{2}'.format(
             settings.QBANK_ASSESSMENT_ENDPOINT,
@@ -396,23 +399,17 @@ class sln_shared:
             payload['displayName'] = data['title']
         if 'description' in data:
             payload['description'] = data['description']
-        taken = None
+
         if 'title' in data or 'description' in data:
             req = requests.put(url,
                                json=payload,
                                verify=False)
             taken = req.json()
-        # Re-submit the project_string
+
+        # Re-submit the project_str
         self.save_project(bank_id, taken_id, data)
 
-        # Then we need to return the taken if we didn't grab it from the PUT
-        if taken is None:
-            url = '{0}/{1}/assessmentstaken/{2}'.format(
-                settings.QBANK_ASSESSMENT_ENDPOINT,
-                bank_id,
-                taken_id)
-            req = requests.get(url, verify=False)
-            taken = req.json()
+        taken = self.get_assessment_taken(bank_id, taken_id)
         return taken
 
     def save_project(self, bank_id, taken_id, data):
@@ -420,10 +417,10 @@ class sln_shared:
             Can be used for project creation and also updating.
 
             ``data`` is required to have one field:
-                * project_string
+                * project_str
         """
-        if 'project_string' not in data:
-            raise KeyError('project_string required in data')
+        if 'project_str' not in data:
+            raise KeyError('project_str required in data')
         # First, get the question ID
         url = '{0}/{1}/assessmentstaken/{2}/questions'.format(
             settings.QBANK_ASSESSMENT_ENDPOINT,
@@ -436,7 +433,7 @@ class sln_shared:
         url = '{0}/{1}/submit'.format(url,
                                       questions['data'][0]['id'])
         payload = {
-            'text': data['project_string']
+            'text': data['project_str']
         }
         req = requests.post(url,
                             json=payload,

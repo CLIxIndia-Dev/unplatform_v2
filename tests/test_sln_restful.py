@@ -80,7 +80,7 @@ class SLNRestfulTests(BaseMainTestCase):
                     payload = {
                         'title': 'foo',
                         'description': 'bar',
-                        'project_string': '123x'
+                        'project_str': '123x'
                     }
                     req = self.app.patch(
                         url,
@@ -124,7 +124,7 @@ class SLNRestfulTests(BaseMainTestCase):
                         payload = {
                             'title': 'foo',
                             'description': 'bar',
-                            'project_string': '123x'
+                            'project_str': '123x'
                         }
                         req = self.app.post(
                             url,
@@ -188,7 +188,7 @@ class SLNRestfulTests(BaseMainTestCase):
         url = '/api/remixProject/foo%3A3%40ODL'
         payload = {
             'description': 'bar',
-            'project_string': '123x'
+            'project_str': '123x'
         }
         req = self.app.post(
             url,
@@ -253,7 +253,7 @@ class SLNRestfulTests(BaseMainTestCase):
         url = '/api/remixProject/foo%3A3%40ODL'
         payload = {
             'title': 'foo',
-            'project_string': '123x'
+            'project_str': '123x'
         }
         req = self.app.post(
             url,
@@ -297,7 +297,7 @@ class SLNRestfulTests(BaseMainTestCase):
                         payload = {
                             'title': 'foo',
                             'description': 'bar',
-                            'project_string': '123x'
+                            'project_str': '123x'
                         }
                         req = self.app.post(
                             url,
