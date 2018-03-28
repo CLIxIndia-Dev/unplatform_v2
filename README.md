@@ -99,6 +99,9 @@ Pep8 is configured in ``pytest.ini``.
 
 Pylint is configured in ``.pylintrc``.
 
+# StarLogoNova support
+**NOTE** StarLogoNova support requires `qbank` `3.18.1` or higher.
+
 # Logging
 
 Unplatform will log UI click events to an internal logging API, which is routed

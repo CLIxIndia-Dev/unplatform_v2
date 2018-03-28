@@ -190,7 +190,9 @@ class OEATests(BaseMainTestCase):
         if not os.path.exists(self.oea_dir):
             os.makedirs(self.oea_dir)
         if not os.path.isfile(self.oea_index):
-            shutil.copyfile('{0}/tests/fixtures/oea/index.html'.format(ABS_PATH), self.oea_index)
+            shutil.copyfile(
+                '{0}/tests/fixtures/oea/index.html'.format(ABS_PATH),
+                self.oea_index)
 
     def tearDown(self):
         super(OEATests, self).tearDown()
@@ -233,7 +235,9 @@ class ContentTests(BaseMainTestCase):
         if not os.path.exists(self.content_dir):
             os.makedirs(self.content_dir)
         if not os.path.isfile(self.content_index):
-            shutil.copyfile('{0}/tests/fixtures/content/index.html'.format(ABS_PATH), self.content_index)
+            shutil.copyfile(
+                '{0}/tests/fixtures/content/index.html'.format(ABS_PATH),
+                self.content_index)
 
     def tearDown(self):
         super(ContentTests, self).tearDown()
@@ -265,7 +269,9 @@ class ToolTests(BaseMainTestCase):
         if not os.path.exists(self.tool_dir):
             os.makedirs(self.tool_dir)
         if not os.path.isfile(self.tool_index):
-            shutil.copyfile('{0}/tests/fixtures/tool/index.html'.format(ABS_PATH), self.tool_index)
+            shutil.copyfile(
+                '{0}/tests/fixtures/tool/index.html'.format(ABS_PATH),
+                self.tool_index)
 
     def tearDown(self):
         super(ToolTests, self).tearDown()
@@ -499,7 +505,8 @@ class LoggingTests(BaseMainTestCase):
         )
 
         call_params = mock_post.call_args_list[0][1]
-        self.assertEqual(call_params['headers']['x-api-proxy'], 'none_provided')
+        self.assertEqual(call_params['headers']['x-api-proxy'],
+                         'none_provided')
         self.assertEqual(call_params['json']['data'], payload)
 
     @mock.patch('main.requests.get', side_effect=mocked_logging_get)
