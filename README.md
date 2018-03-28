@@ -13,8 +13,8 @@ cd ui
 npm install
 ```
 
-Once you have your environment set up, you need to compile the UI elements
-(see Compiling the UI section for more details).
+Once you have your environment set up, you need to compile the UI JavaScript code
+(see `Compiling the UI section` for more details).
 
 ## Initializing the database
 For a first-time install or migrating from an earlier version (which used filespace to store sessions), you have to create the `sqlite` database that will hold the web sessions. If you do not, you will see an error in the `unplatform` terminal like:
