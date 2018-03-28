@@ -1,3 +1,7 @@
+## [2.1.0] - 2018-03-28
+### Added
+- Support for StarLogoNova API endpoints.
+
 ## [2.0.6] - 2018-03-20
 ### Changed
 - Build script uses case insensitive search to copy
@@ -290,6 +294,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.1.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.6...v2.1.0
 [2.0.6]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.5...v2.0.6
 [2.0.5]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.4...v2.0.5
 [2.0.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.0.3...v2.0.4
