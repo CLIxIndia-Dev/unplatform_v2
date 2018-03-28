@@ -1,6 +1,7 @@
-import pytz
 import re
 import requests
+
+import pytz
 
 from datetime import datetime
 
@@ -123,7 +124,7 @@ class SLNProject:
         parent_takens = [taken
                          for taken in takens
                          if taken['id'] == self.my_map['provenanceId']]
-        if len(parent_takens) == 0:
+        if parent_takens:
             raise KeyError('parent taken not found ...')
         parent_taken = parent_takens[0]
         return SLNProject(parent_taken)
@@ -185,7 +186,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         banks = req.json()
         default_bank = None
-        if len(banks) > 0:
+        if banks:
             default_bank = banks[0]
         else:
             payload = {
@@ -211,7 +212,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         items = req.json()
         default_item = None
-        if len(items) > 0:
+        if items:
             default_item = items[0]
         else:
             payload = {
@@ -249,7 +250,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         assessments = req.json()
         default_assessment = None
-        if len(assessments) > 0:
+        if assessments > 0:
             default_assessment = assessments[0]
 
             # check if the item is part of this assessment
@@ -257,7 +258,7 @@ class sln_shared:
             req = requests.get(url)
             assessment_items = req.json()
             current_item_ids = [i['id'] for i in assessment_items]
-            if len(current_item_ids) == 0 or item_id not in current_item_ids:
+            if current_item_ids or item_id not in current_item_ids:
                 payload = {
                     'itemIds': [item_id]
                 }
@@ -295,7 +296,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         offereds = req.json()
         default_offered = None
-        if len(offereds) > 0:
+        if offereds > 0:
             default_offered = offereds[0]
         else:
             item = self.get_or_create_item(bank_id)

@@ -1,8 +1,9 @@
 import functools
 import json
-import web
 
 from urllib import quote
+
+import web
 
 
 CORS_HEADERS = "Content-Type,Authorization,X-Api-Proxy,X-Api-Key,request-line,X-Api-Locale"
