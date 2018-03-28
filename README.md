@@ -100,7 +100,7 @@ Pep8 is configured in ``pytest.ini``.
 Pylint is configured in ``.pylintrc``.
 
 # StarLogoNova support
-**NOTE** StarLogoNova support requires `qbank` `3.18.0` or higher.
+**NOTE** StarLogoNova support requires `qbank` `3.18.1` or higher.
 
 # Logging
 
