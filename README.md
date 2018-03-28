@@ -14,7 +14,7 @@ npm install
 ```
 
 Once you have your environment set up, you need to compile the UI JavaScript code
-(see `Compiling the UI section` for more details).
+(see [Compiling the UI section](#compiling-the-ui-only-ie-for-development--testing)) for more details).
 
 ## Initializing the database
 For a first-time install or migrating from an earlier version (which used filespace to store sessions), you have to create the `sqlite` database that will hold the web sessions. If you do not, you will see an error in the `unplatform` terminal like:
@@ -51,8 +51,10 @@ npm run compile:ui
 This will run `webpack` and dump the compiled CSS and JavaScript files in to the `static/ui` directory.
 
 
-# Bundling Unplatform code
-A shell script, `build_script_all_ssl.sh`, is included in this repository to create an `unplatform` bundle. An `unplatform` bundle includes:
+# Building a Basic Unplatform bundle
+A shell script, `build_script_all_ssl.sh`, is included in this repository to create a basic `unplatform` bundle. A basic `unplatform` bundle is an intermediate step that creates a working version of `unplatform` with interactive tools, but does not make an easy, one-click installable file (i.e. a final distributable) with ePubs and assessments. To learn how to create a final distribution, see the section below.
+
+A basic bundle includes:
 
 * Unplatform epub reader
 * QBank assessment engine
@@ -90,7 +92,7 @@ python test coverage.
 
 Run the test suite with this command:
 
-```bash
+```
 pytest
 ```
 
@@ -247,6 +249,7 @@ More detailed documentation about how to use the platform is located [in the wik
 * [Installing unplatform and where to put data files](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Field-installation-and-data-files).
 * [Testing the installation to make sure it works](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Verifying-the-Bundle).
 * [List of interactive tools and how to get them in different languages](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Interactive-Tools).
+* [SSL certificates](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/SSL-Certificates)
 
 # ACKNOWLEDGEMENTS
 This software uses many third-party software packages, and the authors are grateful
