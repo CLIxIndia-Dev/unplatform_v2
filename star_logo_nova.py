@@ -1,9 +1,9 @@
 import re
-import requests
-
-import pytz
 
 from datetime import datetime
+
+import pytz
+import requests
 
 import settings
 
