@@ -124,7 +124,7 @@ class SLNProject:
         parent_takens = [taken
                          for taken in takens
                          if taken['id'] == self.my_map['provenanceId']]
-        if parent_takens:
+        if not parent_takens:
             raise KeyError('parent taken not found ...')
         parent_taken = parent_takens[0]
         return SLNProject(parent_taken)
@@ -250,7 +250,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         assessments = req.json()
         default_assessment = None
-        if assessments > 0:
+        if assessments:
             default_assessment = assessments[0]
 
             # check if the item is part of this assessment
@@ -296,7 +296,7 @@ class sln_shared:
         req = requests.get(url, verify=False)
         offereds = req.json()
         default_offered = None
-        if offereds > 0:
+        if offereds:
             default_offered = offereds[0]
         else:
             item = self.get_or_create_item(bank_id)

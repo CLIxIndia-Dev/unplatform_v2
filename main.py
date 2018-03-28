@@ -64,11 +64,9 @@ urls = (
     # These are for StarLogoNova
     '/editor/(.*)/?', 'star_logo_nova',
     '/editor/?', 'star_logo_nova',
-    '/api/getProjects/?', 'sln_get_projects',
-    '/api/getProject/(.*)/?', 'sln_get_project',
-    '/api/newProject/?', 'sln_new_project',
-    '/api/saveProject/(.*)/?', 'sln_save_project',
-    '/api/remixProject/(.*)/?', 'sln_remix_project',
+    '/api/projects/?', 'sln_projects',
+    '/api/project/(.*)/remixes/?', 'sln_remix_project',
+    '/api/project/(.*[^/])/?', 'sln_project',
     # End SLN endpoints
     '/common/(.*)', 'common_tools',
     '/content/(.*)', 'content',
@@ -389,7 +387,7 @@ class star_logo_nova:
             yield sln_index.read()
 
 
-class sln_get_projects(sln_shared):
+class sln_projects(sln_shared, utilities.BaseClass):
     """ Shows the list of available StarLogoNova projects """
     @utilities.format_response
     def GET(self):
@@ -399,6 +397,19 @@ class sln_get_projects(sln_shared):
         req = requests.get(self.results_url(bank['id'], offered['id']),
                            verify=False)
         return SLNProjects(req.json()).serialize
+
+    @utilities.format_response
+    def POST(self):
+        """ create a new StarLogoNova project """
+        data = self.data()
+        data['user_id'] = '{0}--{1}'.format(session.session_id,
+                                            str(time.time()))
+        bank = self.get_or_create_bank()
+        offered = self.get_or_create_assessment_offered(bank['id'])
+        taken = self.create_assessment_taken(bank['id'],
+                                             offered['id'],
+                                             data)
+        return SLNProject(taken).serialize
 
 
 class sln_remix_project(sln_shared, utilities.BaseClass):
@@ -427,24 +438,8 @@ class sln_remix_project(sln_shared, utilities.BaseClass):
         return SLNProject(taken).serialize
 
 
-class sln_new_project(sln_shared, utilities.BaseClass):
-    """ New StarLogoNova project """
-    @utilities.format_response
-    def POST(self):
-        """ create a new StarLogoNova project """
-        data = self.data()
-        data['user_id'] = '{0}--{1}'.format(session.session_id,
-                                            str(time.time()))
-        bank = self.get_or_create_bank()
-        offered = self.get_or_create_assessment_offered(bank['id'])
-        taken = self.create_assessment_taken(bank['id'],
-                                             offered['id'],
-                                             data)
-        return SLNProject(taken).serialize
-
-
-class sln_save_project(sln_shared, utilities.BaseClass):
-    """ Save an existing project """
+class sln_project(sln_shared, utilities.BaseClass):
+    """ Manage a specific StarLogoNova project """
     @utilities.format_response
     def PATCH(self, project_id):
         """ Save the data for an existing StarLogoNova project """
@@ -455,9 +450,6 @@ class sln_save_project(sln_shared, utilities.BaseClass):
                                              data)
         return SLNProject(taken).serialize
 
-
-class sln_get_project(sln_shared):
-    """ Get a specific StarLogoNova project """
     @utilities.format_response
     def GET(self, project_id):
         """ get the specific project """

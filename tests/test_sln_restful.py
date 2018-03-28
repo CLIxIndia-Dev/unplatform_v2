@@ -30,7 +30,7 @@ class SLNRestfulTests(BaseMainTestCase):
                         MockSerialize.return_value = [{
                             'id': 'taken1'
                         }]
-                        url = '/api/getProjects'
+                        url = '/api/projects'
                         req = self.app.get(url)
                         data = self.json(req)
                         assert len(data) == 1
@@ -54,7 +54,7 @@ class SLNRestfulTests(BaseMainTestCase):
                     MockSerialize.return_value = {
                         'id': 'taken2'
                     }
-                    url = '/api/getProject/foo%3A1%40ODL'
+                    url = '/api/project/foo%3A1%40ODL'
                     req = self.app.get(url)
                     data = self.json(req)
                     assert data['id'] == 'taken2'
@@ -76,7 +76,7 @@ class SLNRestfulTests(BaseMainTestCase):
                     MockSerialize.return_value = {
                         'id': 'taken6'
                     }
-                    url = '/api/saveProject/foo%3A2%40ODL'
+                    url = '/api/project/foo%3A2%40ODL'
                     payload = {
                         'title': 'foo',
                         'description': 'bar',
@@ -120,7 +120,7 @@ class SLNRestfulTests(BaseMainTestCase):
                         MockSerialize.return_value = {
                             'id': 'taken7'
                         }
-                        url = '/api/remixProject/foo%3A3%40ODL'
+                        url = '/api/project/foo%3A3%40ODL/remixes'
                         payload = {
                             'title': 'foo',
                             'description': 'bar',
@@ -185,7 +185,7 @@ class SLNRestfulTests(BaseMainTestCase):
         MockSerialize.return_value = {
             'id': 'taken7'
         }
-        url = '/api/remixProject/foo%3A3%40ODL'
+        url = '/api/project/foo%3A3%40ODL/remixes'
         payload = {
             'description': 'bar',
             'project_str': '123x'
@@ -250,7 +250,7 @@ class SLNRestfulTests(BaseMainTestCase):
         MockSerialize.return_value = {
             'id': 'taken7'
         }
-        url = '/api/remixProject/foo%3A3%40ODL'
+        url = '/api/project/foo%3A3%40ODL/remixes'
         payload = {
             'title': 'foo',
             'project_str': '123x'
@@ -293,7 +293,7 @@ class SLNRestfulTests(BaseMainTestCase):
                         MockSerialize.return_value = {
                             'id': 'taken5'
                         }
-                        url = '/api/newProject'
+                        url = '/api/projects'
                         payload = {
                             'title': 'foo',
                             'description': 'bar',
