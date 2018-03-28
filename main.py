@@ -6,12 +6,13 @@ import codecs
 import functools
 import json
 import mimetypes
+import os
 import sqlite3
 import string
 import sys
+import time
 import urllib
 
-import os
 from datetime import datetime
 from natsort import natsorted
 from requests.exceptions import ConnectionError
@@ -24,6 +25,7 @@ import settings
 import utilities
 from main_utilities import get_configuration_file, set_configuration_file,\
     set_user_data_file
+from star_logo_nova import SLNProject, SLNProjects, sln_shared
 
 HTML_PATH = '/var/www/html/unplatform'
 ABS_PATH = '/var/www/webapps'
@@ -31,17 +33,24 @@ ABS_PATH = '/var/www/webapps'
 web.config.debug = False
 
 urls = (
-    '/api/v1/configuration', 'configuration',
-    '/api/v1/session', 'user_session',
-    '/api/appdata', 'generic_logging',
-    '/datastore_path', 'bootloader_storage_path',
-    '/version', 'version',
-    '/modules_list', 'modules_list',
-    '/oea/(.*)', 'oea_tool',
-    '/oea', 'oea_tool',
+    '/api/v1/configuration/?', 'configuration',
+    '/api/v1/session/?', 'user_session',
+    '/api/appdata/?', 'generic_logging',
+    '/datastore_path/?', 'bootloader_storage_path',
+    '/version/?', 'version',
+    '/modules_list/?', 'modules_list',
+    '/oea/(.*)/?', 'oea_tool',
+    '/oea/?', 'oea_tool',
+    # These are for StarLogoNova
+    '/editor/(.*)/?', 'star_logo_nova',
+    '/editor/?', 'star_logo_nova',
+    '/api/projects/?', 'sln_projects',
+    '/api/project/(.*)/remixes/?', 'sln_remix_project',
+    '/api/project/(.*[^/])/?', 'sln_project',
+    # End SLN endpoints
     '/common/(.*)', 'common_tools',
     '/content/(.*)', 'content',
-    '/reset_session', 'reset_session',
+    '/reset_session/?', 'reset_session',
     '/(.*)', 'index'
 )
 app = web.application(urls, locals())
@@ -333,6 +342,7 @@ class modules_list:
 
 
 class oea_tool:
+    """ Opens up the OpenEmbeddedAssessments player """
     @require_login
     @utilities.format_html_response
     # pylint: disable=unused-argument
@@ -340,6 +350,87 @@ class oea_tool:
         oea_file_path = '{0}/static/oea/index.html'.format(HTML_PATH)
         with open(oea_file_path, 'rb') as oea_index:
             yield oea_index.read()
+
+
+class star_logo_nova:
+    """ Opens up the StarLogoNova editor """
+    @utilities.format_html_response
+    # pylint: disable=unused-argument
+    def GET(self, path=None):
+        sln_file_path = '{0}/static/editor/editor.html'.format(ABS_PATH)
+        with open(sln_file_path, 'rb') as sln_index:
+            yield sln_index.read()
+
+
+class sln_projects(sln_shared, utilities.BaseClass):
+    """ Shows the list of available StarLogoNova projects """
+    @utilities.format_response
+    def GET(self):
+        """ get all StarLogoNova projects """
+        bank = self.get_or_create_bank()
+        offered = self.get_or_create_assessment_offered(bank['id'])
+        req = requests.get(self.results_url(bank['id'], offered['id']),
+                           verify=False)
+        return SLNProjects(req.json()).serialize
+
+    @utilities.format_response
+    def POST(self):
+        """ create a new StarLogoNova project """
+        data = self.data()
+        data['user_id'] = '{0}--{1}'.format(session.session_id,
+                                            str(time.time()))
+        bank = self.get_or_create_bank()
+        offered = self.get_or_create_assessment_offered(bank['id'])
+        taken = self.create_assessment_taken(bank['id'],
+                                             offered['id'],
+                                             data)
+        return SLNProject(taken).serialize
+
+
+class sln_remix_project(sln_shared, utilities.BaseClass):
+    """ Create a remix project """
+    @utilities.format_response
+    def POST(self, project_id):
+        """ create a new StarLogoNova remixed project from an existing one """
+        data = self.data()
+        data['user_id'] = '{0}--{1}'.format(session.session_id,
+                                            str(time.time()))
+        data['provenanceId'] = utilities.escape(project_id)
+        bank = self.get_or_create_bank()
+
+        if 'title' not in data or 'description' not in data:
+            taken = self.get_assessment_taken(bank['id'], project_id)
+            project = SLNProject(taken)
+            if 'title' not in data:
+                data['title'] = 'Copy of {0}'.format(project.title)
+            if 'description' not in data:
+                data['description'] = project.description
+
+        offered = self.get_or_create_assessment_offered(bank['id'])
+        taken = self.create_assessment_taken(bank['id'],
+                                             offered['id'],
+                                             data)
+        return SLNProject(taken).serialize
+
+
+class sln_project(sln_shared, utilities.BaseClass):
+    """ Manage a specific StarLogoNova project """
+    @utilities.format_response
+    def PATCH(self, project_id):
+        """ Save the data for an existing StarLogoNova project """
+        data = self.data()
+        bank = self.get_or_create_bank()
+        taken = self.update_assessment_taken(bank['id'],
+                                             project_id,
+                                             data)
+        return SLNProject(taken).serialize
+
+    @utilities.format_response
+    def GET(self, project_id):
+        """ get the specific project """
+        bank = self.get_or_create_bank()
+        taken = self.get_assessment_taken(bank['id'], project_id)
+        return SLNProject(taken).serialize
 
 
 class user_session:
