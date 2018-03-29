@@ -1,7 +1,11 @@
 [![Build Status](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2.svg?branch=master)](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2)  [![Coverage Status](https://coveralls.io/repos/github/CLIxIndia-Dev/unplatform_v2/badge.svg?branch=master)](https://coveralls.io/github/CLIxIndia-Dev/unplatform_v2?branch=master)
 
 # Unplatform
-The `unplatform` application is a generic, browser-based `ePub2` reader that can also support embedded assessments and interactive tools. Documentation on the architecture, software components, and how to build / use `unplatform` are hosted on the [GitHub project wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki). It is highly recommended to read through the Wiki before using `unplatform`, since many questions should already be answered there. Some general documentation is also provided in this README.
+The `unplatform` application is a generic, browser-based `ePub2` reader that can also support embedded assessments and interactive tools. Documentation on the architecture, software components, and how to build / use `unplatform` are hosted on the [GitHub project wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki).
+
+It is highly recommended to read through the Wiki before using `unplatform`, since many questions should already be answered there. Especially the overview pages [about components](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Software-Components) and [build options](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform).
+
+Some general documentation is also provided in this README.
 
 ## Technical Requirements
 This bundled app requires both `python 2.7` and `node.js`. One way to achieve both is to install `nodeenv` in a python virtual environment.
@@ -68,7 +72,7 @@ For more detailed instructions on building a basic bundle and the technical prer
 
 * You MUST run this script on the target platform. I.e. to bundle for Windows, run this on Windows.
 
-* The build script assumes you have access to all the CLIx repositories on www.github.com. For some interactive tools, you may have to enter your SSH passphrase for each sub-repo, depending on how your machine is set up. (Use `ssh-agent` to eliminate this irritation.)
+* The build script assumes you have access to all the CLIx repositories on [GitHub](https://github.com/CLIxIndia-Dev). For some interactive tools that are still going through the licensing process, you may have to enter your SSH passphrase for each sub-repo, depending on how your machine is set up. (Use `ssh-agent` to eliminate this irritation.)
 
 * The build script assumes you have a `node` installation available, along with `git` and various `bash` commands. On Windows, this means `git` bash, plus the `zip` module. See the separate [wiki page on bundling](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform) for instructions on how to set up your environment.
 
@@ -169,7 +173,7 @@ Example:
 ```
 
 # Final Distribution Instructions
-To create a final distribution, you can create an installable version of `unplatform` (with modules and assessment data). Example instructions and steps on how to do so are below. If you have other requirements for a final distribution (i.e. to include additional tools, synchronization software, etc.), you may have a different process to follow.
+To create a final distribution, you can create an installable version of `unplatform` (with modules and assessment data). Example instructions and steps on how to do so are below and also included [in the wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Final-Distributable). If you have other requirements for a final distribution (i.e. to include additional tools, synchronization software, etc.), you may have a different process to follow.
 
 ## Building a macOS Application
 ### Tools
