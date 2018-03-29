@@ -1,9 +1,10 @@
 [![Build Status](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2.svg?branch=master)](https://travis-ci.org/CLIxIndia-Dev/unplatform_v2)  [![Coverage Status](https://coveralls.io/repos/github/CLIxIndia-Dev/unplatform_v2/badge.svg?branch=master)](https://coveralls.io/github/CLIxIndia-Dev/unplatform_v2?branch=master)
 
 # Unplatform
+The `unplatform` application is a generic, browser-based `ePub2` reader that can also support embedded assessments and interactive tools. Documentation on the architecture, software components, and how to build / use `unplatform` are hosted on the [GitHub project wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki). It is highly recommended to read through the Wiki before using `unplatform`, since many questions should already be answered there. Some general documentation is also provided in this README.
 
-This bundled app requires both `python 2.7` and `node.js`. One way to achieve both is to
-install `nodeenv` in a python virtualenvironment.
+## Technical Requirements
+This bundled app requires both `python 2.7` and `node.js`. One way to achieve both is to install `nodeenv` in a python virtual environment.
 
 ```
 pip install -r requirements.txt
@@ -12,17 +13,17 @@ cd ui
 npm install
 ```
 
-Once you have your environment set up, you need to build the UI elements
-(see Compiling the UI section for more details).
+Once you have your environment set up, you need to compile the UI JavaScript code
+(see [Compiling the UI section](#compiling-the-ui-only-ie-for-development--testing)) for more details).
 
-For a first-time install or migrating from an earlier version (which used filespace to store sessions), you also have to create the `sqlite` database that will hold the web sessions. If migrating from an earlier version with
-sessions in filespace or if you don't run this command, you'll see an error like:
+## Initializing the database
+For a first-time install or migrating from an earlier version (which used filespace to store sessions), you have to create the `sqlite` database that will hold the web sessions. If you do not, you will see an error in the `unplatform` terminal like:
 
 ```
 OperationalError: no such table: sessions
 ```
 
-To create the session database:
+To create the sessions database, run the included `session_migration.py` script:
 
 ```
 python session_migration.py
@@ -39,7 +40,7 @@ And in a browser, navigate to `https://localhost:8888` (note the `https` --
 
 # Compiling the UI only (i.e. for development / testing)
 
-Make sure the node packages are installed in the `ui` directory.
+Make sure the node packages are installed in the `ui` directory via `cd ui && npm install`.
 
 Then, from the project root directory (`unplatform_v2`):
 
@@ -47,25 +48,31 @@ Then, from the project root directory (`unplatform_v2`):
 npm run compile:ui
 ```
 
-Will run `webpack` and dump the output in to the `static/ui` directory.
+This will run `webpack` and dump the compiled CSS and JavaScript files in to the `static/ui` directory.
 
 
+# Building a Basic Unplatform bundle
+A shell script, `build_script_all_ssl.sh`, is included in this repository to create a basic `unplatform` bundle. A basic `unplatform` bundle is an intermediate step that creates a working version of `unplatform` with interactive tools, but does not make an easy, one-click installable file (i.e. a final distributable) with ePubs and assessments. To learn how to create a final distribution, see the section below.
 
-# Bundling the Python webserver
+A basic bundle includes:
 
-* You MUST do this on the target platform. I.e. to bundle for Windows, run this on Windows.
+* Unplatform epub reader
+* QBank assessment engine
+* A set of interactive tools (full list is [found in the wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Interactive-Tools))
 
-* The bundler assumes you have access to all the CLIx repositories on GitHub.com.
-  For Windows, you may have to enter your SSH passphrase for each sub-repo,
-  depending on how your machine is set up. (Use `ssh-agent` to eliminate this
-  irritation.)
+This bundle does **not** include actual ePub content nor assessments, and the output of this script is a zip file. The distributor is responsible for unzipping the bundle, adding in ePub content and assessment data, and then re-packing for final distribution.
 
-* The bundler assumes you have a `node` installation available, along with
-  `git` and various `bash` commands. On Windows, this means `git` bash, plus
-  the `zip` module. See the separate document on bundling for instructions
-  on how to set up your environment.
+For more detailed instructions on building a basic bundle and the technical prerequisites on the build machine, please [read the Wiki page about the process](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Basic-Bundle).
 
-* The build script works on OS X, Ubuntu, and Windows.
+**NOTES:**
+
+* You MUST run this script on the target platform. I.e. to bundle for Windows, run this on Windows.
+
+* The build script assumes you have access to all the CLIx repositories on www.github.com. For some interactive tools, you may have to enter your SSH passphrase for each sub-repo, depending on how your machine is set up. (Use `ssh-agent` to eliminate this irritation.)
+
+* The build script assumes you have a `node` installation available, along with `git` and various `bash` commands. On Windows, this means `git` bash, plus the `zip` module. See the separate [wiki page on bundling](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform) for instructions on how to set up your environment.
+
+* The build script has been tested on OS X Sierra, Ubuntu 16.04, and Windows 10, 32-bit.
 
 * On Windows, you need `yarn` `0.23`+.
 
@@ -74,18 +81,20 @@ cd scripts/build_scripts
 ./build_script_all_ssl.sh
 ```
 
-# Running tests
+# Running Unplatform tests
 
-You can run tests locally from the command line.  Tests are also run through
+Unplatform includes several tests for the server-side code. Unfortunately UI tests have not been included at this time.
+
+You can run the tests locally from the command line.  Tests are also run through
 the ``travis-ci`` continuous integration service each time a commit is pushed
 to the repository.
 
 The test suite includes unit tests, pylint analysis, pep8 compliance, and
-test coverage.
+python test coverage.
 
 Run the test suite with this command:
 
-```bash
+```
 pytest
 ```
 
@@ -159,11 +168,14 @@ Example:
 }
 ```
 
-# Bundling into a macOS Application
-## Tools
+# Final Distribution Instructions
+To create a final distribution, you can create an installable version of `unplatform` (with modules and assessment data). Example instructions and steps on how to do so are below. If you have other requirements for a final distribution (i.e. to include additional tools, synchronization software, etc.), you may have a different process to follow.
+
+## Building a macOS Application
+### Tools
 To create a macOS application (i.e. `CLIx.app`), we use the [Platypus](http://sveinbjorn.org/platypus/) application to create the `.app` bundle, and [dmgbuild](https://github.com/al45tair/dmgbuild) to create a distributable installer.
 
-## Build Steps
+### Build Steps
 1. Run the `build_script_all_ssl.sh` script in `scripts/build_scripts`.
 2. Open Platypus.
 3. Set `Script Type` to `Bash`.
@@ -185,8 +197,8 @@ To create a macOS application (i.e. `CLIx.app`), we use the [Platypus](http://sv
 19. Run `dmgbuild -s clix_settings.py "CLIx" CLIx.dmg`
 20. Wait. You should see your `CLIx.dmg` file appear soon. Now you can distribute this to others.
 
-# Bundling into a Windows .exe Installer
-## Tools
+## Bundling into a Windows .exe Installer
+### Tools
 Because the bundled files can reach over 2GB in size, you have to build this installer on a 64bit Windows machine (you can create a 32bit installer still). You'll also need [NSISBI](https://sourceforge.net/projects/nsisbi/), plus all of the dependencies listed in its `INSTALL` file. You will have to build NSISBI from source.
 
 1. Download and extract [NSISBI](https://sourceforge.net/projects/nsisbi/).
@@ -203,7 +215,7 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 12. Copy `Inetc\Plugins\x86-unicode\INetC.dll` to `C:\Program Files\NSIS\Plugins\x86-unicode`.
 13. Copy `Inetc\Plugins\x86-ansi\INetC.dll` to `C:\Program Files\NSIS\Plugins\x86-ansi`.
 
-## Build Steps
+### Build Steps
 1. Run the `build_script_all_ssl.sh` script in `scripts\build_scripts`. OR, download a pre-bundled `*.zip` file from Google Drive and extract everything.
 2. Copy the modules you want installed to `bundle\modules`.
 3. Copy the corresponding unzipped `webapps` data bundle to `bundle\webapps`.
@@ -212,13 +224,13 @@ Because the bundled files can reach over 2GB in size, you have to build this ins
 6. Now you have a `CLIxInstaller.exe` that you can distribute!
 
 
-# Bundling into a Debian .deb package (i.e. for Ubuntu)
-## Tools
+## Bundling into a Debian .deb package (i.e. for Ubuntu)
+### Tools
 The build scripts and steps provided here have been tested on Ubuntu 16.04, but theoretically should work on any other Debian platform.
 
 You do not need any additional tools -- the build script provided will download and install the tools that it needs.
 
-## Build Steps
+### Build Steps
 1. Build the bundle or unzip a prepared bundle.
 2. Copy in the `modules` and `webapps` files into the `bundle/` directory.
 3. Run the `build_debian_package.sh` script. You will get prompted for two things:
@@ -234,11 +246,15 @@ To install, you can use a package manager like [GDebi](https://apps.ubuntu.com/c
 More detailed documentation about how to use the platform is located [in the wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki). The set of topics discussed include:
 
 * [Structure of the code repository](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Repository-structure)
+* [Software components](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Software-Components)
 * [How to develop and test unplatform locally](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Developing-and--testing-locally)
 * [Bundling unplatform](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform).
+  * [Creating a basic bundle](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Basic-Bundle).
+  * [Creating a final distributable](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Final-Distributable).
 * [Installing unplatform and where to put data files](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Field-installation-and-data-files).
-* [Testing the installation to make sure it works](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Verifying-the-Bundle).
+* [Testing the basic bundle to make sure it works](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Verifying-the-Bundle).
 * [List of interactive tools and how to get them in different languages](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Interactive-Tools).
+* [SSL certificates](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/SSL-Certificates)
 
 # ACKNOWLEDGEMENTS
 This software uses many third-party software packages, and the authors are grateful
