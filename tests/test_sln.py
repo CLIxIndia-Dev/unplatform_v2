@@ -525,6 +525,7 @@ class TestSLNProject(BaseMainTestCase):
             'id': 'foo',
             'assignedBankIds': ['bank'],
             'assessmentOfferedId': 'offered',
+            'genusTypeId': 'DEFAULT%3ADEFAULT%40DEFAULT',
             'takingAgentId': 'user',
             'displayName': {
                 'text': 'project'
@@ -782,8 +783,15 @@ class TestSLNProject(BaseMainTestCase):
             'created_at': '2000-01-01T00:00:00.000000Z',
             'saved_at': '1910-10-20T02:05:15.000127Z',
             'parent_project': None,
-            'project_str': expected
+            'project_str': expected,
+            'read_only': False
         }
+
+    def test_can_get_read_only_status(self):
+        assert not self.project.read_only
+        self.project.my_map['genusTypeId'] = \
+            settings.READ_ONLY_TAKEN_GENUS_TYPE
+        assert self.project.read_only
 
 
 class TestSLNProjects(BaseMainTestCase):
@@ -794,6 +802,7 @@ class TestSLNProjects(BaseMainTestCase):
             'id': 'foo',
             'assignedBankIds': ['bank'],
             'assessmentOfferedId': 'offered',
+            'genusTypeId': 'DEFAULT%3ADEFAULT%40DEFAULT',
             'takingAgentId': '%3Auser%40',
             'displayName': {
                 'text': 'project'
@@ -810,6 +819,7 @@ class TestSLNProjects(BaseMainTestCase):
             'id': 'foo2',
             'assignedBankIds': ['bank'],
             'assessmentOfferedId': 'offered',
+            'genusTypeId': 'DEFAULT%3ADEFAULT%40DEFAULT',
             'takingAgentId': '%3Auser2%40',
             'displayName': {
                 'text': 'project2'

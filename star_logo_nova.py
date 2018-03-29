@@ -144,6 +144,13 @@ class SLNProject:
         return SLNProjects(remixes)
 
     @property
+    def read_only(self):
+        """ Returns a boolean if the taken is read-only or not,
+            based on its genusTypeId """
+        return self.my_map['genusTypeId'] == \
+            settings.READ_ONLY_TAKEN_GENUS_TYPE
+
+    @property
     def serialize(self):
         """ turn into the JSON blob that SLN expects """
         return {
@@ -153,7 +160,8 @@ class SLNProject:
             'created_at': self.created_at,
             'saved_at': self.saved_at,
             'parent_project': self.parent_project,
-            'project_str': self.project_str
+            'project_str': self.project_str,
+            'read_only': self.read_only
         }
 
 
