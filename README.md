@@ -62,7 +62,7 @@ A basic bundle includes:
 
 This bundle does **not** include actual ePub content nor assessments, and the output of this script is a zip file. The distributor is responsible for unzipping the bundle, adding in ePub content and assessment data, and then re-packing for final distribution.
 
-For more detailed instructions on building a basic bundle and the technical prerequisites on the build machine, please [read the Wiki page about the process](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform).
+For more detailed instructions on building a basic bundle and the technical prerequisites on the build machine, please [read the Wiki page about the process](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Basic-Bundle).
 
 **NOTES:**
 
@@ -246,10 +246,13 @@ To install, you can use a package manager like [GDebi](https://apps.ubuntu.com/c
 More detailed documentation about how to use the platform is located [in the wiki](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki). The set of topics discussed include:
 
 * [Structure of the code repository](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Repository-structure)
+* [Software components](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Software-Components)
 * [How to develop and test unplatform locally](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Developing-and--testing-locally)
 * [Bundling unplatform](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Bundling-unplatform).
+  * [Creating a basic bundle](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Basic-Bundle).
+  * [Creating a final distributable](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Creating-a-Final-Distributable).
 * [Installing unplatform and where to put data files](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Field-installation-and-data-files).
-* [Testing the installation to make sure it works](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Verifying-the-Bundle).
+* [Testing the basic bundle to make sure it works](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Verifying-the-Bundle).
 * [List of interactive tools and how to get them in different languages](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/Interactive-Tools).
 * [SSL certificates](https://github.com/CLIxIndia-Dev/unplatform_v2/wiki/SSL-Certificates)
 
