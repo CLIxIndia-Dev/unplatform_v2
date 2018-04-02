@@ -10,6 +10,9 @@ from copy import deepcopy
 import os
 import mock
 
+from requests.exceptions import ConnectionError
+
+import settings
 from testing_utilities import BaseTestCase
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -306,6 +309,13 @@ class ToolTests(BaseMainTestCase):
         req = self.app.get(url)
         self.ok(req)
         self.assertEqual(req.body, '${lang}\n')
+
+    def test_tool_not_found(self):
+        self.login()
+        url = '/common/fake_tool/'
+        req = self.app.get(url,
+                           status=404)
+        self.code(req, 404)
 
 
 class ModuleDirectoryListingTests(BaseMainTestCase):
@@ -706,6 +716,77 @@ class LoggingTests(BaseMainTestCase):
         self.assertEqual(call_params['headers']['x-api-proxy'], 'bar')
         self.assertEqual(call_params['json']['data'], payload)
 
+    @mock.patch('requests.get')
+    def test_get_log_with_default_log_present(self,
+                                              MockGet):
+        class FakeGet:
+            @staticmethod
+            def json():
+                return [{
+                    'genusTypeId': settings.DEFAULT_LOG_GENUS_TYPE,
+                    'id': 'foo'
+                }]
+
+        MockGet.return_value = FakeGet
+
+        self.login()
+        req = self.app.get(self.url)
+        self.ok(req)
+        data = self.json(req)
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]['id'], 'foo')
+
+    @mock.patch('requests.post')
+    @mock.patch('requests.get')
+    def test_get_log_with_no_default_log(self,
+                                         MockGet,
+                                         MockPost):
+        class FakeGet:
+            @staticmethod
+            def json():
+                return []
+
+        class FakePost:
+            @staticmethod
+            def json():
+                return {
+                    'id': 'foo2'
+                }
+
+        MockGet.return_value = FakeGet
+        MockPost.return_value = FakePost
+
+        self.login()
+        req = self.app.get(self.url)
+        self.ok(req)
+        data = self.json(req)
+        self.assertEqual(len(data), 0)  # from FakeGet
+
+    @mock.patch('main.generic_logging._get_log')
+    def test_get_with_connection_error(self, MockGet):
+        def side_effect():
+            raise ConnectionError()
+
+        MockGet.side_effect = side_effect
+        self.login()
+        req = self.app.get(self.url)
+        self.ok(req)
+        data = self.json(req)
+        self.assertEqual(data, [])
+
+    @mock.patch('main.generic_logging._get_log')
+    def test_post_with_connection_error(self, MockGet):
+        def side_effect():
+            raise ConnectionError()
+
+        MockGet.side_effect = side_effect
+        self.login()
+        req = self.app.post(self.url,
+                            params={})
+        self.ok(req)
+        data = self.json(req)
+        self.assertIn('msg', data)
+
 
 class ContentStreamingTests(BaseMainTestCase):
     def setUp(self):
@@ -730,3 +811,14 @@ class ContentStreamingTests(BaseMainTestCase):
         req = self.app.get('/content/fake-file.css',
                            status=404)
         self.code(req, 404)
+
+    @mock.patch('os.path.join')
+    def test_byte_range_specified(self, MockJoin):
+        MockJoin.return_value = '{0}/fake-styles.css'.format(
+            self.url_path)
+        req = self.app.get('/content/fake-styles.css',
+                           headers={'byte-range': 'bytes=0-'},
+                           status=206)
+        self.code(req, 206)
+        text = req.body
+        self.assertIn('body', text)
