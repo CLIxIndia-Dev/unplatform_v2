@@ -178,6 +178,10 @@ class BasicServiceTests(BaseMainTestCase):
 
         self.assertEqual(self.num_sessions(), 1)
 
+    def test_can_get_storage_path(self):
+        req = self.app.get('/datastore_path')
+        self.ok(req)
+
 
 class OEATests(BaseMainTestCase):
     """Test the views for getting the OEA player
@@ -430,6 +434,11 @@ class UserSurveyTests(BaseMainTestCase):
                 self.assertIn('timestamp', data.keys())
                 for key in payload:
                     self.assertEqual(payload[key], data[key])
+
+    def test_can_get_session_id(self):
+        self.login()
+        req = self.app.get('/api/v1/session')
+        self.ok(req)
 
 
 class LoggingTests(BaseMainTestCase):
@@ -696,3 +705,28 @@ class LoggingTests(BaseMainTestCase):
         call_params = mock_post.call_args_list[0][1]
         self.assertEqual(call_params['headers']['x-api-proxy'], 'bar')
         self.assertEqual(call_params['json']['data'], payload)
+
+
+class ContentStreamingTests(BaseMainTestCase):
+    def setUp(self):
+        super(ContentStreamingTests, self).setUp()
+        self.url_path = '{0}/tests/fixtures/modules'.format(
+            ABS_PATH)
+
+    @mock.patch('os.path.join')
+    def test_can_stream_content(self, MockJoin):
+        MockJoin.return_value = '{0}/fake-styles.css'.format(
+            self.url_path)
+        req = self.app.get('/content/fake-styles.css',
+                           status=206)
+        self.code(req, 206)
+        text = req.body
+        self.assertIn('body', text)
+
+    @mock.patch('os.path.join')
+    def test_404_when_file_not_found(self, MockJoin):
+        MockJoin.return_value = '{0}/fake-file.css'.format(
+            self.url_path)
+        req = self.app.get('/content/fake-file.css',
+                           status=404)
+        self.code(req, 404)

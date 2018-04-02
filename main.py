@@ -336,7 +336,9 @@ class content:
 
             num_bytes_to_read = 1024 * 8
             starting_bytes = bytes_to_throw_away
-            web.ctx.status = '206 Partial Content'
+            # BEWARE for python 3 ... if ever used. Web.py is not
+            #   Python 3 compatible, though.
+            web.ctx.status = str('206 Partial Content')
 
             while continue_with_stream:
                 remaining_bytes = total_bytes_to_read - bytes_read
