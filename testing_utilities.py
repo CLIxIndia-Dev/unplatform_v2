@@ -21,18 +21,8 @@ SESSIONS_DB = os.path.join(ABS_PATH, 'unplatform.sqlite3')
 
 
 class BaseTestCase(TestCase):
-    @staticmethod
-    def _filename(file_object):
-        return file_object.name.split('/')[-1]
-
     def code(self, _req, _code):
         self.assertIn(str(_code), _req.status)
-
-    def created(self, _req):
-        self.code(_req, 201)
-
-    def deleted(self, _req):
-        self.code(_req, 202)
 
     def json(self, _req):
         return json.loads(_req.body)
