@@ -343,7 +343,8 @@ class modules_list:
 
 class oea_tool:
     """ Opens up the OpenEmbeddedAssessments player """
-    @require_login
+    # do not require login here if we embed from external
+    # @require_login
     @utilities.format_html_response
     # pylint: disable=unused-argument
     def GET(self, path=None):
