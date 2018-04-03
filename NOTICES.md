@@ -10,6 +10,7 @@ this bundle includes (in unmodified form):
   - OpenSans font (Apache v2): https://www.fontsquirrel.com/fonts/open-sans
   - Varela font (OFL 1.1): https://www.fontsquirrel.com/fonts/varela
   - wicg-inert library (W3C Software and Document License): https://github.com/WICG/inert
+  - Sugarizer version of Sugar Labs (Apache v2): https://github.com/llaske/sugarizer
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/).
 This product includes cryptographic software written by Eric Young (eay@cryptsoft.com).

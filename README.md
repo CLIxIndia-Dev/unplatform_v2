@@ -264,7 +264,7 @@ More detailed documentation about how to use the platform is located [in the wik
 This software uses many third-party software packages, and the authors are grateful
 for every one. The majority can be found listed in `ui/package.json` or `requirements.txt`.
 All third-party software remains copyright by the respective author(s) and may have
-different license requirements than this software.
+different license requirements than this software. You can find additional information in `NOTICES.md`.
 
 In addition, the authors would like to acknowledge the use of the following packages:
 
