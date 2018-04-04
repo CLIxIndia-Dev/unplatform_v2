@@ -193,6 +193,7 @@ dialog.fixed {
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-bottom: 1rem;
+  width: 100%;
 }
 
 .pg-heading-2 {
