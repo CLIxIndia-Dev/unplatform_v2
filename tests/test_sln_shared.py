@@ -354,13 +354,15 @@ class SLNSharedTests(BaseMainTestCase):
                     'project_str': 'me'
                 })
 
+    @patch('star_logo_nova.SLNProject.get_all_results')
     @patch('star_logo_nova.sln_shared.get_assessment_taken')
     @patch('star_logo_nova.sln_shared.save_project')
     @patch('requests.put')
     def test_can_update_taken_with_title_description(self,
                                                      MockPut,
                                                      MockSave,
-                                                     MockTaken):
+                                                     MockTaken,
+                                                     MockResults):
         class FakePutReq:
             @staticmethod
             def json():
@@ -370,8 +372,15 @@ class SLNSharedTests(BaseMainTestCase):
 
         MockPut.return_value = FakePutReq
         MockTaken.return_value = {
-            'id': 'foo11'
+            'id': 'foo11',
+            'takingAgentId': '%3Auser9%40'
         }
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auser9%40',
+            'sections': [{
+                'id': 'foo9'
+            }]
+        }]
 
         taken = self.shared.update_assessment_taken(
             'fake-bank',
@@ -386,13 +395,15 @@ class SLNSharedTests(BaseMainTestCase):
         assert MockSave.called
         assert MockTaken.called
 
+    @patch('star_logo_nova.SLNProject.get_all_results')
     @patch('star_logo_nova.sln_shared.get_assessment_taken')
     @patch('star_logo_nova.sln_shared.save_project')
     @patch('requests.put')
     def test_can_update_taken_without_title_description(self,
                                                         MockPut,
                                                         MockSave,
-                                                        MockTaken):
+                                                        MockTaken,
+                                                        MockResults):
         class FakePutReq:
             @staticmethod
             def json():
@@ -402,8 +413,15 @@ class SLNSharedTests(BaseMainTestCase):
 
         MockPut.return_value = FakePutReq
         MockTaken.return_value = {
-            'id': 'foo12'
+            'id': 'foo12',
+            'takingAgentId': '%3Auser2%40'
         }
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auser2%40',
+            'sections': [{
+                'id': 'foo'
+            }]
+        }]
 
         taken = self.shared.update_assessment_taken(
             'fake-bank',

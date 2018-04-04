@@ -20,11 +20,23 @@ class SLNProject:
         #   on __init__ -- that means we can call
         #   ``get_results()`` on the ProjectsList once,
         #   and get all the data for each Project?
-        #   Don't want to make individual results calls
+        # Don't want to make individual results calls
         #   for each project -- that will get expensive as
         #   the number of projects grows.
-        # if results is None:
-        #
+        if results is None:
+            results = self.get_all_results()
+        self.all_results = results
+        self.section = self.find_my_section(results)
+
+    def find_my_section(self, results):
+        """ find the taken with matching takingAgentId and
+            return the section """
+        my_sections = [r
+                       for r in results
+                       if r['takingAgentId'] == self.my_map['takingAgentId']]
+        if len(my_sections) == 0:
+            raise KeyError('No result found??')
+        return my_sections[0]['sections'][0]
 
     @staticmethod
     def get_agent_id(taking_agent_id):
@@ -182,7 +194,12 @@ class SLNProjects:
     def __init__(self, object_maps):
         # For performance, get results here once and then pass
         #   that in to each SLNProject object.
-        self.projects = [SLNProject(object_map) for object_map in object_maps]
+        self.projects = []
+        if len(object_maps) > 0:
+            first_project = SLNProject(object_maps[0])
+            self.projects = [SLNProject(object_map,
+                                        results=first_project.all_results)
+                             for object_map in object_maps]
         self.index = 0
 
     def __len__(self):
