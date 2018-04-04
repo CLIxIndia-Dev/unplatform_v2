@@ -384,7 +384,7 @@ class star_logo_nova:
     @utilities.format_html_response
     # pylint: disable=unused-argument
     def GET(self, path=None):
-        sln_file_path = '{0}/static/editor/editor.html'.format(ABS_PATH)
+        sln_file_path = '{0}/static/sln_editor/editor.html'.format(ABS_PATH)
         with open(sln_file_path, 'rb') as sln_index:
             yield sln_index.read()
 

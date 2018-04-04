@@ -16,7 +16,7 @@ class StarLogoNovaTests(BaseMainTestCase):
     def setUp(self):
         super(StarLogoNovaTests, self).setUp()
         self.logout()
-        self.sln_dir = '{0}/static/editor'.format(ABS_PATH)
+        self.sln_dir = '{0}/static/sln_editor'.format(ABS_PATH)
         self.sln_index = '{0}/editor.html'.format(self.sln_dir)
         if not os.path.exists(self.sln_dir):
             os.makedirs(self.sln_dir)
