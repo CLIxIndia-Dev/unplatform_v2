@@ -7,7 +7,17 @@ from .test_main import BaseMainTestCase
 
 class SLNRestfulTests(BaseMainTestCase):
     """ Testing the RESTful endpoints """
-    def test_can_get_projects(self):
+
+    @patch('star_logo_nova.SLNProjects.serialize',
+           autospec=True)
+    @patch('requests.get')
+    @patch('star_logo_nova.sln_shared.get_or_create_assessment_offered')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_can_get_projects(self,
+                              MockBank,
+                              MockOffered,
+                              MockGet,
+                              MockSerialize):
         class FakeTakens:
             @staticmethod
             def json():
@@ -15,30 +25,31 @@ class SLNRestfulTests(BaseMainTestCase):
                     'id': 'taken1'
                 }]
 
-        with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
-            with patch('star_logo_nova.sln_shared.get_or_create_assessment_offered') as MockOffered:
-                with patch('requests.get') as MockGet:
-                    with patch('star_logo_nova.SLNProjects.serialize',
-                               new_callable=PropertyMock) as MockSerialize:
-                        MockBank.return_value = {
-                            'id': 'bank'
-                        }
-                        MockOffered.return_value = {
-                            'id': 'offered'
-                        }
-                        MockGet.return_value = FakeTakens
-                        MockSerialize.return_value = [{
-                            'id': 'taken1'
-                        }]
-                        url = '/api/projects'
-                        req = self.app.get(url)
-                        data = self.json(req)
-                        assert len(data) == 1
-                        assert data[0]['id'] == 'taken1'
-                        assert MockBank.called
-                        assert MockOffered.called
-                        assert MockGet.called
-                        assert MockSerialize.called
+        def side_effect(projects_self, order_by=None):
+            assert len(projects_self) == 1
+            assert order_by is not None
+            return [{
+                'id': 'taken1'
+            }]
+
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockOffered.return_value = {
+            'id': 'offered'
+        }
+        MockGet.return_value = FakeTakens
+        MockSerialize.side_effect = side_effect
+
+        url = '/api/projects'
+        req = self.app.get(url)
+        data = self.json(req)
+        assert len(data) == 1
+        assert data[0]['id'] == 'taken1'
+        assert MockBank.called
+        assert MockOffered.called
+        assert MockGet.called
+        assert MockSerialize.called
 
     def test_can_get_specific_project(self):
         with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
@@ -268,6 +279,19 @@ class SLNRestfulTests(BaseMainTestCase):
         assert MockTaken.called
         assert MockSerialize.called
 
+    def test_remixing_with_genus_type_throws_exception(self):
+        url = '/api/project/foo%3A3%40ODL/remixes'
+        payload = {
+            'title': 'foo',
+            'project_str': '123x'
+        }
+        req = self.app.post(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'},
+            expect_errors=True)
+        self.code(req, 500)
+
     def test_can_create_a_new_project(self):
         def side_effect(*args):
             data = args[3]
@@ -310,3 +334,25 @@ class SLNRestfulTests(BaseMainTestCase):
                         assert MockOffered.called
                         assert MockTaken.called
                         assert MockSerialize.called
+
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_trying_to_update_a_read_only_project_throws_exception(self,
+                                                                   MockBank):
+        # based on the genusTypeId
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+
+        url = '/api/project/foo%3A2%40ODL'
+        payload = {
+            'title': 'foo',
+            'description': 'bar',
+            'project_str': '123x'
+        }
+        req = self.app.patch(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'},
+            expect_errors=True)
+        self.code(req, 500)
+        assert MockBank.called

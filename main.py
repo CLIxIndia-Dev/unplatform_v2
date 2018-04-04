@@ -398,7 +398,10 @@ class sln_projects(sln_shared, utilities.BaseClass):
         offered = self.get_or_create_assessment_offered(bank['id'])
         req = requests.get(self.results_url(bank['id'], offered['id']),
                            verify=False)
-        return SLNProjects(req.json()).serialize
+        # Now sort the projects by genusTypeId (locked status) and
+        #   save date
+        return SLNProjects(req.json()).serialize(
+            order_by=['is_locked', 'saved_at'])
 
     @utilities.format_response
     def POST(self):
@@ -420,6 +423,9 @@ class sln_remix_project(sln_shared, utilities.BaseClass):
     def POST(self, project_id):
         """ create a new StarLogoNova remixed project from an existing one """
         data = self.data()
+        if 'genusTypeId' in data:
+            raise AttributeError('Cannot set genusTypeId on a remix')
+
         data['user_id'] = '{0}--{1}'.format(session.session_id,
                                             str(time.time()))
         data['provenanceId'] = utilities.escape(project_id)
