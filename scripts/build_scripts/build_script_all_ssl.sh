@@ -563,6 +563,21 @@ mkdir $BUILD_ROOT/bundle/static/food_sharing_tool/
 cp -rf $BUILD_ROOT/tool-repos/food_sharing_tool/* $BUILD_ROOT/bundle/static/food_sharing_tool/
 rm -rf $BUILD_ROOT/bundle/static/food_sharing_tool/.git/
 
+# Sugar Labs
+echo Processing Sugar Labs
+cd $BUILD_ROOT/tool-repos
+if [ ! -d "sugarizer" ]
+then
+  git clone https://github.com/llaske/sugarizer.git
+fi
+cd sugarizer
+git checkout master
+git pull origin master
+mkdir $BUILD_ROOT/bundle/static/sugarizer/
+cp -rf $BUILD_ROOT/tool-repos/sugarizer/* $BUILD_ROOT/bundle/static/sugarizer/
+rm -rf $BUILD_ROOT/bundle/static/sugarizer/.git/
+
+
 # QBank-lite Bundles
 echo Processing QBank-lite Bundles
 cd $BUILD_ROOT/tool-repos

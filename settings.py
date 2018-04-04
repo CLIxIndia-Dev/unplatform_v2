@@ -10,3 +10,6 @@ DEFAULT_ASSESSMENT_GENUS_TYPE = (
 DEFAULT_OFFERED_GENUS_TYPE = (
     'assessment-offered-genus-type%3A'
     'star-logo-nova%40ODL.MIT.EDU')
+READ_ONLY_TAKEN_GENUS_TYPE = (
+    'assessment-taken-genus-type%3A'
+    'star-logo-nova-read-only%40ODL.MIT.EDU')
