@@ -10,6 +10,7 @@ import SubtoolRoute from './Subtool'
 import UnitsRoute from './Units'
 import LessonsRoute from './Lessons'
 import ActivitiesRoute from './Activities'
+import StarLogoNovaRoute from './StarLogoNova'
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
@@ -25,7 +26,8 @@ export const createRoutes = (store) => ({
     SubtoolRoute(store),
     UnitsRoute(store),
     LessonsRoute(store),
-    ActivitiesRoute(store)
+    ActivitiesRoute(store),
+    StarLogoNovaRoute(store)
   ]
 })
 
