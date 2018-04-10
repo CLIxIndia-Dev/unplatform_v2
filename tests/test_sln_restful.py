@@ -2,6 +2,7 @@ import json
 
 from mock import patch, PropertyMock
 
+import settings
 from .test_main import BaseMainTestCase
 
 
@@ -351,7 +352,8 @@ class SLNRestfulTests(BaseMainTestCase):
         url = '/api/project/foo%3A3%40ODL/remixes'
         payload = {
             'title': 'foo',
-            'project_str': '123x'
+            'project_str': '123x',
+            'genusTypeId': 'new-one'
         }
         req = self.app.post(
             url,
@@ -416,13 +418,28 @@ class SLNRestfulTests(BaseMainTestCase):
         assert MockTaken.called
         assert MockSerialize.called
 
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.sln_shared.get_assessment_taken')
     @patch('star_logo_nova.sln_shared.get_or_create_bank')
-    def test_trying_to_update_a_read_only_project_throws_exception(self,
-                                                                   MockBank):
+    def test_trying_to_update_locked_project_throws_exception(self,
+                                                              MockBank,
+                                                              MockTaken,
+                                                              MockResults):
         # based on the genusTypeId
         MockBank.return_value = {
             'id': 'bank'
         }
+        MockTaken.return_value = {
+            'id': 'foo%3A2%40ODL',
+            'genusTypeId': settings.READ_ONLY_TAKEN_GENUS_TYPE,
+            'takingAgentId': '%3Auser2%40'
+        }
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auser2%40',
+            'sections': [{
+                'id': 'foo1'
+            }]
+        }]
 
         url = '/api/project/foo%3A2%40ODL'
         payload = {
