@@ -34,7 +34,7 @@ class SLNProject:
         my_sections = [r
                        for r in results
                        if r['takingAgentId'] == self.my_map['takingAgentId']]
-        if len(my_sections) == 0:
+        if not my_sections:
             raise KeyError('No result found??')
         return my_sections[0]['sections'][0]
 
@@ -195,7 +195,7 @@ class SLNProjects:
         # For performance, get results here once and then pass
         #   that in to each SLNProject object.
         self.projects = []
-        if len(object_maps) > 0:
+        if object_maps:
             first_project = SLNProject(object_maps[0])
             self.projects = [SLNProject(object_map,
                                         results=first_project.all_results)
