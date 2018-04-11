@@ -7,7 +7,31 @@ import '../../styles/components/c-slnconfig.css'
 class StarLogoNova extends Component {
   componentDidMount () {
   }
+  componentDidUpdate (prevProps, prevState) {
+    // console.log('prevProps', prevProps, this.props)
+    if (prevProps.saving && !this.props.saving) {
+      browserHistory.push('/')
+    }
+  }
   render () {
+    if (this.props.saving) {
+      return (
+        <DocumentTitle title='Clix Star Logo Nova Save Locked Model | Clix Modules'>
+          <div className='c-sln__wrapper'>
+            <main className='c-sln__main' aria-label='content'>
+              <header className='c-sln__header'>
+                <h1
+                  className='c-sln__heading'
+                  aria-label='Clix Star Logo Nova Save Locked Model'>
+                  Saving the model ... please be patient
+                </h1>
+              </header>
+            </main>
+          </div>
+        </DocumentTitle>
+      )
+    }
+
     // check if form is filled out, disable button if not
     const formVals = Object.values(this.props.form)
     const formFilled = formVals.every(formVal => (formVal !== null) && (formVal !== ''))
@@ -101,7 +125,6 @@ class StarLogoNova extends Component {
   _createLockedModel = (e) => {
     e.preventDefault()
     this.props.onCreateLockedModel(this.props.form)
-    browserHistory.push('/')
   }
 
   _onUpdateTitle = (e) => {
@@ -136,7 +159,8 @@ StarLogoNova.propTypes = {
     description: React.PropTypes.string,
     projectStr: React.PropTypes.string,
     title: React.PropTypes.string
-  })
+  }),
+  saving                 : React.PropTypes.bool
 }
 
 export default StarLogoNova
