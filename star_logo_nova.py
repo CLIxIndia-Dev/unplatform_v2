@@ -1,6 +1,7 @@
 import re
 
 from datetime import datetime
+from operator import attrgetter
 
 import pytz
 import requests
@@ -11,10 +12,31 @@ import settings
 class SLNProject:
     """ Convenience wrapper around our AssessmentTaken
         objects that maps to StarLogoNova projects """
-    def __init__(self, object_map):
+    def __init__(self, object_map, results=None):
         self.my_map = object_map
         self.section = None
         self.time_format = '%Y-%m-%dT%H:%M:%S.%fZ'
+        # for performance, try to get the section / result
+        #   on __init__ -- that means we can call
+        #   ``get_results()`` on the ProjectsList once,
+        #   and get all the data for each Project?
+        # Don't want to make individual results calls
+        #   for each project -- that will get expensive as
+        #   the number of projects grows.
+        if results is None:
+            results = self.get_all_results()
+        self.all_results = results
+        self.section = self.find_my_section(results)
+
+    def find_my_section(self, results):
+        """ find the taken with matching takingAgentId and
+            return the section """
+        my_sections = [r
+                       for r in results
+                       if r['takingAgentId'] == self.my_map['takingAgentId']]
+        if not my_sections:
+            raise KeyError('No result found??')
+        return my_sections[0]['sections'][0]
 
     @staticmethod
     def get_agent_id(taking_agent_id):
@@ -144,9 +166,11 @@ class SLNProject:
         return SLNProjects(remixes)
 
     @property
-    def read_only(self):
+    def is_locked(self):
         """ Returns a boolean if the taken is read-only or not,
-            based on its genusTypeId """
+            based on its genusTypeId. read-only === is_locked """
+        if 'genusTypeId' not in self.my_map:
+            return False  # should only ever happen during testing
         return self.my_map['genusTypeId'] == \
             settings.READ_ONLY_TAKEN_GENUS_TYPE
 
@@ -161,14 +185,21 @@ class SLNProject:
             'saved_at': self.saved_at,
             'parent_project': self.parent_project,
             'project_str': self.project_str,
-            'read_only': self.read_only
+            'is_locked': self.is_locked
         }
 
 
 class SLNProjects:
     """ List of SLNProject objects """
     def __init__(self, object_maps):
-        self.projects = [SLNProject(object_map) for object_map in object_maps]
+        # For performance, get results here once and then pass
+        #   that in to each SLNProject object.
+        self.projects = []
+        if object_maps:
+            first_project = SLNProject(object_maps[0])
+            self.projects = [SLNProject(object_map,
+                                        results=first_project.all_results)
+                             for object_map in object_maps]
         self.index = 0
 
     def __len__(self):
@@ -181,8 +212,14 @@ class SLNProjects:
         self.index += 1
         return next_project
 
-    @property
-    def serialize(self):
+    def serialize(self, order_by=None):
+        if order_by is not None and isinstance(order_by, list):
+            # Sort by the fields given in the order_by list, i.e.
+            #   ['is_locked', 'saved_at']
+            # May want to make reverse also configurable...
+            return [p.serialize for p in sorted(self.projects,
+                                                key=attrgetter(*order_by),
+                                                reverse=True)]
         return [project.serialize for project in self.projects]
 
 
@@ -374,6 +411,8 @@ class sln_shared:
         }
         if 'provenanceId' in data:
             payload['provenanceId'] = data['provenanceId']
+        if 'genusTypeId' in data:
+            payload['genusTypeId'] = data['genusTypeId']
 
         req = requests.post(url,
                             json=payload,
@@ -398,6 +437,10 @@ class sln_shared:
         """
         if 'project_str' not in data:
             raise KeyError('project_str required in data')
+        # reject anything that changes a read-only taken
+        taken = self.get_assessment_taken(bank_id, taken_id)
+        if SLNProject(taken).is_locked:
+            raise AttributeError('Cannot edit this project')
 
         url = '{0}/{1}/assessmentstaken/{2}'.format(
             settings.QBANK_ASSESSMENT_ENDPOINT,

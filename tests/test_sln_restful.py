@@ -2,98 +2,157 @@ import json
 
 from mock import patch, PropertyMock
 
+import settings
 from .test_main import BaseMainTestCase
 
 
 class SLNRestfulTests(BaseMainTestCase):
     """ Testing the RESTful endpoints """
-    def test_can_get_projects(self):
+
+    # pylint: disable=too-many-arguments
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.SLNProjects.serialize',
+           autospec=True)
+    @patch('requests.get')
+    @patch('star_logo_nova.sln_shared.get_or_create_assessment_offered')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_can_get_projects(self,
+                              MockBank,
+                              MockOffered,
+                              MockGet,
+                              MockSerialize,
+                              MockResults):
         class FakeTakens:
             @staticmethod
             def json():
                 return [{
-                    'id': 'taken1'
+                    'id': 'taken1',
+                    'takingAgentId': '%3Auserfoo%40'
                 }]
 
-        with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
-            with patch('star_logo_nova.sln_shared.get_or_create_assessment_offered') as MockOffered:
-                with patch('requests.get') as MockGet:
-                    with patch('star_logo_nova.SLNProjects.serialize',
-                               new_callable=PropertyMock) as MockSerialize:
-                        MockBank.return_value = {
-                            'id': 'bank'
-                        }
-                        MockOffered.return_value = {
-                            'id': 'offered'
-                        }
-                        MockGet.return_value = FakeTakens
-                        MockSerialize.return_value = [{
-                            'id': 'taken1'
-                        }]
-                        url = '/api/projects'
-                        req = self.app.get(url)
-                        data = self.json(req)
-                        assert len(data) == 1
-                        assert data[0]['id'] == 'taken1'
-                        assert MockBank.called
-                        assert MockOffered.called
-                        assert MockGet.called
-                        assert MockSerialize.called
+        def side_effect(projects_self, order_by=None):
+            assert len(projects_self) == 1
+            assert order_by is not None
+            return [{
+                'id': 'taken1'
+            }]
 
-    def test_can_get_specific_project(self):
-        with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
-            with patch('star_logo_nova.sln_shared.get_assessment_taken') as MockTaken:
-                with patch('star_logo_nova.SLNProject.serialize',
-                           new_callable=PropertyMock) as MockSerialize:
-                    MockBank.return_value = {
-                        'id': 'bank'
-                    }
-                    MockTaken.return_value = {
-                        'id': 'taken'
-                    }
-                    MockSerialize.return_value = {
-                        'id': 'taken2'
-                    }
-                    url = '/api/project/foo%3A1%40ODL'
-                    req = self.app.get(url)
-                    data = self.json(req)
-                    assert data['id'] == 'taken2'
-                    assert MockBank.called
-                    assert MockTaken.called
-                    assert MockSerialize.called
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockOffered.return_value = {
+            'id': 'offered'
+        }
+        MockGet.return_value = FakeTakens
+        MockSerialize.side_effect = side_effect
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auserfoo%40',
+            'sections': [{
+                'id': 'foofoo'
+            }]
+        }]
 
-    def test_can_update_project(self):
-        with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
-            with patch('star_logo_nova.sln_shared.update_assessment_taken') as MockTaken:
-                with patch('star_logo_nova.SLNProject.serialize',
-                           new_callable=PropertyMock) as MockSerialize:
-                    MockBank.return_value = {
-                        'id': 'bank'
-                    }
-                    MockTaken.return_value = {
-                        'id': 'taken4'
-                    }
-                    MockSerialize.return_value = {
-                        'id': 'taken6'
-                    }
-                    url = '/api/project/foo%3A2%40ODL'
-                    payload = {
-                        'title': 'foo',
-                        'description': 'bar',
-                        'project_str': '123x'
-                    }
-                    req = self.app.patch(
-                        url,
-                        params=json.dumps(payload),
-                        headers={'content-type': 'application/json'})
-                    self.ok(req)
-                    data = self.json(req)
-                    assert data['id'] == 'taken6'
-                    assert MockBank.called
-                    assert MockTaken.called
-                    assert MockSerialize.called
+        url = '/api/projects'
+        req = self.app.get(url)
+        data = self.json(req)
+        assert len(data) == 1
+        assert data[0]['id'] == 'taken1'
+        assert MockBank.called
+        assert MockOffered.called
+        assert MockGet.called
+        assert MockSerialize.called
 
-    def test_can_remix_a_project(self):
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.SLNProject.serialize',
+           new_callable=PropertyMock)
+    @patch('star_logo_nova.sln_shared.get_assessment_taken')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_can_get_specific_project(self,
+                                      MockBank,
+                                      MockTaken,
+                                      MockSerialize,
+                                      MockResults):
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockTaken.return_value = {
+            'id': 'taken',
+            'takingAgentId': 'foo'
+        }
+        MockResults.return_value = [{
+            'takingAgentId': 'foo',
+            'sections': [{
+                'id': 'footwo'
+            }]
+        }]
+        MockSerialize.return_value = {
+            'id': 'taken2'
+        }
+        url = '/api/project/foo%3A1%40ODL'
+        req = self.app.get(url)
+        data = self.json(req)
+        assert data['id'] == 'taken2'
+        assert MockBank.called
+        assert MockTaken.called
+        assert MockSerialize.called
+
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.SLNProject.serialize',
+           new_callable=PropertyMock)
+    @patch('star_logo_nova.sln_shared.update_assessment_taken')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_can_update_project(self,
+                                MockBank,
+                                MockTaken,
+                                MockSerialize,
+                                MockResults):
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockTaken.return_value = {
+            'id': 'taken4',
+            'takingAgentId': 'bar'
+        }
+        MockResults.return_value = [{
+            'takingAgentId': 'bar',
+            'sections': [{
+                'id': 'bim'
+            }]
+        }]
+        MockSerialize.return_value = {
+            'id': 'taken6'
+        }
+        url = '/api/project/foo%3A2%40ODL'
+        payload = {
+            'title': 'foo',
+            'description': 'bar',
+            'project_str': '123x'
+        }
+        req = self.app.patch(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'})
+        self.ok(req)
+        data = self.json(req)
+        assert data['id'] == 'taken6'
+        assert MockBank.called
+        assert MockTaken.called
+        assert MockSerialize.called
+
+    # pylint: disable=too-many-arguments
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.SLNProject.serialize',
+           new_callable=PropertyMock)
+    @patch('star_logo_nova.sln_shared.create_assessment_taken',
+           autospec=True)
+    @patch('star_logo_nova.sln_shared.get_or_create_assessment_offered')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_can_remix_a_project(self,
+                                 MockBank,
+                                 MockOffered,
+                                 MockTaken,
+                                 MockSerialize,
+                                 MockResults):
         def side_effect(*args):
             data = args[3]
             assert 'user_id' in data
@@ -101,44 +160,46 @@ class SLNRestfulTests(BaseMainTestCase):
             assert 'provenanceId' in data
             assert data['provenanceId'] == 'foo%3A3%40ODL'
             return {
-                'id': 'taken'
+                'id': 'taken',
+                'takingAgentId': 'my-agent'
             }
 
-        with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
-            with patch('star_logo_nova.sln_shared.get_or_create_assessment_offered') as MockOffered:
-                with patch('star_logo_nova.sln_shared.create_assessment_taken',
-                           autospec=True) as MockTaken:
-                    with patch('star_logo_nova.SLNProject.serialize',
-                               new_callable=PropertyMock) as MockSerialize:
-                        MockBank.return_value = {
-                            'id': 'bank'
-                        }
-                        MockOffered.return_value = {
-                            'id': 'offered'
-                        }
-                        MockTaken.side_effect = side_effect
-                        MockSerialize.return_value = {
-                            'id': 'taken7'
-                        }
-                        url = '/api/project/foo%3A3%40ODL/remixes'
-                        payload = {
-                            'title': 'foo',
-                            'description': 'bar',
-                            'project_str': '123x'
-                        }
-                        req = self.app.post(
-                            url,
-                            params=json.dumps(payload),
-                            headers={'content-type': 'application/json'})
-                        self.ok(req)
-                        data = self.json(req)
-                        assert data['id'] == 'taken7'
-                        assert MockBank.called
-                        assert MockOffered.called
-                        assert MockTaken.called
-                        assert MockSerialize.called
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockOffered.return_value = {
+            'id': 'offered'
+        }
+        MockTaken.side_effect = side_effect
+        MockResults.return_value = [{
+            'takingAgentId': 'my-agent',
+            'sections': [{
+                'id': 'agent-id'
+            }]
+        }]
+        MockSerialize.return_value = {
+            'id': 'taken7'
+        }
+        url = '/api/project/foo%3A3%40ODL/remixes'
+        payload = {
+            'title': 'foo',
+            'description': 'bar',
+            'project_str': '123x'
+        }
+        req = self.app.post(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'})
+        self.ok(req)
+        data = self.json(req)
+        assert data['id'] == 'taken7'
+        assert MockBank.called
+        assert MockOffered.called
+        assert MockTaken.called
+        assert MockSerialize.called
 
     # pylint: disable=too-many-arguments
+    @patch('star_logo_nova.SLNProject.get_all_results')
     @patch('star_logo_nova.SLNProject.serialize',
            new_callable=PropertyMock)
     @patch('star_logo_nova.sln_shared.create_assessment_taken',
@@ -151,7 +212,8 @@ class SLNRestfulTests(BaseMainTestCase):
                                                      MockOffered,
                                                      MockGetTaken,
                                                      MockTaken,
-                                                     MockSerialize):
+                                                     MockSerialize,
+                                                     MockResults):
         def side_effect(*args):
             data = args[3]
             assert 'user_id' in data
@@ -163,7 +225,8 @@ class SLNRestfulTests(BaseMainTestCase):
             assert 'description' in data
             assert data['description'] == 'bar'
             return {
-                'id': 'taken'
+                'id': 'taken',
+                'takingAgentId': '%3Auser7%40'
             }
 
         MockBank.return_value = {
@@ -174,6 +237,7 @@ class SLNRestfulTests(BaseMainTestCase):
         }
         MockGetTaken.return_value = {
             'id': 'taken2',
+            'takingAgentId': '%3Auser7%40',
             'displayName': {
                 'text': 'taken-text'
             },
@@ -182,6 +246,12 @@ class SLNRestfulTests(BaseMainTestCase):
             }
         }
         MockTaken.side_effect = side_effect
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auser7%40',
+            'sections': [{
+                'id': 'foo7'
+            }]
+        }]
         MockSerialize.return_value = {
             'id': 'taken7'
         }
@@ -204,6 +274,7 @@ class SLNRestfulTests(BaseMainTestCase):
         assert MockSerialize.called
 
     # pylint: disable=too-many-arguments
+    @patch('star_logo_nova.SLNProject.get_all_results')
     @patch('star_logo_nova.SLNProject.serialize',
            new_callable=PropertyMock)
     @patch('star_logo_nova.sln_shared.create_assessment_taken',
@@ -216,7 +287,8 @@ class SLNRestfulTests(BaseMainTestCase):
                                                            MockOffered,
                                                            MockGetTaken,
                                                            MockTaken,
-                                                           MockSerialize):
+                                                           MockSerialize,
+                                                           MockResults):
         def side_effect(*args):
             data = args[3]
             assert 'user_id' in data
@@ -228,7 +300,8 @@ class SLNRestfulTests(BaseMainTestCase):
             assert 'description' in data
             assert data['description'] == 'taken-description'
             return {
-                'id': 'taken'
+                'id': 'taken',
+                'takingAgentId': 'me-myself'
             }
 
         MockBank.return_value = {
@@ -239,6 +312,7 @@ class SLNRestfulTests(BaseMainTestCase):
         }
         MockGetTaken.return_value = {
             'id': 'taken3',
+            'takingAgentId': 'me-myself',
             'displayName': {
                 'text': 'taken-text'
             },
@@ -247,6 +321,12 @@ class SLNRestfulTests(BaseMainTestCase):
             }
         }
         MockTaken.side_effect = side_effect
+        MockResults.return_value = [{
+            'takingAgentId': 'me-myself',
+            'sections': [{
+                'id': 'you'
+            }]
+        }]
         MockSerialize.return_value = {
             'id': 'taken7'
         }
@@ -268,45 +348,109 @@ class SLNRestfulTests(BaseMainTestCase):
         assert MockTaken.called
         assert MockSerialize.called
 
-    def test_can_create_a_new_project(self):
+    def test_remixing_with_genus_type_throws_exception(self):
+        url = '/api/project/foo%3A3%40ODL/remixes'
+        payload = {
+            'title': 'foo',
+            'project_str': '123x',
+            'genusTypeId': 'new-one'
+        }
+        req = self.app.post(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'},
+            expect_errors=True)
+        self.code(req, 500)
+
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.SLNProject.serialize',
+           new_callable=PropertyMock)
+    @patch('star_logo_nova.sln_shared.create_assessment_taken',
+           autospec=True)
+    @patch('star_logo_nova.sln_shared.get_or_create_assessment_offered')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_can_create_a_new_project(self,
+                                      MockBank,
+                                      MockOffered,
+                                      MockTaken,
+                                      MockSerialize,
+                                      MockResults):
         def side_effect(*args):
             data = args[3]
             assert 'user_id' in data
             assert '--' in data['user_id']
             return {
-                'id': 'taken'
+                'id': 'taken',
+                'takingAgentId': '%3Auser1%40'
             }
 
-        with patch('star_logo_nova.sln_shared.get_or_create_bank') as MockBank:
-            with patch('star_logo_nova.sln_shared.get_or_create_assessment_offered') as MockOffered:
-                with patch('star_logo_nova.sln_shared.create_assessment_taken',
-                           autospec=True) as MockTaken:
-                    with patch('star_logo_nova.SLNProject.serialize',
-                               new_callable=PropertyMock) as MockSerialize:
-                        MockBank.return_value = {
-                            'id': 'bank'
-                        }
-                        MockOffered.return_value = {
-                            'id': 'offered'
-                        }
-                        MockTaken.side_effect = side_effect
-                        MockSerialize.return_value = {
-                            'id': 'taken5'
-                        }
-                        url = '/api/projects'
-                        payload = {
-                            'title': 'foo',
-                            'description': 'bar',
-                            'project_str': '123x'
-                        }
-                        req = self.app.post(
-                            url,
-                            params=json.dumps(payload),
-                            headers={'content-type': 'application/json'})
-                        self.ok(req)
-                        data = self.json(req)
-                        assert data['id'] == 'taken5'
-                        assert MockBank.called
-                        assert MockOffered.called
-                        assert MockTaken.called
-                        assert MockSerialize.called
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockOffered.return_value = {
+            'id': 'offered'
+        }
+        MockTaken.side_effect = side_effect
+        MockSerialize.return_value = {
+            'id': 'taken5'
+        }
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auser1%40',
+            'sections': [{
+                'id': 'foo1'
+            }]
+        }]
+        url = '/api/projects'
+        payload = {
+            'title': 'foo',
+            'description': 'bar',
+            'project_str': '123x'
+        }
+        req = self.app.post(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'})
+        self.ok(req)
+        data = self.json(req)
+        assert data['id'] == 'taken5'
+        assert MockBank.called
+        assert MockOffered.called
+        assert MockTaken.called
+        assert MockSerialize.called
+
+    @patch('star_logo_nova.SLNProject.get_all_results')
+    @patch('star_logo_nova.sln_shared.get_assessment_taken')
+    @patch('star_logo_nova.sln_shared.get_or_create_bank')
+    def test_trying_to_update_locked_project_throws_exception(self,
+                                                              MockBank,
+                                                              MockTaken,
+                                                              MockResults):
+        # based on the genusTypeId
+        MockBank.return_value = {
+            'id': 'bank'
+        }
+        MockTaken.return_value = {
+            'id': 'foo%3A2%40ODL',
+            'genusTypeId': settings.READ_ONLY_TAKEN_GENUS_TYPE,
+            'takingAgentId': '%3Auser2%40'
+        }
+        MockResults.return_value = [{
+            'takingAgentId': '%3Auser2%40',
+            'sections': [{
+                'id': 'foo1'
+            }]
+        }]
+
+        url = '/api/project/foo%3A2%40ODL'
+        payload = {
+            'title': 'foo',
+            'description': 'bar',
+            'project_str': '123x'
+        }
+        req = self.app.patch(
+            url,
+            params=json.dumps(payload),
+            headers={'content-type': 'application/json'},
+            expect_errors=True)
+        self.code(req, 500)
+        assert MockBank.called

@@ -421,20 +421,33 @@ cp -rf $BUILD_ROOT/tool-repos/turtle-blocks/* $BUILD_ROOT/bundle/static/turtle-b
 rm -rf $BUILD_ROOT/bundle/static/turtle-blocks/.git/
 
 # StarLogoNova simulations
-echo Processing StarLogoNova Simulations
+# echo Processing StarLogoNova Simulations
+# cd $BUILD_ROOT/tool-repos
+# if [ ! -d "StarLogoNova" ]
+# then
+#   # Use SSH version until we figure out licensing for SLN
+#   # git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
+#   git clone git@github.com:CLIxIndia-Dev/StarLogoNova.git
+# fi
+# cd StarLogoNova
+# git checkout master
+# git pull origin master
+# mkdir $BUILD_ROOT/bundle/static/StarLogoNova/
+# cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/* $BUILD_ROOT/bundle/static/StarLogoNova/
+# rm -rf $BUILD_ROOT/bundle/static/StarLogoNova/.git/
+echo Processing StarLogoNova lite
 cd $BUILD_ROOT/tool-repos
-if [ ! -d "StarLogoNova" ]
+if [ ! -d "sln_clix" ]
 then
-  # Use SSH version until we figure out licensing for SLN
-  # git clone https://github.com/CLIxIndia-Dev/StarLogoNova.git
-  git clone git@github.com:CLIxIndia-Dev/StarLogoNova.git
+  git clone https://bitbucket.org/weblogo-dev/clix.git sln_clix
 fi
-cd StarLogoNova
+cd sln_clix
 git checkout master
 git pull origin master
-mkdir $BUILD_ROOT/bundle/static/StarLogoNova/
-cp -rf $BUILD_ROOT/tool-repos/StarLogoNova/* $BUILD_ROOT/bundle/static/StarLogoNova/
-rm -rf $BUILD_ROOT/bundle/static/StarLogoNova/.git/
+mkdir $BUILD_ROOT/bundle/static/sln_editor/
+cp -rf $BUILD_ROOT/tool-repos/sln_clix/django-server/sln_editor/static/sln_editor/* $BUILD_ROOT/bundle/static/sln_editor/
+cp -rf $BUILD_ROOT/tool-repos/sln_clix/django-server/static/sln_editor/* $BUILD_ROOT/bundle/static/sln_editor/
+cp -rf $BUILD_ROOT/tool-repos/sln_clix/django-server/templates/sln_editor/editor.html $BUILD_ROOT/bundle/static/sln_editor/
 
 # Rotation of Earth Animation
 echo Processing Rotation of Earth Animation
