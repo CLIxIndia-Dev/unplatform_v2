@@ -1,7 +1,7 @@
 QBANK_LOGGING_ENDPOINT = 'http://127.0.0.1:8000/api/v1/logging/logs'
 DEFAULT_LOG_GENUS_TYPE = 'log-genus-type%3Adefault-clix%40ODL.MIT.EDU'
 
-QBANK_ASSESSMENT_ENDPOINT = 'https://127.0.0.1:8000/api/v1/assessment/banks'
+QBANK_ASSESSMENT_ENDPOINT = 'http://127.0.0.1:8000/api/v1/assessment/banks'
 DEFAULT_BANK_GENUS_TYPE = 'bank-genus-type%3Astar-logo-nova%40ODL.MIT.EDU'
 DEFAULT_ITEM_GENUS_TYPE = 'item-genus-type%3Astar-logo-nova%40ODL.MIT.EDU'
 DEFAULT_ASSESSMENT_GENUS_TYPE = (
