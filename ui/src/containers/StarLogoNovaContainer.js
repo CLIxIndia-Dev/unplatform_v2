@@ -8,7 +8,7 @@ import { updateModelForm } from '../reducers/StarLogoNova/updateModelForm'
 const mapStateToProps = (state, ownProps) => {
   return {
     form: state.sln.form,
-    saving: state.sln.form.saving
+    saving: state.sln.saving
   }
 }
 

@@ -43,6 +43,7 @@ export function createLockedModel (data) {
 
   return function (dispatch) {
     // console.log(data)
+    // console.log('optimistic save')
     dispatch(createLockedModelOptimistic(data))
     let options = {
       url: '/api/projects',
@@ -51,7 +52,7 @@ export function createLockedModel (data) {
     }
     return axios(options)
     .then((response) => {
-      // console.log(response.data)
+      // console.log('got a response', response.data)
       dispatch(receiveCreateLockedModel(response.data))
     })
     .catch((error) => {
