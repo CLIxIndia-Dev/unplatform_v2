@@ -5,6 +5,7 @@ import schoolConfigurationReducer from './SchoolConfiguration/SchoolConfiguratio
 import stringsReducer from './Strings/Strings'
 import surveyReducer from './Survey/Survey'
 import versionReducer from './Version/Version'
+import slnReducer from './StarLogoNova'
 // ... other reducers
 
 export default {
@@ -12,6 +13,7 @@ export default {
   school: schoolConfigurationReducer,
   strings: stringsReducer,
   survey: surveyReducer,
-  version: versionReducer
+  version: versionReducer,
+  sln: slnReducer
   // ... other reducers
 }
