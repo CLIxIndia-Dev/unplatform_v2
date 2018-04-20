@@ -442,8 +442,8 @@ then
   git clone https://bitbucket.org/weblogo-dev/clix.git sln_clix
 fi
 cd sln_clix
-git checkout master
-git pull origin master
+git checkout clix-800px-wide-viewport-for-locked-models
+git pull origin clix-800px-wide-viewport-for-locked-models
 mkdir $BUILD_ROOT/bundle/static/sln_editor/
 cp -rf $BUILD_ROOT/tool-repos/sln_clix/django-server/sln_editor/static/sln_editor/* $BUILD_ROOT/bundle/static/sln_editor/
 cp -rf $BUILD_ROOT/tool-repos/sln_clix/django-server/static/sln_editor/* $BUILD_ROOT/bundle/static/sln_editor/
