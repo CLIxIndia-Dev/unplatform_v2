@@ -1,3 +1,7 @@
+## [2.3.3] - 2018-04-20
+### Changed
+- StarLogoNova branch used was changed to clix-specific branch.
+
 ## [2.3.2] - 2018-04-11
 ### Added
 - StarLogoNova tool index.html was missing.
@@ -316,6 +320,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.3.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.1...v2.3.2
 [2.3.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.2.0...v2.3.0
