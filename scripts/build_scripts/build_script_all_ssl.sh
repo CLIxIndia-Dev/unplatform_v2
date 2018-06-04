@@ -576,6 +576,9 @@ fi
 cd sugarizer
 git checkout master
 git pull origin master
+# Use this specific commit, because it is the latest one that
+#   does not require sugarizer-server / login / auth
+git checkout 5c9814a3ca0ff186267b0c32f4a50e0236994802
 mkdir $BUILD_ROOT/bundle/static/sugarizer/
 cp -rf $BUILD_ROOT/tool-repos/sugarizer/* $BUILD_ROOT/bundle/static/sugarizer/
 rm -rf $BUILD_ROOT/bundle/static/sugarizer/.git/
