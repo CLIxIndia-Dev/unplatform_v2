@@ -1,3 +1,7 @@
+## [2.3.4] - 2018-06-04
+### Changed
+- Pin `SugarLabs` tool to specific commit, to avoid auth requirement.
+
 ## [2.3.3] - 2018-04-20
 ### Changed
 - StarLogoNova branch used was changed to clix-specific branch.
@@ -320,6 +324,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.3.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.3...v2.3.4
 [2.3.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.1...v2.3.2
 [2.3.1]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.0...v2.3.1
