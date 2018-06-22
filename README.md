@@ -205,25 +205,14 @@ To create a macOS application (i.e. `CLIx.app`), we use the [Platypus](http://sv
 ### Tools
 Because the bundled files can reach over 2GB in size, you have to build this installer on a 64bit Windows machine (you can create a 32bit installer still). You'll also need [NSISBI](https://sourceforge.net/projects/nsisbi/), plus all of the dependencies listed in its `INSTALL` file. You will have to build NSISBI from source.
 
-1. Download and extract [NSISBI](https://sourceforge.net/projects/nsisbi/).
-2. Install [Python 2.7.14](https://www.python.org/downloads/release/python-2714/) (SCONS, the compiler used for NSISBI, does not support Python 3+).
-3. Install [SCONS 3](http://scons.org/pages/download.html).
-4. Download and extract the precompiled [zlib 1.2.7 dll](http://nsis.sourceforge.net/Zlib).
-5. Install a [Visual C++ compiler](http://landinghub.visualstudio.com/visual-cpp-build-tools). I used the 2015 build tools, and it worked fine.
-6. In `Command Prompt`, set the `ZLIB_W32` environment variable to where you extracted `zlib` from step 4. `set ZLIB_32=C:\<path>\zlib127`.
-7. Download and install [wxWidgets](https://wxwidgets.org/downloads/).
-8. Run an elevated `Command Prompt` (right-click and select `Run as administrator`).
-9. In the elevated `Command Prompt`, navigate to the `NSISBI` folder that you extracted in step 1. Build with `scons PREFIX="C:\Program Files\NSIS" install`.
-10. Once the installation has finished, you can use `Explorer` to navigate to `C:\Program Files\NSIS`. You should see `makensisw.exe` -- that's what we'll use to build the CLIx Installer.
-11. Now, you need to install the `inetc` plugin for `NSIS`. Download and unzip [Inetc.zip](http://nsis.sourceforge.net/Inetc_plug-in).
-12. Copy `Inetc\Plugins\x86-unicode\INetC.dll` to `C:\Program Files\NSIS\Plugins\x86-unicode`.
-13. Copy `Inetc\Plugins\x86-ansi\INetC.dll` to `C:\Program Files\NSIS\Plugins\x86-ansi`.
+1. Download and extract [NSISBI](https://sourceforge.net/projects/nsisbi/), a version higher than 3.03.1. Make sure it is a "binary" download, so you can just run the program.
+2. Inside, you should find an executable, `makensisw.exe`.
 
 ### Build Steps
 1. Run the `build_script_all_ssl.sh` script in `scripts\build_scripts`. OR, download a pre-bundled `*.zip` file from Google Drive and extract everything.
 2. Copy the modules you want installed to `bundle\modules`.
 3. Copy the corresponding unzipped `webapps` data bundle to `bundle\webapps`.
-4. Run the `C:\Program Files\NSIS\makensisw.exe` program.
+4. Run the `C:\<path to extracted NSISBI>\makensisw.exe` program.
 5. In NSIS, click `File`, and load the `bundle\clix.nsi` script. Watch it build.
 6. Now you have a `CLIxInstaller.exe` that you can distribute!
 
