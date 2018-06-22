@@ -181,6 +181,8 @@ To create a macOS application (i.e. `CLIx.app`), we use the [Platypus](http://sv
 
 ### Build Steps
 1. Run the `build_script_all_ssl.sh` script in `scripts/build_scripts`.
+  * **NOTE:** If you see "TLSV1_ALERT_PROTOCOL_VERSION" errors during this process, you may need to copy the `licenses/` directory from either a Windows or Ubuntu build into the `bundle/` directory at this point.
+2. Open Platypus.
 2. Open Platypus.
 3. Set `Script Type` to `Bash`.
 4. Set `Script Path` to point to `bundle/unplatform_osx_ssl.sh`.
