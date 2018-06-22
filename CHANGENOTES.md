@@ -1,3 +1,7 @@
+## [2.4.0] - 2018-06-22
+### Changed
+- Update Windows build instructions for NSISBI 3.03.1+.
+
 ## [2.3.4] - 2018-06-04
 ### Changed
 - Pin `SugarLabs` tool to specific commit, to avoid auth requirement.
@@ -324,6 +328,7 @@
 1.0.0
   - Initial release with working Windows build script
 
+[2.4.0]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.4...v2.4.0
 [2.3.4]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.3...v2.3.4
 [2.3.3]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/CLIxIndia-Dev/unplatform_v2/compare/v2.3.1...v2.3.2
