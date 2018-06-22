@@ -41,14 +41,16 @@ Section
   # Install this in the user's app directory
   SetOutPath $LOCALAPPDATA\CLIx\CLIx
 
+  # We removed this unplatform dependency by updating PyInstaller,
+  #   so don't both downloading and installing this.
   # Check if the required msvcr100.dll library is on the system.
   # If not, prompt user to download / install.
-  IfFileExists $SYSDIR\msvcr100.dll copyFiles dependencyError
-  dependencyError:
-    MessageBox MB_YESNO "Your system does not have msvcr100.dll installed. This is required to run CLIx. Download and install?" /SD IDYES IDNO endInstall
-    DetailPrint "Downloading and installing Microsoft Visual Studio 2010 Redistributable"
-    inetc::get "https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe" "$TEMP\vcredist_x86.exe"
-    ExecShellWait "open" "$TEMP\vcredist_x86.exe"
+  # IfFileExists $SYSDIR\msvcr100.dll copyFiles dependencyError
+  # dependencyError:
+  #   MessageBox MB_YESNO "Your system does not have msvcr100.dll installed. This is required to run CLIx. Download and install?" /SD IDYES IDNO endInstall
+  #   DetailPrint "Downloading and installing Microsoft Visual Studio 2010 Redistributable"
+  #   inetc::get "https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe" "$TEMP\vcredist_x86.exe"
+  #   ExecShellWait "open" "$TEMP\vcredist_x86.exe"
 
   copyFiles:
     # We'll move the directories first
