@@ -84,7 +84,7 @@
   color: #777;
 }
 
-//on small screens collapse the header tabs into a menu
+/* on small screens collapse the header tabs into a menu */
 @media only screen and (max-width: 679px){
   .c-header__logo{
     background-repeat: no-repeat;
