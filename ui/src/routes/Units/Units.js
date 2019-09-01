@@ -8,6 +8,9 @@ import { log } from '../../utilities'
 import '../../styles/buttons.css'
 
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
+let backgroundCLIxImage=require('../../assets/clixlogo-website.svg')
+let backgroundfooterImage=require('../../assets/Footer.svg')
+
 
 class Units extends Component {
   constructor (props) {
@@ -47,13 +50,14 @@ class Units extends Component {
     return (
 
       <PageFocusSection
-        docTitle={`${this.props.subjectName} | Clix Modules`}
+        docTitle={`${this.props.subjectName} | CLIx Modules`}
         liveMessage='Select unit page loaded.'
         location={this.state.location}
         locale={this.props.locale}
       >
         <div className='gradient-wrapper' >
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <img src={backgroundCLIxImage} alt='' aria-hidden className='gradient-wrapper__logoimage' />
           <Breadcrumbs
             hrefs={['/',
               '/subjects',
@@ -72,6 +76,7 @@ class Units extends Component {
             </article>
           </main>
         </div>
+        <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
       </PageFocusSection>
     )
   }
@@ -91,7 +96,7 @@ class Units extends Component {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
-      target: `Select Subjects`
+      target: `Select Module`
     })
     browserHistory.push(`/subjects`)
   }

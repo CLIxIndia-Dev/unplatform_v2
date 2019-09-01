@@ -9,6 +9,9 @@ import '../../styles/components/c-header.css'
 import '../../styles/components/c-activity.css'
 import '../../styles/components/c-modal.css'
 
+let backgroundfooterImage=require('../../assets/Footer.svg')
+
+
 class Tool extends Component {
   constructor (props) {
     super(props)
@@ -43,7 +46,7 @@ class Tool extends Component {
     let subtoolUrl = `/common/${this.props.toolName}/${this.props.subtoolName}?lang=${this.props.locale}`
     return (
       <PageFocusSection
-        docTitle={`${this.props.subtoolName} | Clix Modules`}
+        docTitle={`${this.props.subtoolName} | CLIx Interactives`}
         liveMessage='Select subtool page loaded.'
         location={this.state.location}
         locale={this.props.locale}
@@ -82,6 +85,7 @@ class Tool extends Component {
             }
           </main>
         </div>
+        <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
       </PageFocusSection>
     )
   }

@@ -11,6 +11,8 @@ import '../../styles/components/c-activity.css'
 import '../../styles/components/c-modal.css'
 
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
+let backgroundCLIxImage=require('../../assets/clixlogo-website.svg')
+let backgroundfooterImage=require('../../assets/Footer.svg')
 
 class Tool extends Component {
   constructor (props) {
@@ -51,13 +53,14 @@ class Tool extends Component {
     if (_.keys(this.props.subtools).length > 0) {
       return (
         <PageFocusSection
-          docTitle={`Tools | Clix Modules`}
+          docTitle={`Tools | CLIx Interactives`}
           liveMessage='Select tools page loaded.'
           location={this.state.location}
           locale={this.props.locale}
         >
           <div className='gradient-wrapper'>
             <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+            <img src={backgroundCLIxImage} alt='' aria-hidden className='gradient-wrapper__logoimage' />
             <Breadcrumbs
               hrefs={['/',
                 '/subjects',
@@ -79,6 +82,7 @@ class Tool extends Component {
               </article>
             </main>
           </div>
+          <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
         </PageFocusSection>
       )
     }
@@ -86,7 +90,7 @@ class Tool extends Component {
     let toolUrl = `/common/${this.props.toolName}?lang=${this.props.locale}`
     return (
       <PageFocusSection
-        docTitle={`${this.props.toolName} | Clix Modules`}
+        docTitle={`${this.props.toolName} | CLIx Interactives`}
         liveMessage='Select tool page loaded.'
         location={this.state.location}
         locale={this.props.locale}
@@ -127,6 +131,7 @@ class Tool extends Component {
             }
           </main>
         </div>
+        <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
       </PageFocusSection>
     )
   }
@@ -146,7 +151,7 @@ class Tool extends Component {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
-      target: 'Select Subject'
+      target: 'Select Module'
     })
     browserHistory.push(`/subjects`)
   }
@@ -156,7 +161,7 @@ class Tool extends Component {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
-      target: 'Select Tools'
+      target: 'Select Interactive Tools'
     })
     browserHistory.push(`/tools/`)
   }

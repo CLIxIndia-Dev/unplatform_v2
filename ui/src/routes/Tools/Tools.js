@@ -8,6 +8,8 @@ import { log } from '../../utilities'
 import '../../styles/buttons.css'
 
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
+let backgroundCLIxImage=require('../../assets/clixlogo-website.svg')
+let backgroundfooterImage=require('../../assets/Footer.svg')
 
 class Tools extends Component {
   constructor (props) {
@@ -46,13 +48,14 @@ class Tools extends Component {
 
     return (
       <PageFocusSection
-        docTitle={`Tools | Clix Modules`}
+        docTitle={`Interactive Tools | CLIx Interactives`}
         liveMessage='Select tools page loaded.'
         location={this.state.location}
         locale={this.props.locale}
       >
         <div className='gradient-wrapper'>
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <img src={backgroundCLIxImage} alt='' aria-hidden className='gradient-wrapper__logoimage' />
           <Breadcrumbs
             hrefs={['/',
               '/subjects',
@@ -71,6 +74,7 @@ class Tools extends Component {
             </article>
           </main>
         </div>
+        <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
       </PageFocusSection>
     )
   }
@@ -90,7 +94,7 @@ class Tools extends Component {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
-      target: 'Select Subject'
+      target: 'Select Module'
     })
     browserHistory.push(`/subjects`)
   }
@@ -100,7 +104,7 @@ class Tools extends Component {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
-      target: 'Select Tools'
+      target: 'Select Interactive Tools'
     })
     browserHistory.push(`/tools/`)
   }

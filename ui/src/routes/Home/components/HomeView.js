@@ -6,6 +6,8 @@ import ChevronRight from '../../../components/ChevronRight'
 import PageFocusSection from '../../../components/PageFocusSection'
 
 let backgroundImage = require('../../../assets/clix-i2c-flowers.svg')
+let backgroundCLIxImage=require('../../../assets/clixlogo-website.svg')
+let backgroundfooterImage=require('../../../assets/Footer.svg')
 
 class HomeView extends Component {
   constructor (props) {
@@ -178,13 +180,14 @@ class HomeView extends Component {
 
     return (
       <PageFocusSection
-        docTitle={'Select User | Clix Modules'}
+        docTitle={'Select User | CLIx Modules'}
         liveMessage='Select user page loaded.'
         location={this.state.location}
         locale={this.props.locale}
       >
         <div className='gradient-wrapper'>
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <img src={backgroundCLIxImage} alt='' aria-hidden className='gradient-wrapper__logoimage' />
           <header role='banner' id='global-nav' tabIndex='-1' className='c-breadcrumbs__header'>
             <nav className='c-breadcrumbs__nav'>
               <ul className='c-breadcrumbs__list'>
@@ -228,6 +231,7 @@ class HomeView extends Component {
             {submitButton}
           </main>
         </div>
+        <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
       </PageFocusSection>
     )
   }

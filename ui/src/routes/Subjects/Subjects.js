@@ -6,6 +6,9 @@ import Breadcrumbs from '../../components/Breadcrumbs'
 import { log } from '../../utilities'
 
 let backgroundImage = require('../../assets/clix-i2c-flowers.svg')
+let backgroundCLIxImage=require('../../assets/clixlogo-website.svg')
+let backgroundfooterImage=require('../../assets/Footer.svg')
+
 
 class Subjects extends Component {
   constructor (props) {
@@ -45,13 +48,14 @@ class Subjects extends Component {
 
     return (
       <PageFocusSection
-        docTitle='Select Subject | Clix Modules'
+        docTitle='Select Module | CLIx Modules'
         liveMessage='Select subject page loaded.'
         location={this.state.location}
         locale={this.props.locale}
       >
         <div className='gradient-wrapper'>
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <img src={backgroundCLIxImage} alt='' aria-hidden className='gradient-wrapper__logoimage' />
           <Breadcrumbs
             hrefs={['/', '/subjects']}
             breadcrumbTexts={[this.props.strings.breadcrumbs.selectUser, this.props.strings.breadcrumbs.selectSubject]}
@@ -65,6 +69,7 @@ class Subjects extends Component {
             </article>
           </main>
         </div>
+        <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
       </PageFocusSection>
     )
   }
@@ -93,7 +98,7 @@ class Subjects extends Component {
     log({
       sessionId: this.props.sessionId,
       action: 'click',
-      target: 'Tools'
+      target: 'Interactive Tools'
     })
     browserHistory.push('/tools')
   }

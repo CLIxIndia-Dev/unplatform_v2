@@ -14,19 +14,19 @@ export default {
     },
     breadcrumbs: {
       selectUser: 'Select User', // Return to survey screen
-      selectSubject: 'Select Subject', // Select the Subject
+      selectSubject: 'Select Module', // Select the Module
       selectClass: 'Select Class', // Select the class
       selectUnit: 'Select Unit',
       selectLesson: 'Select Lesson',
-      selectTool: 'Select Tool',
+      selectTool: 'Select Interactive Tool',
       selectSubtool: 'Select Subtool'
     },
     moduleNav: {
       selectYourClass: 'Select Your Class', // prompt for user to select class
       selectYourLesson: 'Select Your Lesson for', // prompt for user to select lesson
-      selectYourSubject: 'Select Your Subject', // prompt for user to select subject
-      tools: 'Tools', // The tools folder -- may be unnecessary
-      selectYourTool: 'Select Your Tool', // prompt for user to select a tool
+      selectYourSubject: 'Select Your Module', // prompt for user to select module
+      tools: 'Interactive Tools', // The tools folder -- may be unnecessary
+      selectYourTool: 'Select Your Interactive Tool', // prompt for user to select a tool
       selectYourUnit: 'Select Your Unit for', // prompt for user to select a unit
       selectYourSubtool: 'Select Your Subtool for' // prompt for user to select a subtool
     },

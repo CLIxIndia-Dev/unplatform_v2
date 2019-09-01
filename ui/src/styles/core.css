@@ -157,7 +157,7 @@ dialog.fixed {
 /*SECTIONS AND BLOCKS*/
 
 .gradient-wrapper {
-  min-height: 100vh;
+  min-height: 80vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -171,6 +171,24 @@ dialog.fixed {
   bottom: 0;
   left: 0;
   z-index: -1;
+}
+
+.gradient-wrapper__logoimage{
+
+  position: absolute;
+  top:0;
+  right:0;
+  width: 15%;
+  height: auto;
+  background: lightgrey;
+  z-index: -1;
+}
+
+.gradient-wrapper__footerimage{
+  background: mistyrose;
+  height:auto;
+  width: 100%;
+  position:relative !important;
 }
 
 .homeview__content {
