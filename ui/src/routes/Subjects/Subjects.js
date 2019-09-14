@@ -55,7 +55,9 @@ class Subjects extends Component {
       >
         <div className='gradient-wrapper'>
           <img src={backgroundImage} alt='' aria-hidden className='gradient-wrapper__image' />
+          <a href="https://clix.tiss.edu" target="_blank">
           <img src={backgroundCLIxImage} alt='' aria-hidden className='gradient-wrapper__logoimage' />
+          </a>
           <Breadcrumbs
             hrefs={['/', '/subjects']}
             breadcrumbTexts={[this.props.strings.breadcrumbs.selectUser, this.props.strings.breadcrumbs.selectSubject]}

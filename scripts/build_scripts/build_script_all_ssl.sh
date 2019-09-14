@@ -376,8 +376,8 @@ then
   git clone git@github.com:CLIxIndia-Dev/policequad.git
 fi
 cd policequad
-git checkout master
-git pull origin master
+git checkout gstudio-master
+git pull origin gstudio-master
 mkdir $BUILD_ROOT/bundle/static/policequad/
 cp -rf $BUILD_ROOT/tool-repos/policequad/*  $BUILD_ROOT/bundle/static/policequad/
 rm -rf $BUILD_ROOT/bundle/static/policequad/.git/
@@ -517,8 +517,8 @@ then
   git clone https://github.com/CLIxIndia-Dev/Ratio-Patterns.git
 fi
 cd Ratio-Patterns
-git checkout master
-git pull origin master
+git checkout multilang
+git pull origin multilang
 mkdir $BUILD_ROOT/bundle/static/Ratio-Patterns/
 cp -rf $BUILD_ROOT/tool-repos/Ratio-Patterns/* $BUILD_ROOT/bundle/static/Ratio-Patterns/
 rm -rf $BUILD_ROOT/bundle/static/Ratio-Patterns/.git/

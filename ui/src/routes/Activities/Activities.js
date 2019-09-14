@@ -42,7 +42,7 @@ class Activities extends Component {
     let epubUrl = `/static/content_player/index.html?epubUrl=/content/${this.props.subjectName}/${this.props.unitName}/${this.props.lessonName}`
     return (
       <PageFocusSection
-        docTitle={`${this.props.lessonName} | Clix Modules`}
+        docTitle={`${this.props.lessonName} | CLIx Modules`}
         liveMessage='Select activity page loaded.'
         location={this.state.location}
         locale={this.props.locale}

@@ -180,7 +180,6 @@ dialog.fixed {
   right:0;
   width: 15%;
   height: auto;
-  background: lightgrey;
   z-index: -1;
 }
 
