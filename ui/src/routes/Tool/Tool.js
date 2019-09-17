@@ -84,7 +84,9 @@ class Tool extends Component {
               </article>
             </main>
           </div>
+          <a href="https://clixoer.tiss.edu" target="_blank">
           <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
+          </a>
         </PageFocusSection>
       )
     }
@@ -133,7 +135,9 @@ class Tool extends Component {
             }
           </main>
         </div>
+        <a href="https://clixoer.tiss.edu" target="_blank">
         <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
+        </a>
       </PageFocusSection>
     )
   }

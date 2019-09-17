@@ -78,7 +78,9 @@ class Units extends Component {
             </article>
           </main>
         </div>
+        <a href="https://clixoer.tiss.edu" target="_blank">
         <img src={backgroundfooterImage} alt='' aria-hidden className='gradient-wrapper__footerimage' />
+        </a>
       </PageFocusSection>
     )
   }
