@@ -50,7 +50,7 @@ class Units extends Component {
     return (
 
       <PageFocusSection
-        docTitle={`${this.props.subjectName} | CLIx Modules`}
+        docTitle={`${this.props.subjectName} | CLIx English Modules`}
         liveMessage='Select unit page loaded.'
         location={this.state.location}
         locale={this.props.locale}

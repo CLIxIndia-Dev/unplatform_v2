@@ -49,7 +49,7 @@ class Lessons extends Component {
 
     return (
       <PageFocusSection
-        docTitle={`${this.props.unitName} | CLIx Modules`}
+        docTitle={`${this.props.unitName} | CLIx English Modules`}
         liveMessage='Select lesson page loaded.'
         location={this.state.location}
         locale={this.props.locale}

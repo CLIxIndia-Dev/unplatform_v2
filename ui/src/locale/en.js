@@ -5,7 +5,7 @@ export default {
     unplatformNav: {
       chooseTool: 'choose tool', // Choose a platform tool, like Open Story Tool
       chooseNewLesson: 'choose new lesson', // Switch lessons
-      finishLesson: 'finish lesson', // Return to the survey screen,
+      finishLesson: 'finish session', // Return to the survey screen,
       endSession: 'Do you want to end this session?' // User confirmation to end session
     },
     prompt: {

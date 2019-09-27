@@ -185,7 +185,7 @@ dialog.fixed {
 
 .gradient-wrapper__footerimage{
   background: mistyrose;
-  height:auto;
+  height:300px;
   width: 100%;
   position:relative !important;
 }
@@ -202,7 +202,7 @@ dialog.fixed {
 
 .pg-heading-1 {
   font-family:open_sansbold;
-  font-size: 1.862rem;
+  font-size: 1.30rem;
   letter-spacing: -0.009rem;
   text-align: center;
   color: #fff;
@@ -402,7 +402,7 @@ dialog.fixed {
   height: 9.563rem;
   margin: 0.4em 0.4em;
   font-family: open_sansregular;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #ffffff;
   letter-spacing: -0.006rem;
   text-overflow: ellipsis;

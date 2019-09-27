@@ -95,7 +95,7 @@ class SchoolConfiguration extends Component {
       </div>)
 
     return (
-      <DocumentTitle title='CLIx School Configuration | CLIx Modules'>
+      <DocumentTitle title='CLIx School Configuration | CLIx English Modules'>
         <div className='c-school__wrapper'>
           <main className='c-school__main' aria-label='content'>
             <header className='c-school__header'>

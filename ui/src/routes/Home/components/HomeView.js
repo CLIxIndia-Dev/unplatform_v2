@@ -180,7 +180,7 @@ class HomeView extends Component {
 
     return (
       <PageFocusSection
-        docTitle={'Select User | CLIx Modules'}
+        docTitle={'Select User | CLIx English Modules'}
         liveMessage='Select user page loaded.'
         location={this.state.location}
         locale={this.props.locale}

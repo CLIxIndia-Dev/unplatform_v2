@@ -48,7 +48,7 @@ class Subjects extends Component {
 
     return (
       <PageFocusSection
-        docTitle='Select Module | CLIx Modules'
+        docTitle='Select Module | CLIx English Modules'
         liveMessage='Select subject page loaded.'
         location={this.state.location}
         locale={this.props.locale}
